@@ -1604,7 +1604,7 @@ margin-bottom:1.5rem;
 display:none;
 opacity:0;
 transition:250ms;
-position:absolute;
+position:fixed;
 top:0;
 left:0;
 will-change:transform;
