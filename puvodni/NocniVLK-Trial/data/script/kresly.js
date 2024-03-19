@@ -1,10 +1,10 @@
-﻿var poloha={m_s:30,p1:0,p2:0,p3:0,p4:0,p5:0,p6:0,p7:0,p8:0,p9:0,p10:0,p11:0,p12:0};
+﻿const poloha={m_s:30,p1:0,p2:0,p3:0,p4:0,p5:0,p6:0,p7:0,p8:0,p9:0,p10:0,p11:0,p12:0,
 
-poloha.kontrola=function(zbyle_s){
-var zs=zbyle_s; /* zbylé sekundy z intervalu do obchůzky */
+kontrola(zbyle_s){
+let zs=zbyle_s; /* zbylé sekundy z intervalu do obchůzky */
 
-var i=obch.intr; /* interval do obchůzky v sekundách - objekt je ve vlk.js */
-var min=i-this.m_s; /* minimální čas v sekundách, kdy bude možné první polohu v okruhu zobrazit */
+let i=obch.intr; /* interval do obchůzky v sekundách - objekt je ve vlk.js */
+let min=i-this.m_s; /* minimální čas v sekundách, kdy bude možné první polohu v okruhu zobrazit */
 
 if(osoba.odloz_start!=0)
 {
@@ -13,7 +13,7 @@ i=osoba.odloz_start*60; /* přepočet intervalu odloženého startu v minutách 
 min=i+1; /* minimální čas v sekundách, kdy bude možné první polohu v okruhu zobrazit */
 }
 
-var dil=i/12; /* 1/12 je dílek každého posunu polohy */
+let dil=i/12; /* 1/12 je dílek každého posunu polohy */
 
 
 if((zs<min)&&(zs>(i-dil))&&this.p1==0)
@@ -79,9 +79,8 @@ else if((zs<(i-(dil*11)))&&(zs>=(i-(dil*12)))&&this.p12==0)
 this.p12=1;
 vlk.ozivit.kresly_system(obch.id_can);
 }
-};
-
-poloha.reset=function(){
+},
+reset(){
 /* vyresetuje hodnoty a vykreslené poloze */
 this.p1=0; /* dá hodnotu na default */
 this.p2=0;
@@ -95,31 +94,30 @@ this.p9=0;
 this.p10=0;
 this.p11=0;
 this.p12=0;
-};
+}};
 
 
-var kresly={obr_nacten:false};
-kresly.obr;
-kresly.smaz=function(nazev_platna){
-var objekt_platno = document.getElementById(nazev_platna); /* načte plátno do promněnné */
-objekt_platno.width = objekt_platno.width; /* změna šířky anebo výšky plátna (nebo použití stejné hodnoty šířky jako v tomto případě) způsobí jeho vymazání a nastavení všech prvků na výchozí, tedy barev a šířky čar */
-};
+const kresly={obr_nacten:false,obr:null,
+smaz(nazev_platna){
+const objekt_platno=document.getElementById(nazev_platna); /* načte plátno do promněnné */
+objekt_platno.width=objekt_platno.width; /* změna šířky anebo výšky plátna (nebo použití stejné hodnoty šířky jako v tomto případě) způsobí jeho vymazání a nastavení všech prvků na výchozí, tedy barev a šířky čar */
+},
 
-kresly.system=function(nazev_platna){
+system(nazev_platna){
 /* funkce, která vykreslí systém obchůzek */
 
 this.smaz(nazev_platna); /* nejprve se plátno vymaže */
 
-var objekt_platno=document.getElementById(nazev_platna); /* načte objekt plátna do promněnné */
-var p=objekt_platno.getContext("2d"); /* určí 2d vykreslování v plátnu */
+const objekt_platno=document.getElementById(nazev_platna); /* načte objekt plátna do promněnné */
+const p=objekt_platno.getContext("2d"); /* určí 2d vykreslování v plátnu */
 
-var f1="bold 25px/25px Verda,Helvetica,sans-serif";
-var f2="bold 20px/20px Verda,Helvetica,sans-serif";
+const f1="bold 25px/25px Verda,Helvetica,sans-serif";
+const f2="bold 20px/20px Verda,Helvetica,sans-serif";
 
-var b1="rgb(218,65,103)"; /* červená */
-var b2="rgb(137,157,120)"; /* zelená */
-var b3="rgb(240,188,212)"; /* světle růžová */
-var b4="rgb(138,28,124)";  /* křiklavě fialová */
+const b1="rgb(218,65,103)"; /* červená */
+const b2="rgb(137,157,120)"; /* zelená */
+const b3="rgb(240,188,212)"; /* světle růžová */
+const b4="rgb(138,28,124)";  /* křiklavě fialová */
 
 p.lineWidth="5"; /* šířka čáry */
 p.lineCap="round"; /* kulaté zakončení čar */
@@ -128,19 +126,17 @@ p.strokeStyle=b1; /* nastaví aktuální barvu čáry */
 p.font=f1; /* font plátna */
 p.textAlign="start"; /* řídí zarovnání textu , je to podobné jako CSS, ale ne identické, možné hodnoty: start, end , left , right , center */
 
-var t1="",t2="",t3="",t4="",t5="",t6="",t7="",t8="",o="Obchůzka",m=" minut",d="do ";
+let t1="",t2="",t3="",t4="",t5="",t6="",t7="",t8="",o="Obchůzka",m=" minut",d="do ";
 
-var zo=osoba.okruh; /* obchůzkový okruh v systému obchůzek */
+let zo=osoba.okruh; /* obchůzkový okruh v systému obchůzek */
 
-var o15=osoba.o15,o30=osoba.o30,o60=osoba.o60,o120=osoba.o120; /* načte data z globálního objektu */
+let o15=osoba.o15,o30=osoba.o30,o60=osoba.o60,o120=osoba.o120; /* načte data z globálního objektu */
 
-var os=osoba.odloz_start; /* načte hodnotu odloženehó startu zadaného uživatelem */
-var pr=v_port.pruvodce; /* zjistí, zda je aktivní průvodce pro spuštění nočního vlka */
+let os=osoba.odloz_start; /* načte hodnotu odloženehó startu zadaného uživatelem */
+let pr=v_port.pruvodce; /* zjistí, zda je aktivní průvodce pro spuštění nočního vlka */
 
-var p1=poloha.p1,p2=poloha.p2,p3=poloha.p3,p4=poloha.p4,p5=poloha.p5,p6=poloha.p6,p7=poloha.p7,p8=poloha.p8,p9=poloha.p9,p10=poloha.p10,p11=poloha.p11,p12=poloha.p12; /* načte data z globálního objektu o poloze */
+let p1=poloha.p1,p2=poloha.p2,p3=poloha.p3,p4=poloha.p4,p5=poloha.p5,p6=poloha.p6,p7=poloha.p7,p8=poloha.p8,p9=poloha.p9,p10=poloha.p10,p11=poloha.p11,p12=poloha.p12; /* načte data z globálního objektu o poloze */
 
-
-/* alert("o15=" +o15+"o30=" +o30+"o60=" +o60+"o120=" +o120); */
 
 /* S */
 /* I */
@@ -184,7 +180,7 @@ p.fillText(o,140,85);
 p.fillText(d+t1+m,128,112);
 /* KONEC vykreslí tekt obchůzky */
 
-p.strokeStyle=b4; // nastaví aktuální barvu čáry
+p.strokeStyle=b4; /* nastaví aktuální barvu čáry */
 
 p.lineWidth="10"; /* šířka čáry */
 
@@ -198,7 +194,7 @@ p.closePath(); /* KONEC kruh intervalu */
 
 if(p1==1||p2==1||p3==1||p4==1||p5==1||p6==1||p7==1||p8==1||p9==1||p10==1||p11==1||p12==1)
 {
-var u=0; /* konečný úhel půlkruhu */
+let u=0; /* konečný úhel půlkruhu */
 
 if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
 {
@@ -382,8 +378,8 @@ p.closePath(); /* KONEC 2. půlkruh intervalu */
 
 if(p1==1||p2==1||p3==1||p4==1||p5==1||p6==1||p7==1||p8==1||p9==1||p10==1||p11==1||p12==1)
 {
-var uz=0; /* počáteční úhel půlkruhu */
-var u=0; /* konečný úhel půlkruhu */
+let uz=0; /* počáteční úhel půlkruhu */
+let u=0; /* konečný úhel půlkruhu */
 
 if(zo==11)
 {
@@ -667,8 +663,8 @@ p.closePath(); /* KONEC 4. čtvrt-kruh intervalu */
 
 if(p1==1||p2==1||p3==1||p4==1||p5==1||p6==1||p7==1||p8==1||p9==1||p10==1||p11==1||p12==1)
 {
-var uz=0; /* počáteční úhel půlkruhu */
-var u=0; /* konečný úhel půlkruhu */
+let uz=0; /* počáteční úhel půlkruhu */
+let u=0; /* konečný úhel půlkruhu */
 
 if(zo==11)
 {
@@ -970,7 +966,7 @@ p.stroke();
 p.closePath(); /* KONEC kruh obchůzky 1. */
 
 p.beginPath(); /* kruh obchůzky 2. */
-p.arc(370,30,25,0,2*Math.PI,false); // kruh obchůzky
+p.arc(370,30,25,0,2*Math.PI,false); /* kruh obchůzky */
 if((zo==22&&os==0)||(zo==22&&os!=0&&pr==true))
 {
 p.fill();
@@ -1176,7 +1172,6 @@ p.closePath(); /* KONEC 7. interval (přímka) */
 
 /* 8. interval (oblouk) */
 p.beginPath();
-/* p.arc(200,-180,280,Math.PI/180*102.5,Math.PI/180*121,false); */
 p.arc(200,-180,280,Math.PI/180*121,Math.PI/180*102.5,true);
 p.stroke();
 p.closePath(); /* KONEC 8. interval (oblouk) */
@@ -1185,8 +1180,8 @@ p.closePath(); /* KONEC 8. interval (oblouk) */
 
 if(p1==1||p2==1||p3==1||p4==1||p5==1||p6==1||p7==1||p8==1||p9==1||p10==1||p11==1||p12==1)
 {
-var uz=0; /* počáteční úhel půlkruhu */
-var u=0; /* konečný úhel půlkruhu */
+let uz=0; /* počáteční úhel půlkruhu */
+let u=0; /* konečný úhel půlkruhu */
 p.strokeStyle=b2;
 
 if(zo==11)
@@ -1771,6 +1766,6 @@ p.stroke();
 p.fill();
 p.closePath(); /* KONEC 8. šipka */
 } /* KONEC pro systém OTTO obchůzek 15 minut + 30 minut + 60 min + 120 minut nebo 15 minut + 30 minut + 120 minut ... atd. */
-};
+}};
 
 uloz.p.kresly=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v oziv.js - informuje o načtení této js knihovny */
