@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"  stroke-width="3" stroke-linecap="round">
+<title>logo Noční VLK</title>
+
+<g opacity="1" stroke="rgb(31,3,34)">
+<animate id="s1" begin="0s" attributeName="opacity" from="0" to="1" dur="500ms" fill="freeze" />
+
+<summary>šňupák</summary>
+<line x1="60" y1="70" x2="60" y2="70">
+<animate id="snup1" begin="s1.end+0.5s" attributeName="y2" from="70" to="87.5" dur="600ms" fill="freeze" />
+</line>
+
+<line x1="40" y1="70" x2="40" y2="70">
+<animate id="snup2" begin="s1.end+0.5s" attributeName="y2" from="70" to="87.5" dur="600ms" fill="freeze" />
+</line>
+
+<line x1="60" y1="87.5" x2="60" y2="87.5">
+<animate begin="snup2.end" attributeName="x2" from="60" to="50" dur="0.6s" fill="freeze" />
+<animate begin="snup2.end" attributeName="y2" from="87.5" to="92.5" dur="0.6s" fill="freeze" />
+</line>
+
+<line x1="40" y1="87.5" x2="40" y2="87.5">
+<animate begin="snup1.end" attributeName="x2" from="40" to="50" dur="0.6s" fill="freeze" />
+<animate begin="snup1.end" attributeName="y2" from="87.5" to="92.5" dur="0.6s" fill="freeze" />
+</line>
+<summary>konec šňupák</summary>
+
+<line x1="40" y1="82.5" x2="40" y2="82.5">
+<animate begin="s1.end+0.5s" attributeName="x2" from="40" to="22.5" dur="0.1s" fill="freeze" />
+<animate id="a" begin="s1.end+0.5s" attributeName="y2" from="82.5" to="65" dur="0.1s" fill="freeze" />
+</line>
+
+
+<line x1="22.5" y1="65" x2="22.5" y2="65">
+<animate id="b" begin="a.end" attributeName="y2" from="65" to="57.5" dur="0.1s" fill="freeze" />
+</line>
+
+
+<line x1="22.5" y1="57.5"  x2="22.5" y2="57.5">
+<animate begin="b.end" attributeName="x2" from="22.5" to="28.5" dur="0.1s" fill="freeze" />
+<animate id="c" begin="b.end" attributeName="y2" from="57.5" to="42.5" dur="0.1s" fill="freeze" />
+</line>
+
+<summary>levé ucho</summary>
+<line x1="28.5" y1="42.5" x2="28.5" y2="42.5">
+<animate begin="c.end" attributeName="x2" from="28.5" to="30" dur="0.1s" fill="freeze" />
+<animate id="d" begin="c.end" attributeName="y2" from="42.5" to="17.5" dur="0.1s" fill="freeze" />
+</line>
+<line x1="30" y1="17.5" x2="30" y2="17.5">
+<animate begin="d.end" attributeName="x2" from="30" to="40" dur="0.1s" fill="freeze" />
+<animate id="e" begin="d.end" attributeName="y2" from="17.5" to="35" dur="0.1s" fill="freeze" />
+</line>
+
+<summary>konec levé ucho</summary>
+<line x1="40" y1="35" x2="40" y2="35">
+<animate begin="e.end" attributeName="x2" from="40" to="50" dur="0.1s" fill="freeze" />
+<animate id="f" begin="e.end" attributeName="y2" from="35" to="32.5" dur="0.1s" fill="freeze" />
+</line>
+
+<line x1="50" y1="32.5" x2="50" y2="32.5">
+<animate begin="f.end" attributeName="x2" from="50" to="60" dur="0.1s" fill="freeze" />
+<animate id="g" begin="f.end" attributeName="y2" from="32.5" to="35" dur="0.1s" fill="freeze" />
+</line>
+
+<summary>pravé ucho</summary>
+<line x1="60" y1="35" x2="60" y2="35">
+<animate begin="g.end" attributeName="x2" from="60" to="70" dur="0.1s" fill="freeze" />
+<animate id="h" begin="g.end" attributeName="y2" from="35" to="17.5" dur="0.1s" fill="freeze" />
+</line>
+
+<line x1="70" y1="17.5" x2="70" y2="17.5">
+<animate begin="h.end" attributeName="x2" from="70" to="72.5" dur="0.1s" fill="freeze" />
+<animate begin="h.end" id="ch" attributeName="y2" from="17.5" to="42.5" dur="0.1s" fill="freeze" />
+</line>
+
+<summary>konec pravé ucho</summary>
+<line x1="72.5" y1="42.5" x2="72.5" y2="42.5">
+<animate begin="ch.end" attributeName="x2" from="72.5" to="77.5" dur="0.1s" fill="freeze" />
+<animate id="i" begin="ch.end" attributeName="y2" from="42.5" to="57.5" dur="0.1s" fill="freeze" />
+</line>
+
+
+<line x1="77.5" y1="57.5" x2="77.5" y2="57.5">
+<animate id="j" begin="i.end" attributeName="y2" from="57.5" to="65" dur="0.1s" fill="freeze" />
+</line>
+
+
+<line x1="77.5" y1="65" x2="77.5" y2="65">
+<animate begin="j.end" attributeName="x2" from="77.5" to="60" dur="0.1s" fill="freeze" />
+<animate id="x" begin="j.end" attributeName="y2" from="65" to="82.5" dur="0.1s" fill="freeze" />
+</line>
+
+
+
+<summary>start nos</summary>
+<line x1="47.5" y1="82.5" x2="47.5" y2="82.5">
+<animate begin="s1.end+0.5s" attributeName="x2" from="47.5" to="50" dur="1.2s" fill="freeze" />
+<animate begin="s1.end+0.5s" attributeName="y2" from="82.5" to="84" dur="1.2s" fill="freeze" />
+</line>
+
+<line x1="52.5" y1="82.5" x2="52.5" y2="82.5">
+<animate begin="s1.end+0.5s" attributeName="x2" from="52.5" to="50" dur="1.2s" fill="freeze" />
+<animate begin="s1.end+0.5s" attributeName="y2" from="82.5" to="84" dur="1.2s" fill="freeze" />
+</line>
+<summary>konec nos</summary>
+
+<summary>levé oko</summary>
+<line x1="40" y1="57.5" x2="40" y2="57.5">
+<animate begin="s1.end+0.5s" attributeName="x2" from="40" to="35" dur="1.2s" fill="freeze" />
+<animate begin="s1.end+0.5s" attributeName="y2" from="57.5" to="52.5" dur="1.2s" fill="freeze" />
+</line>
+<line x1="35" y1="52.5" x2="35" y2="52.5" />
+<summary>konec levé oko</summary>
+
+<summary>pravé oko</summary>
+<line x1="60" y1="57.5" x2="60" y2="57.5">
+<animate begin="s1.end+0.5s" attributeName="x2" from="60" to="65" dur="1.2s" fill="freeze" />
+<animate begin="s1.end+0.5s" attributeName="y2" from="57.5" to="52.5" dur="1.2s" fill="freeze" />
+</line>
+<line x1="65" y1="52.5" x2="65" y2="52.5" />
+<summary>konec pravé oko</summary>
+
+</g>
+</svg>

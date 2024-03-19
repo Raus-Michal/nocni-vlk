@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200" height="200" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" stroke="transparent" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none">
+<circle cx="100" cy="100" r="90">
+<animate id="ko_1" begin="1s" attributeName="stroke" from="transparent" to="rgb(218,65,103)" dur="250ms" fill="freeze" calcMode="paced" />
+</circle>
+<path d="M 50,50 50,50">
+<animate id="ko_2" begin="ko_1.end" attributeName="stroke" from="transparent" to="rgb(218,65,103)" dur="250ms" fill="freeze" calcMode="paced" />
+<animate id="ko_2b" begin="ko_2.end" attributeName="d" from="M 50,50 50,50" to="M 50,50 150,150" dur="250ms" fill="freeze" calcMode="paced" />
+</path>
+<path d="M 150,50 150,50">
+<animate id="ko_3" begin="ko_1.end" attributeName="stroke" from="transparent" to="rgb(218,65,103)" dur="250ms" fill="freeze" calcMode="paced" />
+<animate id="ko_3b" begin="ko_3.end" attributeName="d" from="M 150,50 150,50" to="M 50,150 150,50" dur="250ms" fill="freeze" calcMode="paced" />
+</path>
+</svg>
