@@ -1,9 +1,6 @@
-﻿var tik={cas:500,a_obchuzka:false,a_odpocet:false};
-
-tik.tak=function(){ /* funkce je nekonečný interval zajišťující veškeré procesy, které je třeba hlídat v reálném čase */
-
+﻿const tik={cas:500,a_obchuzka:false,a_odpocet:false,class_h:"uhr-h",
+tak(){ /* funkce je nekonečný interval zajišťující veškeré procesy, které je třeba hlídat v reálném čase */
 hodiny.tik(); /* zápis hodin na hlavním kontejneru */
-
 
 if(this.a_obchuzka)
 {
@@ -18,105 +15,76 @@ if(this.a_odpocet)
 /* pokud je odpočet - Noční VLK aktivní */
 obch.odpocet(); /* funkce odpočítává konec Intervalu do obchůzky - ve vlk.js */
 }
-};
 
-tik.aktivace=function(){
-document.getElementById(hodiny.id[0]).style.animationPlayState="paused"; /* vypne animaci stínování Wait.. */
-document.getElementById(hodiny.id[0]).className="uhr-h";  /* zruší pozůstatek stínu z animace stínování Wait... */
+},
+aktivace(){
+const h=document.getElementById(hodiny.id[0]);
+h.style.animationPlayState="paused"; /* vypne animaci stínování Wait.. */
+h.className=this.class_h;  /* zruší pozůstatek stínu z animace stínování Wait... */
 setInterval(this.tak.bind(this),this.cas); /* zapne interval na tikání hodin */
-};
+}};
 
-var hodiny={id:["hod","sec1","sec2"]};
-
-
-hodiny.cas=function(){
-var c=new Date();
-var hod=c.getHours();
-var min=c.getMinutes();
-var sec=c.getSeconds();
+const hodiny={id:["hod","sec1","sec2"],
+cas(){
+const c=new Date();
+let hod=c.getHours();
+let min=c.getMinutes();
+let sec=c.getSeconds();
 
 if(min<10)
 {
-min="0"+min;
+min=`0${min}`;
 }
 
 if(sec<10)
 {
-sec="0"+sec;
+sec=`0${sec}`;
 }
 
 
 return [hod,min,sec];
-};
+},
+tik(){
+
+let h=this.cas(); /* zjistí aktuální čas */
+let h_c=`${h[0]}:${h[1]}`; /* celkový čas hodin : hodina + minuta */
+let s=h[2].toString(); /* sekundy */
+let s1=s[0]; /* první číslice sekund */
+let s2=s[1]; /* druhá číslice sekund */
+
+document.getElementById(this.id[0]).innerText=h_c; /* přepíše čas hodin : hodina + minuta  */
+document.getElementById(this.id[1]).innerText=s1; /* přepíše první číslici sekund 10 */
+document.getElementById(this.id[2]).innerText=s2; /* přepíše druhou číslici sekund 1 */
+}};
+
+const hodinyO=Object.create(hodiny); /* hodiny ve Výzvě k obchůzce */
+{hodinyO.id=["o-h","o-s1","o-s2"];} /* přepis potřebných hodnot v objektu */
 
 
-hodiny.tik=function(){
+const mail={id_butt:"zob-em",id_inp:"inp-em", m:["..z.","xm@","@a",".c","ri","iu","mls","z","rt","sqhc","eaw"],
+posluchac(){
+document.getElementById(this.id_butt).addEventListener("click",this); /* přidá buttonu posluchač klik */
+},
+handleEvent(){
+let x=this.m; /* kopie this.m pole  */
+let k=x[4][0]+x[2][1]+x[5][1]+x[9][0]+x[0][0]+x[6][0]+x[4][1]+x[9][3]+x[9][2]+x[10][1]+x[6][1]+x[1][2]+x[10][0]+x[6][0]+x[2][1]+x[4][1]+x[6][1]+x[0][1]+x[9][3]+x[0][2]; /* výsek emailu */
+const inp=document.getElementById(this.id_inp); /* input pro zobrazení emailu */
+const t=document.getElementById(this.id_butt); /* button zobrazit email */
+inp.value=k; /* do inputu pro email vloží email */
+t.removeEventListener("click",this); /* vypne posluchače buttonu pro zobrazení emailu */
+t.disabled=true; /* disablet buttonu */
+t.title="Již není možné použít - email zobrazen"; /* změní title buttonu */
+}};
 
-var hodin=this.cas();
-
-var h_celkem= hodin[0]+":"+hodin[1];
-var sekund=hodin[2].toString();
-var sekund1=sekund.substring(0,1);
-var sekund2=sekund.substring(1,2);
-
-document.getElementById(this.id[0]).innerHTML=h_celkem;
-document.getElementById(this.id[1]).innerHTML=sekund1;
-document.getElementById(this.id[2]).innerHTML=sekund2;
-};
-
-var hodinyO=Object.create(hodiny); /* hodiny ve Výzvě k obchůzce */
-hodinyO.id=["o-h","o-s1","o-s2"];
-
-
-var mail={id_butt:"zob-em",id_inp:"inp-em", m:["..z.","xm@","@a",".c","ri","iu","mls","z","rt","sqh","ew"]};
-mail.posluchac=function(){
-var tlacitko=document.getElementById(this.id_butt);
-tlacitko.addEventListener("click",this);
-};
-mail.posluchacOff=function(){
-var tlacitko=document.getElementById(this.id_butt);
-tlacitko.removeEventListener("click",this);
-};
-mail.handleEvent=function(){
-var k = "";
-k += this.m[4].slice(0,1);
-k += this.m[2].slice(1,2);
-k += this.m[5].slice(1,2);
-k += this.m[9].slice(0,1);
-k += this.m[0].slice(0,1);
-k += this.m[6].slice(0,1);
-k += this.m[4].slice(1,2);
-k += this.m[3].slice(1,2);
-k += this.m[9].slice(2,3);
-k += this.m[2].slice(1,2);
-k += this.m[6].slice(1,2);
-k += this.m[2].slice(0,1);
-k += this.m[10].slice(0,1);
-k += this.m[6].slice(0,1);
-k += this.m[2].slice(1,2);
-k += this.m[4].slice(1,2);
-k += this.m[6].slice(1,2);
-k += this.m[0].slice(0,1);
-k += this.m[3].slice(1,2);
-k += this.m[0].slice(2,3);
-var inp = document.getElementById(this.id_inp);
-var tlacitko=document.getElementById(this.id_butt);
-inp.value=k;
-this.posluchacOff();
-tlacitko.disabled=true;
-tlacitko.title="Již není možné použít - email zobrazen";
-};
-
-var dia={aktivni:"",id:["d-zas","d-obch","d-obchM","d-uspan","d-neni","d-oziv","d-kon"],zas:["b-z-a","k-d-zas","b-z-n"],obch:["b-obch-a","k-d-obch","b-obch-n"],obchM:["b-obchM-a","k-d-obchM","b-obchM-n"],usp:["k-usp","b-usp-ok"],neni:["k-neni","b-neni-ok"],oziv:["b-oziv-ok"],kont:"but-kon"};
-
-dia.handleEvent=function(e){
-
-var k=e.target.id;
+const dia={aktivni:"",id:["d-zas","d-obch","d-obchM","d-uspan","d-neni","d-oziv","d-kon"],zas:["b-z-a","k-d-zas","b-z-n"],obch:["b-obch-a","k-d-obch","b-obch-n"],obchM:["b-obchM-a","k-d-obchM","b-obchM-n"],usp:["k-usp","b-usp-ok"],neni:["k-neni","b-neni-ok"],oziv:["b-oziv-ok"],kont:"but-kon",
+handleEvent(e){
+const k=e.target.id; /* zjistí id prvku na který bylo kliknuto */
 
 if(k==this.zas[0])
 {
 /* Kliknuto na ANO - Zastavit Nočního VLKa */
-for(var i=0;i<vlk.id_sec.length;i++)
+let l1=vlk.id_sec.length; /* délka pole */
+for(let i=0;i<l1;i++)
 {
 /* Zneviditelní sektory Kruhu obchůzek a odpočtu */
 document.getElementById(vlk.id_sec[i]).style.display="none";
@@ -210,7 +178,7 @@ zvuk.zaloz(); /* vytvoří objekt audio MP3 alarmu Nočního VLKa - ve vlk.js */
 gong.zaloz(); /* vytvoří objekt audio MP3 - Gong - ve vlk.js */
 /* hlidac.zaloz();  vytvoří objekt audio MP3 - ochrana před uspáním karty */
 zamek.blok(); /* aktivuje blokaci zámku obrazovky */
-window.onbeforeunload=function(){return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
+window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
 vlk.ozivit(); /* spustí oživovací procesy Nočního VLKA - ve vlk.js */
 hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
 dia.off(this.id[5]); /* vypne dialogové okno */
@@ -221,16 +189,14 @@ if(k==this.kont)
 /* Zavřít kontakt  */
 dia.off(this.id[6]); /* vypne dialogové okno */
 }
-
-
-};
-
-dia.posON=function(id){
+},
+posON(id){
 
 if(id==this.id[0])
 {
 /* tlačítka dotazu: Zastavit Nočního VLKa */
-for(var i=0;i<this.zas.length;i++)
+let l1=this.zas.length; /* délka řetězce */
+for(let i=0;i<l1;i++)
 {
 document.getElementById(this.zas[i]).addEventListener("click",this);
 }}
@@ -238,7 +204,8 @@ document.getElementById(this.zas[i]).addEventListener("click",this);
 if(id==this.id[1])
 {
 /* tlačítka dotazu: Zastavit Nočního VLKa */
-for(var i=0;i<this.obch.length;i++)
+let l2=this.obch.length;
+for(let i=0;i<l2;i++)
 {
 document.getElementById(this.obch[i]).addEventListener("click",this);
 }}
@@ -246,7 +213,8 @@ document.getElementById(this.obch[i]).addEventListener("click",this);
 if(id==this.id[2])
 {
 /* tlačítka dotazu: Zastavit Nočního VLKa */
-for(var i=0;i<this.obchM.length;i++)
+let l3=this.obchM.length;
+for(let i=0;i<l3;i++)
 {
 document.getElementById(this.obchM[i]).addEventListener("click",this);
 }}
@@ -254,7 +222,8 @@ document.getElementById(this.obchM[i]).addEventListener("click",this);
 if(id==this.id[3])
 {
 /* tlačítka upozornění : Aplikace byla uspána */
-for(var i=0;i<this.usp.length;i++)
+let l4=this.usp.length;
+for(let i=0;i<l4;i++)
 {
 document.getElementById(this.usp[i]).addEventListener("click",this);
 }}
@@ -262,7 +231,8 @@ document.getElementById(this.usp[i]).addEventListener("click",this);
 if(id==this.id[4])
 {
 /* tlačítka upozornění : Funkce není naprogramovaná */
-for(var i=0;i<this.neni.length;i++)
+let l5=this.neni.length;
+for(let i=0;i<l5;i++)
 {
 document.getElementById(this.neni[i]).addEventListener("click",this);
 }}
@@ -278,17 +248,17 @@ if(id==this.id[6])
 /* tlačítka Kontak  */
 mail.posluchac(); /* aktivuje posluchač emailu */
 setTimeout("document.getElementById('nad-kon').scrollIntoView({behavior:'smooth'});",250); /* scrool k nadpisu */
-document.getElementById(this.kont).addEventListener("click",this);
+document.getElementById(this.kont).addEventListener("click",this); /* aktivuje posluchač k buttonu v dia oknu Zavřít kontakt */
 }
 
-};
-
-dia.posOFF=function(id){
+},
+posOFF(id){
 
 if(id==this.id[0])
 {
 /* tlačítka dotazu: Zastavit Nočního VLKa */
-for(var i=0;i<this.zas.length;i++)
+let l1=this.zas.length;
+for(let i=0;i<l1;i++)
 {
 document.getElementById(this.zas[i]).removeEventListener("click",this);
 }}
@@ -296,7 +266,8 @@ document.getElementById(this.zas[i]).removeEventListener("click",this);
 if(id==this.id[1])
 {
 /* tlačítka dotazu: Provést obchůzku teď? */
-for(var i=0;i<this.obch.length;i++)
+let l2=this.obch.length;
+for(let i=0;i<l2;i++)
 {
 document.getElementById(this.obch[i]).removeEventListener("click",this);
 }}
@@ -304,7 +275,8 @@ document.getElementById(this.obch[i]).removeEventListener("click",this);
 if(id==this.id[2])
 {
 /* tlačítka dotazu: Provést MAX obchůzku */
-for(var i=0;i<this.obchM.length;i++)
+let l3=this.obchM.length;
+for(let i=0;i<l3;i++)
 {
 document.getElementById(this.obchM[i]).removeEventListener("click",this);
 }}
@@ -312,7 +284,8 @@ document.getElementById(this.obchM[i]).removeEventListener("click",this);
 if(id==this.id[3])
 {
 /* tlačítka upozornění : Aplikace byla uspána */
-for(var i=0;i<this.usp.length;i++)
+let l4=this.usp.length;
+for(let i=0;i<l4;i++)
 {
 document.getElementById(this.usp[i]).removeEventListener("click",this);
 }}
@@ -320,7 +293,8 @@ document.getElementById(this.usp[i]).removeEventListener("click",this);
 if(id==this.id[4])
 {
 /* tlačítka upozornění : Funkce není naprogramovaná */
-for(var i=0;i<this.oziv.length;i++)
+let l5=this.oziv.length;
+for(let i=0;i<l5;i++)
 {
 document.getElementById(this.oziv[i]).removeEventListener("click",this);
 }}
@@ -335,15 +309,13 @@ if(id==this.id[6])
 {
 /* tlačítka Kontak  */
 document.getElementById(this.kont).removeEventListener("click",this);
-
 }
 
-};
-
-dia.on=function(id){
+},
+on(id){
 /* otevření dialogového okna */
 
-var okno=document.getElementById(id);
+const okno=document.getElementById(id);
 
 this.posON(id); /* zapne posluchače k dialogovému oknu */
 
@@ -351,32 +323,30 @@ okno.showModal(); /* otevře dialogové okno */
 
 this.aktivni=id; /* zapíše do proměnné, aktivní dialogové okno */
 
-};
-
-dia.off=function(id){
+},
+off(id){
 /* zavření dialogového okna */
-var okno=document.getElementById(id);
+const okno=document.getElementById(id);
 dia.posOFF(id); /* vypne posluchače událostí k Dialogovému oknu */
 okno.close(); /* zavře dialogové okno */
 this.aktivni=""; /* vynuluje proměnnou, která udává aktivní dialogové okno */
-};
-
-dia.vyp_akt=function(){
+},
+vyp_akt(){
 /* funkce vypne právě aktivní dialogové okno */
 
 if(this.aktivni!="")
 {
 /* pokud bude aktivní dialogové okno - zavře se! */
-var okno=document.getElementById(this.aktivni); /* načte, které dialogové okno je aktivní */
+const okno=document.getElementById(this.aktivni); /* načte, které dialogové okno je aktivní */
 okno.close(); /* zavře dialogové okno */
 this.aktivni=""; /* vynuluje proměnnou */
 }
 
-};
+}};
 
-var text={kon:"i-box",box_an:"i-an",p_id:"i-text",aktivni:false,TIME:4500 };
+const text={kon:"i-box",box_an:"i-an",p_id:"i-text",aktivni:false,TIME:4500,
 
-text.pis=function(zobrazit_text){
+pis(zobrazit_text){
 /* funkce vytvoří text přes celou obrazovku s informací */
 this.aktivni=true; /* informuje Visulawievport API o aktivaci okna */
 v_port.handleEvent(); /* aktivuje úpravu okna VisualViewport API v autorun.js */
@@ -385,36 +355,30 @@ document.getElementById(this.kon).style.opacity=1; /* zviditelní kontajner */
 document.getElementById(this.box_an).style.animationPlayState="running"; /* spustí animaci */
 document.getElementById(this.p_id).innerHTML=zobrazit_text; /* zapíše zaslaný text do bloku */
 setTimeout(this.off.bind(this),this.TIME); /* ukončí animaci */
-};
-
-
-text.off=function(){
+},
+off(){
 /* funkce ukončí text přes celou obrazovku s informací */
-document.getElementById(this.box_an).style.animationPlayState="paused"; /* pauzne animaci */
-document.getElementById(this.box_an).style.transform="scale(1.25)"; /* nastaví default hodnoty, které změnila animace */
-document.getElementById(this.box_an).style.opacity=0; /* nastaví default hodnoty, které změnila animace */
+const o=document.getElementById(this.box_an);
+o.style.animationPlayState="paused"; /* pauzne animaci */
+o.style.transform="scale(1.25)"; /* nastaví default hodnoty, které změnila animace */
+o.style.opacity=0; /* nastaví default hodnoty, které změnila animace */
 document.getElementById(this.kon).style.display="none"; /* schová kontajner */
 this.aktivni=false;  /* informuje Visulawievport API o DEaktivaci okna */
-};
+}};
 
-var obrazovka={max:1024,min_vyska:530,min_sirka:260,a_sirka:320,cool:800,id_kotva:"hl-kon",id_kotva2:"k-h",TIME:200,vyska:null,sirka:null,d_vyska:null,d_sirka:null,top:null,left:null};
+const obrazovka={max:1024,min_vyska:530,min_sirka:260,a_sirka:320,cool:800,id_kotva:"hl-kon",id_kotva2:"k-h",TIME:200,vyska:null,sirka:null,d_vyska:null,d_sirka:null,top:null,left:null,
 
-obrazovka.velikost=function(){
+velikost(){
 this.vyska=window.screen.height; /* výška obrazovky */
 this.sirka=window.screen.width; /* šířka obrazovky */
 this.d_vyska=window.screen.availHeight; /* Dostupná výška obrazovky */
 this.d_sirka=window.screen.availWidth; /* Dostupná šířka obrazovky */
 this.top=window.screen.availTop; /* Dostupné horní umístění na obrazovce */
 this.left=window.screen.availLeft; /* Dostupné levé umístění na obrazovce */
-};
+},
 
-obrazovka.zmen=function(jak){
-var Nleft=this.top;
-var Ntop=this.left;
-var Nsirka=this.min_sirka;
-var Nvyska=this.min_vyska;
-var kotva=this.id_kotva;
-
+zmen(jak){
+let [Nleft,Ntop,Nsirka,Nvyska,kotva]=[this.top,this.left,this.min_sirka,this.min_vyska,this.id_kotva];
 
 if(jak=="vl")
 {
@@ -464,7 +428,7 @@ Nvyska=this.d_vyska;
 else if(jak=="pln")
 {
 document.documentElement.requestFullscreen();
-setTimeout("document.getElementById('"+kotva+"').scrollIntoView({behavior:'smooth'});",this.TIME);
+setTimeout(`document.getElementById("${kotva}").scrollIntoView({behavior:"smooth"});`,this.TIME);
 return;
 }
 else if(jak=="vpm")
@@ -483,43 +447,43 @@ Nvyska=this.d_vyska;
 }
 window.resizeTo(Nsirka,Nvyska);
 window.moveTo(Nleft,Ntop);
-setTimeout("document.getElementById('"+kotva+"').scrollIntoView({behavior:'smooth'});",this.TIME);
-};
-
-/* změna jasu aplikace */
-var jas={id_zmen:"telo",min:20};
-jas.zmen=function(id){
-var hodnota=parseInt(document.getElementById(id).value);
-if(hodnota<this.min){hodnota=this.min;}
-document.getElementById(this.id_zmen).style.filter="brightness("+hodnota+"%)"; /* změna jasu hlavního kontajneru */
-for(var i=0;i<dia.id.length;i++)
-{
-document.getElementById(dia.id[i]).style.filter="brightness("+hodnota+"%)"; /* změna jasu dialogových oken */
-}}; /* KONEC změna jasu aplikace */
-
-var p_nas={id_blok:"n-i-blok",id:"nastaveni",id_nas:["k-nas","in-plus1-n","in-minus1-n","bns1","bns2","bns3","bns4","bns5","bns6","vlk_z"],id_SVG:["in-plus2-n","in-minus2-n","s-nas"],id_level:"i-l-n",id_in:["i-15-n","i-30-n","i-60-n","i-120-n"],id_in_r:["ir-15-n","ir-30-n","ir-60-n","ir-120-n"],id_cast:["int-15-n","int-30-n","int-60-n","int-120-n"]}; /* posluchače událostí pro nastavení */
-
-p_nas.a=function(){
-this.On(); /* aktivuje posluchače */
-zvuk.barvy(); /* obarví tlačítka Volba zvuku alarmu Noční VLK - podle toho jaký je zvolený - ve vlk.js */
-};
-
-
-p_nas.On=function(){
-for(var i=0;i<this.id_nas.length;i++)
-{
-document.getElementById(this.id_nas[i]).addEventListener("click" , this);
-}
-};
-
-p_nas.Off=function(){
-for(var i=0;i<this.id_nas.length;i++)
-{
-document.getElementById(this.id_nas[i]).removeEventListener("click" , this);
+setTimeout(`document.getElementById("${kotva}").scrollIntoView({behavior:"smooth"});`,this.TIME);
 }};
 
-p_nas.handleEvent=function(e){
-var k=e.target.id; /* zjistí ID prvku na který bylo kliknuto */
+/* změna jasu aplikace */
+const jas={id_zmen:"telo",min:20,
+zmen(id){
+let hodnota=parseInt(document.getElementById(id).value);
+if(hodnota<this.min){hodnota=this.min;}
+document.getElementById(this.id_zmen).style.filter=`brightness(${hodnota}%)`; /* změna jasu hlavního kontajneru */
+let l1=dia.id.length;
+for(let i=0;i<l1;i++)
+{
+document.getElementById(dia.id[i]).style.filter=`brightness(${hodnota}%)`; /* změna jasu dialogových oken */
+}}}; /* KONEC změna jasu aplikace */
+
+const p_nas={id_blok:"n-i-blok",id:"nastaveni",id_nas:["k-nas","in-plus1-n","in-minus1-n","bns1","bns2","bns3","bns4","bns5","bns6","vlk_z"],id_SVG:["in-plus2-n","in-minus2-n","s-nas"],id_level:"i-l-n",id_in:["i-15-n","i-30-n","i-60-n","i-120-n"],id_in_r:["ir-15-n","ir-30-n","ir-60-n","ir-120-n"],id_cast:["int-15-n","int-30-n","int-60-n","int-120-n"], /* posluchače událostí pro nastavení */
+
+a(){
+this.On(); /* aktivuje posluchače */
+zvuk.barvy(); /* obarví tlačítka Volba zvuku alarmu Noční VLK - podle toho jaký je zvolený - ve vlk.js */
+},
+On(){
+let l1=this.id_nas.length;
+for(let i=0;i<l1;i++)
+{
+document.getElementById(this.id_nas[i]).addEventListener("click",this);
+}
+},
+
+Off(){
+let l1=this.id_nas.length;
+for(let i=0;i<l1;i++)
+{
+document.getElementById(this.id_nas[i]).removeEventListener("click",this);
+}},
+handleEvent(e){
+const k=e.target.id; /* zjistí ID prvku na který bylo kliknuto */
 
 if(k==this.id_nas[0]||k==this.id_SVG[2])
 {
@@ -584,26 +548,17 @@ else if(document.getElementById(this.id_nas[9]).checked==false)
 zvuk.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
 uloz.uloz(uloz.klice[11],"false"); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
-
 }
+}};
 
-};
-
-
-var p_ob={id:"obchuzky",id_ob:["k-ob"],id_but:"ob-obch",id_svg:["s-ob"]}; /* Objekt pro tlačítko Obchůzky */
-
-
-
-
-p_ob.On=function(){
-
-
-
-for(var i=0;i<this.id_ob.length;i++)
+ /* Objekt pro tlačítko Obchůzky */
+const p_ob={id:"obchuzky",id_ob:["k-ob"],id_but:"ob-obch",id_svg:["s-ob"],
+On(){
+let l1=this.id_ob.length;
+for(let i=0;i<l1;i++)
 {
-document.getElementById(this.id_ob[i]).addEventListener("click" , this);
+document.getElementById(this.id_ob[i]).addEventListener("click",this);
 }
-
 
 /* podmínky funkčnosti localstorage */
 if(uloz.ok==null){ uloz.a(); /* aktivace - posouzení použitelnosti Local storage */ }
@@ -611,46 +566,40 @@ if(uloz.ok!=true){
 return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
 /* KONEC podmínky funkčnosti localstorage */
 
-document.getElementById(this.id_but).addEventListener("click" , this); /* posluchač k button Obnovit obchůzky uložené aplikací */
-
-for(var i=0;i<obch.id_f.length;i++)
+document.getElementById(this.id_but).addEventListener("click",this); /* posluchač k button Obnovit obchůzky uložené aplikací */
+let l2=obch.id_f.length;
+for(let i=0;i<l2;i++)
 {
 /* posluchače událostí k formulářům obchůzky 15,30,60,120 */
-document.getElementById(obch.id_f[i]).addEventListener("keyup" , this);
-document.getElementById(obch.id_f[i]).addEventListener("cut" , this);
-document.getElementById(obch.id_f[i]).addEventListener("paste" , this);
+document.getElementById(obch.id_f[i]).addEventListener("input",this);
 }
+},
 
-};
-
-
-p_ob.Off=function(){
-for(var i=0;i<this.id_ob.length;i++)
+Off(){
+let l3=this.id_ob.length;
+for(let i=0;i<l3;i++)
 {
-document.getElementById(this.id_ob[i]).removeEventListener("click" , this);
+document.getElementById(this.id_ob[i]).removeEventListener("click",this);
 }
 
 
 /* podmínky funkčnosti localstorage */
-if(uloz.ok==null){ uloz.a(); /* aktivace - posouzení použitelnosti Local storage */ }
+if(uloz.ok==null){uloz.a(); /* aktivace - posouzení použitelnosti Local storage */ }
 if(uloz.ok!=true){
 return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
 /* KONEC podmínky funkčnosti localstorage */
 
-document.getElementById(this.id_but).removeEventListener("click" , this); /* posluchač k button Obnovit obchůzky uložené aplikací */
+document.getElementById(this.id_but).removeEventListener("click",this); /* posluchač k button Obnovit obchůzky uložené aplikací */
 
-for(var i=0;i<obch.id_f.length;i++)
+let l4=obch.id_f.length;
+for(let i=0;i<l4;i++)
 {
 /* odebrání posluchače událostí k formulářům obchůzky 15,30,60,120 */
-document.getElementById(obch.id_f[i]).removeEventListener("keyup" , this);
-document.getElementById(obch.id_f[i]).removeEventListener("cut" , this);
-document.getElementById(obch.id_f[i]).removeEventListener("paste" , this);
+document.getElementById(obch.id_f[i]).removeEventListener("input",this);
 }
-
-};
-
-p_ob.handleEvent=function(e){
-var k=e.target.id; /* zjistí ID prvku na který bylo kliknuto */
+},
+handleEvent(e){
+const k=e.target.id; /* zjistí ID prvku na který bylo kliknuto */
 
 if(k==this.id_ob[0]||k==this.id_svg[0])
 {
@@ -667,7 +616,7 @@ if(k==this.id_but)
 {
 /* kliknuti na Obnovit obchůzky uložené aplikací */
 
-var test=this.kon(); /* kontrola, jestli data ve formulářích jsou stejná jako data uložená na localstorage */
+let test=this.kon(); /* kontrola, jestli data ve formulářích jsou stejná jako data uložená na localstorage */
 if(test==false)
 {
 /* pokud jsou data stehná anebo není funkční localstorage -  ukončí funkci */
@@ -675,20 +624,16 @@ return;
 }
 else
 {
-var f15=document.getElementById(obch.id_f[0]); /* načte objekt formuláře */
-var f30=document.getElementById(obch.id_f[1]);
-var f60=document.getElementById(obch.id_f[2]);
-var f120=document.getElementById(obch.id_f[3]);
+const f15=document.getElementById(obch.id_f[0]); /* načte objekt formuláře */
+const f30=document.getElementById(obch.id_f[1]);
+const f60=document.getElementById(obch.id_f[2]);
+const f120=document.getElementById(obch.id_f[3]);
 
-var df15=f15.value; /* načte data z formuláře obchůzky do 15minut - pole obch.id_f je v vlk.js */
-var df30=f30.value;
-var df60=f60.value;
-var df120=f120.value;
+let ud15=uloz.nacti(uloz.klice[4]); /* načte z local storage data obchůzek do 15minut - v oziv.js */
+let ud30=uloz.nacti(uloz.klice[5]); /* načte z local storage data obchůzek do 30minut - v oziv.js */
+let ud60=uloz.nacti(uloz.klice[6]);
+let ud120=uloz.nacti(uloz.klice[7]);
 
-var ud15=uloz.nacti(uloz.klice[4]); /* načte z local storage data obchůzek do 15minut - v oziv.js */
-var ud30=uloz.nacti(uloz.klice[5]); /* načte z local storage data obchůzek do 30minut - v oziv.js */
-var ud60=uloz.nacti(uloz.klice[6]);
-var ud120=uloz.nacti(uloz.klice[7]);
 
 f15.value=ud15; /* přepíše data ve formuláři za uložená */
 f30.value=ud30;
@@ -698,7 +643,7 @@ f120.value=ud120;
 text.pis("Obchůzky byly obnoveny");
 gong.hraj(false); /* zahraje GONG.mp3 - FALSE = 1x vw vlk.js */
 }
-var test=this.kon(); /* kontrola, jestli data ve formulářích jsou stejná jako data uložená na localstorage */
+this.kon(); /* kontrola, jestli data ve formulářích jsou stejná jako data uložená na localstorage */
 }
 
 if(k==obch.id_f[0]||k==obch.id_f[1]||k==obch.id_f[2]||k==obch.id_f[3])
@@ -707,9 +652,9 @@ if(k==obch.id_f[0]||k==obch.id_f[1]||k==obch.id_f[2]||k==obch.id_f[3])
 setTimeout(this.kon.bind(this),250); /* Provede kontrolu změny ve formulářích -  zpoždění musí být */
 }
 
-};
+},
 
-p_ob.kon=function(){
+kon(){
 /* kontrola, jestli data ve formulářích jsou stejná jako data uložená na localstorage */
 
 /* podmínky funkčnosti localstorage */
@@ -721,15 +666,15 @@ return false; /* pokud pro zařízení nebude možné použití local storage - 
 /* KONEC podmínky funkčnosti localstorage */
 
 
-var df15=document.getElementById(obch.id_f[0]).value; /* načte data z formuláře obchůzky do 15minut - pole obch.id_f je v vlk.js */
-var df30=document.getElementById(obch.id_f[1]).value;
-var df60=document.getElementById(obch.id_f[2]).value;
-var df120=document.getElementById(obch.id_f[3]).value;
+const df15=document.getElementById(obch.id_f[0]).value; /* načte data z formuláře obchůzky do 15minut - pole obch.id_f je v vlk.js */
+const df30=document.getElementById(obch.id_f[1]).value;
+const df60=document.getElementById(obch.id_f[2]).value;
+const df120=document.getElementById(obch.id_f[3]).value;
 
-var ud15=uloz.nacti(uloz.klice[4]); /* načte z local storage data obchůzek do 15minut - v oziv.js */
-var ud30=uloz.nacti(uloz.klice[5]); /* načte z local storage data obchůzek do 30minut - v oziv.js */
-var ud60=uloz.nacti(uloz.klice[6]);
-var ud120=uloz.nacti(uloz.klice[7]);
+let ud15=uloz.nacti(uloz.klice[4]); /* načte z local storage data obchůzek do 15minut - v oziv.js */
+let ud30=uloz.nacti(uloz.klice[5]); /* načte z local storage data obchůzek do 30minut - v oziv.js */
+let ud60=uloz.nacti(uloz.klice[6]);
+let ud120=uloz.nacti(uloz.klice[7]);
 
 if(ud15==""&&ud30==""&&ud60==""&&ud120=="")
 {
@@ -751,177 +696,167 @@ else
 document.getElementById(this.id_but).style.opacity=0.5; /* tlačítko Obnovit obchůzky bude 50% */
 document.getElementById(this.id_but).disabled=true; /* zablokuje tlačítko Obnovit obchůzky */
 return false;
+}},
+a(){
+this.kon(); /* kontrola, jestli data ve formulářích jsou stejná jako data uložená na localstorage */
+this.On(); /* aktivuje posluchače událostí */
 }};
 
-
-p_ob.a=function(){
-var test=this.kon(); /* kontrola, jestli data ve formulářích jsou stejná jako data uložená na localstorage */
-this.On(); /* aktivuje posluchače událostí */
-};
-
-var uzamceni={id:"zamek",aktivni:false,TIME:5000};
-uzamceni.casovac;
-
-uzamceni.a=function(){
+const uzamceni={id:"zamek",aktivni:false,TIME:5000,casovac:null,
+a(){
 this.aktivni=true;
 hl_kon.zavri(uzamceni.id,"flex",uzamceni.id); /* zavře hlavní kontajner a otevře zámek obrazovky */
 v_port.handleEvent(); /* provede nový propočet velikosti okna */
 this.zhasni();  /* nechá pouze tmavou obrazovku */
 this.pON(); /* aktivuje posluchače událostí */
-};
-
-uzamceni.pON=function(kolikrat){
-document.getElementById(this.id).addEventListener("click" , uzamceni.jednou);
-document.getElementById(this.id).addEventListener("mousemove" , uzamceni.jednou);
-document.getElementById(this.id).addEventListener("dblclick" , this);
-};
-
-uzamceni.oOFF=function(){
-document.getElementById(this.id).removeEventListener("click" , uzamceni.jednou);
-document.getElementById(this.id).removeEventListener("mousemove" , uzamceni.jednou);
-document.getElementById(this.id).removeEventListener("dblclick" , this);
+},
+pON(){
+const o=document.getElementById(this.id); /* div zámku obrazovky */
+o.addEventListener("click",uzamceni.jednou);
+o.addEventListener("mousemove",uzamceni.jednou);
+o.addEventListener("dblclick",this);
+},
+oOFF(){
+const o=document.getElementById(this.id); /* div zámku obrazovky */
+o.removeEventListener("click",uzamceni.jednou);
+o.removeEventListener("mousemove",uzamceni.jednou);
+o.removeEventListener("dblclick",this);
 this.aktivni=false;
-};
-
-uzamceni.handleEvent=function(){
+},
+handleEvent(){
 clearTimeout(this.casovac);
 document.getElementById(this.id).style.opacity=1; /* nechá krytí na 100% */
 hl_kon.otevri(this.id); /* zruší zámek a otevře hlavní kontajner */
-};
-
-uzamceni.zhasni=function(){
+},
+zhasni(){
 clearTimeout(this.casovac);
-this.casovac=setTimeout('document.getElementById("'+this.id+'").style.opacity=0;',this.TIME);  /* nechá pouze tmavou obrazovku */
-};
-
-uzamceni.jednou=function(){
+this.casovac=setTimeout(`document.getElementById("${this.id}").style.opacity=0;`,this.TIME);  /* nechá pouze tmavou obrazovku */
+},
+jednou(){
 if(document.getElementById(this.id).style.display!="flex")
 {
 return; /* pokud nebude zámek obrazovky na obrazovce, bude return */
 }
 document.getElementById(this.id).style.opacity=1;
 uzamceni.zhasni();
-};
+}};
 
-var g_pos={obj:[["spustit","spustit-svg"],["vl","vlm","min","cool","cel","pln","vpm","vp"],["ovl-zvuk","ovl-jas"],["but-nas","nas-svg"],["but-ob","ob-svg"],["but-oz","oz-svg"]],neni:["navod","funkce","o-aplikaci","m","pl","k","pr"],zam:["zam","zam-svg"],min:["m","m-svg","m-p"],pla:["pl","pl-svg","pl-p"],kon:["k","k-svg","k-p"],pre:["pr","pr-svg","pr-p"]}; /* obj = "id objektu na kterém bude aktivován posluchač události:["ID prvku","ID SVG v prvku"] " */
-
-g_pos.ozivitOn=function(){
+const g_pos={obj:[["spustit","spustit-svg"],["vl","vlm","min","cool","cel","pln","vpm","vp"],["ovl-zvuk","ovl-jas"],["but-nas","nas-svg"],["but-ob","ob-svg"],["but-oz","oz-svg"]],neni:["navod","funkce","o-aplikaci","m","pl","k","pr"],zam:["zam","zam-svg"],min:["m","m-svg","m-p"],pla:["pl","pl-svg","pl-p"],kon:["k","k-svg","k-p"],pre:["pr","pr-svg","pr-p"], /* obj = "id objektu na kterém bude aktivován posluchač události:["ID prvku","ID SVG v prvku"] " */
+ozivitOn(){
 /* aktivace posluchče Oživit Nočního VLKA */
-document.getElementById(this.obj[5][0]).addEventListener("click" , this); /* posluchač pro Oživit */
+document.getElementById(this.obj[5][0]).addEventListener("click",this); /* posluchač pro Oživit */
 document.getElementById(this.obj[5][0]).style.opacity=1; /* zvýší krytí na 100% */
-};
+},
 
-g_pos.ozivitOff=function(){
+ozivitOff(){
 /* Deaktivace posluchče Oživit Nočního VLKA */
-
-document.getElementById(this.obj[5][0]).removeEventListener("click" , this); /* posluchač pro Oživit */
+document.getElementById(this.obj[5][0]).removeEventListener("click",this); /* posluchač pro Oživit */
 document.getElementById(this.obj[5][0]).style.opacity=0.5; /* sníží krytí na 50% */
-};
-
-
-g_pos.aktivace=function(){
+},
+aktivace(){
 /* aktivuje všechny posluchače události hlavního kontajneru */
 
-document.getElementById(this.obj[0][0]).addEventListener("click" , this); /* posluchač pro Spustit */
+document.getElementById(this.obj[0][0]).addEventListener("click",this); /* posluchač pro Spustit */
 
-for(var i=0;i<this.obj[1].length;i++)
+let l1=this.obj[1].length;
+for(let i=0;i<l1;i++)
 {
-document.getElementById(this.obj[1][i]).addEventListener("click" , this); /* posluchače pro polohu Aplikace */
+document.getElementById(this.obj[1][i]).addEventListener("click",this); /* posluchače pro polohu Aplikace */
+}
+let l2=this.obj[2].length;
+for(let i=0;i<l2;i++)
+{
+document.getElementById(this.obj[2][i]).addEventListener("input",this); /* posluchač pro ovládání zvuku a ovládání jasu */
+document.getElementById(this.obj[2][i]).addEventListener("click",this); /* posluchač pro ovládání zvuku a ovládání jasu */
 }
 
-for(var i=0;i<this.obj[2].length;i++)
+
+document.getElementById(this.obj[3][0]).addEventListener("click",this); /* posluchač pro Nastavení */
+
+document.getElementById(this.obj[4][0]).addEventListener("click",this); /* posluchač pro Obchůzky */
+
+document.getElementById(this.zam[0]).addEventListener("click",this); /* posluchač pro Zámek obrazovky */
+
+let l3=this.neni.length;
+for(let i=0;i<l3;i++)
 {
-document.getElementById(this.obj[2][i]).addEventListener("input" , this); /* posluchač pro ovládání zvuku a ovládání jasu */
-document.getElementById(this.obj[2][i]).addEventListener("click" , this); /* posluchač pro ovládání zvuku a ovládání jasu */
+document.getElementById(this.neni[i]).addEventListener("click",this); /* posluchače pro funkce, které zatím NEBYLY NAPROGRAMOVANÉ */
 }
 
+},
+handleEvent(e){
+const k=e.target.id; /* zjistí ID prvku na který bylo kliknuto */
 
-document.getElementById(this.obj[3][0]).addEventListener("click" , this); /* posluchač pro Nastavení */
-
-document.getElementById(this.obj[4][0]).addEventListener("click" , this); /* posluchač pro Obchůzky */
-
-document.getElementById(this.zam[0]).addEventListener("click" , this); /* posluchač pro Zámek obrazovky */
-
-for(var i=0;i<this.neni.length;i++)
-{
-document.getElementById(this.neni[i]).addEventListener("click" , this); /* posluchače pro funkce, které zatím NEBYLY NAPROGRAMOVANÉ */
-}
-
-};
-
-g_pos.handleEvent=function(e){
-var klik = e.target.id; /* zjistí ID prvku na který bylo kliknuto */
-
-if(klik==this.obj[0][0]||klik==this.obj[0][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
+if(k==this.obj[0][0]||k==this.obj[0][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
 {
 /* Kliknuto na Spustit Nočního VLKA */
 pruvodce.a(); /* funkce, která má být kliknutím spuštěna - v pruvodce.js */
 }
 
-if(klik==this.obj[5][0]||klik==this.obj[5][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
+if(k==this.obj[5][0]||k==this.obj[5][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
 {
 /* Kliknuto na Oživit Nočního VLKA */
 zvuk.nahraj(); /* nahraje do paměti zvuk upozornění Alarmu */
 hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
 zamek.blok(); /* aktivuje blokaci zámku obrazovky */
-window.onbeforeunload=function(){return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
+window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
 uloz.oziv(true); /* spustí oživovací procesy Nočního VLKA spuštěné tlačítkem - hodnota TRUE - v ozivit.js */
 this.ozivitOff(); /* vypne posluchače událostí Oživit Nočního VLKA */
 }
 
 
-if(klik==this.obj[1][0])
+if(k==this.obj[1][0])
 {
 obrazovka.zmen(this.obj[1][0]);
 }
 
-if(klik==this.obj[1][1])
+if(k==this.obj[1][1])
 {
 obrazovka.zmen(this.obj[1][1]);
 }
 
-if(klik==this.obj[1][2])
+if(k==this.obj[1][2])
 {
 obrazovka.zmen(this.obj[1][2]);
 }
 
-if(klik==this.obj[1][3])
+if(k==this.obj[1][3])
 {
 obrazovka.zmen(this.obj[1][3]);
 }
 
-if(klik==this.obj[1][4])
+if(k==this.obj[1][4])
 {
 obrazovka.zmen(this.obj[1][4]);
 }
 
-if(klik==this.obj[1][5])
+if(k==this.obj[1][5])
 {
 obrazovka.zmen(this.obj[1][5]);
 }
 
-if(klik==this.obj[1][6])
+if(k==this.obj[1][6])
 {
 obrazovka.zmen(this.obj[1][6]);
 }
 
-if(klik==this.obj[1][7])
+if(k==this.obj[1][7])
 {
 obrazovka.zmen(this.obj[1][7]);
 }
 
-if(klik==this.obj[2][1])
+if(k==this.obj[2][1])
 {
 jas.zmen(this.obj[2][1]);
 }
 
-if(klik==this.obj[2][0])
+if(k==this.obj[2][0])
 {
 zvuk.zmen(this.obj[2][0]);
 }
 
 /* pro tlačítko Nastavení */
-if(klik == this.obj[3][0]||klik==this.obj[3][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
+if(k==this.obj[3][0]||k==this.obj[3][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
 {
 p_nas.a();  /* spustí potřební procesy a posluchače */
 hl_kon.zavri(p_nas.id,"flex",p_nas.id);
@@ -930,7 +865,7 @@ v_port.handleEvent(); /* provede nový propočet velikosti okna */
 }
 
 /* pro tlačítko Obchůzky */
-if(klik==this.obj[4][0]||klik==this.obj[4][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
+if(k==this.obj[4][0]||k==this.obj[4][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
 {
 p_ob.a(); /* spustí potřební procesy a posluchače */
 hl_kon.zavri(p_ob.id,"flex",p_ob.id);
@@ -939,196 +874,158 @@ v_port.handleEvent(); /* provede nový propočet velikosti okna */
 }
 
 
-if(klik==this.zam[0]||klik==this.zam[1])
+if(k==this.zam[0]||k==this.zam[1])
 {
 /* KLIKNUTÍ ZÁMEK OBRAZOVKY */
 uzamceni.a(); /* aktivuje potřebné funkce pro Zámek obrazovky */
 }
 
-if(klik==this.neni[0]||klik==this.neni[1]||klik==this.neni[2]||klik==this.min[0]||klik==this.min[1]||klik==this.min[2]||klik==this.pla[0]||klik==this.pla[1]||klik==this.pla[2]||klik==this.kon[0]||klik==this.kon[1]||klik==this.kon[2]||klik==this.pre[0]||klik==this.pre[1]||klik==this.pre[2])
+if(k==this.neni[0]||k==this.neni[1]||k==this.neni[2]||k==this.min[0]||k==this.min[1]||k==this.min[2]||k==this.pla[0]||k==this.pla[1]||k==this.pla[2]||k==this.kon[0]||k==this.kon[1]||k==this.kon[2]||k==this.pre[0]||k==this.pre[1]||k==this.pre[2])
 {
 /* KLIKNUTÍ PRO NENAPROGRAMOVANÉ FUNKCE */
 dia.on(dia.id[4]); /* v autorun.js */
 }
+}};
 
+const v_port={id_o:"uz-obchuzka",id_t:"uz-i-box",sirka:null,vyska:null,id:["spust1","spust2","spust3","spust4","spust5"],id_other:["nastaveni","obchuzky"],other:false,pruvodce:false,
 
+handleEvent(){
 
-
-};
-
-var v_port={id_o:"uz-obchuzka",id_t:"uz-i-box",h_scale:null,sirka:null,vyska:null,priblizeni:null,zleva:null,zhora:null,stranka_zleva:null,stranka_zhora:null,id:["spust1","spust2","spust3","spust4","spust5"],id_other:["nastaveni","obchuzky"],other:false,pruvodce:false};
-
-v_port.handleEvent = function(){
-
-
-if (window && window.visualViewport) /* test - zda je visualViewport podporováno */
-{
 this.parametry(); /* načte parametry visualViewport API */
 
-document.body.style.width = this.sirka + "px";
-document.body.style.minHeight = this.vyska + "px";
-document.getElementById(hl_kon.id_kon).style.minHeight = this.vyska + "px"; 
+let v=this.vyska; /* výška obrazovky */
+let s=this.sirka; /* výška obrazovky */
+
+document.body.style.width=`${s}px`;
+document.body.style.minHeight=`${v}px`;
+document.getElementById(hl_kon.id_kon).style.minHeight=`${v}px`; 
 
 if(tik.a_obchuzka==true)
 {
 /* pro výzvu k obchůzce */
-document.getElementById(this.id_o).width=this.sirka + "px";
-document.getElementById(this.id_o).style.minWidth=this.sirka + "px";
-document.getElementById(this.id_o).style.height=this.vyska + "px";
-document.getElementById(this.id_o).style.minHeight=this.vyska + "px";
+document.getElementById(this.id_o).width=`${s}px`;
+document.getElementById(this.id_o).style.minWidth=`${s}px`;
+document.getElementById(this.id_o).style.height=`${v}px`;
+document.getElementById(this.id_o).style.minHeight=`${v}px`;
 }
 
 
 if(text.aktivni==true)
 {
 /* pro animaci TEXT přes celou obrazovku */
-document.getElementById(this.id_t).width = this.sirka + "px";
-document.getElementById(this.id_t).style.minWidth = this.sirka + "px";
-document.getElementById(this.id_t).style.height = this.vyska + "px";
-document.getElementById(this.id_t).style.minHeight = this.vyska + "px"; 
-}
-
-
-var dorovnat="";
-if(visualViewport.scale<1 && visualViewport.scale!=this.h_scale)
-{
-this.h_scale=visualViewport;
-dorovnat=(visualViewport.scale-1)+1;
-document.body.style["-webkit-transform"]="scale("+dorovnat+")"; /* prefix css */
-document.body.style["-ms-transform"]="scale("+dorovnat+")"; /* prefix css */
-document.body.style.transform="scale("+dorovnat+")";
-}
-else if(visualViewport.scale>=1 && visualViewport.scale!=this.h_scale)
-{
-this.h_scale=visualViewport;
-dorovnat=(visualViewport.scale);
-document.body.style["-webkit-transform"]="scale("+dorovnat+")"; /* prefix css */
-document.body.style["-ms-transform"]="scale("+dorovnat+")"; /* prefix css */
-document.body.style.transform="scale("+dorovnat+")";
+document.getElementById(this.id_t).width=`${s}px`;
+document.getElementById(this.id_t).style.minWidth=`${s}px`;
+document.getElementById(this.id_t).style.height=`${v}px`;
+document.getElementById(this.id_t).style.minHeight=`${v}px`; 
 }
 
 if(this.pruvodce==true) /* pokud je průvodce zapnut aktivuje se změna velikosti okna pomocí visualViewport API */
 {
-for(var i=0;i<this.id.length;i++)
+let l1=this.id.length;
+for(let i=0;i<l1;i++)
 {
-document.getElementById(this.id[i]).style.width = this.sirka + "px";
-document.getElementById(this.id[i]).style.minHeight = this.vyska + "px";
-document.getElementById(this.id[i]).style.maxHeight = this.vyska + "px";
+document.getElementById(this.id[i]).style.width=`${s}px`;
+document.getElementById(this.id[i]).style.minHeight=`${v}px`;
+document.getElementById(this.id[i]).style.maxHeight=`${v}px`;
 }
 }
 
 if(this.other==true) /* pokud je zapnuto okno Nastavení, Obchůzky, Minutka, Plánovač ...  aktivuje se změna velikosti okna pomocí visualViewport API */
 {
-for(var i=0;i<this.id_other.length;i++)
+let l2=this.id_other.length;
+for(let i=0;i<l2;i++)
 {
-document.getElementById(this.id_other[i]).style.width = this.sirka + "px";
-document.getElementById(this.id_other[i]).style.minHeight = this.vyska + "px";
+document.getElementById(this.id_other[i]).style.width=`${s}px`;
+document.getElementById(this.id_other[i]).style.minHeight=`${v}px`;
 }}
 
 if(uzamceni.aktivni==true) /* pokud je zámek obrazovky zapnut aktivuje se změna velikosti okna pomocí visualViewport API */
 {
-document.getElementById(uzamceni.id).style.width = this.sirka + "px";
-document.getElementById(uzamceni.id).style.minHeight = this.vyska + "px";
-document.getElementById(uzamceni.id).style.maxHeight = this.vyska + "px";
+document.getElementById(uzamceni.id).style.width=`${s}px`;
+document.getElementById(uzamceni.id).style.minHeight=`${v}px`;
+document.getElementById(uzamceni.id).style.maxHeight=`${v}px`;
 }
 
-}};
+},
 
-v_port.parametry=function(){
-
-if (window && window.visualViewport) /* test - zda je visualViewport podporováno */
-{
+parametry(){
 /* vlastnosti */
 this.sirka=window.visualViewport.width;
 this.vyska=window.visualViewport.height;
-this.priblizeni=window.visualViewport.scale;
-this.zleva=window.visualViewport.offsetLeft;
-this.zhora=window.visualViewport.offsetTop;
-this.stranka_zleva=window.visualViewport.pageLeft;
-this.stranka_zhora=window.visualViewport.pageTop;
-}};
+},
 
-v_port.aktivace=function(){
-if (window && window.visualViewport) /* test - zda je visualViewport podporováno */
-{
+aktivace(){
 /* Posluchače */
-window.visualViewport.addEventListener("resize", this);
+window.visualViewport.addEventListener("resize",this);
 window.visualViewport.addEventListener("scroll",this);
-addEventListener("scroll", this);
-}};
+addEventListener("scroll",this);
+},
 
-v_port.zahajit=function(){
+zahajit(){
 if(window&&window.visualViewport) /* test - zda je visualViewport podporováno */
 {
 this.aktivace();
 this.handleEvent();
-}};
+}}};
 
-var hl_kon={id_kon:"hl-kon",id_kotva:"hlavicka",TIME1:150,TIME2:200,TIME3:250,TIME4:500,f_id_cisti:["obch15","obch30","obch60","obch120"]}; /* OBJEKT OVLÁDÁ ZAVÍRÁNÍ A OTVÍRÁNÍ HL. KONTAJNERU */
+const hl_kon={id_kon:"hl-kon",id_kotva:"hlavicka",TIME1:150,TIME2:200,TIME3:250,TIME4:500,f_id_cisti:["obch15","obch30","obch60","obch120"],
+ /* OBJEKT OVLÁDÁ ZAVÍRÁNÍ A OTVÍRÁNÍ HL. KONTAJNERU */
 
-hl_kon.cisti_form=function(){
+cisti_form(){
 /* funcke vyčistí formuláře podle ID v poly, tak aby tam nezůstaly případná nežádoucí data */
-for(var i=0;i<this.f_id_cisti.lenght;i++)
+let l1=this.f_id_cisti.lenght;
+for(let i=0;i<l1;i++)
 {
 document.getElementById(this.f_id_cisti[i]).value="";
 }
+},
 
-};
-
-hl_kon.zavri=function(IDnew,typ,id_scroll){
+zavri(IDnew,typ,id_scroll){
 /* funkce zavře hlavní kontejder */
 document.getElementById(this.id_kon).style.zIndex="-1"; /* nedovolí klikat na prvnky - není třeba vypínat posluchče, aby nedošlo k více kliku */
 document.getElementById(this.id_kon).style.opacity=0;
-setTimeout("document.getElementById('"+this.id_kon+"').style.display='none';",this.TIME1);
-setTimeout("document.getElementById('"+IDnew+"').style.display='"+typ+"'; ",this.TIME2);
-setTimeout("document.getElementById('"+IDnew+"').style.opacity=1;",this.TIME3);
-setTimeout("document.getElementById('"+IDnew+"').style.zIndex='0';document.getElementById('"+id_scroll+"').scrollIntoView({behavior:'smooth'});",this.TIME4); /* posun na nadpis v případě, že bude okno menší než obsah na výšku !!!!  */
-};
+setTimeout(`document.getElementById("${this.id_kon}").style.display="none";`,this.TIME1);
+setTimeout(`document.getElementById("${IDnew}").style.display="${typ}";`,this.TIME2);
+setTimeout(`document.getElementById("${IDnew}").style.opacity=1;`,this.TIME3);
+setTimeout(`document.getElementById("${IDnew}").style.zIndex="0";document.getElementById("${id_scroll}").scrollIntoView({behavior:"smooth"});`,this.TIME4); /* posun na nadpis v případě, že bude okno menší než obsah na výšku !!!!  */
+},
 
-hl_kon.otevri=function(ID_old){
+otevri(ID_old){
 /* funkce otevře hlavní kontejder */
 document.getElementById(ID_old).style.zIndex="-1"; /* nedovolí klikat na prvnky - není třeba vypínat posluchče, aby nedošlo k více kliku */
 document.getElementById(ID_old).style.opacity=0;
-setTimeout("document.getElementById('"+ID_old+"').style.display='none';",this.TIME1);
-setTimeout("document.getElementById('"+this.id_kon+"').style.display='grid'; ",this.TIME2);
-setTimeout("document.getElementById('"+this.id_kon+"').style.opacity=1;",this.TIME3);
-setTimeout("document.getElementById('"+this.id_kon+"').style.zIndex='0';document.getElementById('"+this.id_kotva+"').scrollIntoView({behavior:'smooth'});",this.TIME4);
-};
+setTimeout(`document.getElementById("${ID_old}").style.display="none";`,this.TIME1);
+setTimeout(`document.getElementById("${this.id_kon}").style.display="grid";`,this.TIME2);
+setTimeout(`document.getElementById("${this.id_kon}").style.opacity=1;`,this.TIME3);
+setTimeout(`document.getElementById("${this.id_kon}").style.zIndex="0";document.getElementById("${this.id_kotva}").scrollIntoView({behavior:"smooth"});`,this.TIME4);
+}};
 
-var autorun={id_error:"div-error",id_but:"but-error",cesta:"../NocniVLK.html",lic:null};
-
-autorun.posOn=function(){
-
+const autorun={id_error:"div-error",id_but:"but-error",cesta:"../NocniVLK.html",lic:null,
+posOn(){
 document.getElementById(this.id_but).addEventListener("click",this);
-
-};
-
-autorun.handleEvent=function(){
+},
+handleEvent(){
 location.replace(this.cesta); /* dojde k href na this.cesta bez možnosti návratu na error stránku */
-};
-
-autorun.poloh=function(){
+},
+poloh(){
 /* funkce ruší zobrazení polohy aplikace pro telefony, tablety atd. */
 obrazovka.velikost(); /* zjistí jak je na tom velikost obrazovky */
-
 if(parseInt(obrazovka.sirka)<=obrazovka.max)
 {
 /* pokud je obrazovka menší než 1024px, což je rozměr obrazovky malého monitoru PC ale také iPADu na šířku - proto menší rovno */
 document.getElementById("poloha").style.display="none"; /* schová panel pro určení polohy aplikace */
-}};
-
-autorun.licence=function(){
+}},
+licence(){
 /* funkce kontroluje, zda byla aplikace spuštěna s potvrzením licenčních podmínek a testy */
-var datum=new Date();
-var over={};
+let over={};
 
-over.cas1=datum.getTime()-(24*60*60*1000); /* 24h v milisekundách je platnost licence */
-over.cas2=datum.getTime()+(10*60*1000); /* 10minut od spuštění hlavní stránky aplikace */
+over.cas1=Date.now()-(24*60*60*1000); /* 24h v milisekundách je platnost licence */
+over.cas2=Date.now()+(10*60*1000); /* 10minut od spuštění hlavní stránky aplikace */
 /* alert(location.search); */
 over.retezec=location.search.slice(1); /* odebere Otazník z řetězce - aby mohlo dojít ke konverci JSON */
 try
 {
-over.celek = JSON.parse(over.retezec);
+over.celek=JSON.parse(over.retezec);
 if((parseInt(over.celek[0])>=over.cas1&&parseInt(over.celek[0])<=over.cas2)&&(over.celek[1]==false||over.celek[2]==false||over.celek[3]==false||over.celek[1]==true||over.celek[2]==true||over.celek[3]==true))
 {
 this.lic=true; /* ověření licence v pořádku */
@@ -1145,9 +1042,9 @@ catch(e)
 /* pokud by řetězec pro JSON byl poškozen anebo by se jednalo o jiný řetězec - zobrazí DIV error */
 hl_kon.zavri(this.id_error,"flex",this.id_error);
 this.posOn(); /* zapne posluchač události pro button Error DIV */
-}};
+}},
 
-autorun.komplet=function(){
+komplet(){
 v_port.zahajit(); /* Aktivuje posluchče a parametry pro rozměry Kontejnerů s pomocí visualViewport API  */
 /* funkce spouští veškeré potřebné procesy pro start aplikace */
 this.licence();
@@ -1157,9 +1054,9 @@ return; /* pokud nebude licence v pořádku ukončí funkci */
 }
 this.poloh();
 hl_kon.cisti_form(); /* vyčistí formuláře, tak, aby tam nezůstala případná nežádoucí data */
-window.onbeforeunload=function(){return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
+window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
 
-};
+}};
 
 autorun.komplet();
 
