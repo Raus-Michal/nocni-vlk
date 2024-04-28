@@ -3,14 +3,14 @@
 /* registrace servisního pracovníka - CACHE - MEZIPAMĚŤ */
 
 
-var serviceWorker_reg=async function(){
+const serviceWorker_reg=async()=>{
 
 if("serviceWorker" in navigator)
 {
 console.log("ServiceWorker je podporován");
 try
 {
-const reg=await navigator.serviceWorker.register("pracant.js"); /* registrace servisního pracovníka pro mezipaměť */
+const reg=await navigator.serviceWorker.register("sw.js"); /* registrace servisního pracovníka pro mezipaměť */
 
 if(reg.installing)
 {

@@ -1,7 +1,7 @@
 ﻿
-self.addEventListener("install", function (event){
+self.addEventListener("install",(event)=>{
 
-var o_soubory=[
+const o_soubory=[
 "/nocni-vlk/data/index.html"
 ,"/nocni-vlk/data/pracant.js"
 ,"/nocni-vlk/data/reg_ser.js"
@@ -73,47 +73,28 @@ var o_soubory=[
 ];
 
 event.waitUntil(
-
-
-caches.open("new").then(function(cache){
-
-
+caches.open("vlk1").then(function(cache){
 cache.addAll(o_soubory);
 console.log("soubory nahrány do cache");
-
-})
-
-
-);
-});
+}));});
 
 
-self.addEventListener("fetch", function (event){
-
+self.addEventListener("fetch",(event)=>{
 event.respondWith(
 
-caches.match(event.request).then(function (response){
-
+caches.match(event.request).then((response)=>{
 if(response){
 return response;
 }
 
-return fetch(event.request.clone()).then(function (response){
+return fetch(event.request.clone()).then((response)=>{
+if(response&&response.status===200&&response.type==="basic")
+{return response;}
 
-
-if(response && response.status === 200 && response.type === "basic"){
-return response;}
-
-caches.open("new_c").then(function (cache){
-
-cache.put(event.request, response.clone());
-
-});
-
-return response;
-});
-
+caches.open("vlk2").then((cache)=>{
+cache.put(event.request, response.clone());});
+return response;});
 }
 
 ));
-}); 
+});
