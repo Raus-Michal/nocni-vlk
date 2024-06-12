@@ -26,6 +26,8 @@ setInterval(this.tak.bind(this),this.cas); /* zapne interval na tikání hodin *
 
 const hodiny={id:["hod","sec1","sec2"],
 cas(){
+// funkce vrací aktuální čas v zařízení [hod,min,sec]
+
 const c=new Date();
 let hod=c.getHours();
 let min=c.getMinutes();
@@ -33,12 +35,12 @@ let sec=c.getSeconds();
 
 if(min<10)
 {
-min=`0${min}`;
+min=`0${min}`; // doplní 0 jako první číslici dvojčíslí
 }
 
 if(sec<10)
 {
-sec=`0${sec}`;
+sec=`0${sec}`; // doplní 0 jako první číslici dvojčíslí
 }
 
 
@@ -191,6 +193,7 @@ dia.off(this.id[6]); /* vypne dialogové okno */
 }
 },
 posON(id){
+// posluchače k tlačítkům Dialogových oken
 
 if(id==this.id[0])
 {
@@ -253,6 +256,8 @@ document.getElementById(this.kont).addEventListener("click",this); /* aktivuje p
 
 },
 posOFF(id){
+// odebírání posluchačů událostí k Dialogovým oknům
+
 
 if(id==this.id[0])
 {

@@ -201,6 +201,7 @@ okruh=11;
 }}
 osoba.okruh=okruh; /* dočasně, kvůli vykreslení změní hodnotu */
 kresly.system(obch.id_can); /* vykreslí systém v hlavním kontejneru */
+obch.pl_obch(); // vypíše text plánované obchůzky
 osoba.okruh=okruh_puvodni; /* po vykreslení systému obchůzek, vrátí okruh na původní stav */
 };
 
@@ -349,7 +350,10 @@ gong.nahraj(); /* musí dojít k nahrání mp3 do paměti ! */
 
 
 
-const obch={id_can:"can-hl",id_tlapa:"tlapa",id_f:["obch15","obch30","obch60","obch120"],intr:null,id:"obchuzka",id_ob:"ob-t",id_b:["vz1","vz2","p-obch"],id_an:["ss1","ss2","ss3","ss4"],id_odp:["o-min","o-sec1","o-sec2"],id_t_out:["t-out-m","t-out-s1","t-out-s2"],id_t:"ob",z_den:null,cas_T:null,TIME:250,TIME2:750,
+const obch={
+id_can:"can-hl", // id canvas pro vykreslování okruhu obchůzek
+id_bud_obch:"obch_bud", // id textu pro druh obchůzky, která bude následovat
+id_tlapa:"tlapa",id_f:["obch15","obch30","obch60","obch120"],intr:null,id:"obchuzka",id_ob:"ob-t",id_b:["vz1","vz2","p-obch"],id_an:["ss1","ss2","ss3","ss4"],id_odp:["o-min","o-sec1","o-sec2"],id_t_out:["t-out-m","t-out-s1","t-out-s2"],id_t:"ob",z_den:null,cas_T:null,TIME:250,TIME2:750,
 tlapa(urci){
 const [kruh,tlapa]=[document.getElementById(this.id_can),document.getElementById(this.id_tlapa)]; /* načte do promněnné objekty DOM */
 
@@ -537,26 +541,27 @@ rozdelovac(){
  /* funkce vrací hodnotu konkrétní obchůzky podle systému obchůzek v aktuální chvíly */
  const [o15,o30,o60,o120,o]=[osoba.o15,osoba.o30,osoba.o60,osoba.o120,osoba.okruh]; /* načte data uživatele do proměnných */
 
-let t=null; /* vyhodnocovací promněnná */
+let t=null; /* proměnná určuje která obchůzka je právě teď aktuální */
+let b=null; /* proměnná určuje, která obchůzka bude následovat */
 
 /* pro systém SINGL obchůzek 15 minut nebo 30 minut nebo 60 minut nebo 120 minut */
 if((o15==true&&o30==false&&o60==false&&o120==false)||(o15==false&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==false&&o60==true&&o120==false)||(o15==false&&o30==false&&o60==false&&o120==true))
 {
 if(o15==true)
 {
-t=15;
+t=b=15;
 }
 else if(o30==true)
 {
-t=30;
+t=b=30;
 }
 else if(o60==true)
 {
-t=60;
+t=b=60;
 }
 else if(o120==true)
 {
-t=120;
+t=b=120;
 }}
 /* pro systém DABL obchůzek 15 minut + 30 minut nebo 30 minut + 60 minut nebo 60 minut + 120 minut */
 else if((o15==true&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==true&&o60==true&&o120==false)||(o15==false&&o30==false&&o60==true&&o120==true))
@@ -565,30 +570,36 @@ else if((o15==true&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==true&
 if(o==11)
 {
 t=30;
+b=15;
 }
 else if(o==22)
 {
 t=15;
+b=30;
 }}
 else if(o15==false&&o30==true&&o60==true&&o120==false)
 {
 if(o==11)
 {
 t=60;
+b=30;
 }
 else if(o==22)
 {
 t=30;
+b=60;
 }}
 else if(o15==false&&o30==false&&o60==true&&o120==true)
 {
 if(o==11)
 {
 t=120;
+b=60;
 }
 else if(o==22)
 {
 t=60;
+b=120;
 }}}
 /* pro systém QVATTRO obchůzek 15 minut + 30 minut + 60 min nebo 15 minut + 60 minut nebo 30 minut + 60 minut + 120 minut nebo 30 minut + 120 minut */
 else if((o15==true&&o30==true&&o60==true&&o120==false)||(o15==true&&o30==false&&o60==true&&o120==false)||(o15==false&&o30==true&&o60==true&&o120==true)||(o15==false&&o30==true&&o60==false&&o120==true))
@@ -598,72 +609,88 @@ if(o15==true&&o30==true&&o60==true&&o120==false)
 if(o==11)
 {
 t=60;
+b=15;
 }
 else if(o==22)
 {
 t=15;
+b=30;
 }
 else if(o==33)
 {
 t=30;
+b=15;
 }
 else if(o==44)
 {
 t=15;
+b=60;
 }}
 else if(o15==true&&o30==false&&o60==true&&o120==false)
 {
 if(o==11)
 {
 t=60;
+b=15;
 }
 else if(o==22)
 {
 t=15;
+b=15;
 }
 else if(o==33)
 {
 t=15;
+b=15;
 }
 else if(o==44)
 {
 t=15;
+b=60;
 }}
 else if(o15==false&&o30==true&&o60==true&&o120==true)
 {
 if(o==11)
 {
 t=120;
+b=30;
 }
 else if(o==22)
 {
 t=30;
+b=60;
 }
 else if(o==33)
 {
 t=60;
+b=30;
 }
 else if(o==44)
 {
 t=30;
+b=120;
 }}
 else if(o15==false&&o30==true&&o60==false&&o120==true)
 {
 if(o==11)
 {
 t=120;
+b=30;
 }
 else if(o==22)
 {
 t=30;
+b=30;
 }
 else if(o==33)
 {
 t=30;
+b=30;
 }
 else if(o==44)
 {
 t=30;
+b=120;
 }}}
 /* pro systém OTTO obchůzek 15 minut + 30 minut + 60 min + 120 minut nebo 15 minut + 30 minut + 120 minut ... atd. */
 else if((o15==true&&o30==true&&o60==true&&o120==true)||(o15==true&&o30==false&&o60==true&&o120==true)||(o15==true&&o30==true&&o60==false&&o120==true)||(o15==true&&o30==false&&o60==false&&o120==true))
@@ -673,147 +700,183 @@ if(o15==true&&o30==true&&o60==true&&o120==true)
 if(o==11)
 {
 t=120;
+b=15;
 }
 else if(o==22)
 {
 t=15;
+b=30;
 }
 else if(o==33)
 {
 t=30;
+b=15;
 }
 else if(o==44)
 {
 t=15;
+b=60;
 }
 else if(o==55)
 {
 t=60;
+b=15;
 }
 else if(o==66)
 {
 t=15;
+b=30;
 }
 else if(o==77)
 {
 t=30;
+b=15;
 }
 else if(o==88)
 {
 t=15;
+b=120;
 }}
 else if(o15==true&&o30==false&&o60==true&&o120==true)
 {
 if(o==11)
 {
 t=120;
+b=15;
 }
 else if(o==22)
 {
 t=15;
+b=15;
 }
 else if(o==33)
 {
 t=15;
+b=15;
 }
 else if(o==44)
 {
 t=15;
+b=60;
 }
 else if(o==55)
 {
 t=60;
+b=15;
 }
 else if(o==66)
 {
 t=15;
+b=15;
 }
 else if(o==77)
 {
 t=15;
+b=15;
 }
 else if(o==88)
 {
 t=15;
+b=120;
 }}
 else if(o15==true&&o30==true&&o60==false&&o120==true)
 {
 if(o==11)
 {
 t=120;
+b=15;
 }
 else if(o==22)
 {
 t=15;
+b=30;
 }
 else if(o==33)
 {
 t=30;
+b=15;
 }
 else if(o==44)
 {
 t=15;
+b=30;
 }
 else if(o==55)
 {
 t=30;
+b=15;
 }
 else if(o==66)
 {
 t=15;
+b=30;
 }
 else if(o==77)
 {
 t=30;
+b=15;
 }
 else if(o==88)
 {
 t=15;
+b=120;
 }}
 else if(o15==true&&o30==false&&o60==false&&o120==true)
 {if(o==11)
 {
 t=120;
+b=15;
 }
 else if(o==22)
 {
 t=15;
+b=15;
 }
 else if(o==33)
 {
 t=15;
+b=15;
 }
 else if(o==44)
 {
 t=15;
+b=15;
 }
 else if(o==55)
 {
 t=15;
+b=15;
 }
 else if(o==66)
 {
 t=15;
+b=15;
 }
 else if(o==77)
 {
 t=15;
+b=15;
 }
 else if(o==88)
 {
 t=15;
+b=120;
 }}}
-return t; /* vrací hodnotu konkrétní obchůzky podle systému obchůzek v aktuální chvíly */
+return [t,b]; /* t - vrací hodnotu konkrétní obchůzky podle systému obchůzek v aktuální chvíly, tedy obchůzka teď; b - vrací obchůzku, která bude následovat */
 },
 text(){
 /* funkce zajišťuje správný zápis konkrétní obchůzky (15min,30min,60,min ...) ve výzvě k obchůzce */
-const t=this.rozdelovac(); /* funkce vrací hodnotu konkrétní obchůzky podle systému obchůzek v aktuální chvíly */
+const t=this.rozdelovac()[0]; /* funkce vrací hodnotu konkrétní obchůzky podle systému obchůzek v aktuální chvíly */
 const obj=document.getElementById(this.id_t); /* načte objekt DOM, kterým je text výzvy k obchůzce */
 obj.innerText=t; /* přepíše text obchůzky ve výzvě k obchůzce */
 },
+pl_obch(){
+const text=this.rozdelovac()[1]; // funkce vrátí obchůzku, která bude následovat
+document.getElementById(this.id_bud_obch).innerText=text; // přepíše hodnotu obchůzka Obchůzka do "text" minut za
+},
 zapis(){
 /* funkce zajišťuje správný zápis konkrétní obchůzky (15min,30min,60,min ...) v Zápisu obchůzek */
-const t=this.rozdelovac(); /* funkce vrací hodnotu konkrétní obchůzky podle systému obchůzek v aktuální chvíly */
+const t=this.rozdelovac()[0]; /* funkce vrací hodnotu konkrétní obchůzky podle systému obchůzek v aktuální chvíly */
 
 const [o15,o30,o60]=[osoba.o15,osoba.o30,osoba.o60]; /* načte hodnoty od uživatele */
 
@@ -1013,6 +1076,7 @@ document.getElementById(this.id_odp[0]).innerText="0"; /* odpočet minuty */
 document.getElementById(this.id_odp[1]).innerText="0"; /* odpočet první číslice sekund */
 document.getElementById(this.id_odp[2]).innerText="0"; /* odpočet druhé číslice sekund */
 /* Konec vynulování ukazatele odpočtu */
+document.getElementById(this.id_bud_obch).innerText="??"; // přepíše hodnotu obchůzka Obchůzka do ?? minut za
 document.getElementById(this.id).style.display="block";
 setTimeout(this.zp.bind(this),this.TIME); /* focus na BUTTON + pomalé zobrazení opacity z 0 na 1 -- musí být zpoždění pomocí timeout jinak se změna v opacity neprojeví - je to vyzkoušené!!!! */
 setTimeout(this.foc.bind(this),this.TIME2); /* fokus z BUTTON na text obchůzky s vyšším zpožděním - jinak se neprovede */
@@ -1043,6 +1107,7 @@ setTimeout(this.non.bind(this),this.TIME); /* pomalé vymyzení opacity z 1 na 0
 poloha.reset(); /* vymaže údaje o poloze - v kresly.js */
 kresly.system(this.id_can); /* vykreslí systém v hlavním kontejneru */
 this.zapis(); /* funkce zajistí zápis potvrzené obchůzky do Formulářů s obchůzkama */
+this.pl_obch(); // funkce zobrazí obchůzku, která bude následovat jko další obchůzka
 pruvodce.o_posun(); /* posunu obchůzky v systému obchůzek +11 v pruvodce js */
 uloz.osoba(); /* uloží data na localstorage globální objekt osoba - kvůli posunu obchůzky +11 */
 },
