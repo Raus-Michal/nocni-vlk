@@ -973,7 +973,11 @@ this.aktivace();
 this.handleEvent();
 }}};
 
-const hl_kon={id_kon:"hl-kon",id_kotva:"hlavicka",TIME1:150,TIME2:200,TIME3:250,TIME4:500,f_id_cisti:["obch15","obch30","obch60","obch120"],
+const hl_kon={
+id_kon:"hl-kon", // id hlavního kontajneru
+display_con:"flex", // css vlastnost display
+id_kotva:"hlavicka", // id kotvy kam bude scroll top
+TIME1:150,TIME2:200,TIME3:250,TIME4:500,f_id_cisti:["obch15","obch30","obch60","obch120"],
  /* OBJEKT OVLÁDÁ ZAVÍRÁNÍ A OTVÍRÁNÍ HL. KONTAJNERU */
 
 cisti_form(){
@@ -1000,7 +1004,7 @@ otevri(ID_old){
 document.getElementById(ID_old).style.zIndex="-1"; /* nedovolí klikat na prvnky - není třeba vypínat posluchče, aby nedošlo k více kliku */
 document.getElementById(ID_old).style.opacity=0;
 setTimeout(`document.getElementById("${ID_old}").style.display="none";`,this.TIME1);
-setTimeout(`document.getElementById("${this.id_kon}").style.display="grid";`,this.TIME2);
+setTimeout(`document.getElementById("${this.id_kon}").style.display="${this.display_con}";`,this.TIME2);
 setTimeout(`document.getElementById("${this.id_kon}").style.opacity=1;`,this.TIME3);
 setTimeout(`document.getElementById("${this.id_kon}").style.zIndex="0";document.getElementById("${this.id_kotva}").scrollIntoView({behavior:"smooth"});`,this.TIME4);
 }};

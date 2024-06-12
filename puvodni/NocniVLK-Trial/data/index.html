@@ -20,7 +20,8 @@
 </head>
 <body id="telo">
 
-<main id="hl-kon" class="kon">
+<main id="hl-kon" class="h-kon">
+
 <header id="hlavicka" class="hlav">
 <div class="hlav-kon">
 <div class="img-logo"> </div>
@@ -35,22 +36,16 @@
 </nav>
 </header>
 
-
+<section class="kon">
 
 <div id="k-h" class="uhr">
-
 <div class="uhr-kon">
-
 <p class="box-h"><span id="hod" class="uhr-h an-w">WAIT…</span> <span id="sec1" class="uhr-s"> </span><span id="sec2" class="uhr-s"> </span></p>
-
 </div>
-
-<div class="vypln1"> </div>
-
 </div>
 
 <div id="sec-kruh" class="kruh">
-<div class="p-r">
+<div class="kruh-box">
 <canvas id="can-hl" class="can mb-0" height="400" width="400">Canvas není podporován Vaším prohlížečem</canvas>
 <img id="tlapa" class="i-tlap" src="svg/tlapka.svg" alt="Tlapa Nočního VLKa" loading="lazy">
 </div>
@@ -64,13 +59,6 @@
 <p class="box-h t-odp"><span id="o-min" class="uhr-h">0</span><span id="o-sec1" class="uhr-s">0</span><span id="o-sec2" class="uhr-s">0</span></p>
 <button id="pl-ob" class="but bs" type="button" title="Provést obchůzku teď">Provést obchůzku teď</button>
 <button id="max-ob" class="but bs" type="button" title="Provést největší obchůzku">Provést obchůzku do&#8239;<span id="t-max-o">00</span>&#8239;minut</button>
-</div>
-</div>
-
-<div class="histori">
-<div class="poz-box">
-<textarea id="area-his" class="poz-area" title="Historie akcí" readonly>Zkušební verze&#8239;1.2</textarea>
-<p>Historie akcí</p>
 </div>
 </div>
 
@@ -90,8 +78,6 @@ Zámek obrazovky
 <li id="zas-li"><button id="zastav" type="button" title="Zastavit Nočného VLKa"><span id="zastav-svg" class="sp-i"> </span>Zastavit</button></li>
 </ul>
 </nav>
-
-<div class="vypln3"> </div>
 
 <div class="minutka">
 <div id="m" class="i-box">
@@ -199,12 +185,10 @@ Vpravo
 </ol>
 </div>
 
-<div class="vypln3"> </div>
+</section>
 
 <footer class="paticka">
-
 <div class="box-pat">
-
 <p>&copy; 2023 Boar-cz</p>
 <p class="f-07">(všechna práva vyhrazena)</p>
 <address class="kontakt">
@@ -212,7 +196,6 @@ Vpravo
 <a href="javascript:dia.on('d-kon');" title="Kontakt na programátora">Kontaktujte&nbsp;nás</a></p>
 </address>
 </div>
-
 </footer>
 
 </main>
@@ -796,7 +779,7 @@ Zavřít
 <div class="d-telo">
 <p>Promiňte</p>
 <p><span class="p_n">Funkce anebo&nbsp;záložka, není&nbsp;součástí této verze aplikace.</span></p>
-<p><span class="p_n">Používáte zkušební&nbsp;verzi.</span></p>
+<p><span class="p_n">Používáte zkušební&nbsp;verzi 1.2</span></p>
 </div>
 <div class="d-butt d-butS">
 <button id="b-neni-ok" class="but" type="button" title="Rozuměl jsem">Rozumím</button>

@@ -116,155 +116,90 @@ background:var(--b3);
 cursor:not-allowed;
 }
 
+.h-kon
+{
+width:100%;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+background:var(--b1);
+}
+
 .kon
 {
+align-self:center;
 display:grid;
 grid-template-columns:repeat(6,1fr);
-grid-template-rows:auto auto .25fr repeat(6,auto) .25fr repeat(5,auto) 1fr auto;
+align-content:center;
+grid-template-rows:repeat(10,auto);
 grid-template-areas:
-"hlav hlav hlav hlav hlav hlav"
-"uhr uhr uhr uhr uhr uhr"
-"v1 v1 v1 v1 v1 v1"
+"uhr uhr uhr uhr uhr uhr" 
 "can can can can can can"
 "odp odp odp odp odp odp"
-"his his his nav2 nav2 nav2"
-"his his his nav2 nav2 nav2"
-"his his his nav2 nav2 nav2"
-"zam zam zam nav2 nav2 nav2"
-"v2 v2 v2 v2 v2 v2"
-"min min pla pla kon kon"
-"poz poz poz poz pre pre"
-"hla hla hla hla hla ."
-"jas jas jas jas jas ."
+"pla pla pla nav2 nav2 nav2"
+"min min min nav2 nav2 nav2"
+"pre pre pre nav2 nav2 nav2"
+"poz poz poz poz poz poz"
+"hla hla hla hla hla kon"
+"jas jas jas jas jas zam"
 "obr obr obr obr obr obr"
-"v3 v3 v3 v3 v3 v3"
-"pat pat pat pat pat pat"
 ;
 background:var(--b1);
-height:auto;
-min-height:100vh;
 width:100%;
-max-width:100rem; /* 1600px */
+max-width:62.5rem; /* 1000px */
 transition:250ms;
 }
 
-/* větší než 1600px - maximální šířka kontejneru */
-@media only screen and (min-width: 100em)
-{
-.kon
-{
-border:1px solid var(--b2_50);
-}}
 
 /* MOBIL L pokud je obrazovka větší než 23.25em - 372px */
-@media only screen and (min-width: 23.25em)
+@media only screen and (min-width:23.25em)
 {
 .kon
 {
 grid-template-columns:repeat(12,1fr);
-grid-template-rows:auto auto .25fr repeat(6,auto) .25fr repeat(5,auto) 1fr auto;
 grid-template-areas:
-"hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav"
 "uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
-"v1 v1 v1 v1 v1 v1 v1 v1 v1 v1 v1 v1"
 "can can can can can can can can can can can can"
 "odp odp odp odp odp odp odp odp odp odp odp odp"
-"his his his his his his nav2 nav2 nav2 nav2 nav2 nav2"
-"his his his his his his nav2 nav2 nav2 nav2 nav2 nav2"
-"his his his his his his nav2 nav2 nav2 nav2 nav2 nav2"
-"poz poz poz poz poz poz nav2 nav2 nav2 nav2 nav2 nav2"
-"v2 v2 v2 v2 v2 v2 v2 v2 v2 v2 v2 v2"
-"zam zam zam zam zam zam min min min pla pla pla"
-"zam zam zam zam zam zam min min min pla pla pla"
-"hla hla hla hla hla hla kon kon kon pre pre pre"
-"jas jas jas jas jas jas kon kon kon pre pre pre"
+"pla pla pla min min min nav2 nav2 nav2 nav2 nav2 nav2"
+"kon kon kon pre pre pre nav2 nav2 nav2 nav2 nav2 nav2"
+"zam zam zam zam zam zam nav2 nav2 nav2 nav2 nav2 nav2"
+"poz poz poz poz poz poz poz poz poz poz poz poz"
+"hla hla hla hla hla hla hla hla . . . ."
+"jas jas jas jas jas jas jas jas . . . ."
 "obr obr obr obr obr obr obr obr obr obr obr obr"
-"v3 v3 v3 v3 v3 v3 v3 v3 v3 v3 v3 v3"
-"pat pat pat pat pat pat pat pat pat pat pat pat"
 ;
 }}
 
-@media only screen and (min-width: 31.25em) /* 500px */
+@media only screen and (min-width:31.25em) /* 500px */
 {
 .kon
 {
-grid-template-rows:auto .25fr auto auto .25fr repeat(5,auto) 1fr auto;
+grid-template-rows:repeat(7,auto);
 grid-template-areas:
-"hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav"
-"v1 v1 v1 v1 v1 v1 v1 v1 v1 v1 v1 v1"
 "uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
 "can can can can can can odp odp odp odp odp odp"
-"v2 v2 v2 v2 v2 v2 v2 v2 v2 v2 v2 v2"
-"pla pre his his his his his zam zam zam zam zam"
-"min kon his his his his his nav2 nav2 nav2 nav2 nav2"
-"jas jas poz poz poz poz poz nav2 nav2 nav2 nav2 nav2"
-"hla hla poz poz poz poz poz nav2 nav2 nav2 nav2 nav2"
+"pla pla min min kon kon pre pre nav2 nav2 nav2 nav2"
+"jas jas jas jas jas zam zam zam nav2 nav2 nav2 nav2"
+"hla hla hla hla hla zam zam zam nav2 nav2 nav2 nav2"
+"poz poz poz poz poz poz poz poz nav2 nav2 nav2 nav2"
 "obr obr obr obr obr obr obr obr obr obr obr obr"
-"v3 v3 v3 v3 v3 v3 v3 v3 v3 v3 v3 v3"
-"pat pat pat pat pat pat pat pat pat pat pat pat"
 ;
 }}
 
-@media only screen and (min-width: 37.5em) /* 600px */
+@media only screen and (min-width:43.75em) /* 700px */
 {
 .kon
 {
-grid-template-rows:auto .25fr auto auto .25fr repeat(5,auto) 1fr auto;
+grid-template-columns:repeat(14,1fr);
+grid-template-rows:repeat(6,auto);
 grid-template-areas:
-"hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav"
-"v1 v1 v1 v1 v1 v1 v1 v1 v1 v1 v1 v1"
-"uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
-"can can can can can can odp odp odp odp odp odp"
-"v2 v2 v2 v2 v2 v2 v2 v2 v2 v2 v2 v2"
-"pla pla pre his his his his his zam zam zam zam"
-"min min kon his his his his his nav2 nav2 nav2 nav2"
-"jas jas jas poz poz poz poz poz nav2 nav2 nav2 nav2"
-"hla hla hla poz poz poz poz poz nav2 nav2 nav2 nav2"
-"obr obr obr obr obr obr obr obr obr obr obr obr"
-"v3 v3 v3 v3 v3 v3 v3 v3 v3 v3 v3 v3"
-"pat pat pat pat pat pat pat pat pat pat pat pat"
-;
-}}
-
-@media only screen and (min-width: 50em) /* 800px */
-{
-.kon
-{
-grid-template-rows:auto .25fr auto auto .25fr repeat(5,auto) 1fr auto;
-grid-template-areas:
-"hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav"
-"v1 v1 v1 v1 v1 v1 v1 v1 v1 v1 v1 v1"
-"uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
-"can can can can can can can odp odp odp odp odp"
-"v2 v2 v2 v2 v2 v2 v2 v2 v2 v2 v2 v2"
-"pla min pre kon his his his his his nav2 nav2 nav2"
-"jas jas jas zam his his his his his nav2 nav2 nav2"
-"jas jas jas zam poz poz poz poz poz nav2 nav2 nav2"
-"hla hla hla zam poz poz poz poz poz nav2 nav2 nav2"
-"obr obr obr obr obr obr obr obr obr obr obr obr"
-"v3 v3 v3 v3 v3 v3 v3 v3 v3 v3 v3 v3"
-"pat pat pat pat pat pat pat pat pat pat pat pat"
-;
-}}
-
-@media only screen and (min-width: 56em) /* 896px */
-{
-.kon
-{
-grid-template-rows:auto .25fr auto auto .25fr repeat(5,auto) 1fr auto;
-grid-template-areas:
-"hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav hlav"
-"v1 v1 v1 v1 v1 v1 v1 v1 v1 v1 v1 v1"
-"uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
-"can can can can can can can odp odp odp odp odp"
-"v2 v2 v2 v2 v2 v2 v2 v2 v2 v2 v2 v2"
-"pla min pre kon his his his his his nav2 nav2 nav2"
-"jas jas jas zam his his his his his nav2 nav2 nav2"
-"jas jas jas zam poz poz poz poz poz nav2 nav2 nav2"
-"hla hla hla zam poz poz poz poz poz nav2 nav2 nav2"
-"obr obr obr obr obr obr obr obr obr obr obr obr"
-"v3 v3 v3 v3 v3 v3 v3 v3 v3 v3 v3 v3"
-"pat pat pat pat pat pat pat pat pat pat pat pat"
+"uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
+"can can can can can can can odp odp odp odp odp odp odp"
+"pla pla min min kon kon pre pre zam zam nav2 nav2 nav2 nav2"
+"jas jas jas jas poz poz poz poz poz poz nav2 nav2 nav2 nav2"
+"hla hla hla hla poz poz poz poz poz poz nav2 nav2 nav2 nav2"
+"obr obr obr obr obr obr obr obr obr obr obr obr obr obr"
 ;
 }}
 
@@ -328,13 +263,7 @@ padding:0;
 }
 
 
-@media only screen and (min-width: 37.5em) /* 600px */
-{
-.nav-ul
-{
-gap:1rem;
-margin:.5rem 1rem .5rem 1rem;
-}}
+
 
 .nav-ul li
 {
@@ -473,9 +402,6 @@ font-size:calc(1.5rem + 1vw);
 grid-area:can;
 display:none;
 justify-content:center;
-padding:.5rem;
-background:black;
-border-top:1px solid var(--b2_50);
 }
 
 @media only screen and (min-width: 31.25em) /* 500px */
@@ -484,8 +410,14 @@ border-top:1px solid var(--b2_50);
 {
 margin-bottom:1rem;
 justify-content:flex-end;
-border-bottom:1px solid var(--b2_50);
 }}
+
+.kruh-box
+{
+position:relative;
+padding:1rem;
+}
+
 
 .i-tlap
 {
@@ -506,26 +438,21 @@ grid-area:odp;
 display:none;
 align-items:center;
 text-align:center;
-padding:0 .5rem 0 .5rem;
-background:black;
 margin-bottom:1rem;
-border-bottom:1px solid var(--b2_50);
 }
 
 .odp-box
 {
 width:100%;
+padding:0 1rem;
 }
 
 @media only screen and (min-width: 31.25em) /* 500px */
 {
-.odp
-{
-border-top:1px solid var(--b2_50);
-}
 .odp-box
 {
 max-width:20rem;
+padding:2rem 1rem;
 }}
 
 .t-odp
@@ -534,6 +461,8 @@ line-height:.9;
 justify-content:center;
 margin-bottom:.25rem;
 color:var(--b3);
+background:black;
+border-radius:16px 16px 0 0;
 }
 
 .nav2
@@ -712,10 +641,6 @@ margin-bottom:.25rem;
 background-image:url('../svg/zamek.svg');
 }
 
-.histori
-{
-grid-area:his;
-}
 
 .minutka
 {
@@ -806,7 +731,7 @@ margin:0;
 
 .poz-area
 {
-font-size:.8rem;
+font-size:1rem;
 width:100%;
 margin:0;
 padding:.25rem;
@@ -814,6 +739,7 @@ color:var(--b1);
 background:var(--b4);
 border-radius:5px;
 height:100%;
+min-height:5rem;
 }
 
 /* MOBIL L pokud je obrazovka větší než 23.25em - 372px */
@@ -821,8 +747,8 @@ height:100%;
 {
 .poz-area
 {
-font-size:1rem;
 max-width:25rem;
+
 }}
 
 .poz-area::-webkit-scrollbar { display: none; }
@@ -843,12 +769,6 @@ grid-area:hla;
 padding:0 .5rem 0 .5rem;
 }
 
-@media only screen and (min-width: 37.5em) /* 600px */
-{
-.hlasitost
-{
-padding:0 .5rem 0 1rem;
-}}
 
 /*********** Baseline, reset styles ***********/
 input[type="range"] {
@@ -961,12 +881,7 @@ grid-area:jas;
 padding:0 .5rem 0 .5rem;
 }
 
-@media only screen and (min-width: 37.5em) /* 600px */
-{
-.jas
-{
-padding:0 .5rem 0 1rem;
-}}
+
 
 .paticka
 {
@@ -977,7 +892,6 @@ justify-content:center;
 background:black;
 border-top:2px solid var(--b2_50);
 padding-top:1rem;
-margin-top: 1rem;
 }
 
 .box-pat
@@ -1061,20 +975,6 @@ background-image:url('../svg/p_vpravo.svg');
 background-image:url('../svg/p_min.svg');
 }
 
-.vypln1
-{
-grid-area:v1;
-}
-
-.vypln2
-{
-grid-area:v2;
-}
-
-.vypln3
-{
-grid-area:v3;
-}
 .okno
 {
 display:none; /* flex */
@@ -2238,11 +2138,6 @@ top:0;
 left:0;
 will-change:transform;
 z-index:1;
-}
-
-.p-r
-{
-position:relative;
 }
 
 .f110
