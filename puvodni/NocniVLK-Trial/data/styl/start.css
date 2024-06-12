@@ -74,6 +74,7 @@ font-size:calc(2rem + 1vw);
 
 h2
 {
+padding-top:1rem;
 font-size:1.5rem;
 font-size:calc(1.5rem + 1vw);
 }
@@ -118,6 +119,11 @@ margin:.125rem;
 button
 {
 font-weight:normal;
+}
+
+button:focus{
+outline:none; /* Odstranění standardního zvýraznění focusu */
+box-shadow:0 0 5px var(--b2); /* Přidání stínu pro zvýraznění focusu */
 }
 
 a,a:link,a:visited,a:active
@@ -267,6 +273,21 @@ background-color: rgba(0,0,0,0.7);
 }
 
 dialog::-webkit-scrollbar { display: none; }
+
+.b-box
+{
+position:-webkit-sticky;
+position:sticky;
+bottom:-1rem;
+left:0px;
+z-index:2;
+background:var(--b4);
+margin:0 -1rem -1rem -1rem;
+padding:1rem;
+border-top:1px solid black;
+box-shadow:0px -10px 10px white;
+}
+
 
 .m-b1
 {

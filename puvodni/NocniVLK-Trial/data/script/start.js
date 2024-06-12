@@ -1,14 +1,28 @@
-﻿const licence={id_a:"licen",id_dia:"dia-lic",id_dia_butt:"but-lic",id_dia_nad:"nad-l",t:250,
-/* objekt licence otevře dialogové okno - kde id_a je ID a ; id_dia je ID dialogového okna ; id_dia_butt je ID button dialogového okna; id_dia_nad je ID nadpisu dialogovému oknu ke kterému se bude sroolovat */
+﻿const licence={
+// objekt licence otevře dialogové okno s licenčními podmínkami
+id_a:"licen", // id odkazu, který spouští dialogové okno
+id_dia:"dia-lic", // id dialogového okna
+id_dia_butt:"but-lic", // id buttonu pro zavření dialogového kona
+id_dia_nad:"nad-l", // id nadpisu dialogového okna
+id_dia_bottom:"bot-kot", // id kotvy na konci dialogového okna
+t:600, // čas za který má proběhnout scroll na nadpis dialogového okna
+tb:100, // čas za který se má provést scroll na konec dialogového okna
+
 pust(funkce){
-const odkaz=document.getElementById(this.id_a);
-odkaz.href=`javascript:${funkce}.dia("${this.id_dia_nad}");`;
+// změna href odkazu na funkci javascriptu
+const odkaz=document.getElementById(this.id_a); // načte objekt odkazu
+odkaz.href=`javascript:${funkce}.dia("${this.id_dia_nad}","${this.id_dia_bottom}");`; // změna hrev odkazu
 },
-dia(nad_id){
-const okno=document.getElementById(this.id_dia);
-this._posluchac();
-okno.showModal();
-setTimeout(`document.getElementById("${nad_id}").scrollIntoView({behavior:"smooth"});`,this.t); /* posun za čas T na objet ID */
+dia(nad_id,bottom_id){
+const okno=document.getElementById(this.id_dia); // načte objekt dialogového okna
+this._posluchac(); // zpne posluchač buttonu pro zavření dialogového okna
+okno.showModal(); // otevře dialogové okno
+if(bottom_id)
+{
+// pokud je kotva na konci dialogového okna určena
+setTimeout(`document.getElementById("${bottom_id}").scrollIntoView({behavior:"smooth"});`,this.tb); /* posun za čas T na kotvu, která je na konci dialogového okna */
+}
+setTimeout(`document.getElementById("${nad_id}").scrollIntoView({behavior:"smooth"});`,this.t); /* posun za čas T na nadpis dialogového okna */
 },
 _posluchac(){
 const tl=document.getElementById(this.id_dia_butt), /* tlačítko */
