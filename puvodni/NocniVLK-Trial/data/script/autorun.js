@@ -892,71 +892,69 @@ dia.on(dia.id[4]); /* v autorun.js */
 }
 }};
 
-const v_port={id_o:"uz-obchuzka",id_t:"uz-i-box",sirka:null,vyska:null,id:["spust1","spust2","spust3","spust4","spust5"],id_other:["nastaveni","obchuzky"],other:false,pruvodce:false,
+const v_port={id_o:"uz-obchuzka",id_t:"uz-i-box",id:["spust1","spust2","spust3","spust4","spust5"],id_other:["nastaveni","obchuzky"],other:false,pruvodce:false,
 
 handleEvent(){
 
-this.parametry(); /* načte parametry visualViewport API */
+// document.body.style.minWidth=parseInt(window.screen.availWidth)+"px"; přepsání hodnoty šířky, dostupnou šířkou zařízení, pomůže lepšímu přepočtu šířky visualViewport 
+// document.body.style.minHeight=parseInt(window.screen.availHeight)+"px"; přepsání hodnoty výšky, dostupnou výšky zařízení, pomůže lepšímu přepočtu výšky visualViewport
 
-let v=this.vyska; /* výška obrazovky */
-let s=this.sirka; /* výška obrazovky */
+document.getElementById(hl_kon.id_kon).style.minHeight=parseInt(window.screen.availHeight)+"px";  // přepsání hodnoty výšky, dostupnou výšky zařízení, pomůže lepšímu přepočtu výšky visualViewport
 
-document.body.style.width=`${s}px`;
-document.body.style.minHeight=`${v}px`;
-document.getElementById(hl_kon.id_kon).style.minHeight=`${v}px`; 
+let v=parseInt(window.visualViewport.height); /* výška visualViewport */
+// let s=parseInt(window.visualViewport.width); šířka visualViewport 
 
-if(tik.a_obchuzka==true)
+// document.body.style.minWidth=`${s}px`;
+// document.body.style.minHeight=`${v}px`;
+
+document.getElementById(hl_kon.id_kon).style.minHeight=`${v}px`; // hlavní kontejner
+
+if(tik.a_obchuzka)
 {
 /* pro výzvu k obchůzce */
-document.getElementById(this.id_o).width=`${s}px`;
-document.getElementById(this.id_o).style.minWidth=`${s}px`;
+// document.getElementById(this.id_o).width=`${s}px`;
+// document.getElementById(this.id_o).style.minWidth=`${s}px`;
 document.getElementById(this.id_o).style.height=`${v}px`;
 document.getElementById(this.id_o).style.minHeight=`${v}px`;
 }
 
 
-if(text.aktivni==true)
+if(text.aktivni)
 {
 /* pro animaci TEXT přes celou obrazovku */
-document.getElementById(this.id_t).width=`${s}px`;
-document.getElementById(this.id_t).style.minWidth=`${s}px`;
+// document.getElementById(this.id_t).width=`${s}px`;
+// document.getElementById(this.id_t).style.minWidth=`${s}px`;
 document.getElementById(this.id_t).style.height=`${v}px`;
 document.getElementById(this.id_t).style.minHeight=`${v}px`; 
 }
 
-if(this.pruvodce==true) /* pokud je průvodce zapnut aktivuje se změna velikosti okna pomocí visualViewport API */
+if(this.pruvodce) /* pokud je průvodce zapnut aktivuje se změna velikosti okna pomocí visualViewport API */
 {
 let l1=this.id.length;
 for(let i=0;i<l1;i++)
 {
-document.getElementById(this.id[i]).style.width=`${s}px`;
+// document.getElementById(this.id[i]).style.width=`${s}px`;
+document.getElementById(this.id[i]).style.height=`${v}px`;
 document.getElementById(this.id[i]).style.minHeight=`${v}px`;
-document.getElementById(this.id[i]).style.maxHeight=`${v}px`;
-}
-}
+}}
 
-if(this.other==true) /* pokud je zapnuto okno Nastavení, Obchůzky, Minutka, Plánovač ...  aktivuje se změna velikosti okna pomocí visualViewport API */
+if(this.other) /* pokud je zapnuto okno Nastavení, Obchůzky, Minutka, Plánovač ...  aktivuje se změna velikosti okna pomocí visualViewport API */
 {
 let l2=this.id_other.length;
 for(let i=0;i<l2;i++)
 {
-document.getElementById(this.id_other[i]).style.width=`${s}px`;
+// document.getElementById(this.id_other[i]).style.width=`${s}px`;
+document.getElementById(this.id_other[i]).style.height=`${v}px`;
 document.getElementById(this.id_other[i]).style.minHeight=`${v}px`;
 }}
 
-if(uzamceni.aktivni==true) /* pokud je zámek obrazovky zapnut aktivuje se změna velikosti okna pomocí visualViewport API */
+if(uzamceni.aktivni) /* pokud je zámek obrazovky zapnut aktivuje se změna velikosti okna pomocí visualViewport API */
 {
-document.getElementById(uzamceni.id).style.width=`${s}px`;
+// document.getElementById(uzamceni.id).style.width=`${s}px`;
+document.getElementById(uzamceni.id).style.height=`${v}px`;
 document.getElementById(uzamceni.id).style.minHeight=`${v}px`;
-document.getElementById(uzamceni.id).style.maxHeight=`${v}px`;
 }
 
-},
-
-parametry(){
-/* vlastnosti */
-this.sirka=window.visualViewport.width;
-this.vyska=window.visualViewport.height;
 },
 
 aktivace(){
@@ -971,6 +969,8 @@ if(window&&window.visualViewport) /* test - zda je visualViewport podporováno *
 {
 this.aktivace();
 this.handleEvent();
+setTimeout(this.handleEvent.bind(this),500); // aktivuje Visual View port API - pro pomalejší zařízení za 500ms
+setTimeout(this.handleEvent.bind(this),1000); // aktivuje Visual View port API - pro ještě pomalejší zařízení za 1000ms
 }}};
 
 const hl_kon={

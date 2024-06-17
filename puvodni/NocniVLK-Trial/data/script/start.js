@@ -383,32 +383,30 @@ window.close();
 };} /* změna parametrů kopie objektu */
 
 
-const v_port={sirka:null,vyska:null,
-parametry(){
-/* vlastnosti */
-this.sirka=window.visualViewport.width;
-this.vyska=window.visualViewport.height;
-},
+const v_port={
 handleEvent(){
-this.parametry(); /* načte parametry visualViewport API */
-document.body.style.width=`${this.sirka}px`;
-document.body.style.minHeight=`${this.vyska}px`;
+document.body.style.minHeight=parseInt(window.screen.availHeight)+"px";  // přepsání hodnoty výšky, dostupnou výšky zařízení, pomůže lepšímu přepočtu výšky visualViewport
+
+let v=parseInt(window.visualViewport.height); // výška visualViewport
+document.body.style.minHeight=`${v}px`;
 },
 aktivace(){
 /* Posluchače */
 window.visualViewport.addEventListener("resize", this);
 window.visualViewport.addEventListener("scroll",this);
-addEventListener("scroll", this);
+addEventListener("scroll",this);
 },
 zahajit(){
 if(window&&window.visualViewport) /* test - zda je visualViewport podporováno */
 {
 this.aktivace(); /* aktivuje posluchače visualViewport API */
 this.handleEvent(); /* zapne poprvé 1x posluchač visualViewport API */
+setTimeout(this.handleEvent.bind(this),500); // aktivuje Visual View port API - pro pomalejší zařízení za 500ms
+setTimeout(this.handleEvent.bind(this),1000); // aktivuje Visual View port API - pro ještě pomalejší zařízení za 1000ms
 }}};
 
 const akce=()=>{
-v_port.aktivace(); /* aktivace visualViewport API */
+v_port.zahajit(); /* aktivace visualViewport API */
 souhlas.posluchac();
 document.getElementById(souhlas.id_ch).disabled=false;
 f(souhlas.id_ch);
