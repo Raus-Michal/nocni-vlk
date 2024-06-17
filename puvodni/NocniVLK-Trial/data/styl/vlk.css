@@ -28,7 +28,6 @@ body
 display:flex;
 justify-content:center;
 align-items:center;
-height:auto;
 min-height:100vh;
 width:100%;
 min-width:13.75rem; /* minimální šířka aplikace 220px */
@@ -119,6 +118,7 @@ cursor:not-allowed;
 .h-kon
 {
 width:100%;
+min-height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:space-between;
@@ -131,6 +131,33 @@ align-self:center;
 display:grid;
 grid-template-columns:repeat(6,1fr);
 align-content:center;
+grid-template-rows:repeat(11,auto);
+grid-template-areas:
+"uhr uhr uhr uhr uhr uhr" 
+"can can can can can can"
+"odp odp odp odp odp odp"
+"pla pla nav2 nav2 nav2 nav2"
+"min min nav2 nav2 nav2 nav2"
+"pre pre nav2 nav2 nav2 nav2"
+"poz poz poz poz poz poz"
+"hla hla hla hla hla hla"
+"jas jas jas jas jas jas"
+"zam zam zam kon kon kon"
+"obr obr obr obr obr obr"
+;
+background:var(--b1);
+width:100%;
+max-width:62.5rem; /* 1000px */
+transition:250ms;
+}
+
+
+/* pokud je obrazovka větší než 17.5em - 280px */
+@media only screen and (min-width:17.5em)
+{
+
+.kon
+{
 grid-template-rows:repeat(10,auto);
 grid-template-areas:
 "uhr uhr uhr uhr uhr uhr" 
@@ -144,10 +171,7 @@ grid-template-areas:
 "jas jas jas jas jas zam"
 "obr obr obr obr obr obr"
 ;
-background:var(--b1);
-width:100%;
-max-width:62.5rem; /* 1000px */
-transition:250ms;
+}
 }
 
 
@@ -171,7 +195,25 @@ grid-template-areas:
 ;
 }}
 
+
 @media only screen and (min-width:31.25em) /* 500px */
+{
+.kon
+{
+grid-template-rows:repeat(8,auto);
+grid-template-areas:
+"uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
+"can can can can can can odp odp odp odp odp odp"
+"pla pla pla min min min nav2 nav2 nav2 nav2 nav2 nav2"
+"kon kon kon pre pre pre nav2 nav2 nav2 nav2 nav2 nav2"
+"zam zam zam zam zam zam nav2 nav2 nav2 nav2 nav2 nav2"
+"hla hla hla hla hla poz poz poz poz poz poz poz"
+"jas jas jas jas jas poz poz poz poz poz poz poz"
+"obr obr obr obr obr obr obr obr obr obr obr obr"
+;
+}}
+
+@media only screen and (min-width:37.5em) /* 600px */
 {
 .kon
 {
@@ -262,7 +304,21 @@ margin:.5rem;
 padding:0;
 }
 
+/*  MOBIL S pokud je obrazovka větší než 19.5em 312px */
+@media only screen and (min-width: 19.5em)
+{
+.nav-ul
+{
+gap:1rem;
+}}
 
+/* MOBIL L pokud je obrazovka větší než 23.25em - 372px */
+@media only screen and (min-width: 23.25em)
+{
+.nav-ul
+{
+margin:.5rem 1rem;
+}} 
 
 
 .nav-ul li
@@ -338,6 +394,7 @@ min-height:3.75rem;
 min-height:calc(3.75rem + 1vw);
 font-size:3.75rem;
 font-size:calc(3.75rem + 1vw);
+line-height:1;
 }
 
 .an-w
@@ -468,7 +525,6 @@ border-radius:16px 16px 0 0;
 .nav2
 {
 grid-area:nav2;
-margin-right:.5rem;
 }
 
 .nav2-ul
@@ -477,6 +533,7 @@ display:flex;
 flex-direction:column;
 align-items:flex-end;
 margin:0;
+margin-right:1rem;
 padding:0;
 list-style-type:none;
 }
@@ -719,8 +776,7 @@ display:grid;
 grid-template-rows:1fr auto;
 justify-items:center;
 height:100%;
-margin:0 .5rem 0 .5rem;
-padding:.5rem 0 .5rem 0;
+padding:.5rem 0;
 }
 
 .poz-box p
@@ -732,13 +788,13 @@ margin:0;
 .poz-area
 {
 font-size:1rem;
-width:100%;
-margin:0;
-padding:.25rem;
+width:calc(100% - (2 * 1rem)); /* 100% mimo margin 1rem vlevo a 1rem vpravo */
+margin:1rem 1rem 0 1rem;
+padding:.5rem;
 color:var(--b1);
 background:var(--b4);
 border-radius:5px;
-height:100%;
+height:calc(100% - 1rem); /* 100% mimo margin 1rem nahoře */
 min-height:5rem;
 }
 
@@ -748,10 +804,9 @@ min-height:5rem;
 .poz-area
 {
 max-width:25rem;
-
 }}
 
-.poz-area::-webkit-scrollbar { display: none; }
+.poz-area::-webkit-scrollbar{display:none;}
 
 .kontakt
 {
