@@ -116,11 +116,12 @@ dia.off(this.id[0]); /* vypne dialogové okno */
 text.pis("Noční&nbsp;VLK byl zastaven");
 gong.hraj(false); /* zahraje GONG.mp3 - FALSE = 1x */
 poloha.reset(); /* vyresetuje hodnoty polohy v systému obchůzek - v kresly.js */
-/* podmínky funkčnosti localstorage - v ozivit.js */
-if(uloz.ok==null){ uloz.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(uloz.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage - v ozivit.js */
+
+if(uloz.ok){ // pokud funguje LocalStorage bude return - funkce v oziv.js
 g_pos.ozivitOn(); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v autorun.js */
+}
+
+
 kresly.obr=null; /* vymaže z paměti obrázek Tlapky nočního vlka - v kresly.js */
 kresly.obr_nacten=false; /* hodnota určuje, že je vymazán z paměti obrázek tlapka Nočního VLKa - v kresly.js */
 }
@@ -574,11 +575,7 @@ for(let i=0;i<l1;i++)
 document.getElementById(this.id_ob[i]).addEventListener("click",this);
 }
 
-/* podmínky funkčnosti localstorage */
-if(uloz.ok==null){ uloz.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(uloz.ok!=true){
-return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 document.getElementById(this.id_but).addEventListener("click",this); /* posluchač k button Obnovit obchůzky uložené aplikací */
 let l2=obch.id_f.length;
@@ -597,11 +594,7 @@ document.getElementById(this.id_ob[i]).removeEventListener("click",this);
 }
 
 
-/* podmínky funkčnosti localstorage */
-if(uloz.ok==null){uloz.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(uloz.ok!=true){
-return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 document.getElementById(this.id_but).removeEventListener("click",this); /* posluchač k button Obnovit obchůzky uložené aplikací */
 
@@ -671,13 +664,13 @@ setTimeout(this.kon.bind(this),250); /* Provede kontrolu změny ve formuláříc
 kon(){
 /* kontrola, jestli data ve formulářích jsou stejná jako data uložená na localstorage */
 
-/* podmínky funkčnosti localstorage */
-if(uloz.ok==null){ uloz.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(uloz.ok!=true){
+if(!uloz.ok){ // pokud uživateli nefunguje LocalStorage
+
 document.getElementById(this.id_but).style.opacity=0.5; /* tlačítko Obnovit obchůzky bude 50% */
 document.getElementById(this.id_but).disabled=true; /* zablokuje tlačítko Obnovit obchůzky */
-return false; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+return false; /* pokud pro zařízení nebude možné použití local storage - provede return */
+
+}
 
 
 const df15=document.getElementById(obch.id_f[0]).value; /* načte data z formuláře obchůzky do 15minut - pole obch.id_f je v vlk.js */

@@ -20,10 +20,7 @@ this.ok=pole[1]; /* první položka v poly je výsledek testu, zda funguje Local
 uloz(klic,data){
 /* funkce zajišťuje ukládání dat na local storage */
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 localStorage.removeItem(klic); /* nejprve provede smazání dat pod klíčem */
 localStorage.setItem(klic,data); /* provede uložení dat na localStorage [klíč,data k uložení] */
@@ -32,10 +29,7 @@ localStorage.setItem(klic,data); /* provede uložení dat na localStorage [klí�
 nacti(klic){
 /* funkce zajišťuje ukládání dat na local storage */
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 let data=localStorage.getItem(klic); /* provede nahrání dat z localStorage [klíč] */
 if(data==null)
@@ -49,20 +43,14 @@ return data;
 smaz(klic){
 /* funkce zajišťuje mazání dat z local storage */
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 localStorage.removeItem(klic); /* smazání dat pod klíčem */
 },
 osoba(){
 /* funkce slouží k ukládání dat objektu OSOBA, který shromažďuje data zvolenmá uživatelem v pruvodce.js */
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 const data=osoba; /* Objekt v pruvodce.js */
 let konverce=JSON.stringify(data); /* provede konverzi, která je následně připravena k použití */
@@ -70,10 +58,7 @@ this.uloz(this.klice[0],konverce); /* pošle data funkci, která se postará o u
 },
 s_obch(){
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 /* funkce smaže obchůzky z Localstorage */
 localStorage.removeItem(this.klice[4]); /* smaže obchůzky do 15minut */
@@ -84,10 +69,7 @@ localStorage.removeItem(this.klice[7]); /* smaže obchůzky do 120minut */
 u_obch(){
 /* funkce uloží všechny obchůzky z příslušných formulářů */
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 const [df15,df30,df60,df120]=[document.getElementById(obch.id_f[0]).value,document.getElementById(obch.id_f[1]).value,document.getElementById(obch.id_f[2]).value,document.getElementById(obch.id_f[3]).value]; /* data formulář zápisu obchůzek do 15,30,60,120 minut - pole obch.id_f je v vlk.js */
 
@@ -99,10 +81,7 @@ this.uloz(this.klice[7],df120);
 o_obch(){
 /* funkce oživí obchůzky do příslušných formulářů */
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 let o15=this.nacti(this.klice[4]); /* načte obchůzky do 15minut z localstorage */
 let o30=this.nacti(this.klice[5]); /* načte obchůzky do 30minut z localstorage */
@@ -118,14 +97,9 @@ document.getElementById(obch.id_f[3]).value=o120;  /* zapíše obchůzky 120min 
 o_Tout(){
 /* FUNKCE oživí počátek času počítání TIME OUTU */
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
-
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 let cas_T_n=this.nacti(this.klice[3]);  /* načte čas zahájení timeoutu z localstorage v sekundách od roku 1970 */
-
 
 if(cas_T_n=="")
 {
@@ -141,11 +115,7 @@ this.cas_T=cas_T_n;
 o_osoba(){
 /* načte hodnoty pro úpravu objektu osoba - v pruvodce.js */
 
-
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 let data_osoba=this.nacti(this.klice[0]); /* načte objekt osoba z localstorage */
 if(data_osoba==""){this.osoba_kopie=""; return;} /* pokud nebudou načtena žádná data - bude return */
@@ -164,10 +134,7 @@ return;
 o_cas_P(){
 /* načtení hodnot počátku počátíná času do intervalu */
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 let cas_P=localStorage.getItem(this.klice[1]);  /* načte čas zahájení odpočtu z localstorage */
 
@@ -181,10 +148,7 @@ this.z_den=parseInt(cas_P); /* čas v milisekundách od roku cca 1970  */
 o_v_obchuz(){
 /* načte data,zda nedochází k oživení v obchůzce */
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 let v_obch=this.nacti(this.klice[2]);  /* načte zda nedošlo k oživení v obchůzce */
 
@@ -257,11 +221,9 @@ document.getElementById(p_nas.id_nas[9]).checked=false; /* odstraní Zatržení 
 }}
 },
 oziv(tlacitkem){
+// funkce zajišťuje vše potřebné k oživení Nočního VLKa
 
-/* podmínky funkčnosti localstorage */
-if(this.ok==null){ this.a(); /* aktivace - posouzení použitelnosti Local storage */ }
-if(this.ok!=true){return; /* pokud pro zařízení nebude možné použití local storage - provede return */ }
-/* KONEC podmínky funkčnosti localstorage */
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 this.o_zvuk(); /* načte volbu zvuku alarmu Noční VLK uloženou uživatelem */
 
@@ -340,6 +302,7 @@ g_pos.aktivace(); /* aktivuje všechny posluchače události hlavního kontajner
 tik.aktivace(); /* aktivuje SetInterval 500ms */
 hlidac.aktivace(); /* aktivuje ochranu před uspáním - pouze kvůli VisualVievport API !!!!!  */
 zvuk.zaloz(); // založí všechny audio mp3 do globální proměnné window ve vlk.js
+this.a(); // kontrola jestli funguje uživateli LocalStorage
 this.oziv(); /* oživení */
 
 }
