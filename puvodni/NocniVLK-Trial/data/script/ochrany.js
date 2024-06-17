@@ -30,33 +30,33 @@ f_video.pust(); /* pustí fake video - které zabrání uzamčení obrazovky */
 }
 }};
 
-const posuvnik={TIME:15000, /* zajišťuje odstranění posuvníku při nehýbání myší déle jak 15sekund */
-trida:null,casovac:null,
+const posuvnik={
+TIME:15000, /* zajišťuje odstranění posuvníku při nehýbání myší déle jak 15sekund */
+casovac:null, // časovač, pro schování posuvníku
+_class:"no_bar", // název css třídy, která vipíná viditelnost posuvníku a kurzoru myši ve vlk.css
 
 zahajeni(){
-this.trida=document.body.className; /* načte případné třídy BODY */
 document.body.addEventListener("mousemove",posuvnik.viditelny);
 document.body.addEventListener("mousewheel",posuvnik.viditelny);
 },
 off(){
-clearTimeout(posuvnik.casovac);
-posuvnik.trida=document.body.className; /* načte případné třídy BODY */
-document.body.className+=" no_bar"; /* přidá ke třídě BODY třídu, která odebere posuvník */
+clearTimeout(this.casovac);
+document.body.classList.add(this._class); // HTMLobjekt.classList.add("název-třídy-css") zajistí přidání css třídy no_bar pokud není třída přítomna v objektu
 document.body.addEventListener("mousemove",posuvnik.viditelny);
 document.body.addEventListener("mousewheel",posuvnik.viditelny);
 },
 pause(){
-clearTimeout(posuvnik.casovac);
+clearTimeout(this.casovac);
 document.body.removeEventListener("mousemove",posuvnik.pause);
 document.body.removeEventListener("mousewheel",posuvnik.pause);
 posuvnik.viditelny();
 },
 viditelny(){
+document.body.classList.remove(this._class); // HTMLobjekt.classList.remove("název-třídy-css") zajistí odebrání css třídy no_bar pokud je třída přítomna v objektu
 document.body.removeEventListener("mousemove",posuvnik.viditelny);
 document.body.removeEventListener("mousewheel",posuvnik.viditelny);
-document.body.className=posuvnik.trida; /* vrátí BODY původní třídu */
-clearTimeout(posuvnik.casovac);
-posuvnik.casovac=setTimeout("posuvnik.off();",this.TIME);
+clearTimeout(this.casovac);
+this.casovac=setTimeout("posuvnik.off();",this.TIME);
 document.body.addEventListener("mousemove",posuvnik.pause);
 document.body.addEventListener("mousewheel",posuvnik.pause);
 }};

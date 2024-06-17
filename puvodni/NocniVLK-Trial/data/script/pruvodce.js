@@ -1,20 +1,25 @@
-﻿const posun={id_okna:"spust",typ:"flex",id_nadpis:"n",TIME1:150,TIME2:200,TIME3:250,TIME4:500,
-okna(puvodni,nove){
-/* funkce zajišťuje posun mezi jednotlivými kroky nastavení */
-const stare=this.id_okna+puvodni;
-const otevrit=this.id_okna+nove;
-const kotva=this.id_nadpis+nove;
-document.getElementById(stare).style.zIndex="-1"; /* nedovolí klikat na prvnky - není třeba vypínat posluchče, aby nedošlo k více kliku */
-document.getElementById(stare).style.opacity=0; /* začne zatmavovat původní okno */
-setTimeout(`document.getElementById("${stare}").style.display="none";`,this.TIME1); /* vypne původní okno */
-setTimeout(`document.getElementById("${otevrit}").style.display="${this.typ}";`,this.TIME2); /* zapne nové okno */
-setTimeout(`document.getElementById("${otevrit}").style.opacity=1;`,this.TIME3); /* začne pomalu zviditelňovat nové okno */
-setTimeout(`document.getElementById("${otevrit}").style.zIndex="0";document.getElementById("${kotva}").scrollIntoView({behavior:"smooth"});`,this.TIME4); /* posun na nadpis v případě, že bude okno menší než obsah na výšku !!!!  */
+﻿const posun={id_okna:"spust",typ:"flex",id_nadpis:"n",TIME1:100,TIME2:150,TIME3:250,TIME4:500,
+okna(stare,nove){
+/* funkce zajišťuje posun mezi jednotlivými kroky nastavení Spustit Nočního VLKa */
+const zavrit=this.id_okna+stare; // id okna mají stejný id + jsou jednotlivě odčíslovány, což vytvoří celkový string id okna
+const otevrit=this.id_okna+nove; //  id okna mají stejný id + jsou jednotlivě odčíslovány, což vytvoří celkový string id okna
+const kotva=this.id_nadpis+nove; //  id nadpisy mají stejný id + jsou jednotlivě odčíslovány, což vytvoří celkový string id nadpisu
+document.getElementById(zavrit).style.zIndex=-1; /* nedovolí klikat na prvnky starého okna - není třeba vypínat posluchče, aby nedošlo k více kliku */
+document.getElementById(zavrit).style.opacity=0; /* nastaví opacity=0 na staré okno */
+document.getElementById(zavrit).style.display="none"; /* nastaví display=none na staré okno */
+
+setTimeout(()=>{
+document.getElementById(otevrit).style.display=this.typ; // u nového okna zapne display=typ
+},this.TIME1); // zpoždění musí být, aby nedošlo k nežádoucímu poskočení okna
+
+setTimeout(()=>{
+document.getElementById(otevrit).style.opacity=1;
+document.getElementById(otevrit).style.zIndex=0;
+document.getElementById(kotva).scrollIntoView({behavior:"smooth"});
+},this.TIME2);
 }};
 
-
 let osoba={o15:false,o30:false,o60:false,o120:false,i15:810,i30:1620,i60:3240,i120:6480,okruh:11,odloz_start:0,level:3}; /* objekt udržuje základní informace o nastavení uživatele při startu Nočního VLKa */
-
 
 const _int={ /* objekt slouží k přepisu intervalu nastaveného uživatelem v průvodci spustit Nočního Vlka, v rekapitulaci a v Nastavení */ id_in:["i-15","i-30","i-60","i-120"],id_in_r:["i-15r","i-30r","i-60r","i-120r"],id_r:["ir-15","ir-30","ir-60","ir-120"],id_r_r:["ir-15r","ir-30r","ir-60r","ir-120r"],id_lev:["i-l","i-l-r"],
 do15:[750,780,810,825,840,855,870],

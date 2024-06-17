@@ -741,6 +741,7 @@ handleEvent(){
 clearTimeout(this.casovac);
 document.getElementById(this.id).style.opacity=1; /* nechá krytí na 100% */
 hl_kon.otevri(this.id); /* zruší zámek a otevře hlavní kontajner */
+this.oOFF(); // odebere posluchače
 },
 zhasni(){
 clearTimeout(this.casovac);
@@ -988,36 +989,56 @@ const hl_kon={
 id_kon:"hl-kon", // id hlavního kontajneru
 display_con:"flex", // css vlastnost display
 id_kotva:"hlavicka", // id kotvy kam bude scroll top
-TIME1:150,TIME2:200,TIME3:250,TIME4:500,f_id_cisti:["obch15","obch30","obch60","obch120"],
+TIME1:100, // časová prodleva 1
+TIME2:150, // časová prodleva 2
+f_id_cisti:["obch15","obch30","obch60","obch120"], // pole obsahuje id formulářů s obchůzkami
  /* OBJEKT OVLÁDÁ ZAVÍRÁNÍ A OTVÍRÁNÍ HL. KONTAJNERU */
 
 cisti_form(){
-/* funcke vyčistí formuláře podle ID v poly, tak aby tam nezůstaly případná nežádoucí data */
-let l1=this.f_id_cisti.lenght;
+/* funcke vyčistí formuláře s obchůzkami podle ID v poly, tak aby tam nezůstaly případná nežádoucí data */
+let l1=this.f_id_cisti.lenght; // délka pole
 for(let i=0;i<l1;i++)
 {
-document.getElementById(this.f_id_cisti[i]).value="";
+document.getElementById(this.f_id_cisti[i]).value=""; // nastavení prázdné hodnoty
 }
 },
 
 zavri(IDnew,typ,id_scroll){
-/* funkce zavře hlavní kontejder */
-document.getElementById(this.id_kon).style.zIndex="-1"; /* nedovolí klikat na prvnky - není třeba vypínat posluchče, aby nedošlo k více kliku */
-document.getElementById(this.id_kon).style.opacity=0;
-setTimeout(`document.getElementById("${this.id_kon}").style.display="none";`,this.TIME1);
-setTimeout(`document.getElementById("${IDnew}").style.display="${typ}";`,this.TIME2);
-setTimeout(`document.getElementById("${IDnew}").style.opacity=1;`,this.TIME3);
-setTimeout(`document.getElementById("${IDnew}").style.zIndex="0";document.getElementById("${id_scroll}").scrollIntoView({behavior:"smooth"});`,this.TIME4); /* posun na nadpis v případě, že bude okno menší než obsah na výšku !!!!  */
+/* funkce zavře hlavní kontejder a otevře požadovanou sekci, (id-sekce,typ nastavení display CSS, nepovynný id prvku na který má po otevření nového okna proběhnout scroll) */
+document.getElementById(this.id_kon).style.zIndex=-1; // nastaví hlavní kontajner na z-index=-1, což nedovolí klikat na prvnky - není třeba vypínat posluchče, aby nedošlo k více kliknutím
+document.getElementById(this.id_kon).style.opacity=0; // nastaví opacity hlavního kontajneru na 0
+document.getElementById(this.id_kon).style.display="none"; // nastaví hlavní kontejner na display=0
+
+setTimeout(()=>{
+document.getElementById(IDnew).style.display=typ; // nastaví display nového okna, které nahradí hlavní kontajner
+document.getElementById(IDnew).style.zIndex=0; // nastaví z-index nového okna, které nahradí hlavní kontajner
+},this.TIME1); // zpoždění musí být vyšší než nastavení display=none na hlavním kontajneru, jinak dojde k nepříjemnému poskočení okna a neprojeví se transmition
+
+setTimeout(()=>{
+document.getElementById(IDnew).style.opacity=1; //  // nastaví opacity nového okna, které nahradí hlavní kontajner
+if(id_scroll)
+{
+document.getElementById(id_scroll).scrollIntoView({behavior:"smooth"});  // provede scroll na určený prvek, pokud byl určen, tento scroll musí být o něco později než nastavení kontajneru prvku na display=typ, jinak není možné prvek na stránce zachytit, protože doposud se tam nenachází
+}
+},this.TIME2); // zpoždění musí být oněco vyšší než display=typ, jinak nemůže správně JS manipulovat s prvky, protože se nestihnou vytvořit
 },
 
 otevri(ID_old){
-/* funkce otevře hlavní kontejder */
-document.getElementById(ID_old).style.zIndex="-1"; /* nedovolí klikat na prvnky - není třeba vypínat posluchče, aby nedošlo k více kliku */
-document.getElementById(ID_old).style.opacity=0;
-setTimeout(`document.getElementById("${ID_old}").style.display="none";`,this.TIME1);
-setTimeout(`document.getElementById("${this.id_kon}").style.display="${this.display_con}";`,this.TIME2);
-setTimeout(`document.getElementById("${this.id_kon}").style.opacity=1;`,this.TIME3);
-setTimeout(`document.getElementById("${this.id_kon}").style.zIndex="0";document.getElementById("${this.id_kotva}").scrollIntoView({behavior:"smooth"});`,this.TIME4);
+/* funkce zavře okno jiného kontejneru a otevře hlavní kontejder */
+document.getElementById(ID_old).style.zIndex=-1; // nastaví z-index kontajneru, který má byýt uzavřen na -1, což nedovolí klikat na prvnky - není třeba vypínat posluchče, aby nedošlo k více kliku
+document.getElementById(ID_old).style.opacity=0; // nastaví opacity kontajneru, který se má uzavřít na 0
+document.getElementById(ID_old).style.display="none"; // nastaví displey=none kontajneru, který se má uzavřít
+
+setTimeout(()=>{
+document.getElementById(this.id_kon).style.display=this.display_con; // nastaví display hlavního kontajneru
+document.getElementById(this.id_kon).style.zIndex=0; // nastaví z-index hlavního kontajneru
+},this.TIME1); // zpoždění musí být vyšší než nastavení display=none na kontajneru, jinak dojde k nepříjemnému poskočení okna a neprojeví se transmition
+
+setTimeout(()=>{
+document.getElementById(this.id_kon).style.opacity=1; // opacity=1 pro hlavní kontejner
+document.getElementById(this.id_kon).style.zIndex=0; // z-index=0 pro hlavní kontajner
+document.getElementById(this.id_kotva).scrollIntoView({behavior:"smooth"}); // scroll na kotvu hlavního kontejneru
+},this.TIME2); // zpoždění musí být oněco vyšší než display=typ, jinak nemůže správně JS manipulovat s prvky, protože se nestihnou vytvořit
 }};
 
 const autorun={id_error:"div-error",id_but:"but-error",cesta:"../NocniVLK.html",lic:null,
@@ -1073,7 +1094,7 @@ if(this.lic!=true)
 return; /* pokud nebude licence v pořádku ukončí funkci */
 }
 this.poloh();
-hl_kon.cisti_form(); /* vyčistí formuláře, tak, aby tam nezůstala případná nežádoucí data */
+hl_kon.cisti_form(); /* vyčistí formuláře obchůzek, tak, aby tam nezůstala případná nežádoucí data */
 window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
 
 }};
