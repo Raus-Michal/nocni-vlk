@@ -179,8 +179,7 @@ case this.tl_dal[0]:
 hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
 posun.okna(1,2);
 pruvodce.odloz(0); /* funkce pouze pro kalibraci odloženého startu - věř, je to potřeba */
-zvuk.zaloz(); /* vytvoří objekt audio MP3 alarmu Nočního VLKa - ve vlk.js */
-gong.zaloz(); /* vytvoří objekt audio MP3 - Gong - ve vlk.js */
+zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
 break;
 
 case this.tl_dal[1]:
@@ -202,15 +201,6 @@ posun.okna(3,4);
 break;
 
 case this.tl_dal[3]:
-if(osoba.odloz_start!=0)
-{
-/* pokud se odložený start nebude rovnat nule - bude po první výžvě k obchůzce roven 0 */
-gong.nahraj(); /* nahraje do paměti zvuk pro GONG - mp3 - v vlk.js */
-}
-else
-{
-zvuk.nahraj(); /* nahraje do paměti zvuk upozornění Alarmu */
-}
 
 posun.okna(4,5);
 kresly.system(this.id_can_r); /* vykreslí plátno se systémem obchůzek v rekapitulaci */
@@ -649,43 +639,59 @@ const t120=[document.getElementById(this.id_ter[3]),document.getElementById(this
 if(o15==true){
 t15[0].style.borderColor=z;  /* terč první strana v průvodci */
 t15[1].style.borderColor=z;  /* terč v rekapitulaci - poslední strana v průvodci */
+t15[0].style.boxShadow=`0px 0px 10px ${z}`;  /* terč první strana v průvodci */
+t15[1].style.boxShadow=`0px 0px 10px ${z}`;  /* terč v rekapitulaci - poslední strana v průvodci */
 }
 else
 {
 t15[0].style.borderColor=c;
 t15[1].style.borderColor=c;
+t15[0].style.boxShadow="0px 0px 0px transparent";  /* terč první strana v průvodci */
+t15[1].style.boxShadow="0px 0px 0px transparent";  /* terč v rekapitulaci - poslední strana v průvodci */
 }
 if(o30==true)
 {
 t30[0].style.borderColor=z;
 t30[1].style.borderColor=z;
+t30[0].style.boxShadow=`0px 0px 10px ${z}`;
+t30[1].style.boxShadow=`0px 0px 10px ${z}`;
 }
 else
 {
 t30[0].style.borderColor=c;
 t30[1].style.borderColor=c;
+t30[0].style.boxShadow="0px 0px 0px transparent";
+t30[1].style.boxShadow="0px 0px 0px transparent";
 }
 
 if(o60==true)
 {
 t60[0].style.borderColor=z;
 t60[1].style.borderColor=z;
+t60[0].style.boxShadow=`0px 0px 10px ${z}`;
+t60[1].style.boxShadow=`0px 0px 10px ${z}`;
 }
 else
 {
 t60[0].style.borderColor=c;
 t60[1].style.borderColor=c;
+t60[0].style.boxShadow="0px 0px 0px transparent";
+t60[1].style.boxShadow="0px 0px 0px transparent";
 }
 
 if(o120==true)
 {
 t120[0].style.borderColor=z;
 t120[1].style.borderColor=z;
+t120[0].style.boxShadow=`0px 0px 10px ${z}`;
+t120[1].style.boxShadow=`0px 0px 10px ${z}`;
 }
 else
 {
 t120[0].style.borderColor=c;
 t120[1].style.borderColor=c;
+t120[0].style.boxShadow="0px 0px 0px transparent";
+t120[1].style.boxShadow="0px 0px 0px transparent";
 }
 },
 trep(co){

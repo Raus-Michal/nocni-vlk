@@ -28,7 +28,6 @@ body
 display:flex;
 justify-content:center;
 align-items:center;
-/* min-height:100vh; */
 width:100%;
 min-width:13.75rem; /* minimální šířka aplikace 220px */
 color:var(--b4);
@@ -473,6 +472,7 @@ justify-content:flex-end;
 {
 position:relative;
 padding:1rem;
+margin:auto;
 }
 
 
@@ -1597,6 +1597,7 @@ padding:1rem;
 .obchuzka_box
 {
 background:var(--b4);
+border:1px solid var(--b2);
 color:var(--b1);
 margin:auto;
 z-index:12;

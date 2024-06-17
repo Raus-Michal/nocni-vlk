@@ -1,4 +1,9 @@
-﻿const tik={cas:500,a_obchuzka:false,a_odpocet:false,class_h:"uhr-h",
+﻿window.tik={ // window.tik je schválně vložen do objektu window, aby se zvýšila jeho priorita, neboť tento objekt je zásadní pro fugování aplikace
+cas:500,
+a_obchuzka:false, // určuje zda je aktivní upozornění na obchůzku
+a_odpocet:false, // určuje, zda je aktivní odpočet do obchůzky (tedy zda je zapnutý Noční VLK)
+a_uspano:false, // proměnná určuje zda došlo k uspání aplikace
+class_h:"uhr-h", // název class v CSS, která zruší pozůstatek stínu z animace stínování Wait...
 tak(){ /* funkce je nekonečný interval zajišťující veškeré procesy, které je třeba hlídat v reálném čase */
 hodiny.tik(); /* zápis hodin na hlavním kontejneru */
 
@@ -6,15 +11,22 @@ if(this.a_obchuzka)
 {
 /* pokud je výzva k obchůzce aktivní */
 hodinyO.tik(); /* zápis hodin na výzvě k obchůzce */
-zvuk.zesiluj(); /* bude postupně zesilovat hlasitost alarmu */
+zvuk.zesiluj(); /* bude postupně zesilovat hlasitost alarmu - ve vlk.js */
 obch.pocitej_T_OUT(); /* počítání Timeout */
 }
 
 if(this.a_odpocet)
 {
-/* pokud je odpočet - Noční VLK aktivní */
+/* pokud je odpočet - Noční VLK je zapnutý */
 obch.odpocet(); /* funkce odpočítává konec Intervalu do obchůzky - ve vlk.js */
 }
+
+if(this.a_uspano)
+{
+// pokud dojde k uspání aplikace, proměnná tik.a_uspano, je ovládána z ochrany.js
+pinkani.zesiluj(); /* bude postupně zesilovat hlasitost pinkání - ve vlk.js */
+}
+
 
 },
 aktivace(){
@@ -162,7 +174,6 @@ if(k==this.usp[0]||k==this.usp[1])
 hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
 zamek.blok(); /* aktivuje blokaci zámku obrazovky */
 /* window.onbeforeunload=function(){return 'Chcete zavřít aplikaci Noční VLK?';};  ochrana před náhodným uzavřením aplikace */
-/* zvuk.nahraj();  nahraje do paměti zvuk upozornění Alarmu */
 uzamceni.jednou(); /* pokud bude aktivní zámek obrazovky - zobrazí, že je aplikace uzamčena */
 dia.off(this.id[3]); /* vypne dialogové okno */
 }
@@ -176,13 +187,11 @@ dia.off(this.id[4]); /* vypne dialogové okno */
 if(k==this.oziv[0])
 {
 /* Kliknuto na Rozumím - OŽIVENÍ NOČNÍHO VLKA  */
-zvuk.zaloz(); /* vytvoří objekt audio MP3 alarmu Nočního VLKa - ve vlk.js */
-gong.zaloz(); /* vytvoří objekt audio MP3 - Gong - ve vlk.js */
-/* hlidac.zaloz();  vytvoří objekt audio MP3 - ochrana před uspáním karty */
 zamek.blok(); /* aktivuje blokaci zámku obrazovky */
 window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
 vlk.ozivit(); /* spustí oživovací procesy Nočního VLKA - ve vlk.js */
 hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
+zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
 dia.off(this.id[5]); /* vypne dialogové okno */
 }
 
@@ -510,32 +519,32 @@ uloz.osoba(); /* uloží na localstorage data z objektu osoba (v pruvodce.js), t
 else if(k==this.id_nas[3])
 {
 /* klik - volba zvuk alarmu Noční VLK - 1 */
-zvuk.volba(1); /* změna zvuku na zvuk 1 - ve vlk.js  */
+zvuk.volba(0); /* změna zvuku na zvuk 1 - ve vlk.js  */
 }
 else if(k==this.id_nas[4])
 {
 /* klik - volba zvuk alarmu Noční VLK - 2 */
-zvuk.volba(2); /* změna zvuku na zvuk 1 - ve vlk.js  */
+zvuk.volba(1); /* změna zvuku na zvuk 1 - ve vlk.js  */
 }
 else if(k==this.id_nas[5])
 {
 /* klik - volba zvuk alarmu Noční VLK - 3 */
-zvuk.volba(3);
+zvuk.volba(2);
 }
 else if(k==this.id_nas[6])
 {
 /* klik - volba zvuk alarmu Noční VLK - 4 */
-zvuk.volba(4);
+zvuk.volba(3);
 }
 else if(k==this.id_nas[7])
 {
 /* klik - volba zvuk alarmu Noční VLK - 5 */
-zvuk.volba(5);
+zvuk.volba(4);
 }
 else if(k==this.id_nas[8])
 {
 /* klik - volba zvuk alarmu Noční VLK - 6 */
-zvuk.volba(6);
+zvuk.volba(5);
 }
 else if(k==this.id_nas[9])
 {
@@ -771,8 +780,7 @@ document.getElementById(this.obj[1][i]).addEventListener("click",this); /* poslu
 let l2=this.obj[2].length;
 for(let i=0;i<l2;i++)
 {
-document.getElementById(this.obj[2][i]).addEventListener("input",this); /* posluchač pro ovládání zvuku a ovládání jasu */
-document.getElementById(this.obj[2][i]).addEventListener("click",this); /* posluchač pro ovládání zvuku a ovládání jasu */
+document.getElementById(this.obj[2][i]).addEventListener("change",this); /* posluchač pro ovládání zvuku a ovládání jasu */
 }
 
 
@@ -801,7 +809,6 @@ pruvodce.a(); /* funkce, která má být kliknutím spuštěna - v pruvodce.js *
 if(k==this.obj[5][0]||k==this.obj[5][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
 {
 /* Kliknuto na Oživit Nočního VLKA */
-zvuk.nahraj(); /* nahraje do paměti zvuk upozornění Alarmu */
 hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
 zamek.blok(); /* aktivuje blokaci zámku obrazovky */
 window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
@@ -857,7 +864,11 @@ jas.zmen(this.obj[2][1]);
 
 if(k==this.obj[2][0])
 {
-zvuk.zmen(this.obj[2][0]);
+zvuk.zastav(); // zastaví zvuk, pokud by byl přehráván - ve vlk.js
+zvuk.zmen(this.obj[2][0]); // změní hlasitost zvuku alarmu - ve vlk.js
+pinkani.zmen(this.obj[2][0]); // změní hlasitost pinkání pro hlídání uspání aplikace - ve vlk.js
+gong.zmen(this.obj[2][0]); // změní hlasitost zvuku gong - ve vlk.js
+zvuk.hraj(false); // přehraje zvuk alarmu 1x - ve vlk.js
 }
 
 /* pro tlačítko Nastavení */
@@ -944,8 +955,8 @@ let l2=this.id_other.length;
 for(let i=0;i<l2;i++)
 {
 // document.getElementById(this.id_other[i]).style.width=`${s}px`;
-document.getElementById(this.id_other[i]).style.height=`${v}px`;
-document.getElementById(this.id_other[i]).style.minHeight=`${v}px`;
+// document.getElementById(this.id_other[i]).style.height=`${v}px`;
+document.getElementById(this.id_other[i]).style.minHeight=`${v}px`; // stačí použe minimální výška !!!!
 }}
 
 if(uzamceni.aktivni) /* pokud je zámek obrazovky zapnut aktivuje se změna velikosti okna pomocí visualViewport API */

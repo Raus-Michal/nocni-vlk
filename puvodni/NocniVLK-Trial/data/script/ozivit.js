@@ -238,9 +238,6 @@ if(volba!="")
 /* pokud byla načtena nějáká volba */
 volba=parseInt(volba); /* převede textový řetězec na číslo */
 zvuk.cislo=volba; /* provede změnu volby v objektu zvuk - ve vlk.js */
-let typ=zvuk.cislo-1; /* ubere číslu 1, aby odpovídalo začátku pole this.alarm - ve vlk.js  */
-zvuk.cesta=zvuk.alarm[typ]; /* změní cestu podle výběru - ve vlk.js  */
-zvuk.nahraj(); /* nahraje mp3 do paměti - ve vlk.js  */
 }
 
 if(zesilovani!="")
@@ -332,25 +329,23 @@ akce(){
 
 if(this.p.pruvodce==true&&this.p.autorun==true&&this.p.vlk==true&&this.p.ochrany==true&&this.p.kresly==true)
 {
-clearInterval(this.casovac);
+clearInterval(this.casovac); // zastaví časovač
 
-if(autorun.lic!=true)
+if(!autorun.lic)
 {
 return; /* pokud nebude licence v pořádku ukončí funkci v autorun.js */
 }
 
-/* alert("knihovny jsou připraveny na oživení"); */
-
 g_pos.aktivace(); /* aktivuje všechny posluchače události hlavního kontajneru */
 tik.aktivace(); /* aktivuje SetInterval 500ms */
 hlidac.aktivace(); /* aktivuje ochranu před uspáním - pouze kvůli VisualVievport API !!!!!  */
-
+zvuk.zaloz(); // založí všechny audio mp3 do globální proměnné window ve vlk.js
 this.oziv(); /* oživení */
 
 }
 else
 {
-this.casovac=setInterval(this.akce.bind(this),this.TIME);
+this.casovac=setInterval(this.akce.bind(this),this.TIME); // zapne časovač, který bude kontrolovat splnění podmínek
 }
 
 }};

@@ -62,25 +62,10 @@ document.body.addEventListener("mousewheel",posuvnik.pause);
 }};
 
 
-const hlidac={id:"audio-ochrana",zalozeno:false,aktivovan:false,mp3:null,cesta:"alarm/alarm5.mp3",volume_min:0.01,volume:1,udalos_viditelnost:"",odpocet:false,TIME:1000,casovac:null,
-zesiluj(){
-/* funkce postupně zesiluje hlasitost alarmu */
-this.mp3.volume=this.volume_min;
-
-this.volume_min=this.volume_min+0.01; /* postupné zesilování */
-
-if(this.volume_min>=this.volume)
-{
-this.volume_min=this.volume;
-clearInterval(this.casovac); /* vypne časový interval pro zesilování */
-}},
-zaloz(){
-/* funkce založí Audio objekt */
-this.mp3=document.getElementById(this.id); /* nahraje objekt audio do paměti */
-this.mp3.load(); /* připraví mp3 na přehrátí */
-this.mp3.volume=this.volume_min; /* nastaví hlasitost audia na minimum */
-this.zalozeno=true;
-},
+window.hlidac={ // window.hlidac je schválně vložen do objektu window, aby určil nejvyšší prioritu pro fungování aplikace
+aktivovan:false, // proměnná hlídá, zda je hlídač před uspáním aplikace aktivní
+udalos_viditelnost:"", // proměnná slouží k určení, zda zařízení podporuje hlídání viditelnosti stránky a v jakém formátu
+odpocet:false, // tato proměnná hlídá jestli je odpočet zapnutý, tedy zda je zapnutá hlavní funkce aplikace Noční VLK
 aktivace(){
 
 if(this.aktivovan==true)
@@ -113,34 +98,29 @@ this.udalos_viditelnost=udalos_viditelnost;
 
 if(typeof document.addEventListener==="undefined"||neviditelnost===undefined)
 {
+console.log("API kontrola viditelnosti stránky nefunguje.");
 return;
-/* alert("API kontrola viditelnosti stránky nefunguje."); */
 }
 else
 {
-/* API viditelnosti je v pořádku */
-if(this.zalozeno!=true)
-{
-/* pokud nebude audio mp3 zalozeno - založí se */
-this.zaloz(); /* založí audio mp3 */
-}
-document.addEventListener(this.udalos_viditelnost,this,false ); /* aktivuje posluchač události */
-this.aktivovan=true;
+/* podpora API viditelnosti je v pořádku */
+document.addEventListener(this.udalos_viditelnost,this,false); /* aktivuje posluchač události */
+this.aktivovan=true; // proměnná zohledňuje, že posluchač pro viditelnost stránky, byl aktivován
 }},
 DEaktivace(){
-document.removeEventListener(this.udalos_viditelnost,this,false );
-this.aktivovan=false;
+document.removeEventListener(this.udalos_viditelnost,this,false); // odbrání posluchače pro viditelnost stránky
+this.aktivovan=false; // proměnná zohledňuje, že posluchač pro viditelnost stránky, byl DEaktivován
 },
 handleEvent(){
 if(document.visibilityState==="hidden") /* pokud není obrazovka s apllikací viditelná */
 {
 /* POKUD DOJDE K USPÁNÍ OKNA APLIKACE */
 
-if(this.odpocet==true) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
+if(this.odpocet) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
 {
 f_video.zvuk("ztlumit");  /* vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
-this.mp3.play(); /* přehraje zvuk */
-this.casovac=setInterval(this.zesiluj.bind(this),this.TIME); /* začne postupně zesilovat zvuk */
+pinkani.hraj(true); /* přehraje zvuk pinkání stále dokola */
+tik.a_uspano=true; // proměnná určuje, v objektu TIK ve autorun.js, že se má postupně začít zesilovat zvuk pinkání
 }
 
 }
@@ -148,22 +128,18 @@ else
 {
 /* POKUD DOJDE K OPĚTOVNÉMU ZBUZENÍ OKNA APLIKACE */
 
-if(this.odpocet==true) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
+if(this.odpocet) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
 {
-clearInterval(this.casovac); /* vypne interval, který postupně zesiloval zvuk */
-this.mp3.pause();
-this.volume_min=0.01; /* dá nejnižší hlasitost na default */
-this.mp3.volume=this.volume_min; /* nastaví hlasitost audia na minimum */
+pinkani.zastav(); // zastaví přehrávání zvuku pinkání - ve vlk.js
+tik.a_uspano=false; // proměnná určuje, v objektu TIK ve autorun.js, že se má postupně přestat zesilovat zvuk pinkání
 f_video.zvuk("zesilit");  /* zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 dia.on(dia.id[3]); /* v autorun.js */
 }
 else
 {
 /* v případě, že by bylo okno opět aktivováno a přitom byla aktivní výzva k obchůzce včetně alarmu */
-clearInterval(this.casovac); /* vypne interval, který postupně zesiloval zvuk */
-this.mp3.pause();
-this.volume_min=0.01; /* dá nejnižší hlasitost na default */
-this.mp3.volume=this.volume_min; /* nastaví hlasitost audia na minimum */
+pinkani.zastav(); // zastaví přehrávání zvuku pinkání - ve vlk.js
+tik.a_uspano=false; // proměnná určuje, v objektu TIK ve autorun.js, že se má postupně přestat zesilovat zvuk pinkání
 }
 
 v_port.handleEvent(); /* aktivuje propočet velikosti ona podle VisualViewport API - na některých zaříueních např. iPad dojde jinak ke "scvrknutí" okna aplikace */

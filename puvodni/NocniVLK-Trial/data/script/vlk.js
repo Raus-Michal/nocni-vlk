@@ -23,12 +23,11 @@ document.getElementById(this.id_li[1]).style.display="block"; /* zobrazí tlač�
 
 if(osoba.odloz_start==0)
 {
-zvuk.nahraj(); /* nahraje do paměti zvuk upozornění Alarmu */
 obch.aktivace(); /* zapne výzvu k obchůzce - pokud nebude nastavený odložený start první obchůzky */
 }
 else
 {
-gong.nahraj(); /* nahraje do paměti zvuk pro GONG - mp3 - v vlk.js */
+
 text.pis("Start první obchůzky byl&nbsp;odložen");
 gong.hraj(false); /* zahraje GONG.mp3 - FALSE = 1x */
 kresly.system(obch.id_can); /* vykreslí systém v hlavním kontejneru */
@@ -205,59 +204,72 @@ obch.pl_obch(); // vypíše text plánované obchůzky
 osoba.okruh=okruh_puvodni; /* po vykreslení systému obchůzek, vrátí okruh na původní stav */
 };
 
+window.audio =[]; // vytvoření globálního objektu window, pro uložení audio mp3, které bude používat aplikace
+window.zalozeno=false; // vytvoření globálního objektu window, které určuje, zda byly mp3 audia zoloženy do globální proměnné window.audio
 
-const zvuk={zalozeno:false,zesilovat:true,mp3:null,cislo:1,cesta:"alarm/alarm1.mp3",alarm:["alarm/alarm1.mp3","alarm/alarm2.mp3","alarm/alarm3.mp3","alarm/alarm4.mp3","alarm/alarm5.mp3","alarm/alarm6.mp3"] ,nahrano:null,volume_min:0.05,volume:0.75,bc:"rgb(218,65,103)",bcT:"rgb(137,157,120)",
+
+const zvuk={
+zesilovat:true, // určuje zda bude zvuk přehráván postupným zesilováním, pokud true= ano , false=ne
+cislo:0,
+alarm:["alarm/alarm1.mp3","alarm/alarm2.mp3","alarm/alarm3.mp3","alarm/alarm4.mp3","alarm/alarm5.mp3","alarm/alarm6.mp3"], // mp3 audia, které jsou používána v aplikaci
+volume_min:0.05,
+volume:0.75,
+bc:"rgb(218,65,103)",
+bcT:"rgb(137,157,120)",
 zaloz(){
-this.mp3=new Audio(this.cesta);
-this.zalozeno=true;
-},
-nahraj(){
-if(this.zalozeno!=true)
+// založí všechny audio mp3 do globální proměnné window
+if(window.zalozeno)
 {
-/* pokud nebude Audio mp3 objekt zalozen - založí ho */
-this.zaloz();
+return; // pokud již byly zvuky založeny v globálním objektu, bude return
 }
-this.mp3.load(); /* nahraje mp3 do mezipaměti */
-this.nahrano=true;
+
+let delka=this.alarm.length; // délka pole s mp3, které mají být uchovány v paměti
+for(let i=0;i<delka;i++)
+{
+let audio=new Audio(this.alarm[i]); // tvorba audia
+window.audio.push(audio); // vloží každé audio do globálního objektu window
+}
+window.zalozeno=true; // proměnná informuje, že již došlo k založení mp3 audia do globálního objektu windows
 },
 hraj(jak){
-if(this.nahrano!=true)
+
+if(!window.zalozeno)
 {
-this.nahraj(); /* pokud není mp3 nahraná do paměti - nahraje ji */
+// pokud ještě nebyly audio mp3 založeny v globálním objektu windows - založí je
+this.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny
 }
 
-this.mp3.loop=jak; /* pokud bude jak false - zajistí, že přehraje zvuk pouze 1x ; pokud true - bude se přehrávat dokola */
+window.audio[this.cislo].loop=jak; /* pokud bude jak false - zajistí, že přehraje zvuk pouze 1x ; pokud true - bude se přehrávat dokola */
 this.volume_min=0.05; /* dá nejnižší hlasitost na default */
 
 if(jak==true)
 {
-if(this.zesilovat==true)
+if(this.zesilovat)
 {
 /* pokud bude aktivováno zesilování */
-this.mp3.volume=this.volume_min;
+window.audio[this.cislo].volume=this.volume_min;
 }
-else if(this.zesilovat==true)
+else if(!this.zesilovat)
 {
 /* pokud NEbude aktivováno zesilování */
-this.mp3.volume=this.volume; /* nastavení defaul hlasitosi je 75% */
+window.audio[this.cislo].volume=this.volume; /* nastavení defaul hlasitosi je 75% */
 }
-this.mp3.play();
+window.audio[this.cislo].play();
 }
 else if(jak==false)
 {
-this.mp3.volume=this.volume; /* nastavení defaul hlasitosi je 75% */
-this.mp3.play(); /* pustí mp3 */
-/* hlidac.load_mp3();  nahraje do mezipaměti mp3 ochrany před uspáním karty - viz. ochrany.js */
+window.audio[this.cislo].volume=this.volume; /* nastavení defaul hlasitosi je 75% */
+window.audio[this.cislo].play(); /* pustí mp3 */
 }
 
 },
 zesiluj(){
 /* funkce postupně zesiluje hlasitost alarmu - použito v autorun.js - funkce TIK */
 
-if(this.zesilovat==true)
+if(this.zesilovat)
 {
 /* pokud bude aktivováno zesilování */
-this.mp3.volume=this.volume_min;
+window.audio[this.cislo].volume=this.volume_min;
 /* rozdílné zvyšování hlasitosti podle současně nastavené hlasitosti */
 if(this.volume<0.5)
 {
@@ -273,15 +285,16 @@ this.volume_min=this.volume_min+0.03;
 if(this.volume_min>=this.volume)
 {
 this.volume_min=this.volume;
-}}},
+}
+
+}},
 
 zmen(id){
 /* změna hlasitosti aplikace */
 let hodnota=parseInt(document.getElementById(id).value);
 if(hodnota<this.min){hodnota=this.min;}
 this.volume=hodnota/100;
-this.hraj(false); /* přehraje zvuk 1x */
-}, 
+},
 barvy(){
 /* barvení tlačítek s volbou zvuku */
 
@@ -292,33 +305,11 @@ let l1=b.length;
 for(let i=0;i<l1;i++)
 {
 b[i].style.borderColor=this.bc; /* přebarví všechny tlačítka na default barvu */
+b[i].style.boxShadow="0px 0px 0px transparent"; /* odebere stín všem tlačítkům */
 }
 
-/* podmínky přebarví tlačítko podle toho, na které bylo kliknuto, a tedy, kter zvuk byl vybrán */
-if(this.cislo==1)
-{
-b[0].style.borderColor=this.bcT;
-}
-else if(this.cislo==2)
-{
-b[1].style.borderColor=this.bcT;
-}
-else if(this.cislo==3)
-{
-b[2].style.borderColor=this.bcT;
-}
-else if(this.cislo==4)
-{
-b[3].style.borderColor=this.bcT;
-}
-else if(this.cislo==5)
-{
-b[4].style.borderColor=this.bcT;
-}
-else if(this.cislo==6)
-{
-b[5].style.borderColor=this.bcT;
-}
+b[this.cislo].style.borderColor=this.bcT; // přebarvení tlačítka s volbou zvuku
+b[this.cislo].style.boxShadow=`0px 0px 10px ${this.bcT}`; /* přidá stín tlačítku, jehož zvuk byl vybrán */
 },
 volba(cislo){
 /* volba zvuku */
@@ -331,24 +322,26 @@ return;
 
 this.cislo=cislo; /* zapíše změnu do proměnné objektu */
 uloz.uloz(uloz.klice[10],this.cislo); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
-const typ=cislo-1; /* ubere číslu 1, aby odpovídalo začátku pole this.alarm */
-this.cesta=this.alarm[typ]; /* změní cestu podle výběru */
-this.zaloz(); /* Založí novou mp3 do paměti */
+
 this.hraj(false); /* přehraje zvuk 1x */
 this.barvy(); /* zajistí obarvení vybraného zvuku */
 },
 zastav(){
-this.mp3.pause(); /* zapauzuje přehrávání zvuku */
+window.audio[this.cislo].pause(); /* zapauzuje přehrávání zvuku */
+window.audio[this.cislo].currentTime=0; // posune přehrávání mp3 na její začátek, taa, aby při dalším spuštění opět začínala na začátku
 }};
 
 
 const gong=Object.create(zvuk); /* udělá věrnou kopii objektu zvuk - pro GONG.mp3 */
 {
-gong.cesta="alarm/alarm6.mp3"; /* upraví cestu k gong mp3 */
-gong.nahraj(); /* musí dojít k nahrání mp3 do paměti ! */
+gong.cislo=5; // označí číslo pro přehrávání stopy gongu
 }
 
-
+const pinkani=Object.create(zvuk); /* udělá věrnou kopii objektu zvuk - pro GONG.mp3 */
+{
+pinkani.cislo=4; // označí číslo pro přehrávání stopy pinkání
+pinkani.zesilovat=true; // určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne
+}
 
 const obch={
 id_can:"can-hl", // id canvas pro vykreslování okruhu obchůzek
