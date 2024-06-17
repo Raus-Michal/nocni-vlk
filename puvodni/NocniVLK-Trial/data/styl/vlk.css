@@ -28,6 +28,7 @@ body
 display:flex;
 justify-content:center;
 align-items:center;
+min-height:100vh;
 width:100%;
 min-width:13.75rem; /* minimální šířka aplikace 220px */
 color:var(--b4);

@@ -1,5 +1,4 @@
-﻿const uloz={osoba_kopie:{},z_den:"",cas_T:"",intr:"",ok:null,klice:["osoba","cas_p","obchuz","cas_to","o15","o30","o60","o120","interval","vlk_zas","alarm_v","alarm_zv"],max_obnova_ms:3600000,v_obchuzce:false,TIME:1000,casovac:null,
-p:{pruvodce:null,autorun:null,vlk:null,ochrany:null,kresly:null}, /* objekt shromažďuje data o připravenosti jednotlivých js knihoven, aby po jejich připravenosti bylo možné oživení */
+﻿const uloz={osoba_kopie:{},z_den:"",cas_T:"",intr:"",ok:null,klice:["osoba","cas_p","obchuz","cas_to","o15","o30","o60","o120","interval","vlk_zas","alarm_v","alarm_zv"],max_obnova_ms:3600000,v_obchuzce:false,
 a(){
 /* funkce slouží k aktivaci - posouzení, zda je možno použít localstorage */
 
@@ -211,13 +210,13 @@ if(zesilovani=="true")
 {
 /* pokud uživatel žádá postupnéí zesilování */
 zvuk.zesilovat=true; /* nastaví proměnnou na Povolit postupné zesilování - ve vlk.js */
-document.getElementById(p_nas.id_nas[9]).checked=true; /* nastaví Zatržení na Chckeboxu Postupně zesilovat alarm - id v autorun.js */
+document.getElementById(p_nas.id_nas[9]).checked=true; /* nastaví Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }
 else if(zesilovani=="false")
 {
 /* pokud uživatel nechtěl postupnéí zesilování */
 zvuk.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
-document.getElementById(p_nas.id_nas[9]).checked=false; /* odstraní Zatržení na Chckeboxu Postupně zesilovat alarm - id v autorun.js */
+document.getElementById(p_nas.id_nas[9]).checked=false; /* odstraní Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }}
 },
 oziv(tlacitkem){
@@ -270,13 +269,13 @@ const byl_vlk_zastaven=this.nacti(this.klice[9]); /* načte hodnotu z local stor
 if(byl_vlk_zastaven=="true")
 {
 /* Pokud byl noční VLK zastaven */
-g_pos.ozivitOn(); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v autorun.js */
+g_pos.ozivitOn(); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v centrum.js */
 }
 else
 {
-g_pos.ozivitOn(); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v autorun.js - pokub by uživatel dal v dialogovém okně ESCape, aby měl k dispozici tlačítko Oživit */
+g_pos.ozivitOn(); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v centrum.js - pokub by uživatel dal v dialogovém okně ESCape, aby měl k dispozici tlačítko Oživit */
 this.o_obch(); /* funkce oživí obchůzky do příslušných formulářů */
-dia.on("d-oziv"); /* zapne dialogové okno s informací - že funkce Nočního vlka budou obnoveny - v autorun.js */
+dia.on("d-oziv"); /* zapne dialogové okno s informací - že funkce Nočního vlka budou obnoveny - v centrum.js */
 }
 }
 else
@@ -286,32 +285,8 @@ this.o_obch(); /* funkce oživí obchůzky do příslušných formulářů */
 vlk.ozivit(); /* spustí oživovací procesy Nočního VLKA - ve vlk.js */
 }
 
-},
-akce(){
-
-if(this.p.pruvodce==true&&this.p.autorun==true&&this.p.vlk==true&&this.p.ochrany==true&&this.p.kresly==true)
-{
-clearInterval(this.casovac); // zastaví časovač
-
-if(!autorun.lic)
-{
-return; /* pokud nebude licence v pořádku ukončí funkci v autorun.js */
 }
-
-g_pos.aktivace(); /* aktivuje všechny posluchače události hlavního kontajneru */
-tik.aktivace(); /* aktivuje SetInterval 500ms */
-hlidac.aktivace(); /* aktivuje ochranu před uspáním - pouze kvůli VisualVievport API !!!!!  */
-zvuk.zaloz(); // založí všechny audio mp3 do globální proměnné window ve vlk.js
-this.a(); // kontrola jestli funguje uživateli LocalStorage
-this.oziv(); /* oživení */
-
-}
-else
-{
-this.casovac=setInterval(this.akce.bind(this),this.TIME); // zapne časovač, který bude kontrolovat splnění podmínek
-}
-
-}};
+};
 
 
-uloz.akce();
+pripravenost.ozivit=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v autorun.js - informuje o načtení této js knihovny */

@@ -2,7 +2,7 @@
 const vlk={id_sec:["sec-kruh","sec-odp"],id_but:["pl-ob","max-ob","zastav","t-max-o"],id_z_svg:"zastav-svg",id_t_max_obch:["t-max-o","t-max-o-dia"],id_li:["spu-li","zas-li"],max_obch:false,
 zapni(){
 
-g_pos.ozivitOff(); /* Deaktivuje posluchače událostí a krytí tlačítka na 50% Oživit Nočního VLKa - v autorun.js */
+g_pos.ozivitOff(); /* Deaktivuje posluchače událostí a krytí tlačítka na 50% Oživit Nočního VLKa - v centrum.js */
 uloz.smaz(uloz.klice[9]); /* smaže informaci z local storage, že noční vlk byl zastaven */
 
 let l1=this.id_sec.length;
@@ -27,12 +27,11 @@ obch.aktivace(); /* zapne výzvu k obchůzce - pokud nebude nastavený odložen�
 }
 else
 {
-
 text.pis("Start první obchůzky byl&nbsp;odložen");
 gong.hraj(false); /* zahraje GONG.mp3 - FALSE = 1x */
 kresly.system(obch.id_can); /* vykreslí systém v hlavním kontejneru */
 hlidac.odpocet=true;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se počítá */
-obch.pocitej();
+obch.pocitej(); // začne odpočítávat interval do obchůzky
 }
 
 uloz.osoba(); /* uloží na localstorage data z objektu osoba (v pruvodce.js), tato funkce je v ozivit.js */
@@ -44,7 +43,7 @@ ozivit(){
 
 uloz.klonKOPII(); /* přepis globálních proměnných z klonů a jejich vyčištění - v oziv.js */
 
-g_pos.ozivitOff(); /* Deaktivuje posluchače událostí a krytí tlačítka na 50% Oživit Nočního VLKa - v autorun.js */
+g_pos.ozivitOff(); /* Deaktivuje posluchače událostí a krytí tlačítka na 50% Oživit Nočního VLKa - v centrum.js */
 
 uloz.smaz(uloz.klice[9]); /* smaže informaci z local storage, že noční vlk byl zastaven  - v oziv.js */
 
@@ -73,7 +72,7 @@ if(uloz.v_obchuzce!=true)
 text.pis("Noční&nbsp;VLK byl&nbsp;oživen");
 gong.hraj(false); /* zahraje GONG.mp3 - FALSE = 1x - v vlk.js */
 this.ozivit.kresly_system(); /* funkce slouží k nestandartnímu vykreslení systému obchůzek na hlavní stránce po oživení */
-tik.a_odpocet=true; /* proměnná, která funkci tik.tak() ve autorun.js dáva informaci o tom, že odpočet se počítá */
+tik.a_odpocet=true; /* proměnná, která funkci tik.tak() ve centrum.js dáva informaci o tom, že odpočet se počítá */
 hlidac.odpocet=true;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se počítá */
 }
 else
@@ -150,17 +149,17 @@ const k=e.target.id; /* id prvku na který bylo kliknuto */
 if(k==this.id_but[0])
 {
 /* zmáčknutí tlačítka Provést plánovanou obchůzku teď */
-dia.on(dia.id[1]); /* v autorun.js */
+dia.on(dia.id[1]); /* v centrum.js */
 }
 else if(k==this.id_but[1]||k==this.id_but[3])
 {
 /* zmáčknutí tlačítka Provést plánovanou obchůzku MAXI */
-dia.on(dia.id[2]); /* v autorun.js */
+dia.on(dia.id[2]); /* v centrum.js */
 }
 else if(k==this.id_but[2]||k==this.id_z_svg)
 {
 /* Kliknuto na tlačítko Zastavit Nočního VLKa */
-dia.on(dia.id[0]); /* v autorun.js */
+dia.on(dia.id[0]); /* v centrum.js */
 }
 }};
 
@@ -264,7 +263,7 @@ window.audio[this.cislo].play(); /* pustí mp3 */
 
 },
 zesiluj(){
-/* funkce postupně zesiluje hlasitost alarmu - použito v autorun.js - funkce TIK */
+/* funkce postupně zesiluje hlasitost alarmu - použito v centrum.js - funkce TIK */
 
 if(this.zesilovat)
 {
@@ -298,7 +297,7 @@ this.volume=hodnota/100;
 barvy(){
 /* barvení tlačítek s volbou zvuku */
 
-const b=[document.getElementById(p_nas.id_nas[3]),document.getElementById(p_nas.id_nas[4]),document.getElementById(p_nas.id_nas[5]),document.getElementById(p_nas.id_nas[6]),document.getElementById(p_nas.id_nas[7]),document.getElementById(p_nas.id_nas[8])]; /* button 1,2,3,4,5,6 - volba zvuku alarm Noční VLK - v autorun.js */
+const b=[document.getElementById(p_nas.id_nas[3]),document.getElementById(p_nas.id_nas[4]),document.getElementById(p_nas.id_nas[5]),document.getElementById(p_nas.id_nas[6]),document.getElementById(p_nas.id_nas[7]),document.getElementById(p_nas.id_nas[8])]; /* button 1,2,3,4,5,6 - volba zvuku alarm Noční VLK - v centrum.js */
 
 
 let l1=b.length;
@@ -461,7 +460,7 @@ document.getElementById(this.id_odp[2]).innerText=s2; /* přepíše druhou čís
 pocitej(){
 this.zaz_cas(); /* zaznamená aktuální čas */
 this.interval(); /* funkce slouží k přepočtu nejmenšího intervalu do obchůzky */
-tik.a_odpocet=true; /* proměnná, která funkci tik.tak() ve autorun.js dáva informaci o tom, že odpočet se počítá */
+tik.a_odpocet=true; /* proměnná, která funkci tik.tak() ve centrum.js dáva informaci o tom, že odpočet se počítá */
 hlidac.odpocet=true;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se počítá */
 },
 odpocet(){
@@ -1043,7 +1042,7 @@ uloz.uloz(uloz.klice[7],o120new);
 aktivace(zbyle_s){ /* funkce, která aktivuje výzvu k obchůzce */
 f_video.zvuk("ztlumit");  /* vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 zvuk.hraj(true); /* bude přehrávat zvuk obchůzky dokola */
-tik.a_odpocet=false; /* proměnná, která funkci tik.tak() ve autorun.js dáva informaci o tom, že odpočet se NEmůže počítat */
+tik.a_odpocet=false; /* proměnná, která funkci tik.tak() ve centrum.js dáva informaci o tom, že odpočet se NEmůže počítat */
 hlidac.odpocet=false;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se NEpočítá */
 
 if(uloz.v_obchuzce==false)
@@ -1051,13 +1050,13 @@ if(uloz.v_obchuzce==false)
 this.zaz_casTO(zbyle_s); /* funkce zapíše do proměnných aktivaci počátku počítání TIOMOUTU + zbylé sekundy */
 }
 
-tik.a_obchuzka=true; /* proměnná informuje, že výzva k obchůzce je aktivní - v autorun.js */
+tik.a_obchuzka=true; /* proměnná informuje, že výzva k obchůzce je aktivní - v centrum.js */
 uloz.v_obchuzce=true; /* informuje že obchůzka je aktivní v oziv.js */
 uloz.uloz(uloz.klice[2],true); /* informuje funkci ozivit() že obchůzka je aktivní v oziv.js */
-dia.vyp_akt(); /* vypne aktivní dialogové okna - pokud jsou - v autorun.js */
+dia.vyp_akt(); /* vypne aktivní dialogové okna - pokud jsou - v centrum.js */
 this.tlapa("tlapa"); /* zobrazí tlapu namísto systému obchůzek nočního VLKa */
 this.text(); /* Zajistí aktuální text obchůzky ve výzvě k obchůzce */
-v_port.handleEvent(); /* aktivuje úpravu okna VisualViewport API v autorun.js */
+v_port.handleEvent(); /* aktivuje úpravu okna VisualViewport API v centrum.js */
 if(osoba.odloz_start!=0)
 {
 /* pokud se odložený start nebude rovnat nule - bude po první výžvě k obchůzce roven 0 */
@@ -1083,9 +1082,9 @@ this.posON(); /* zapne posluchače pro Výzvu k obchůzce */
 DEaktivace(){ /* funkce, která DEaktivuje výzvu k obchůzce */
 zvuk.zastav(); /* zastaví zvuk upozornění na obchůzku */
 f_video.zvuk("zesilit");  /* zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
-uzamceni.jednou(); /* pokud bude aktivní zámek obrazovky - zobrazí, že je aplikace uzamčena - v autorun.js */
+uzamceni.jednou(); /* pokud bude aktivní zámek obrazovky - zobrazí, že je aplikace uzamčena - v centrum.js */
 this.posOFF(); /* VYpne posluchače pro Výzvu k obchůzce */
-tik.a_obchuzka=false; /* proměnná informuje, že výzva k obchůzce je DEaktivní v autorun.js */
+tik.a_obchuzka=false; /* proměnná informuje, že výzva k obchůzce je DEaktivní v centrum.js */
 this.zaz_casTO_vycisti(); /* funkce VYCISTÍ proměnné aktivaci počátku počítání TIOMOUTU */
 uloz.uloz(uloz.klice[2],false); /* informuje funkci ozivit() že obchůzka NENÍ aktivní v oziv.js */
 uloz.v_obchuzce=false; /* informuje že obchůzka NENÍ aktivní v oziv.js */
@@ -1118,5 +1117,4 @@ non(){
 document.getElementById(this.id).style.display="none";
 }};
 
-
-uloz.p.vlk=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v oziv.js - informuje o načtení této js knihovny */
+pripravenost.vlk=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v autorun.js - informuje o načtení této js knihovny */

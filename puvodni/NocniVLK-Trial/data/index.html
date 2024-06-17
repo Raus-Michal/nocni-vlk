@@ -779,7 +779,7 @@ Zavřít
 <div class="d-telo">
 <p>Promiňte</p>
 <p><span class="p_n">Funkce anebo&nbsp;záložka, není&nbsp;součástí této verze aplikace.</span></p>
-<p><span class="p_n">Používáte zkušební&nbsp;verzi 1.3</span></p>
+<p><span class="p_n">Používáte zkušební&nbsp;verzi 1.4</span></p>
 </div>
 <div class="d-butt d-butS">
 <button id="b-neni-ok" class="but" type="button" title="Rozuměl jsem">Rozumím</button>
@@ -846,11 +846,12 @@ Zavřít
 </div></div>
 <script src="sw.js"> /* Servisní pracovník pro offline režim */ </script>
 <script src="reg_sw.js"> /* REGISTRACE Servisního pracovníka pro offline režim */ </script>
-<script src="script/ozivit.js"> /* NESMÍ BÝT NACTEN ASYNC! zajišťuje veškeré procesy, které souvisí s ukládáním dat uživatele */ </script>
+<script src="script/autorun.js"> /* NESMÍ BÝT NACTEN ASYNC! shromažďuje údaje o tom, zda byly všechny knihovny asyc již načteny */ </script>
+<script src="script/ozivit.js" async> /* zajišťuje veškeré procesy, které souvisí s ukládáním dat uživatele */ </script>
 <script src="script/pruvodce.js" async>/* zajišťuje spusťení hlavní funkce aplikace Noční VLK */</script>
 <script src="script/kresly.js" async> /* vykresluje plátno CANVAS se systémem obchůzek */ </script>
 <script src="script/vlk.js" async> /* zajišťuje hlavní funkci aplikace Noční VLK - odpočet, zápis obchůzek atd. */ </script>
 <script src="script/ochrany.js" async> /* zajišťuje ochranu před uzamčením obrazovky a uspáním karty */ </script>
-<script src="script/autorun.js" async> /* zajišťuje prvotní spouštění potřebných funkcionali aplkace - např. hodiny visualView port API ... */  </script>
+<script src="script/centrum.js" async> /* zajišťuje prvotní spouštění potřebných funkcionali aplkace - např. hodiny visualView port API ... */  </script>
 </body>
 </html>

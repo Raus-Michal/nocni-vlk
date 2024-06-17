@@ -120,7 +120,7 @@ if(this.odpocet) /* proměnná, která z vlk.js dáva informaci o tom, že odpo�
 {
 f_video.zvuk("ztlumit");  /* vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 pinkani.hraj(true); /* přehraje zvuk pinkání stále dokola */
-tik.a_uspano=true; // proměnná určuje, v objektu TIK ve autorun.js, že se má postupně začít zesilovat zvuk pinkání
+tik.a_uspano=true; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně začít zesilovat zvuk pinkání
 }
 
 }
@@ -131,15 +131,15 @@ else
 if(this.odpocet) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
 {
 pinkani.zastav(); // zastaví přehrávání zvuku pinkání - ve vlk.js
-tik.a_uspano=false; // proměnná určuje, v objektu TIK ve autorun.js, že se má postupně přestat zesilovat zvuk pinkání
+tik.a_uspano=false; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně přestat zesilovat zvuk pinkání
 f_video.zvuk("zesilit");  /* zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
-dia.on(dia.id[3]); /* v autorun.js */
+dia.on(dia.id[3]); /* v centrum.js */
 }
 else
 {
 /* v případě, že by bylo okno opět aktivováno a přitom byla aktivní výzva k obchůzce včetně alarmu */
 pinkani.zastav(); // zastaví přehrávání zvuku pinkání - ve vlk.js
-tik.a_uspano=false; // proměnná určuje, v objektu TIK ve autorun.js, že se má postupně přestat zesilovat zvuk pinkání
+tik.a_uspano=false; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně přestat zesilovat zvuk pinkání
 }
 
 v_port.handleEvent(); /* aktivuje propočet velikosti ona podle VisualViewport API - na některých zaříueních např. iPad dojde jinak ke "scvrknutí" okna aplikace */
@@ -185,6 +185,7 @@ clearTimeout(this.casovac);
 this.casovac= setTimeout(this.pust.bind(this) , this.TIME); /* zapne přehrávání videa za 20sekund  */
 }};
 
-posuvnik.zahajeni(); /* funkce za určitý počet sekund schová posuvníky body, pokud nebude pohyb myši anebo kolečka myši */
 
-uloz.p.ochrany=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v oziv.js - informuje o načtení této js knihovny */
+
+
+pripravenost.ochrany=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v autorun.js - informuje o načtení této js knihovny */

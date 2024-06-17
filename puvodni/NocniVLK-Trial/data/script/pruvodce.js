@@ -183,7 +183,8 @@ const k=e.target.id; /* zjistí ID prvku na který bylo kliknuto */
 switch(k)
 {
 case this.tl_dal[0]:
-hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
+// Klik na Další První KROK v průvodci Spustit Nočního VLKa
+hlidac.aktivace(); /* aktivuje ochranu před uspáním v ochrany.js */
 posun.okna(1,2);
 pruvodce.odloz(0); /* funkce pouze pro kalibraci odloženého startu - věř, je to potřeba */
 zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
@@ -191,34 +192,32 @@ break;
 
 case this.tl_dal[1]:
 window.onbeforeunload=()=>{return "Chcete zavřít aplikaci Noční VLK?";}; /* ochrana před náhodným uzavřením aplikace */
-if(this.volba==true)
+if(this.volba) // pokud byla vybrána více jak jedna obchůzka
 {
-posun.okna(2,3);
+posun.okna(2,3); // posun na výběr první obchůzky
 kresly.system(this.id_can_v); /* vykreslí plátno se systémem obchůzek ve volbě obchůzky */
 }
 else
 {
-posun.okna(2,4);
+posun.okna(2,4); // posun na volbu odloženého startu
 }
 break;
 
 
 case this.tl_dal[2]:
-posun.okna(3,4);
+posun.okna(3,4); // posun z volba první obchůzky na volbu odloženého startu
 break;
 
 case this.tl_dal[3]:
-
-posun.okna(4,5);
+posun.okna(4,5); // posun na rekapitulaci
 kresly.system(this.id_can_r); /* vykreslí plátno se systémem obchůzek v rekapitulaci */
 break;
 
 case this.tl_dal[4]: /* Klik na Spustit */
-/* hlidac.zaloz();  vytvoří objekt audio MP3 - ochrana před uspáním karty */
 zamek.blok(); /* aktivuje blokaci zámku obrazovky */
-hl_kon.otevri(this.id_okno[4]);
+hl_kon.otevri(this.id_okno[4]); // zavře Průvodce spouštěním Nočního VLKa a zapne Hlavní kontejner
 v_port.pruvodce=false; /* informuje Visualwievport, že průvodce spuštěním nočního VLKa je ukončen */
-vlk.zapni();
+vlk.zapni(); // aktiveje hlavní funkci aplikace Noční VLK
 break;
 
 case this.tl_zpet[0]:
@@ -230,18 +229,18 @@ posun.okna(3,2);
 break;
 
 case this.tl_zpet[2]:
-if(this.volba==true)
+if(this.volba) // pokud uživatel zvolil více jak jednu obchůzku
 {
-posun.okna(4,3);
+posun.okna(4,3); // posun na výběr obchůzky
 }
 else
 {
-posun.okna(4,2);
+posun.okna(4,2); // posun na výběr intervalu
 }
 break;
 
 case this.tl_zpet[3]:
-posun.okna(5,4);
+posun.okna(5,4); // posun na volbu odloženého startu
 break;
 } /* KONEC kliknutí na posun okna a SPUŠTĚNÍ */
 
@@ -424,7 +423,7 @@ const level=osoba.level; /* načte globalni hodnoty */
 if(level==1)
 {
 document.getElementById(this.intBUTid[2]).style.opacity=0.5;
-document.getElementById(p_nas.id_nas[2]).style.opacity=0.5; /* p_nas JE v autorun.js */
+document.getElementById(p_nas.id_nas[2]).style.opacity=0.5; /* p_nas JE v centrum.js */
 }
 else if(level==7)
 {
@@ -739,4 +738,4 @@ a4(){
 posun.okna(4,5);
 }};
 
-uloz.p.pruvodce=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v oziv.js - informuje o načtení této js knihovny */
+pripravenost.pruvodce=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v autorun.js - informuje o načtení této js knihovny */
