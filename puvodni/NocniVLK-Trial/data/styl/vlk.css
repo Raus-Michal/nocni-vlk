@@ -1281,9 +1281,14 @@ color:var(--b4);
 border:5px solid var(--b3);
 border-radius:50%;
 padding:.6rem;
-animation:nataceni paused 500ms infinite linear;
+
 transition:600ms;
 cursor:crosshair;
+}
+
+.krAN /* CSS používá JavaScript v pruvodce.js !!! */
+{
+animation:nataceni 30 .75s linear; /* po 30 ciklech se animace sama zastaví */
 }
 
 .kr2
@@ -1295,10 +1300,8 @@ border-color:var(--b5);
 @keyframes nataceni
 {
 0%{transform: perspective(0px) rotateY(0deg);}
-20%{transform: perspective(0px) rotateY(0deg);}
 40%{transform: perspective(10px) rotateY(-.5deg);}
 60%{transform: perspective(10px) rotateY(.5deg);}
-80%{transform: perspective(0px) rotateY(0deg);}
 100%{transform: perspective(0px) rotateY(0deg);}
 }
 

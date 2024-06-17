@@ -71,7 +71,9 @@ osoba.i120=this.do120[level];
 /* KONEC zapíše změnu v intervalech do Objektu dat uživatele */
 }};
 
-const pruvodce={id_okno:["spust1","spust2","spust3","spust4","spust5"],tl_kriz:["k1","k2","k3","k4","k5"],svg_kriz:["s-k1","s-k2","s-k3","s-k4","s-k5"],tl_dal:["dal1","dal2","dal3","dal4","spustVLK"],tl_zpet:["zpet1","zpet2","zpet3","zpet4"],id_terc:["kr15","kr30","kr60","kr120"],id_obch:["o15a","o15b","o30a","o30b","o60a","o60b","o120a","o120b"],vystrel:false,T_vystrel:500,int_id:["int-15","int-30","int-60","int-120"],int_id_r:["int-15r","int-30r","int-60r","int-120r"],id_ter:["kr15","kr30","kr60","kr120"],id_ter_r:["o15_r","o30_r","o60_r","o120_r"],intBUTid:["in-plus1","in-plus2","in-minus1","in-minus2"],volba:null,id_but_z:"but-zme",id_can_v:"can-v-o",id_can_r:"can-rek",id_odl:[["o10P",10],["o10M",-10],["o1P",1],["o1M",-1]],id_odl_u:["o-start","o-start-r"],
+const pruvodce={id_okno:["spust1","spust2","spust3","spust4","spust5"],tl_kriz:["k1","k2","k3","k4","k5"],svg_kriz:["s-k1","s-k2","s-k3","s-k4","s-k5"],tl_dal:["dal1","dal2","dal3","dal4","spustVLK"],tl_zpet:["zpet1","zpet2","zpet3","zpet4"],id_terc:["kr15","kr30","kr60","kr120"],id_obch:["o15a","o15b","o30a","o30b","o60a","o60b","o120a","o120b"],
+class_an:"krAN", // název CSS class, která bude spouštět animaci pohyblivých terčů
+int_id:["int-15","int-30","int-60","int-120"],int_id_r:["int-15r","int-30r","int-60r","int-120r"],id_ter:["kr15","kr30","kr60","kr120"],id_ter_r:["o15_r","o30_r","o60_r","o120_r"],intBUTid:["in-plus1","in-plus2","in-minus1","in-minus2"],volba:null,id_but_z:"but-zme",id_can_v:"can-v-o",id_can_r:"can-rek",id_odl:[["o10P",10],["o10M",-10],["o1P",1],["o1M",-1]],id_odl_u:["o-start","o-start-r"],
 a(){
 v_port.pruvodce=true; /* informuje visulViewport API o tom, že je průvodce zapnut */
 v_port.handleEvent(); /* aktivuje první redukci okna - protože doposud nebyly zapnuté posluchače visualViewportu API */
@@ -441,10 +443,6 @@ obch(ktera){
 let [o15,o30,o60,o120]=[osoba.o15,osoba.o30,osoba.o60,osoba.o120]; /* načte data uživatele */
 let terc=""; /* do proměnné se bude chytat id terče na který bylo kliknuto */
 
-if(this.vystrel==false)
-{ /* podmínka uzavírá animaci - aby nebylo ji možné provést vícekrát */
-this.vystrel=true;
-
 /* Terč obchůzka Do 15 Minut */
 if(ktera==15)
 {
@@ -455,10 +453,6 @@ o15=true;
 else if(o15==true)
 {
 o15=false;
-}
-else
-{
-return this.vystrel=false; /* nebylo kliknuto vůbec na terč a bude return a označeno, že výstřel byl ukončen */
 }
 terc=this.id_ter[0]; /* označí id terče */
 }
@@ -474,10 +468,6 @@ else if(o30==true)
 {
 o30=false;
 }
-else
-{
-return this.vystrel=false;
-}
 terc=this.id_ter[1];
 }
 
@@ -492,10 +482,7 @@ else if(o60==true)
 {
 o60=false;
 }
-else
-{
-return this.vystrel=false;
-}
+
 terc=this.id_ter[2];
 }
 
@@ -510,14 +497,9 @@ else if(o120==true)
 {
 o120=false;
 }
-else
-{
-return this.vystrel=false;
-}
+
 terc=this.id_ter[3];
 }
-
-
 
 /* zapsání hodnot uživatele do objektu */
 osoba.o15=o15;
@@ -534,7 +516,12 @@ this.terc_barvy(); /* funkce přebarvuje TERČE: 1.strana průvodce + v rekapitu
 this.box_int(); /* zajistí zobrazení anebo nezobrazení boxů s nastavením intervalů a TERČŮ (display:block anebo display:none) */
 this.enab_tl(); /* zajistí disabled anebo enabled prvního tlačítka Dále */
 this.v_ochuz(); /* vyhodnotí zda zobrazit KROK volba první obchůzky */
-}},
+},
+trep(co){
+// funkce, která zajistí třepání označených terčů zvolené obchůzky KROK 1 v průvosci spouštění Nočního VLKa
+document.getElementById(co).classList.toggle(this.class_an); // přiřadí anebo odebere CLASS třídu pro animaci hýbajících se terčů
+document.getElementById(co).style.animationPlayState="running"; // pustí animaci hýbajících se terčů, která má v CSS nastavena 30x opakování a pak se sama zastaví, takže není třeba ji nějákým způsobem zastavovat
+},
 v_ochuz(){
 const [o15,o30,o60,o120]=[osoba.o15,osoba.o30,osoba.o60,osoba.o120]; /* načte data uživatele */
 let h=0; /* promněnná pro hodnocení */
@@ -698,16 +685,6 @@ t120[1].style.borderColor=c;
 t120[0].style.boxShadow="0px 0px 0px transparent";
 t120[1].style.boxShadow="0px 0px 0px transparent";
 }
-},
-trep(co){
-
-const t1=this.T_vystrel;
-const t2=this.T_vystrel+150;
-
-document.getElementById(co).style.animationPlayState="running";
-setTimeout(`document.getElementById("${co}").style.animationPlayState="paused";`,t1);
-setTimeout("pruvodce.vystrel=false;",t2);
-
 },
 kriz(){
 /* Klik na křížek v průvodci spustit Nočního VLKa */
