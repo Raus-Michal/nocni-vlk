@@ -146,6 +146,8 @@ handleEvent(e){
 
 const k=e.target.id; /* id prvku na který bylo kliknuto */
 
+klik.hraj(false); // bude přehrávat zvuk 1x klik
+
 if(k==this.id_but[0])
 {
 /* zmáčknutí tlačítka Provést plánovanou obchůzku teď */
@@ -159,7 +161,6 @@ dia.on(dia.id[2]); /* v centrum.js */
 else if(k==this.id_but[2]||k==this.id_z_svg)
 {
 /* Kliknuto na tlačítko Zastavit Nočního VLKa */
-klik.hraj(false); // bude přehrávat zvuk 1x klik
 dia.on(dia.id[0]); /* v centrum.js */
 }
 }};

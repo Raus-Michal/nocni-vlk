@@ -79,7 +79,7 @@ klik.hraj(false); // bude přehrávat zvuk 1x klik
 v_port.pruvodce=true; /* informuje visulViewport API o tom, že je průvodce zapnut */
 v_port.handleEvent(); /* aktivuje první redukci okna - protože doposud nebyly zapnuté posluchače visualViewportu API */
 hl_kon.zavri("spust1","flex","n1"); /* zavře hlavní kontajner a otevře první okno průvodce Spustit Nočního VLKa */
-
+this.trep(); // funkce začne třepat TERČI podle tohoi, zda jsou konkrétní obchůzky aktivní
 this.terc_barvy(); /* funkce přebarvuje TERČE: 1.strana průvodce + v rekapitulaci - poslední strana průvodce */
 this.box_int(); /* zajistí zobrazení anebo nezobrazení boxů s nastavením intervalů a TERČŮ (display:block anebo display:none) */
 this.enab_tl(); /* zajistí disabled anebo enabled prvního tlačítka Dále */
@@ -282,10 +282,12 @@ this.obch(120);
 /* kliknutí na plus anebo minus Interval */
 if(k==this.intBUTid[0]||k==this.intBUTid[1])
 {
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 this.inter("plus");
 }
 else if(k==this.intBUTid[2]||k==this.intBUTid[3])
 {
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 this.inter("minus");
 }
 /* KONEC kliknutí na plus anebo minus Interval */
@@ -293,7 +295,7 @@ this.inter("minus");
 /* Kliknutí na změnit první obchůzku */
 if(k==this.id_but_z)
 {
-
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 this.o_posun(); /* posune obchůzku na další: +11 */
 kresly.system(this.id_can_v); /* vykreslí plátno se systémem obchůzek ve volbě obchůzky */
 kresly.system(this.id_can_r); /* vykreslí plátno se systémem obchůzek v rekapitulaci */
@@ -329,6 +331,8 @@ break;
 odloz(hodnota){
 /* funkce k přepočtu Odloženého startu požadovaného uživatelem */
 
+
+
 let odl=osoba.odloz_start; /* načerpá hodnotu odloženého startu */
 odl=odl+hodnota; /* odlozený start minut celkem */
 
@@ -347,6 +351,9 @@ document.getElementById(this.id_odl[2][0]).style.opacity="0.5";
 }
 else
 {
+
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
+
 let l1=this.id_odl.length;
 for(let i=0;i<l1;i++)
 {
@@ -478,7 +485,7 @@ else if(o30==true)
 {
 o30=false;
 }
-terc=this.id_ter[1];
+terc=this.id_ter[1]; /* označí id terče */
 }
 
 /* Terč obchůzka Do 60 Minut */
@@ -492,7 +499,6 @@ else if(o60==true)
 {
 o60=false;
 }
-
 terc=this.id_ter[2];
 }
 
@@ -507,8 +513,7 @@ else if(o120==true)
 {
 o120=false;
 }
-
-terc=this.id_ter[3];
+terc=this.id_ter[3]; /* označí id terče */
 }
 
 /* zapsání hodnot uživatele do objektu */
@@ -521,16 +526,26 @@ osoba.okruh=11; /* při každé změně obchůzek - bude aktuální okruh zvolen
 
 /* až po předání hodnot kliknutím, vykonná procedury níže */
 
-this.trep(terc); /* zatřepe objektem - kde terč je id terče, který se má zatřepat */
+this.trep(); /* zatřepe objektem - kde terč je id terče, který se má zatřepat */
 this.terc_barvy(); /* funkce přebarvuje TERČE: 1.strana průvodce + v rekapitulaci - poslední strana průvodce */
 this.box_int(); /* zajistí zobrazení anebo nezobrazení boxů s nastavením intervalů a TERČŮ (display:block anebo display:none) */
 this.enab_tl(); /* zajistí disabled anebo enabled prvního tlačítka Dále */
 this.v_ochuz(); /* vyhodnotí zda zobrazit KROK volba první obchůzky */
 },
-trep(co){
-// funkce, která zajistí třepání označených terčů zvolené obchůzky KROK 1 v průvosci spouštění Nočního VLKa
-document.getElementById(co).classList.toggle(this.class_an); // přiřadí anebo odebere CLASS třídu pro animaci hýbajících se terčů
-document.getElementById(co).style.animationPlayState="running"; // pustí animaci hýbajících se terčů, která má v CSS nastavena 30x opakování a pak se sama zastaví, takže není třeba ji nějákým způsobem zastavovat
+trep(){
+// funkce, která zajistí třepání terčů podle toho, které konkrétní obchůzky jsou vybrány - KROK 1 v průvodci spouštění Nočního VLKa
+const obch=[osoba.o15,osoba.o30,osoba.o60,osoba.o120]; // načte do proměnné konkrétní aktivní obchůzky
+for(let i=0;i<obch.length;i++) // smyčka zajistí odebrání anebo přidání animace třepání TERČE podle toho, jestli je konkrétní obchůzka aktivní
+{
+if(obch[i]) // pokud bude obchůzka TRUE
+{
+document.getElementById(this.id_ter[i]).classList.add(this.class_an); // přiřadí CLASS třídu pro animaci hýbajících se terčů
+document.getElementById(this.id_ter[i]).style.animationPlayState="running"; // pustí animaci hýbajících se terčů, která má v CSS nastavena 30x opakování a pak se sama zastaví, takže není třeba ji nějákým způsobem zastavovat
+}
+else
+{
+document.getElementById(this.id_ter[i]).classList.remove(this.class_an); // odebere CLASS třídu pro animaci hýbajících se terčů
+}}
 },
 v_ochuz(){
 const [o15,o30,o60,o120]=[osoba.o15,osoba.o30,osoba.o60,osoba.o120]; /* načte data uživatele */
