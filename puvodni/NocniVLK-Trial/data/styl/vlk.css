@@ -329,18 +329,27 @@ margin:.5rem 1rem;
 {
 list-style-type:none;
 flex:1 1 0;
-padding:.5rem;
+padding:0;
 text-align:center;
 border:1px solid var(--b2_50);
+display:flex;
+max-width:15rem;
+}
+
+.nav-ul li a
+{
 font-size:.8rem;
 cursor:pointer;
-max-width:15rem;
+border:none;
+padding:.5rem;
+margin:0;
+width:100%;
 }
 
 /* MOBIL S pokud je obrazovka větší než 18em - 288px */
 @media only screen and (min-width: 18em)
 {
-.nav-ul li
+.nav-ul li a
 {
 font-size:1rem;
 }}

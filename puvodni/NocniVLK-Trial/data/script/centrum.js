@@ -830,7 +830,68 @@ document.getElementById(this.id).style.opacity=1;
 uzamceni.zhasni();
 }};
 
-const g_pos={obj:[["spustit","spustit-svg"],["vl","vlm","min","cool","cel","pln","vpm","vp"],["ovl-zvuk","ovl-jas"],["but-nas","nas-svg"],["but-ob","ob-svg"],["but-oz","oz-svg"]],neni:["navod","funkce","o-aplikaci","m","pl","k","pr"],zam:["zam","zam-svg"],min:["m","m-svg","m-p"],pla:["pl","pl-svg","pl-p"],kon:["k","k-svg","k-p"],pre:["pr","pr-svg","pr-p"], /* obj = "id objektu na kterém bude aktivován posluchač události:["ID prvku","ID SVG v prvku"] " */
+
+const pol_menu={
+id:["navod","funkce","o-aplikaci"], // id jednotlivých oken menu: Návod, Funkce, O aplikaci
+id_k:["k-nav","s-nav","k-fun","s-fun","k-o-ap","s-o-ap"], // id button a svg křížků jednotlivých oken menu: Návod, Funkce, O aplikaci
+a(){
+// funkce aktivuje posluchče událostí ke všem křížkům oken menu: Návod, Funkce, O aplikaci
+klik.hraj(false); // bude přehrávat zvuk 1x klik
+
+v_port.other=true; /* aktivuje VisualViewport API */
+v_port.handleEvent(); /* provede nový propočet velikosti okna */
+
+let l=this.id_k.length; // délka řetězce id, na který bude připnut posluchač
+for(let i=0;i<l;i++)
+{
+// přiřazení posluchačů všem id pole 
+document.getElementById(this.id_k[i]).addEventListener("click",this); // připojí posluchač události ke každému id prvku v poli
+}},
+deaktivace(){
+// funkce DEaktivuje posluchče událostí ke všem křížkům oken menu: Návod, Funkce, O aplikaci
+
+v_port.other=false; /* Deaktivuje VisualViewport API */
+
+let l=this.id_k.length; // délka řetězce id, na který bude připnut posluchač
+for(let i=0;i<l;i++)
+{
+// přiřazení posluchačů všem id pole 
+document.getElementById(this.id_k[i]).removeEventListener("click",this); // připojí posluchač události ke každému id prvku v poli
+}},
+handleEvent(e){
+// funkce reaguje na kliknutí na Křížek Zavřít okno u všech oken menu: Návod, Funkce, O aplikaci
+this.deaktivace(); // vypne veškeré posluchače událostí u všech oken menu: Návod, Funkce, O aplikaci
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
+const k=e.target.id; // zjistí id prvku na který bylo kliknuto
+if(k==this.id_k[0]||k==this.id_k[1])
+{
+// kliknuto na křížek Zavřít Návod
+hl_kon.otevri(this.id[0]); // otevře hlavní kontajner a zavře Návod - (ID okna, které má být zavřeno)
+}
+else if(k==this.id_k[2]||k==this.id_k[3])
+{
+// kliknuto na křížek Zavřít Funkce
+hl_kon.otevri(this.id[1]); // otevře hlavní kontajner a zavře Funkce - (ID okna, které má být zavřeno)
+}else if(k==this.id_k[4]||k==this.id_k[5])
+{
+// kliknuto na křížek Zavřít O aplikaci
+hl_kon.otevri(this.id[2]); // otevře hlavní kontajner a zavře O aplikaci - (ID okna, které má být zavřeno)
+}}};
+
+
+const kon_pre=Object.create(pol_menu); // udělá kopii objektu pol_menu pro okno Přestávky a Kontakt
+{
+kon_pre.id=["prestavky","kontakt"]; // id jednotlivých oken menu: Přestávky , Kontakt
+kon_pre.id_k=["k-pre","s-pre","k-kon","s-kon"] // id button a svg křížků jednotlivých oken Přestávky , Kontakt
+} // změna id objektů jedinečných pro kontakt a přestávky
+
+const g_pos={obj:[["spustit","spustit-svg"],["vl","vlm","min","cool","cel","pln","vpm","vp"],["ovl-zvuk","ovl-jas"],["but-nas","nas-svg"],["but-ob","ob-svg"],["but-oz","oz-svg"]],
+menu:["a-navod","a-funkce","a-o-aplikaci"], // položky menu: Návod, Funkce , O aplikaci
+zam:["zam","zam-svg"], // Zámek obrazovky
+min:["m","m-svg","m-p"], // Minutka
+pla:["pl","pl-svg","pl-p"], // Plánovač
+kon:["k","k-svg","k-p"], // kontakt
+pre:["pr","pr-svg","pr-p"], // přestávky
 ozivitOn(){
 /* aktivace posluchče Oživit Nočního VLKA */
 document.getElementById(this.obj[5][0]).addEventListener("click",this); /* posluchač pro Oživit */
@@ -865,10 +926,19 @@ document.getElementById(this.obj[4][0]).addEventListener("click",this); /* poslu
 
 document.getElementById(this.zam[0]).addEventListener("click",this); /* posluchač pro Zámek obrazovky */
 
-let l3=this.neni.length;
+document.getElementById(this.min[0]).addEventListener("click",this); /* posluchač pro Minutku */
+
+document.getElementById(this.pla[0]).addEventListener("click",this); /* posluchač pro Plánovač */
+
+document.getElementById(this.pre[0]).addEventListener("click",this); /* posluchač pro Přestávky */
+
+document.getElementById(this.kon[0]).addEventListener("click",this); /* posluchač pro Kontakt */
+
+
+let l3=this.menu.length; // délka pole
 for(let i=0;i<l3;i++)
 {
-document.getElementById(this.neni[i]).addEventListener("click",this); /* posluchače pro funkce, které zatím NEBYLY NAPROGRAMOVANÉ */
+document.getElementById(this.menu[i]).addEventListener("click",this); /* posluchače pro menu - Návod, Funkce , O aplikaci */
 }
 
 },
@@ -949,7 +1019,7 @@ if(k==this.obj[3][0]||k==this.obj[3][1]) /* pokud se ID prvku anebo ID SVG prvku
 {
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
 p_nas.a();  /* spustí potřební procesy a posluchače */
-hl_kon.zavri(p_nas.id,"flex",p_nas.id);
+hl_kon.zavri(p_nas.id,"flex",p_nas.id); // zavře hlavní kontajner a otevře Nastavení - (IDnew,typ,id_scroll)
 v_port.other=true; /* aktivuje VisualViewport API */
 v_port.handleEvent(); /* provede nový propočet velikosti okna */
 }
@@ -959,7 +1029,7 @@ if(k==this.obj[4][0]||k==this.obj[4][1]) /* pokud se ID prvku anebo ID SVG prvku
 {
 klik.hraj(false); // bude přehrávat zvuk 1x klik
 p_ob.a(); /* spustí potřební procesy a posluchače */
-hl_kon.zavri(p_ob.id,"flex",p_ob.id);
+hl_kon.zavri(p_ob.id,"flex",p_ob.id);  // zavře hlavní kontajner a otevře Obchůzky - (IDnew,typ,id_scroll)
 v_port.other=true; /* aktivuje VisualViewport API */
 v_port.handleEvent(); /* provede nový propočet velikosti okna */
 }
@@ -967,20 +1037,69 @@ v_port.handleEvent(); /* provede nový propočet velikosti okna */
 
 if(k==this.zam[0]||k==this.zam[1])
 {
+// KLIKNUTÍ ZÁMEK OBRAZOVKY
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
-/* KLIKNUTÍ ZÁMEK OBRAZOVKY */
 uzamceni.a(); /* aktivuje potřebné funkce pro Zámek obrazovky */
 }
 
-if(k==this.neni[0]||k==this.neni[1]||k==this.neni[2]||k==this.min[0]||k==this.min[1]||k==this.min[2]||k==this.pla[0]||k==this.pla[1]||k==this.pla[2]||k==this.kon[0]||k==this.kon[1]||k==this.kon[2]||k==this.pre[0]||k==this.pre[1]||k==this.pre[2])
+if(k==this.menu[0])
+{
+// Klik na menu - Návod
+hl_kon.zavri(pol_menu.id[0],"flex",pol_menu.id[0]);  // zavře hlavní kontajner a otevře Obchůzky - (IDnew,typ,id_scroll)
+pol_menu.a(); // aktivuje posluchače událostí ke křížku Zavřít okno
+}
+
+
+if(k==this.menu[1])
+{
+// Klik na menu - Funkce
+hl_kon.zavri(pol_menu.id[1],"flex",pol_menu.id[1]);  // zavře hlavní kontajner a otevře Obchůzky - (IDnew,typ,id_scroll)
+pol_menu.a(); // aktivuje posluchače událostí ke křížku Zavřít okno
+}
+
+if(k==this.menu[2])
+{
+// Klik na menu - O aplikaci
+hl_kon.zavri(pol_menu.id[2],"flex",pol_menu.id[2]);  // zavře hlavní kontajner a otevře Obchůzky - (IDnew,typ,id_scroll)
+pol_menu.a(); // aktivuje posluchače událostí ke křížku Zavřít okno
+}
+
+
+if(k==this.pre[0]||k==this.pre[1]||k==this.pre[2])
+{
+// kliknuto na Přestávky
+hl_kon.zavri(kon_pre.id[0],"flex",kon_pre.id[0]);  // zavře hlavní kontajner a otevře Přestávky - (IDnew,typ,id_scroll)
+kon_pre.a(); // aktivuje posluchače událostí ke křížku Zavřít okno
+}
+
+if(k==this.kon[0]||k==this.kon[1]||k==this.kon[2])
+{
+// kliknuto na Kontakt
+hl_kon.zavri(kon_pre.id[1],"flex",kon_pre.id[1]);  // zavře hlavní kontajner a otevře Kontakt - (IDnew,typ,id_scroll)
+kon_pre.a(); // aktivuje posluchače událostí ke křížku Zavřít okno
+}
+
+
+if(k==this.min[0]||k==this.min[1]||k==this.min[2]||k==this.pla[0]||k==this.pla[1]||k==this.pla[2])
 {
 /* KLIKNUTÍ PRO NENAPROGRAMOVANÉ FUNKCE */
 klik.hraj(false); // bude přehrávat zvuk 1x klik
 dia.on(dia.id[4]); /* v centrum.js */
 }
+
+
+
+
+
 }};
 
-const v_port={id_o:"uz-obchuzka",id_t:"uz-i-box",id:["spust1","spust2","spust3","spust4","spust5"],id_other:["nastaveni","obchuzky"],other:false,pruvodce:false,
+const v_port={
+id_o:"uz-obchuzka", // kontajner pro obchůzku
+id_t:"uz-i-box", // text přes celou obrazovku kontajner
+id:["spust1","spust2","spust3","spust4","spust5"], // id oken Spustit Nočního VLKa
+id_other:["nastaveni","obchuzky","prestavky","kontakt","o-aplikaci","funkce","navod"], // id oken, které jsou aktivovány a vztahuje se na ně Visual Viev port API
+other:false, // určuje jestli jou zapnuty okna s id_other
+pruvodce:false, // určuje jestli je zapnut Průvodce Spustit Nočního VLKa
 
 handleEvent(){
 
