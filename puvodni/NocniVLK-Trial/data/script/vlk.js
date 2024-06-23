@@ -159,6 +159,7 @@ dia.on(dia.id[2]); /* v centrum.js */
 else if(k==this.id_but[2]||k==this.id_z_svg)
 {
 /* Kliknuto na tlačítko Zastavit Nočního VLKa */
+klik.hraj(false); // bude přehrávat zvuk 1x klik
 dia.on(dia.id[0]); /* v centrum.js */
 }
 }};
@@ -210,7 +211,7 @@ window.zalozeno=false; // vytvoření globálního objektu window, které určuj
 const zvuk={
 zesilovat:true, // určuje zda bude zvuk přehráván postupným zesilováním, pokud true= ano , false=ne
 cislo:0,
-alarm:["alarm/alarm1.mp3","alarm/alarm2.mp3","alarm/alarm3.mp3","alarm/alarm4.mp3","alarm/alarm5.mp3","alarm/alarm6.mp3"], // mp3 audia, které jsou používána v aplikaci
+alarm:["alarm/alarm1.mp3","alarm/alarm2.mp3","alarm/alarm3.mp3","alarm/alarm4.mp3","alarm/alarm5.mp3","alarm/alarm6.mp3","alarm/klik.mp3"], // mp3 audia, které jsou používána v aplikaci
 volume_min:0.05,
 volume:0.75,
 bc:"rgb(218,65,103)",
@@ -340,6 +341,12 @@ const pinkani=Object.create(zvuk); /* udělá věrnou kopii objektu zvuk - pro G
 {
 pinkani.cislo=4; // označí číslo pro přehrávání stopy pinkání
 pinkani.zesilovat=true; // určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne
+}
+
+const klik=Object.create(zvuk); /* udělá věrnou kopii objektu zvuk - pro GONG.mp3 */
+{
+klik.cislo=6; // označí číslo pro přehrávání stopy klik
+klik.zesilovat=false; // určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne
 }
 
 const obch={

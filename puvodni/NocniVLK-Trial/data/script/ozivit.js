@@ -275,7 +275,7 @@ else
 {
 g_pos.ozivitOn(); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v centrum.js - pokub by uživatel dal v dialogovém okně ESCape, aby měl k dispozici tlačítko Oživit */
 this.o_obch(); /* funkce oživí obchůzky do příslušných formulářů */
-dia.on("d-oziv"); /* zapne dialogové okno s informací - že funkce Nočního vlka budou obnoveny - v centrum.js */
+dia.on("d-nezastaven"); /* zapne dialogové okno s informací - že Noční VLK nebyl zastaven, po kterém následuje Dialogové okna Obnovení funkcí 'Nočního VLKa - v centrum.js */
 }
 }
 else

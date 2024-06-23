@@ -14,6 +14,7 @@ const o_soubory=[
 ,"/nocni-vlk/data/alarm/alarm4.mp3"
 ,"/nocni-vlk/data/alarm/alarm5.mp3"
 ,"/nocni-vlk/data/alarm/alarm6.mp3"
+,"/nocni-vlk/data/alarm/klik.mp3"
 ,"/nocni-vlk/data/svg/intro.mp4"
 ,"/nocni-vlk/data/script/autorun.js"
 ,"/nocni-vlk/data/script/centrum.js"

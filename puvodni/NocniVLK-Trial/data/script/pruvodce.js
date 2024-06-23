@@ -75,6 +75,7 @@ const pruvodce={id_okno:["spust1","spust2","spust3","spust4","spust5"],tl_kriz:[
 class_an:"krAN", // název CSS class, která bude spouštět animaci pohyblivých terčů
 int_id:["int-15","int-30","int-60","int-120"],int_id_r:["int-15r","int-30r","int-60r","int-120r"],id_ter:["kr15","kr30","kr60","kr120"],id_ter_r:["o15_r","o30_r","o60_r","o120_r"],intBUTid:["in-plus1","in-plus2","in-minus1","in-minus2"],volba:null,id_but_z:"but-zme",id_can_v:"can-v-o",id_can_r:"can-rek",id_odl:[["o10P",10],["o10M",-10],["o1P",1],["o1M",-1]],id_odl_u:["o-start","o-start-r"],
 a(){
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 v_port.pruvodce=true; /* informuje visulViewport API o tom, že je průvodce zapnut */
 v_port.handleEvent(); /* aktivuje první redukci okna - protože doposud nebyly zapnuté posluchače visualViewportu API */
 hl_kon.zavri("spust1","flex","n1"); /* zavře hlavní kontajner a otevře první okno průvodce Spustit Nočního VLKa */
@@ -188,10 +189,12 @@ hlidac.aktivace(); /* aktivuje ochranu před uspáním v ochrany.js */
 posun.okna(1,2);
 pruvodce.odloz(0); /* funkce pouze pro kalibraci odloženého startu - věř, je to potřeba */
 zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 break;
 
 case this.tl_dal[1]:
 window.onbeforeunload=()=>{return "Chcete zavřít aplikaci Noční VLK?";}; /* ochrana před náhodným uzavřením aplikace */
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 if(this.volba) // pokud byla vybrána více jak jedna obchůzka
 {
 posun.okna(2,3); // posun na výběr první obchůzky
@@ -205,10 +208,12 @@ break;
 
 
 case this.tl_dal[2]:
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 posun.okna(3,4); // posun z volba první obchůzky na volbu odloženého startu
 break;
 
 case this.tl_dal[3]:
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 posun.okna(4,5); // posun na rekapitulaci
 kresly.system(this.id_can_r); /* vykreslí plátno se systémem obchůzek v rekapitulaci */
 break;
@@ -221,14 +226,17 @@ vlk.zapni(); // aktiveje hlavní funkci aplikace Noční VLK
 break;
 
 case this.tl_zpet[0]:
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 posun.okna(2,1);
 break;
 
 case this.tl_zpet[1]:
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 posun.okna(3,2);
 break;
 
 case this.tl_zpet[2]:
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 if(this.volba) // pokud uživatel zvolil více jak jednu obchůzku
 {
 posun.okna(4,3); // posun na výběr obchůzky
@@ -240,6 +248,7 @@ posun.okna(4,2); // posun na výběr intervalu
 break;
 
 case this.tl_zpet[3]:
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 posun.okna(5,4); // posun na volbu odloženého startu
 break;
 } /* KONEC kliknutí na posun okna a SPUŠTĚNÍ */
@@ -441,6 +450,8 @@ obch(ktera){
 /* rozdělovač pro funkce zmáčknutím na TERČ - Označte ochůzky na Vašem oddíle */
 let [o15,o30,o60,o120]=[osoba.o15,osoba.o30,osoba.o60,osoba.o120]; /* načte data uživatele */
 let terc=""; /* do proměnné se bude chytat id terče na který bylo kliknuto */
+
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 
 /* Terč obchůzka Do 15 Minut */
 if(ktera==15)
@@ -687,6 +698,7 @@ t120[1].style.boxShadow="0px 0px 0px transparent";
 },
 kriz(){
 /* Klik na křížek v průvodci spustit Nočního VLKa */
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 let l1=this.id_okno.length;
 for(let i=0;i<l1;i++)
 {
