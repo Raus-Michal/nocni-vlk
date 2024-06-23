@@ -870,8 +870,7 @@ Zavřít
 <div class="f">
 <video id="f-v" class="w1" src="svg/intro.mp4" playsinline="playsinline" preload="none" controls></video>
 </div></div>
-<script src="sw.js"> /* Servisní pracovník pro offline režim */ </script>
-<script src="reg_sw.js"> /* REGISTRACE Servisního pracovníka pro offline režim */ </script>
+<script src="reg_sw.js" defer> /* REGISTRACE Servisního pracovníka pro offline režim, parametr defer zajišťuje asynchroní načítání po načtení stránky */ </script>
 <script src="script/autorun.js"> /* NESMÍ BÝT NACTEN ASYNC! shromažďuje údaje o tom, zda byly všechny knihovny asyc již načteny */ </script>
 <script src="script/ozivit.js" async> /* zajišťuje veškeré procesy, které souvisí s ukládáním dat uživatele */ </script>
 <script src="script/pruvodce.js" async>/* zajišťuje spusťení hlavní funkce aplikace Noční VLK */</script>

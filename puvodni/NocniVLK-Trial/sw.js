@@ -1,5 +1,5 @@
 // Název keše
-const CACHE_NAME='dynamic-cache-v1';
+const CACHE_NAME='dynamic-cache-vs';
 
 // Událost instalace Service Workeru
 self.addEventListener('install',function(event){
@@ -9,62 +9,22 @@ self.addEventListener('install',function(event){
       return cache.addAll([
 '/'              // Kořenový soubor (hlavní HTML stránka)
 // další soubory vůči kořenovému adresáři webu
-,"/nocni-vlk/data/index.html"
-,"/nocni-vlk/data/sw.js"
-,"/nocni-vlk/data/reg_sw.js"
+,"/nocni-vlk/index.php"
+,"/nocni-vlk/Nocni-VLK.html"
+,"/nocni-vlk/sw.js"
+,"/nocni-vlk/reg_sw.js"
 ,"/nocni-vlk/data/styl/optimal.css"
 ,"/nocni-vlk/data/styl/start.css"
-,"/nocni-vlk/data/styl/vlk.css"
-,"/nocni-vlk/data/alarm/alarm1.mp3"
-,"/nocni-vlk/data/alarm/alarm2.mp3"
-,"/nocni-vlk/data/alarm/alarm3.mp3"
-,"/nocni-vlk/data/alarm/alarm4.mp3"
-,"/nocni-vlk/data/alarm/alarm5.mp3"
-,"/nocni-vlk/data/alarm/alarm6.mp3"
-,"/nocni-vlk/data/alarm/klik.mp3"
-,"/nocni-vlk/data/svg/intro.mp4"
-,"/nocni-vlk/data/script/autorun.js"
-,"/nocni-vlk/data/script/centrum.js"
-,"/nocni-vlk/data/script/kresly.js"
-,"/nocni-vlk/data/script/ochrany.js"
-,"/nocni-vlk/data/script/ozivit.js"
-,"/nocni-vlk/data/script/pruvodce.js"
-,"/nocni-vlk/data/script/start.js"
-,"/nocni-vlk/data/script/vlk.js"
 ,"/nocni-vlk/data/font/nadpis.ttf"
 ,"/nocni-vlk/data/font/text.ttf"
-,"/nocni-vlk/data/nahled/nahled.gif"
-,"/nocni-vlk/data/svg/hlas.svg"
-,"/nocni-vlk/data/svg/hodiny.svg"
-,"/nocni-vlk/data/svg/jas.svg"
-,"/nocni-vlk/data/svg/ko.svg"
-,"/nocni-vlk/data/svg/kontakt.svg"
-,"/nocni-vlk/data/svg/krizek.svg"
-,"/nocni-vlk/data/svg/logo.svg"
 ,"/nocni-vlk/data/svg/logo-an.svg"
-,"/nocni-vlk/data/svg/minus.svg"
-,"/nocni-vlk/data/svg/minutka.svg"
-,"/nocni-vlk/data/svg/nastav.svg"
-,"/nocni-vlk/data/svg/no-zvuk.svg"
-,"/nocni-vlk/data/svg/obchuzky.svg"
-,"/nocni-vlk/data/svg/o-cele.svg"
-,"/nocni-vlk/data/svg/o-full.svg"
 ,"/nocni-vlk/data/svg/ok.svg"
+,"/nocni-vlk/data/alarm/alarm1.mp3"
+,"/nocni-vlk/data/svg/o-cele.svg"
 ,"/nocni-vlk/data/svg/o-left.svg"
 ,"/nocni-vlk/data/svg/o-max.svg"
 ,"/nocni-vlk/data/svg/o-right.svg"
-,"/nocni-vlk/data/svg/ozivit.svg"
-,"/nocni-vlk/data/svg/p_cela.svg"
-,"/nocni-vlk/data/svg/p_full.svg"
-,"/nocni-vlk/data/svg/p_max.svg"
-,"/nocni-vlk/data/svg/p_min.svg"
-,"/nocni-vlk/data/svg/p_vlevo.svg"
-,"/nocni-vlk/data/svg/p_vpravo.svg"
-,"/nocni-vlk/data/svg/planovac.svg"
-,"/nocni-vlk/data/svg/plus.svg"
-,"/nocni-vlk/data/svg/prestav.svg"
-,"/nocni-vlk/data/svg/tlapka.svg"
-,"/nocni-vlk/data/svg/zamek.svg"
+,"/nocni-vlk/data/nahled/nahled.gif"
 ,"/nocni-vlk/data/favicon/android-chrome-192x192.png"
 ,"/nocni-vlk/data/favicon/android-chrome-512x512.png"
 ,"/nocni-vlk/data/favicon/apple-touch-icon.png"
@@ -89,7 +49,7 @@ self.addEventListener('fetch',function(event){
   const url=new URL(event.request.url);
 
   // Dynamické kešování hlavní stránky index.html s hashem, url.pathname==="CESTA OD KOŘENOVÉHO ADRESÁŘE WEBU"
-  if(url.pathname==="/nocni-vlk/data/"||url.pathname.startsWith("index.html")){
+  if(url.pathname==="/nocni-vlk/"||url.pathname.startsWith("Nocni-VLK.html")){
     event.respondWith(
       // Nejprve se pokusíme najít odpověď v keši
       caches.match(event.request).then(function(response){
@@ -109,13 +69,13 @@ self.addEventListener('fetch',function(event){
         });
       })
     );
-  } else {
+  }else{
     // Pro ostatní požadavky (např. HTML soubory, obrázky) použijeme kešování sítě nejprve
     event.respondWith(
       caches.match(event.request).then(function(response) {
         return response||fetch(event.request);  // Pokud je odpověď v keši, vrátíme ji; jinak stáhneme z internetu
       }).catch(function(){
-        return caches.match('/nocni-vlk/data/index.html');  // Pokud všechno selže (např. offline), vrátíme hlavní HTML stránku aplikace, cesta od kořenového adresáře webu
+        return caches.match('/nocni-vlk/Nocni-VLK.html');  // Pokud všechno selže (např. offline), vrátíme hlavní HTML stránku aplikace, cesta od kořenového adresáře webu
       })
     );
   }

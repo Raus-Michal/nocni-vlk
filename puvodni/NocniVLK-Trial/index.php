@@ -6,7 +6,7 @@ exit;
 }
 else
 {
-header("Location:NocniVLK.html");
+header("Location:Nocni-VLK.html");
 exit;
 }
 ?>

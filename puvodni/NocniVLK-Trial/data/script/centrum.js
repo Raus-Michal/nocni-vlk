@@ -1117,7 +1117,7 @@ document.getElementById(this.id_kotva).scrollIntoView({behavior:"smooth"}); // s
 },this.TIME2); // zpoždění musí být oněco vyšší než display=typ, jinak nemůže správně JS manipulovat s prvky, protože se nestihnou vytvořit
 }};
 
-const centrala={id_error:"div-error",id_but:"but-error",cesta:"../NocniVLK.html",lic:null,
+const centrala={id_error:"div-error",id_but:"but-error",cesta:"../Nocni-VLK.html",lic:null,
 posOn(){
 document.getElementById(this.id_but).addEventListener("click",this);
 },
