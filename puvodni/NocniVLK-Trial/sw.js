@@ -49,7 +49,7 @@ self.addEventListener('fetch',function(event){
   const url=new URL(event.request.url);
 
   // Dynamické kešování hlavní stránky index.html s hashem, url.pathname==="CESTA OD KOŘENOVÉHO ADRESÁŘE WEBU"
-  if(url.pathname==="/nocni-vlk/"||url.pathname.startsWith("Nocni-VLK.html")){
+  if(url.pathname==="/nocni-vlk/"||url.pathname.startsWith("/nocni-vlk/Nocni-VLK.html")){
     event.respondWith(
       // Nejprve se pokusíme najít odpověď v keši
       caches.match(event.request).then(function(response){

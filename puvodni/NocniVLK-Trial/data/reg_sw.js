@@ -3,14 +3,12 @@
 /* registrace servisního pracovníka - CACHE - MEZIPAMĚŤ */
 
 
-const serviceWorker_reg=async()=>{
-
-if("serviceWorker" in navigator)
-{
-console.log("ServiceWorker je podporován");
-try
-{
-const reg=await navigator.serviceWorker.register("sw.js"); /* registrace servisního pracovníka pro mezipaměť */
+// Kontrola, zda prohlížeč podporuje Service Workery
+if ('serviceWorker' in navigator) {
+    // Asynchronní registrace Service Workeru
+    window.addEventListener('load', async () => {
+      try {
+        const registration = await navigator.serviceWorker.register('sw.js'); /* registrace servisního pracovníka pro mezipaměť */
 
 if(reg.installing)
 {
@@ -25,15 +23,16 @@ else if(reg.active)
 console.log("serviceWorker active");
 }
 
-}
-catch(error)
-{
-console.error('Registrace s chybou:'+error);
-}}
-else
+        console.log('Pracovník servisu zaregistrován s rozsahem:', registration.scope);
+      } catch (error) {
+        console.error('Service Worker registrován s chybou:', error);
+      }
+    });
+  }
+  else
 {
 console.log("serviceWorker NENÍ podporován");
-}};
+}
 
-serviceWorker_reg(); /* spustit registraci servistního pracovníka - v ochrany.js */
+
 /* KONEC registrace servisního pracovníka - CACHE - MEZIPAMĚŤ */
