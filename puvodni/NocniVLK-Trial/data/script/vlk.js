@@ -336,6 +336,7 @@ window.audio[this.cislo].currentTime=0; // posune přehrávání mp3 na její za
 const gong=Object.create(zvuk); /* udělá věrnou kopii objektu zvuk - pro GONG.mp3 */
 {
 gong.cislo=5; // označí číslo pro přehrávání stopy gongu
+gong.zesilovat=false; // určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne
 }
 
 const pinkani=Object.create(zvuk); /* udělá věrnou kopii objektu zvuk - pro GONG.mp3 */
@@ -515,7 +516,7 @@ document.getElementById(this.id_b[2]).focus(); /* zafokusuje tlačítko Provedu 
 else if(k==this.id_b[2])
 {
 /* kliknuto na Provedu obchůzku */
-hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
+// hlidac.aktivace(); opětovně aktivuje ochranu před uspáním
 zamek.blok(); /* aktivuje blokaci zámku obrazovky */
 window.onbeforeunload=()=>{return "Chcete zavřít aplikaci Noční VLK?";}; /* ochrana před náhodným uzavřením aplikace */
 this.DEaktivace();

@@ -179,9 +179,6 @@ if(k==this.ozit_dotaz[0])
 {
 /* Kliknuto na ANO - Oživit Nočního VLKa */
 dia.off(this.id[8]); /* vypne dialogové okno */
-hlidac.aktivace(); // opětovně aktivuje ochranu před uspáním
-zamek.blok(); // aktivuje blokaci zámku obrazovky
-window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; // ochrana před náhodným uzavřením aplikace
 uloz.oziv(true); // spustí oživovací procesy Nočního VLKA spuštěné tlačítkem - hodnota TRUE - v ozivit.js
 }
 else if(k==this.ozit_dotaz[1]||k==this.ozit_dotaz[2])
@@ -194,7 +191,7 @@ dia.off(this.id[8]); /* vypne dialogové okno */
 if(k==this.usp[0]||k==this.usp[1])
 {
 /* Kliknuto na Rozumím anebo Kříž - Aplikace byla uspána  */
-hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
+// window.hlidac.aktivace(); opětovně aktivuje ochranu před uspáním
 zamek.blok(); /* aktivuje blokaci zámku obrazovky */
 /* window.onbeforeunload=function(){return 'Chcete zavřít aplikaci Noční VLK?';};  ochrana před náhodným uzavřením aplikace */
 uzamceni.jednou(); /* pokud bude aktivní zámek obrazovky - zobrazí, že je aplikace uzamčena */
@@ -212,7 +209,11 @@ dia.off(this.id[4]); /* vypne dialogové okno */
 if(k==this.oziv[0])
 {
 /* Kliknuto na Rozumím - Noční VLK nebyl zastaven  */
-klik.hraj(false); // bude přehrávat zvuk 1x klik 
+window.hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
+zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
+zamek.blok(); // aktivuje blokaci zámku obrazovky
+window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; // ochrana před náhodným uzavřením aplikace
+klik.hraj(false); // bude přehrávat zvuk 1x klik
 dia.off(this.id[5]); // vypne dialogové okno
 dia.on(this.id[6]); // zapne dialogové okno - Obnovení Nočního VLKa
 }
@@ -220,11 +221,7 @@ dia.on(this.id[6]); // zapne dialogové okno - Obnovení Nočního VLKa
 if(k==this.oziv[1])
 {
 /* Kliknuto na Obnovit - OŽIVENÍ NOČNÍHO VLKA  */
-zamek.blok(); /* aktivuje blokaci zámku obrazovky */
-window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
 vlk.ozivit(); /* spustí oživovací procesy Nočního VLKA - ve vlk.js */
-hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
-zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
 dia.off(this.id[6]); /* vypne dialogové okno */
 }
 
@@ -954,6 +951,9 @@ pruvodce.a(); /* funkce, která má být kliknutím spuštěna - v pruvodce.js *
 if(k==this.obj[5][0]||k==this.obj[5][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
 {
 /* Kliknuto na Oživit Nočního VLKA na hlavním kontajneru */
+window.hlidac.aktivace(); // opětovně aktivuje ochranu před uspáním
+zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
+window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; // ochrana před náhodným uzavřením aplikace
 klik.hraj(false); // bude přehrávat zvuk 1x klik
 dia.on(dia.id[8]); // zapne dialogové okno - S dotazem, zda chce uživatel Obnovení Nočního VLKa
 }

@@ -20,7 +20,7 @@ if(this.pripraven==null)
 {
 this.pripravenost(); /* pokud nebylo zjištěno, zda zařízení podporuje blokaci zámku obrazovky, toto se provede */
 }
-if(this.pripraven==true)
+if(this.pripraven) // pokud je podporován zařízením blokace obrazovky
 {
 this.bA=navigator.wakeLock.request('screen'); /* aktivace blokace zámku obrazovky - vhodné dát do proměnné kvůli vypnutí a také kontrole */
 }
@@ -68,9 +68,10 @@ udalos_viditelnost:"", // proměnná slouží k určení, zda zařízení podpor
 odpocet:false, // tato proměnná hlídá jestli je odpočet zapnutý, tedy zda je zapnutá hlavní funkce aplikace Noční VLK
 aktivace(){
 
-if(this.aktivovan==true)
+if(this.aktivovan) // pokud je již posluchač aktivní, deaktivuje ho
 {
-this.DEaktivace(); /* pokud bude aktivován posluchač, nejprve ho deaktivuje */
+return; // pokud již bude poluchač přidán - bude return;
+// this.DEaktivace(); pokud bude aktivován posluchač, nejprve ho deaktivuje
 }
 
 let neviditelnost;

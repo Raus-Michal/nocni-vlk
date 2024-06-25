@@ -185,10 +185,10 @@ switch(k)
 {
 case this.tl_dal[0]:
 // Klik na Další První KROK v průvodci Spustit Nočního VLKa
-hlidac.aktivace(); /* aktivuje ochranu před uspáním v ochrany.js */
+window.hlidac.aktivace(); /* aktivuje ochranu před uspáním v ochrany.js */
+zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
 posun.okna(1,2);
 pruvodce.odloz(0); /* funkce pouze pro kalibraci odloženého startu - věř, je to potřeba */
-zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
 break;
 
