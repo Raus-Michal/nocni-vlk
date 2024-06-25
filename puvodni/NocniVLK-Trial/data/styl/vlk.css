@@ -1065,17 +1065,17 @@ grid-template-rows: auto 1fr auto;
 width:100%;
 height:auto;
 min-height:100%;
-max-width:100rem;
+/* max-width:100rem; */
 background:var(--b1);
 }
 
-/* větší než 1600px - maximální šířka kontejneru */
+/* větší než 1600px - maximální šířka kontejneru
 @media only screen and (min-width:100em)
 {
 .o-kon
 {
 border:1px solid var(--b2_50);
-}}
+}} */
 
 .o-hlav
 {
@@ -1201,17 +1201,17 @@ justify-items:center;
 .o-t
 {
 width:100%;
-max-width:100rem;
+/* max-width:100rem; */
 background:var(--b1);
 }
 
-/* při maximální šířce kontejneru 100rem */
+/* při maximální šířce kontejneru 100rem
 @media only screen and (min-width: 100em)
 {
 .o-t
 {
 border:1px solid var(--b2_50);
-}}
+}} */
 
 .o-pata
 {
