@@ -1951,6 +1951,56 @@ height:calc(6rem + 2vw);
 max-width:100%;
 }
 
+.tab-box
+{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:2rem;
+max-width:62.5rem; /* 1000px */
+}
+
+.tab
+{
+background: none;
+border-collapse: collapse; /* border-collapse má výchozí hodnotu separate, kdy prohlížeč od sebe odděluje jednotlivé buňky tabulky a tím vytváří dvojté rámečky */
+
+}
+
+.tab thead
+{
+background:var(--b3);
+color:var(--b1);
+}
+
+.tab td:last-child /* poslední buňku vycentruje na střed, což je buňka s číslema klapek */
+{
+text-align:center;
+}
+
+.tab-c td /* buňky tabulky budou všechny vicentrované na střed - použito v tabulce Přestávky */
+{
+text-align:center;
+}
+
+
+.tab th , td
+{
+padding:.5rem;
+font-family:"text","Verda","Arial","Sans-Serif";
+font-size:1rem;
+font-size:calc(0.75rem + 0.5vw);
+line-height:1;
+border:1px solid var(--b2_50);
+}
+
+
+
+.tab tbody tr:nth-of-type(even)
+{
+background:var(--b5);
+color:var(--b1);
+}
 
 
 .flex
