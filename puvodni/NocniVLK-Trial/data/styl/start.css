@@ -147,6 +147,16 @@ padding:1rem;
 animation:ztmavni 2s forwards;
 }
 
+.hl-odkaz /* hlavní odkaz na stránce slouží pouze robotům, aby dokázali najít cestu k hlavní html stránce aplikace Noční VLK */
+{
+position:absolute;
+left:0px;
+bottom:0px;
+padding:1rem;
+opacity:0;
+z-index:-1;
+}
+
 @keyframes ztmavni
 {
 0%{opacity:1;}
