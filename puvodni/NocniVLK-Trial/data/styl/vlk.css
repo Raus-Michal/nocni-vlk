@@ -1294,17 +1294,7 @@ color:var(--b4);
 border:5px solid var(--b3);
 border-radius:50%;
 padding:.6rem;
-}
-
-.kr
-{
-cursor:crosshair;
-transition:600ms;
-}
-
-.kr:hover
-{
-scale:1.15;
+transition:.5s;
 }
 
 .krAN /* CSS používá JavaScript v pruvodce.js !!! */
@@ -1333,7 +1323,7 @@ font-size:2rem;
 line-height:1;
 width:100%;
 text-align:center;
-cursor:crosshair;
+cursor:pointer;
 }
 
 .kr2 p
