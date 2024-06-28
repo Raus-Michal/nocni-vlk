@@ -1358,7 +1358,6 @@ border:3px solid var(--b3);
 border-radius:50%;
 padding:.6rem;
 transition:600ms;
-cursor:crosshair;
 }
 
 
@@ -2003,6 +2002,41 @@ color:var(--b1);
 }
 
 
+.s-zal /* ul seznam pro Návod, Funkce, O aplikaci */
+{
+max-width:45ch;
+}
+
+.s-zal li
+{
+font-size:1rem;
+text-align:justify;
+hyphens:auto;
+margin-bottom:.5rem;
+line-height:1.25;
+}
+
+/* pokud je obrazovka větší než 32em - 512px */
+@media only screen and (min-width:32em)
+{
+.s-zal li
+{
+font-size:1.25rem;
+}}
+
+.nad
+{
+font-size:1rem;
+font-size:calc(1rem + .5vw);
+font-weight:bold;
+margin-bottom:.25rem;
+margin-top:1.5rem;
+line-height:1.1;
+max-width:40ch;
+text-align:center;
+}
+
+
 .flex
 {
 display:flex;
@@ -2023,6 +2057,22 @@ justify-content:center;
 {
 align-items:center;
 }
+
+
+.tj
+{
+text-align:justify;
+hyphens:auto;
+max-width:45ch;
+}
+
+/* pokud je obrazovka větší než 32em - 512px */
+@media only screen and (min-width:32em)
+{
+.tj
+{
+font-size:1.25rem;
+}}
 
 .f-07
 {
@@ -2145,20 +2195,7 @@ line-height:2;
 justify-self:end;
 }
 
-.tj
-{
-text-align:justify;
-hyphens:auto;
-max-width:45ch;
-}
 
-/* pokud je obrazovka větší než 32em - 512px */
-@media only screen and (min-width:32em)
-{
-.tj
-{
-font-size:1.25rem;
-}}
 
 
 .c-b5
