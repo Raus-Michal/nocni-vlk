@@ -113,7 +113,6 @@ document.getElementById(vlk.id_li[1]).style.display="none"; /* schová tlačítk
 
 tik.a_odpocet=false; /* proměnná, která funkci tik.tak() ve centrum.js dáva informaci o tom, že odpočet se NEmůže počítat */
 hlidac.odpocet=false;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se NEpočítá */
-hlidac.DEaktivace(); /* vypne ochranu před uspáním nočního VLKa - v ochrany.js */
 uloz.uloz(uloz.klice[9],true); /* uloží na local storage informaci, že byl Noční VLK zastaven - v oživit.js */
 dia.off(this.id[0]); /* vypne dialogové okno */
 text.pis("Noční&nbsp;VLK byl zastaven");
@@ -213,7 +212,7 @@ window.hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
 zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
 zamek.blok(); // aktivuje blokaci zámku obrazovky
 window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; // ochrana před náhodným uzavřením aplikace
-klik.hraj(false); // bude přehrávat zvuk 1x klik
+pinkani.hraj(false); /* přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace pro systém iOS */
 dia.off(this.id[5]); // vypne dialogové okno
 dia.on(this.id[6]); // zapne dialogové okno - Obnovení Nočního VLKa
 }
@@ -945,6 +944,7 @@ const k=e.target.id; /* zjistí ID prvku na který bylo kliknuto */
 if(k==this.obj[0][0]||k==this.obj[0][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
 {
 /* Kliknuto na Spustit Nočního VLKA */
+pinkani.hraj(false); /* přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace pro systém iOS */
 pruvodce.a(); /* funkce, která má být kliknutím spuštěna - v pruvodce.js */
 }
 
@@ -954,7 +954,7 @@ if(k==this.obj[5][0]||k==this.obj[5][1]) /* pokud se ID prvku anebo ID SVG prvku
 window.hlidac.aktivace(); // opětovně aktivuje ochranu před uspáním
 zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
 window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; // ochrana před náhodným uzavřením aplikace
-klik.hraj(false); // bude přehrávat zvuk 1x klik
+pinkani.hraj(false); /* přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace pro systém iOS */
 dia.on(dia.id[8]); // zapne dialogové okno - S dotazem, zda chce uživatel Obnovení Nočního VLKa
 }
 

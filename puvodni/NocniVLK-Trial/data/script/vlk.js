@@ -28,7 +28,7 @@ obch.aktivace(); /* zapne výzvu k obchůzce - pokud nebude nastavený odložen�
 else
 {
 text.pis("Start první obchůzky byl&nbsp;odložen");
-gong.hraj(false); /* zahraje GONG.mp3 - FALSE = 1x */
+zvuk.hraj(false); /* zahraje zvuk alarmu - FALSE = 1x  - tento zvuk je kvůli inicializaci zvuku alarmu a jeho správnému fungování při odloženém startu pro systém iOS */
 kresly.system(obch.id_can); /* vykreslí systém v hlavním kontejneru */
 hlidac.odpocet=true;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se počítá */
 obch.pocitej(); // začne odpočítávat interval do obchůzky
@@ -69,8 +69,8 @@ pruvodce.box_int(); /* funkce určuje zda bude v průvodci a v nastavený vidite
 
 if(uloz.v_obchuzce!=true)
 { /* pokud nebyla obchůzka aktivní - v oziv.js */
+zvuk.hraj(false); /* zahraje zvuk alarmu - FALSE = 1x  - tento zvuk je kvůli inicializaci zvuku alarmu a jeho správnému fungování při odloženém startu pro systém iOS */
 text.pis("Noční&nbsp;VLK byl&nbsp;oživen");
-gong.hraj(false); /* zahraje GONG.mp3 - FALSE = 1x - v vlk.js */
 this.ozivit.kresly_system(); /* funkce slouží k nestandartnímu vykreslení systému obchůzek na hlavní stránce po oživení */
 tik.a_odpocet=true; /* proměnná, která funkci tik.tak() ve centrum.js dáva informaci o tom, že odpočet se počítá */
 hlidac.odpocet=true;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se počítá */
