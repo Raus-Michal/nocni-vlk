@@ -62,8 +62,9 @@ font-size:calc(1.25rem + 1vw);
 
 h3
 {
-font-size:1.15rem;
-font-size:calc(1.15rem + 1vw);
+font-size:1rem;
+font-size:calc(1rem + .75vw);
+padding-top:1rem;
 }
 
 img
@@ -2100,6 +2101,15 @@ text-align:justify;
 hyphens:auto;
 max-width:45ch;
 }
+
+/* pokud je obrazovka větší než 32em - 512px */
+@media only screen and (min-width:32em)
+{
+.tj
+{
+font-size:1.25rem;
+}}
+
 
 .c-b5
 {
