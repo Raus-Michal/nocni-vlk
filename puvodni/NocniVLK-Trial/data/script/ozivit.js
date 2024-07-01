@@ -1,4 +1,4 @@
-﻿const uloz={osoba_kopie:{},z_den:"",cas_T:"",intr:"",ok:null,klice:["osoba","cas_p","obchuz","cas_to","o15","o30","o60","o120","interval","vlk_zas","alarm_v","alarm_zv"],max_obnova_ms:3600000,v_obchuzce:false,
+﻿const uloz={osoba_kopie:{},z_den:"",cas_T:"",intr:"",ok:null,klice:["osoba","cas_p","obchuz","cas_to","o15","o30","o60","o120","interval","vlk_zas","alarm_v","alarm_zv","poznamky"],max_obnova_ms:3600000,v_obchuzce:false,
 a(){
 /* funkce slouží k aktivaci - posouzení, zda je možno použít localstorage */
 
@@ -219,12 +219,19 @@ zvuk.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování 
 document.getElementById(p_nas.id_nas[9]).checked=false; /* odstraní Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }}
 },
+o_poznamky(){
+// funkce načte případné poznámky uživatele z LocalStorage a vloží je do textarea poznámky
+let poznamky=this.nacti(this.klice[12]); // načte případné poznámky uživatele uložené na LocalStorage
+document.getElementById(g_pos.poznamky[0]).value=poznamky; // poznámky uložené v LocalStorage vloží do textarea Poznámky - objekt g_pos je v centrum,js
+},
 oziv(tlacitkem){
 // funkce zajišťuje vše potřebné k oživení Nočního VLKa
 
 if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 this.o_zvuk(); /* načte volbu zvuku alarmu Noční VLK uloženou uživatelem */
+
+this.o_poznamky(); // punkce načte z LocalStorage případné uložené poznámky
 
 this.osoba_kopie=Object.create(osoba); /* udělá věrnou kopii objektu osoba - v pruvodci.js */
 

@@ -888,6 +888,7 @@ min:["m","m-svg","m-p"], // Minutka
 pla:["pl","pl-svg","pl-p"], // Plánovač
 kon:["k","k-svg","k-p"], // kontakt
 pre:["pr","pr-svg","pr-p"], // přestávky
+poznamky:["pozn","but-poz","but-poz-off"], // poznámky:[id textarea, id button Zavřít, class buttonu, aby nešel vidět] 
 ozivitOn(){
 /* aktivace posluchče Oživit Nočního VLKA */
 document.getElementById(this.obj[5][0]).addEventListener("click",this); /* posluchač pro Oživit */
@@ -936,6 +937,20 @@ for(let i=0;i<l3;i++)
 {
 document.getElementById(this.menu[i]).addEventListener("click",this); /* posluchače pro menu - Návod, Funkce , O aplikaci */
 }
+
+document.getElementById(this.poznamky[0]).addEventListener("focus",()=>
+{
+document.getElementById(this.poznamky[1]).classList.remove(this.poznamky[2]);  // odebere class třídu, která button zavřít zmenší na šířku 0px
+}); // posluchač pro Poznámky, když je textarea s poznámkami Zaměřena uživatelem
+
+
+document.getElementById(this.poznamky[0]).addEventListener("blur",()=>
+{
+document.getElementById(this.poznamky[1]).classList.add(this.poznamky[2]); // přidá class třídu, která button zavřít zmenší na šířku 0px
+}); // posluchač pro Poznámky, když je textarea s poznámkami Blur uživatelem (byl jí odebrán focus)
+
+
+document.getElementById(this.poznamky[0]).addEventListener("input",this); // posluchač pro poznámky, který sleduje psaní uživatele do této textarei
 
 },
 handleEvent(e){
@@ -1079,6 +1094,12 @@ hl_kon.zavri(kon_pre.id[1],"flex",kon_pre.id[1]);  // zavře hlavní kontajner a
 kon_pre.a(); // aktivuje posluchače událostí ke křížku Zavřít okno
 }
 
+if(k==this.poznamky[0])
+{
+/* KLIKNUTÍ POZNÁMKY - psaní textu v area poznámky */
+let text=e.target.value; // zjistí value textarea poznámky
+uloz.uloz(uloz.klice[12],text); // při každé změně textu v textarea poznámky, uloží její value do Local Strorage pod klíčem- funkce je v ozivit.js
+}
 
 if(k==this.min[0]||k==this.min[1]||k==this.min[2]||k==this.pla[0]||k==this.pla[1]||k==this.pla[2])
 {
@@ -1086,10 +1107,6 @@ if(k==this.min[0]||k==this.min[1]||k==this.min[2]||k==this.pla[0]||k==this.pla[1
 klik.hraj(false); // bude přehrávat zvuk 1x klik
 dia.on(dia.id[4]); /* v centrum.js */
 }
-
-
-
-
 
 }};
 
