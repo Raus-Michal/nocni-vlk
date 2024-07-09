@@ -828,6 +828,7 @@ width:100%;
 margin:0;
 padding:.5rem;
 color:var(--b1);
+caret-color:var(--b2); /* barva cursoru */
 background:var(--b4);
 border-radius:5px;
 height:100%;
@@ -839,6 +840,12 @@ text-align:justify;
 .poz-area:focus {
 outline:none; /* Odstranění standardního zvýraznění focusu */
 background:var(--b5);
+}
+
+.poz-area::placeholder {
+color:rgba(0,0,0,0.7); /* černá průjlednost 70% */
+text-align:left;
+font-style:italic;
 }
 
 /* MOBIL L pokud je obrazovka větší než 23.25em - 372px */
@@ -864,6 +871,7 @@ font-size:1rem;
 font-weight:normal;
 color:var(--b4);
 padding:.5rem;
+border:none;
 border-radius:5px;
 height:100%;
 z-index:0;
