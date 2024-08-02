@@ -54,7 +54,7 @@
 <div id="sec-odp" class="odp">
 <div class="odp-box">
 <p class="mb-0">Obchůzka</p>
-<p class="f-115 tuc mb-0">do&nbsp;<span id="obch_bud">??</span>&#8239;minut</p>
+<p class="f-2r tuc mb-0">do&nbsp;<span id="obch_bud">??</span>&#8239;minut</p>
 <p class="mb-0">za</p>
 <p class="box-h t-odp"><span id="o-min" class="uhr-h">0</span><span id="o-sec1" class="uhr-s">0</span><span id="o-sec2" class="uhr-s">0</span></p>
 <button id="pl-ob" class="but bs" type="button" title="Provést obchůzku teď">Provést obchůzku teď</button>
@@ -551,7 +551,7 @@ Zavřít
 
 <div class="mb-2 flex-c aic">
 <h3>Zvuky v&nbsp;aplikaci</h3>
-<p>Zvuk alarmu Noční&nbsp;VLK</p>
+<p class="nad mb-1">Zvuk alarmu Noční&nbsp;VLK</p>
 <ol class="b-obch mb-1">
 <li><button type="button" id="bns1" class="kr-s" title="zvuk 1">1</button></li>
 <li><button type="button" id="bns2" class="kr-s" title="zvuk 2">2</button></li>
@@ -561,8 +561,23 @@ Zavřít
 <li><button type="button" id="bns6" class="kr-s" title="zvuk 6">6</button></li>
 </ol>
 
-<div class="flex-s">
+<div class="flex-s mb-2">
 <input id="vlk_z" class="ch-s" type="checkbox" title="Zatržením je povoleno postupní zesilování hlasitosti" checked>
+<p class="mb-0">Postupné zesilování alarmu</p>
+</div>
+
+<p class="nad mb-1">Zvuk alarmu Minutka</p>
+<ol class="b-obch mb-1">
+<li><button type="button" id="bns1m" class="kr-s" title="zvuk 1">1</button></li>
+<li><button type="button" id="bns2m" class="kr-s" title="zvuk 2">2</button></li>
+<li><button type="button" id="bns3m" class="kr-s" title="zvuk 3">3</button></li>
+<li><button type="button" id="bns4m" class="kr-s" title="zvuk 4">4</button></li>
+<li><button type="button" id="bns5m" class="kr-s" title="zvuk 5">5</button></li>
+<li><button type="button" id="bns6m" class="kr-s" title="zvuk 6">6</button></li>
+</ol>
+
+<div class="flex-s mb-2">
+<input id="minutka_z" class="ch-s" type="checkbox" title="Zatržením je povoleno postupní zesilování hlasitosti" checked>
 <p class="mb-0">Postupné zesilování alarmu</p>
 </div>
 
@@ -831,7 +846,7 @@ Zavřít
 <p class="tj">Aplikace je&nbsp;naprogramována v&nbsp;HTML&#8239;5, CSS&#8239;3 a&nbsp;JavaScriptu&#8239;ES6.</p>
 <p class="tj">Aplikace podléhá autorským právům.</p>
 <p class="tj">Výrobce aplikace: Boar-cz</p>
-<p class="tj">Verze aplikace: Zkušební verze 1.7</p>
+<p class="tj">Verze aplikace: Zkušební verze 1.8</p>
 
 </div></div>
 </section>
@@ -1355,9 +1370,9 @@ Zavřít
 <dialog id="d-nezastaven">
 <div class="d-kriz"><div class="sp-i"> </div></div>
 <div class="d-telo">
-<p>Noční VLK nebyl zastaven</p>
-<p><span class="p_n">Noční VLK nebyl zastaven a&nbsp;jeho funkce budou obnoveny.</span></p>
-<p><span class="p_n">Pokud chcete aplikaci zavřít, nejprve zastavte Nočního VLKa.</span></p>
+<p>Některé funkce nebyly zastaveny</p>
+<p><span class="p_n">Některé funkce v aplikaci nebyly zastaveny a&nbsp;budou plně obnoveny.</span></p>
+<p><span class="p_n">Pokud chcete aplikaci zavřít, nejprve zastavte veškeré funkce.</span></p>
 </div>
 <div class="d-butt d-butS">
 <button id="b-nezastaven" class="but" type="button" title="Rozuměl jsem">Rozumím</button>
@@ -1367,12 +1382,24 @@ Zavřít
 <dialog id="d-oziv">
 <div class="d-kriz"><div class="sp-i"> </div></div>
 <div class="d-telo">
-<p>Obnovení</p>
-<p><span class="p_n">Aplikace Noční VLK bude plně obnovena.</span></p>
+<p>Obnovení Noční VLK</p>
+<p><span class="p_n">Funkce Noční VLK bude plně obnovena.</span></p>
 <p><span class="p_n">Čas během kterého byla aplikace přerušena bude dopočítán.</span></p>
 </div>
 <div class="d-butt d-butS">
 <button id="b-oziv-ok" class="but" type="button" title="Obnovit Nočního VLKa">Obnovit</button>
+</div>
+</dialog>
+
+<dialog id="d-ozivM">
+<div class="d-kriz"><div class="sp-i"> </div></div>
+<div class="d-telo">
+<p>Obnovení Minutky</p>
+<p><span class="p_n">Funkce Minutky bude plně obnovena.</span></p>
+<p><span class="p_n">Čas během kterého byla aplikace přerušena bude dopočítán.</span></p>
+</div>
+<div class="d-butt d-butS">
+<button id="b-ozivM-ok" class="but" type="button" title="Obnovit Minutku">Obnovit</button>
 </div>
 </dialog>
 
@@ -1389,6 +1416,86 @@ Zavřít
 <button id="but-kon" class="but" type="button" title="Zavřít okno">Zavřít kontakt</button>
 </div>
 </dialog>
+
+
+<dialog id="d-minutka">
+<div class="d-kriz">
+<button id="k-d-minutka" type="button" class="o-kriz b-w0" title="Zavřít"> </button>
+</div>
+<div class="d-telo">
+<p>Minutka</p>
+<div class="flex aic g1 wrap">
+<div class="d-min-box">
+<div class="i-min"> </div>
+<p>Interval minutky</p>
+<p><span id="min-ukaz">1</span>&#8239;min</p>
+</div>
+<div class="but-os wa flex3">
+<button id="m-p-10" class="but" type="button" title="+10min">+&#8239;10&#8239;min</button>
+<button id="m-m-10" class="but" type="button" title="-10min" disabled>-&#8239;10&#8239;min</button>
+<button id="m-p-1" class="but" type="button" title="+1min">+&#8239;1&#8239;min</button>
+<button id="m-m-1" class="but" type="button" title="-1min" disabled>-&#8239;1&#8239;min</button>
+</div>
+</div></div>
+<form id="spust-minutku" action="none.php" onSubmit="return false;">
+<div class="flex jcc aic mxl">
+<input id="popis-m" class="min-inp" type="text" placeholder="Popisek minutky" title="Napiš popisek k minutce" maxlength="20" required>
+</div>
+<div class="flex aic g1 mxl">
+<input id="opak_min1" class="ch-s" type="checkbox"><p class="mb-0">Opakovat minutku po&nbsp;jejím ukončení</p>
+</div>
+<div class="d-butt">
+<button class="but f110" type="submit" title="Spustit minutku">Spustit</button>
+<button id="b-dotaz-minutka-z" class="but f110" type="button" title="Zrušit spouštění">Zrušit</button>
+</div>
+</form>
+</dialog>
+
+<div id="box-min-odpocet" class="box-minutky">
+<button id="min-vizual" class="min-odp" type="button" title="minutka"><span id="min-svg-vizual" class="i-min i-min-o"> </span><span id="min-odp-box" class="flex g015 aic"><span id="uk-min-min">1</span><span class="f-07"><span id="uk-min-sec1" class="sec-m">0</span><span id="uk-min-sec2" class="sec-m">0</span></span></span></button>
+<div id="blok-timeout" class="b-tim">
+<p id="popisek-timeout" class="p-min-tim pres_t">popisek minutky</p>
+<button id="but-timeout" class="but w100" type="button" title="Ukončit minutku" >OK</button>
+</div>
+</div>
+
+<dialog id="d-minutka-info">
+<div class="d-kriz">
+<button id="k-d-minutka-info" type="button" class="o-kriz b-w0" title="Zavřít"> </button>
+</div>
+<div class="d-telo">
+<p>Minutka</p>
+<div class="flex jcc">
+<div class="b-b1 px br8-l">
+<div class="i-min"> </div>
+</div>
+<div class="flex aic jcc b-bl br8-r">
+<p class="flex g015 aic jcc mb-0 w45 c-b3"><span id="uk-min-min-info">1</span><span class="flex g015 aic f-1"><span id="uk-min-sec1-info" class="sec-m">0</span><span id="uk-min-sec2-info" class="sec-m">0</span></span></p>
+</div>
+</div>
+</div>
+<p id="min-inf-pop" class="mxl tc f-1r pres_t">popisek minutky</p>
+<div class="flex aic g1 mxl">
+<input id="opak_min2" class="ch-s" type="checkbox"><p class="mb-0">Opakovat minutku po&nbsp;jejím ukončení</p>
+</div>
+<div class="mxl mb-0">
+<button id="min-zrusit-info" class="but bs" type="button" title="Zastavit minutku">Zrušit minutku</button>
+</div>
+</dialog>
+
+<dialog id="d-dotaz-minutka">
+<div class="d-kriz">
+<button id="k-d-dotaz-minutka" type="button" class="o-kriz b-w0" title="Zavřít"> </button>
+</div>
+<div class="d-telo">
+<p>Opravdu chcete zrušit minutku?</p>
+</div>
+<div class="d-butt">
+<button id="b-dotaz-minutka-a" class="but f110" type="button" title="Provést">Ano</button>
+<button id="b-dotaz-minutka-n" class="but f110" type="button" title="Neprovést">Ne</button>
+</div>
+</dialog>
+
 
 <noscript>
 <div class="no-script">
@@ -1430,6 +1537,7 @@ Zavřít
 <script src="script/kresly.js" async> /* vykresluje plátno CANVAS se systémem obchůzek */ </script>
 <script src="script/vlk.js" async> /* zajišťuje hlavní funkci aplikace Noční VLK - odpočet, zápis obchůzek atd. */ </script>
 <script src="script/ochrany.js" async> /* zajišťuje ochranu před uzamčením obrazovky a uspáním karty */ </script>
+<script src="script/minutka.js" async> /* obsahuje všechny funkcionality k funkce Minutka */  </script>
 <script src="script/centrum.js" async> /* zajišťuje prvotní spouštění potřebných funkcionali aplkace - např. hodiny visualView port API ... */  </script>
 </body>
 </html>

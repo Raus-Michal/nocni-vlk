@@ -1,4 +1,25 @@
-﻿const uloz={osoba_kopie:{},z_den:"",cas_T:"",intr:"",ok:null,klice:["osoba","cas_p","obchuz","cas_to","o15","o30","o60","o120","interval","vlk_zas","alarm_v","alarm_zv","poznamky"],max_obnova_ms:3600000,v_obchuzce:false,
+﻿const uloz={osoba_kopie:{},z_den:"",cas_T:"",intr:"",ok:null,
+klice:[ // klíče pro ukládání do Local Storage
+"osoba",
+"cas_p",
+"obchuz",
+"cas_to",
+"o15",
+"o30",
+"o60",
+"o120",
+"interval",
+"vlk_zas",
+"alarm_v", // klíč k volbě alarmu Noční VLK
+"alarm_zv", // klíč volby zda chce užívatel postupné zesilování pro alarm Noční VLK
+"poznamky", // klíč pro Poznámky
+"alarm_min", // 13. klíč volby alarmu minutky
+"zes_min", // 14. klíč volby zda chce užívatel postupné zesilování pro alarm Minutky
+"cas_min", // 15. klíč ukládá čas, kdy byla spuštěna funkce Minutky
+"popis_m", // 16. klíč ukládá popisek minutky
+"zap_min", // 17. klíč ukládá jesli byla minutka zapnuta=true anebo vypnuta=delete klíč
+"opak_min" // 18. klíč ukládá jesli chtěl minutku uživatel opakovat
+],max_obnova_ms:3600000,v_obchuzce:false,
 a(){
 /* funkce slouží k aktivaci - posouzení, zda je možno použít localstorage */
 
@@ -192,32 +213,64 @@ this.intr="";
 o_zvuk(){
 /* funkce oživí Volbu zvuku alarmu uživatelem + volbu zda chce Postupně zesilovat zvuk */
 
-let volba=this.nacti(this.klice[10]); /* načte volbu zvuku uživatele uloženou na LocalStorage */
 
-let zesilovani=this.nacti(this.klice[11]); /* načte volbu uživatele, zda chce postupně zvyšovat zvuk */
+// volba alarmu a zesilování Noční VLK
+let volba_vlk=this.nacti(this.klice[10]); /* načte volbu zvuku alarmu Noční VLK uživatele uloženou na LocalStorage */
+let zesilovani_vlk=this.nacti(this.klice[11]); /* načte volbu uživatele, zda chce postupně zvyšovat zvuk alarmu Noční VLK */
 
-if(volba!="")
+if(volba_vlk!="")
 {
 /* pokud byla načtena nějáká volba */
-volba=parseInt(volba); /* převede textový řetězec na číslo */
-zvuk.cislo=volba; /* provede změnu volby v objektu zvuk - ve vlk.js */
+volba_vlk=parseInt(volba_vlk); /* převede textový řetězec na číslo */
+zvuk.cislo=volba_vlk; /* provede změnu volby alarmu Noční VLK v objektu zvuk - ve vlk.js */
 }
 
-if(zesilovani!="")
+if(zesilovani_vlk!="")
 {
 /* pokud byl uložen požadavek uživatele na zesilování */
-if(zesilovani=="true")
+if(zesilovani_vlk=="true")
 {
 /* pokud uživatel žádá postupnéí zesilování */
 zvuk.zesilovat=true; /* nastaví proměnnou na Povolit postupné zesilování - ve vlk.js */
-document.getElementById(p_nas.id_nas[9]).checked=true; /* nastaví Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
+document.getElementById(p_nas.id_nas[3]).checked=true; /* nastaví Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }
-else if(zesilovani=="false")
+else if(zesilovani_vlk=="false")
 {
 /* pokud uživatel nechtěl postupnéí zesilování */
 zvuk.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
-document.getElementById(p_nas.id_nas[9]).checked=false; /* odstraní Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
+document.getElementById(p_nas.id_nas[3]).checked=false; /* odstraní Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }}
+
+
+// volba alarmu a zesilování Minutka
+let volba_min=this.nacti(this.klice[13]); /* načte volbu zvuku alarmu Minutka uživatele uloženou na LocalStorage */
+let zesilovani_min=this.nacti(this.klice[14]); /* načte volbu uživatele, zda chce postupně zvyšovat zvuk alarmu Minutka */
+
+if(volba_min!="")
+{
+/* pokud byla načtena nějáká volba */
+volba_min=parseInt(volba_min); /* převede textový řetězec na číslo */
+zvuk_min.cislo=volba_min; /* provede změnu volby alarmu Noční VLK v objektu zvuk - ve vlk.js */
+}
+
+if(zesilovani_min!="")
+{
+/* pokud byl uložen požadavek uživatele na zesilování */
+if(zesilovani_min=="true")
+{
+/* pokud uživatel žádá postupnéí zesilování */
+zvuk_min.zesilovat=true; /* nastaví proměnnou na Povolit postupné zesilování - ve vlk.js */
+document.getElementById(p_nas.id_nas[4]).checked=true; /* nastaví Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
+}
+else if(zesilovani_min=="false")
+{
+/* pokud uživatel nechtěl postupnéí zesilování */
+zvuk_min.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
+document.getElementById(p_nas.id_nas[4]).checked=false; /* odstraní Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
+}}
+
+
+
 },
 o_poznamky(){
 // funkce načte případné poznámky uživatele z LocalStorage a vloží je do textarea poznámky

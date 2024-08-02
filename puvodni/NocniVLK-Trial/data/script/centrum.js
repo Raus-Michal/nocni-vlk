@@ -11,20 +11,44 @@ if(this.a_obchuzka)
 {
 /* pokud je výzva k obchůzce aktivní */
 hodinyO.tik(); /* zápis hodin na výzvě k obchůzce */
-zvuk.zesiluj(); /* bude postupně zesilovat hlasitost alarmu - ve vlk.js */
+zvuk.zesiluj(); /* bude postupně zesilovat hlasitost alarmu, pokud je postupné zesilování povoleno - ve vlk.js */
 obch.pocitej_T_OUT(); /* počítání Timeout */
 }
 
 if(this.a_odpocet)
 {
-/* pokud je odpočet - Noční VLK je zapnutý */
+// pokud je odpočet - hlavní funkce Noční VLK je zapnutý
 obch.odpocet(); /* funkce odpočítává konec Intervalu do obchůzky - ve vlk.js */
 }
+else
+{
+// pokud je odpočet - hlavní funkce Noční VLK vypnutý
+
+// kontrola, jestli nemá být ikonka Oživit deaktivována
+const ozivit=uloz.dead_time(); // funkce kontroluje zda není delší doba po 60MINUTÁCH od plánovaného TIMEOUTU, kdy je možné provést oživení, pokud je vše v pořádku vrací TRUE, pokud je doba kdy už není možné Nočního VLKa oživit vrací FALSE
+
+if(ozivit==false)
+{
+// Pokud bude překročena přípustná doba pro oživení hlavní funkce aplikace Noční VLK (více jak 60 minut po plánovaném TIMEOUTU)
+g_pos.ozivitOff(); // funkce vypne posluchač tlačítka Oživit a sníží jeho opacity na 50% - funkce je v teto JS knihovně, tedy v centrum.js
+}}
 
 if(this.a_uspano)
 {
 // pokud dojde k uspání aplikace, proměnná tik.a_uspano, je ovládána z ochrany.js
 pinkani.zesiluj(); /* bude postupně zesilovat hlasitost pinkání - ve vlk.js */
+}
+
+if(minutka.aktivni)
+{
+// pokud bude minutka aktivní, začne se počítat její odpočet, vše v minutka.js
+minutka.odpocet(); // aktivace odpočtu minutky, začne se odpočítávat
+}
+
+if(minutka.alarm)
+{
+// pokud bude minutka v timeoutu, vše v minutka.js
+zvuk_min.zesiluj(); // bude postupně zesilovat hlasitost alarmu, pokud je postupné zesilování povoleno
 }
 
 
@@ -91,8 +115,18 @@ t.disabled=true; /* disablet buttonu */
 t.title="Již není možné použít - email zobrazen"; /* změní title buttonu */
 }};
 
-const dia={aktivni:"",id:["d-zas","d-obch","d-obchM","d-uspan","d-neni","d-nezastaven","d-oziv","d-kon","d-dotaz-oziv"],zas:["b-z-a","k-d-zas","b-z-n"],obch:["b-obch-a","k-d-obch","b-obch-n"],obchM:["b-obchM-a","k-d-obchM","b-obchM-n"],usp:["k-usp","b-usp-ok"],neni:["k-neni","b-neni-ok"],oziv:["b-nezastaven","b-oziv-ok"],
+const dia={aktivni:"",
+id:["d-zas","d-obch","d-obchM","d-uspan","d-neni","d-nezastaven","d-oziv","d-kon","d-dotaz-oziv","d-minutka","d-minutka-info","d-dotaz-minutka"],
+zas:["b-z-a","k-d-zas","b-z-n"],
+obch:["b-obch-a","k-d-obch","b-obch-n"],
+obchM:["b-obchM-a","k-d-obchM","b-obchM-n"],
+usp:["k-usp","b-usp-ok"],
+neni:["k-neni","b-neni-ok"],
+oziv:["b-nezastaven","b-oziv-ok"],
 ozit_dotaz:["b-dotaz-oziv-a","k-d-dotaz-oziv","b-dotaz-oziv-n"], // tlačítka dialogového okna Oživit nočního VLKa: ANO-NE
+minutka:["k-d-minutka","b-dotaz-minutka-z"], // tlačítka dialogového okna k Zadání minutky Křížek a Zrušit
+minutka_info:["k-d-minutka-info","min-zrusit-info"], // tlačítka dialogového okna k informaci o minutce Křížek a Zrušit minutku
+minutka_dotaz:["k-d-dotaz-minutka","b-dotaz-minutka-a","b-dotaz-minutka-n"], // tlačítka dialogového okna k dotazu o zrušení minutky Křížek, ANO,NE
 kont:"but-kon",
 handleEvent(e){
 const k=e.target.id; /* zjistí id prvku na který bylo kliknuto */
@@ -115,7 +149,7 @@ tik.a_odpocet=false; /* proměnná, která funkci tik.tak() ve centrum.js dáva 
 hlidac.odpocet=false;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se NEpočítá */
 uloz.uloz(uloz.klice[9],true); /* uloží na local storage informaci, že byl Noční VLK zastaven - v oživit.js */
 dia.off(this.id[0]); /* vypne dialogové okno */
-text.pis("Noční&nbsp;VLK byl zastaven");
+text.pis("Noční&nbsp;VLK byl zastaven"); // text pře celou obrazovku
 gong.hraj(false); /* zahraje GONG.mp3 - FALSE = 1x */
 poloha.reset(); /* vyresetuje hodnoty polohy v systému obchůzek - v kresly.js */
 
@@ -230,6 +264,52 @@ if(k==this.kont)
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
 dia.off(this.id[7]); /* vypne dialogové okno */
 }
+
+if(k==this.minutka[0]||k==this.minutka[1])
+{
+/* Kliknuto na Křížek anebo Zrušit v Zadání Minutky  */
+klik.hraj(false); // bude přehrávat zvuk 1x klik
+dia.off(this.id[9]); /* vypne dialogové okno a odebere posluchače */
+}
+
+if(k==this.minutka_info[0])
+{
+// kliknuto na křížek dialogového okna informace o minutce
+klik.hraj(false); // bude přehrávat zvuk 1x klik
+this.off(this.id[10]); /* vypne dialogové okno informace o minutce a odebere posluchače */
+}
+
+if(k==this.minutka_info[1])
+{
+// kliknuto na požadavek Zrušit minutku v informačním okně o minutce
+klik.hraj(false); // bude přehrávat zvuk 1x klik
+this.off(this.id[10]); /* vypne dialogové okno informace o minutce a odebere posluchače */
+this.on(this.id[11]); /* zapne dialogové okno s dotazem, zda zrušit minutku a aktivuje posluchače */
+}
+
+if(k==this.minutka_dotaz[0]||k==this.minutka_dotaz[2])
+{
+// kliknuto Křížek anebo NE dotazu Zrušit minutku
+klik.hraj(false); // bude přehrávat zvuk 1x klik
+this.off(this.id[11]); /* vypne dialogové okno s dotazem, zda zrušit minutku a aktivuje posluchače */
+this.on(this.id[10]); /* zapne dialogové okno informace o minutce a odebere posluchače */
+}
+
+if(k==this.minutka_dotaz[1])
+{
+// kliknuto na ANO dotazu Zrušit minutku
+this.off(this.id[11]); /* vypne dialogové okno s dotazem, zda zrušit minutku a aktivuje posluchače */
+minutka.zrusit(); // funkce vykoná veškeré procesy pro zrušení minutky, fnkce je v minutka.js
+}
+
+
+if(k==minutka.id_check[1])
+{
+// klik na checked (zatrhávací políčko) Opakovat minutku po jejím ukončení - v Informačním dia okně minutky viz minutka.js
+minutka.opakovat_zmena(e.target.checked); // funkce zajistí změny v proměnné a druhém checketu v informačním okně podle hodnoty, které v aktuálním checketu byla nastavena - v minutka.js
+}
+
+
 },
 posON(id){
 // posluchače k tlačítkům Dialogových oken
@@ -310,6 +390,40 @@ for(let i=0;i<l6;i++)
 document.getElementById(this.ozit_dotaz[i]).addEventListener("click",this); // přidání posluchačů událostí k dotazu dialogového okna
 }}
 
+if(id==this.id[9])
+{
+/* posluchače událostí pro zadání minutky */
+let l7=this.minutka.length;
+for(let i=0;i<l7;i++)
+{
+document.getElementById(this.minutka[i]).addEventListener("click",this); // přidání posluchačů událostí k Zadání minutky, pouze Křížek a Zrušit minutku
+}
+minutka.posON_zadani(); // aktivace posluchačů pro zadání minutky v minutka.js
+}
+
+
+if(id==this.id[10])
+{
+/* tlačítko odpočet minutky - vizuální zobrazení - button anebo klik na inkonku minutky, když už je spuštěna */
+let l8=this.minutka_info.length;
+for(let i=0;i<l8;i++)
+{
+document.getElementById(this.minutka_info[i]).addEventListener("click",this); // přidání posluchačů událostí k informacím minutky, pouze Křížek a Zrušit minutku
+}
+document.getElementById(minutka.id_check[1]).addEventListener("input",this); // pro checked (zatrhávací políčko) Opakovat minutku po jejím ukončení v informačním okně o minutce
+}
+
+
+if(id==this.id[11])
+{
+// tlačítka dotaz na zrušení minutky - Křížek, ANO,NE
+let l9=this.minutka_dotaz.length;
+for(let i=0;i<l9;i++)
+{
+document.getElementById(this.minutka_dotaz[i]).addEventListener("click",this); // přidání posluchačů událostí k dotazu zrušení minutky
+}
+}
+
 
 },
 posOFF(id){
@@ -388,23 +502,52 @@ for(let i=0;i<l6;i++)
 document.getElementById(this.ozit_dotaz[i]).removeEventListener("click",this); // odebrání posluchačů událostí k dotazu dialogového okna
 }}
 
+if(id==this.id[9])
+{
+/* tlačítko MINUTKA */
+let l7=this.minutka.length;
+for(let i=0;i<l7;i++)
+{
+document.getElementById(this.minutka[i]).removeEventListener("click",this); // odebrání posluchačů událostí k Zadání Minutka, pouze Křížek a Zrušit minutku
+}
+minutka.posOFF_zadani(); // DEaktivace posluchačů pro zadání minutky v minutka.js
+}
+
+if(id==this.id[10])
+{
+/* posluchače událostí pro informace o minutce */
+let l8=this.minutka_info.length;
+for(let i=0;i<l8;i++)
+{
+document.getElementById(this.minutka_info[i]).removeEventListener("click",this); // odebrání posluchačů událostí k informacím minutky, pouze Křížek a Zrušit minutku
+}
+document.getElementById(minutka.id_check[1]).removeEventListener("input",this); // pro checked (zatrhávací políčko) Opakovat minutku po jejím ukončení v informačním okně o minutce
+}
+
+if(id==this.id[11])
+{
+// tlačítka dotaz na zrušení minutky - Křížek, ANO,NE
+let l9=this.minutka_dotaz.length;
+for(let i=0;i<l9;i++)
+{
+document.getElementById(this.minutka_dotaz[i]).removeEventListener("click",this); // odebrání posluchačů událostí k dotazu zrušení minutky
+}
+}
+
 },
 on(id){
 /* otevření dialogového okna */
 
 const okno=document.getElementById(id);
-
-this.posON(id); /* zapne posluchače k dialogovému oknu */
-
 okno.showModal(); /* otevře dialogové okno */
-
+this.posON(id); /* zapne posluchače k dialogovému oknu */
 this.aktivni=id; /* zapíše do proměnné, aktivní dialogové okno */
 
 },
 off(id){
 /* zavření dialogového okna */
-const okno=document.getElementById(id);
 dia.posOFF(id); /* vypne posluchače událostí k Dialogovému oknu */
+const okno=document.getElementById(id);
 okno.close(); /* zavře dialogové okno */
 this.aktivni=""; /* vynuluje proměnnou, která udává aktivní dialogové okno */
 },
@@ -414,9 +557,7 @@ vyp_akt(){
 if(this.aktivni!="")
 {
 /* pokud bude aktivní dialogové okno - zavře se! */
-const okno=document.getElementById(this.aktivni); /* načte, které dialogové okno je aktivní */
-okno.close(); /* zavře dialogové okno */
-this.aktivni=""; /* vynuluje proměnnou */
+this.off(this.aktivni); // vypne posluchače dialogového okna
 }
 
 }};
@@ -543,11 +684,20 @@ for(let i=0;i<l1;i++)
 document.getElementById(dia.id[i]).style.filter=`brightness(${hodnota}%)`; /* změna jasu dialogových oken */
 }}}; /* KONEC změna jasu aplikace */
 
-const p_nas={id_blok:"n-i-blok",id:"nastaveni",id_nas:["k-nas","in-plus1-n","in-minus1-n","bns1","bns2","bns3","bns4","bns5","bns6","vlk_z"],id_SVG:["in-plus2-n","in-minus2-n","s-nas"],id_level:"i-l-n",id_in:["i-15-n","i-30-n","i-60-n","i-120-n"],id_in_r:["ir-15-n","ir-30-n","ir-60-n","ir-120-n"],id_cast:["int-15-n","int-30-n","int-60-n","int-120-n"], /* posluchače událostí pro nastavení */
+const p_nas={id_blok:"n-i-blok",id:"nastaveni",
+id_nas:["k-nas","in-plus1-n","in-minus1-n","vlk_z","minutka_z"], // id tlačítek v nastavení
+id_zvuk_vlk:["bns1","bns2","bns3","bns4","bns5","bns6"], // id tlačítek nastavení zvuku Nočního VLKa
+id_zvuk_minutka:["bns1m","bns2m","bns3m","bns4m","bns5m","bns6m"], // id tlačítek nastavení zvuku Minutky
+id_SVG:["in-plus2-n","in-minus2-n","s-nas"],
+id_level:"i-l-n",
+id_in:["i-15-n","i-30-n","i-60-n","i-120-n"],
+id_in_r:["ir-15-n","ir-30-n","ir-60-n","ir-120-n"],
+id_cast:["int-15-n","int-30-n","int-60-n","int-120-n"], /* posluchače událostí pro nastavení */
 
 a(){
 this.On(); /* aktivuje posluchače */
-zvuk.barvy(); /* obarví tlačítka Volba zvuku alarmu Noční VLK - podle toho jaký je zvolený - ve vlk.js */
+zvuk.barvy(this.id_zvuk_vlk); // obarví tlačítka Volba zvuku alarmu Noční VLK - podle toho jaký je zvolený - ve vlk.js
+zvuk_min.barvy(this.id_zvuk_minutka); // obarví tlačítka Volba zvuku alarmu Minutka - podle toho jaký je zvolený - ve vlk.js
 },
 On(){
 let l1=this.id_nas.length;
@@ -555,6 +705,19 @@ for(let i=0;i<l1;i++)
 {
 document.getElementById(this.id_nas[i]).addEventListener("click",this);
 }
+
+let l2=this.id_zvuk_vlk.length;
+for(let i=0;i<l2;i++)
+{
+document.getElementById(this.id_zvuk_vlk[i]).addEventListener("click",this); // přidá posluchače k terčíkum 1-5 volby zvuku pro Nočního VLKa
+}
+
+let l3=this.id_zvuk_minutka.length;
+for(let i=0;i<l3;i++)
+{
+document.getElementById(this.id_zvuk_minutka[i]).addEventListener("click",this); // přidá posluchače k terčíkum 1-5 volby zvuku pro Minutku
+}
+
 },
 
 Off(){
@@ -563,7 +726,22 @@ let l1=this.id_nas.length;
 for(let i=0;i<l1;i++)
 {
 document.getElementById(this.id_nas[i]).removeEventListener("click",this);
-}},
+}
+
+let l2=this.id_zvuk_vlk.length;
+for(let i=0;i<l2;i++)
+{
+document.getElementById(this.id_zvuk_vlk[i]).removeEventListener("click",this); // odebere posluchače k terčíkum 1-5 volby zvuku pro Nočního VLKa
+}
+
+let l3=this.id_zvuk_minutka.length;
+for(let i=0;i<l3;i++)
+{
+document.getElementById(this.id_zvuk_minutka[i]).removeEventListener("click",this); // odebere posluchače k terčíkum 1-5 volby zvuku pro Minutku
+}
+
+
+},
 handleEvent(e){
 const k=e.target.id; /* zjistí ID prvku na který bylo kliknuto */
 
@@ -587,53 +765,117 @@ klik.hraj(false); // bude přehrávat zvuk 1x klik
 pruvodce.inter("minus"); // sníží interval do bchůzky
 uloz.osoba(); /* uloží na localstorage data z objektu osoba (v pruvodce.js), tato funkce je v ozivit.js */
 }
-else if(k==this.id_nas[3])
+else if(k==this.id_zvuk_vlk[0])
 {
 /* klik - volba zvuk alarmu Noční VLK - 1 */
-zvuk.volba(0); /* změna zvuku na zvuk 1 - ve vlk.js  */
+zvuk.volba(0,this.id_zvuk_vlk); // změna zvuku na zvuk 1 - ve vlk.js - jako parametr se posílá: číslo zvuku a pole s id prvky
+uloz.uloz(uloz.klice[10],0); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
-else if(k==this.id_nas[4])
+else if(k==this.id_zvuk_vlk[1])
 {
 /* klik - volba zvuk alarmu Noční VLK - 2 */
-zvuk.volba(1); /* změna zvuku na zvuk 1 - ve vlk.js  */
+zvuk.volba(1,this.id_zvuk_vlk); /* změna zvuku na zvuk 1 - ve vlk.js  */
+uloz.uloz(uloz.klice[10],1); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
-else if(k==this.id_nas[5])
+else if(k==this.id_zvuk_vlk[2])
 {
 /* klik - volba zvuk alarmu Noční VLK - 3 */
-zvuk.volba(2);
+zvuk.volba(2,this.id_zvuk_vlk);
+uloz.uloz(uloz.klice[10],2); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
-else if(k==this.id_nas[6])
+else if(k==this.id_zvuk_vlk[3])
 {
 /* klik - volba zvuk alarmu Noční VLK - 4 */
-zvuk.volba(3);
+zvuk.volba(3,this.id_zvuk_vlk);
+uloz.uloz(uloz.klice[10],3); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
-else if(k==this.id_nas[7])
+else if(k==this.id_zvuk_vlk[4])
 {
 /* klik - volba zvuk alarmu Noční VLK - 5 */
-zvuk.volba(4);
+zvuk.volba(4,this.id_zvuk_vlk);
+uloz.uloz(uloz.klice[10],4); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
-else if(k==this.id_nas[8])
+else if(k==this.id_zvuk_vlk[5])
 {
 /* klik - volba zvuk alarmu Noční VLK - 6 */
-zvuk.volba(5);
+zvuk.volba(5,this.id_zvuk_vlk);
+uloz.uloz(uloz.klice[10],5); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
-else if(k==this.id_nas[9])
+else if(k==this.id_nas[3])
 {
 /* klik - Zesilovat zvuk alarmu Nočního VLKa */
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
-if(document.getElementById(this.id_nas[9]).checked==true)
+if(document.getElementById(this.id_nas[3]).checked==true)
 {
 /* pokud bude Zašktnuto pole */
 zvuk.zesilovat=true; /* nastaví proměnnou na postupné zesilování - ve vlk.js */
 uloz.uloz(uloz.klice[11],"true"); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
-else if(document.getElementById(this.id_nas[9]).checked==false)
+else if(document.getElementById(this.id_nas[3]).checked==false)
 {
 /* pokud NEbude Zašktnuto pole */
 zvuk.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
 uloz.uloz(uloz.klice[11],"false"); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
 }
+
+
+else if(k==this.id_zvuk_minutka[0])
+{
+/* klik - volba zvuk alarmu Minutka - 1 */
+zvuk_min.volba(0,this.id_zvuk_minutka); // změna zvuku na zvuk 1 - ve vlk.js - jako parametr se posílá: číslo zvuku a pole s id prvky
+uloz.uloz(uloz.klice[13],0); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
+}
+else if(k==this.id_zvuk_minutka[1])
+{
+/* klik - volba zvuk alarmu Minutka - 2 */
+zvuk_min.volba(1,this.id_zvuk_minutka); /* změna zvuku na zvuk 1 - ve vlk.js  */
+uloz.uloz(uloz.klice[13],1); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
+}
+else if(k==this.id_zvuk_minutka[2])
+{
+/* klik - volba zvuk alarmu Minutka - 3 */
+zvuk_min.volba(2,this.id_zvuk_minutka);
+uloz.uloz(uloz.klice[13],2); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
+}
+else if(k==this.id_zvuk_minutka[3])
+{
+/* klik - volba zvuk alarmu Minutka - 4 */
+zvuk_min.volba(3,this.id_zvuk_minutka);
+uloz.uloz(uloz.klice[13],3); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
+}
+else if(k==this.id_zvuk_minutka[4])
+{
+/* klik - volba zvuk alarmu Minutka - 5 */
+zvuk_min.volba(4,this.id_zvuk_minutka);
+uloz.uloz(uloz.klice[13],4); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
+}
+else if(k==this.id_zvuk_minutka[5])
+{
+/* klik - volba zvuk alarmu Minutka - 6 */
+zvuk_min.volba(5,this.id_zvuk_minutka);
+uloz.uloz(uloz.klice[13],5); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
+}
+else if(k==this.id_nas[4])
+{
+/* klik - Zesilovat zvuk alarmu Minutka */
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
+if(document.getElementById(this.id_nas[4]).checked==true)
+{
+/* pokud bude Zašktnuto pole */
+zvuk_min.zesilovat=true; /* nastaví proměnnou na postupné zesilování - ve vlk.js */
+uloz.uloz(uloz.klice[14],"true"); //  uloží volbu zesilování zvuku uživatele na LocalStorage - v ozivit.js
+}
+else if(document.getElementById(this.id_nas[4]).checked==false)
+{
+/* pokud NEbude Zašktnuto pole */
+zvuk_min.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
+uloz.uloz(uloz.klice[14],"false"); //  uloží volbu zesilování zvuku uživatele na LocalStorage - v ozivit.js
+}
+}
+
+
+
 }};
 
  /* Objekt pro tlačítko Obchůzky */
@@ -789,6 +1031,11 @@ hl_kon.zavri(uzamceni.id,"flex",uzamceni.id); /* zavře hlavní kontajner a otev
 v_port.handleEvent(); /* provede nový propočet velikosti okna */
 this.zhasni();  /* nechá pouze tmavou obrazovku */
 this.pON(); /* aktivuje posluchače událostí */
+if(minutka.aktivni)
+{
+// pokud bude minutka aktivní, vše v minutka.js
+document.getElementById(minutka.id_box_uk).style.opacity=0; // schová box pro odpočet minutky (box obsahuje: vizuální odpočet + prvky na ukončení), v minutka.js
+}
 },
 pON(){
 // zapnutí posluchačů událostí pro zámek obrazovky
@@ -812,9 +1059,15 @@ clearTimeout(this.casovac); // vynuluje časovač
 document.getElementById(this.id).style.opacity=1; /* nechá krytí na 100% */
 hl_kon.otevri(this.id); /* zruší zámek a otevře hlavní kontajner */
 this.oOFF(); // odebere posluchače
+if(minutka.aktivni)
+{
+// pokud bude minutka aktivní, vše v minutka.js
+document.getElementById(minutka.id_box_uk).style.opacity=1; // zobrazí box pro odpočet minutky (box obsahuje: vizuální odpočet + prvky na ukončení), v minutka.js
+}
 },
 zhasni(){
 clearTimeout(this.casovac);
+// filter: brightness(90%);
 this.casovac=setTimeout(`document.getElementById("${this.id}").style.opacity=0;`,this.TIME);  /* nechá pouze tmavou obrazovku */
 },
 jednou(){
@@ -1101,7 +1354,25 @@ let text=e.target.value; // zjistí value textarea poznámky
 uloz.uloz(uloz.klice[12],text); // při každé změně textu v textarea poznámky, uloží její value do Local Strorage pod klíčem- funkce je v ozivit.js
 }
 
-if(k==this.min[0]||k==this.min[1]||k==this.min[2]||k==this.pla[0]||k==this.pla[1]||k==this.pla[2])
+if(k==this.min[0]||k==this.min[1]||k==this.min[2])
+{
+/* KLIKNUTÍ NA MINUTKA */
+klik.hraj(false); // bude přehrávat zvuk 1x klik
+
+if(!minutka.aktivni)
+{
+// pokud není minutka aktivní
+dia.on(dia.id[9]); /* v centrum.js */
+}
+else
+{
+// pokud je minutka aktivní
+dia.on(dia.id[10]); /* zapne dialogové okno s informacemi o minutce a možností jejího zrušení, funkce v centrum.js */
+}
+
+}
+
+if(k==this.pla[0]||k==this.pla[1]||k==this.pla[2])
 {
 /* KLIKNUTÍ PRO NENAPROGRAMOVANÉ FUNKCE */
 klik.hraj(false); // bude přehrávat zvuk 1x klik
@@ -1223,7 +1494,7 @@ document.getElementById(this.id_kon).style.display="none"; // nastaví hlavní k
 
 setTimeout(()=>{
 document.getElementById(IDnew).style.display=typ; // nastaví display nového okna, které nahradí hlavní kontajner
-document.getElementById(IDnew).style.zIndex=0; // nastaví z-index nového okna, které nahradí hlavní kontajner
+document.getElementById(IDnew).style.zIndex=3; // nastaví z-index nového okna, které nahradí hlavní kontajner
 },this.TIME1); // zpoždění musí být vyšší než nastavení display=none na hlavním kontajneru, jinak dojde k nepříjemnému poskočení okna a neprojeví se transmition
 
 setTimeout(()=>{
@@ -1255,7 +1526,7 @@ document.getElementById(this.id_kotva).scrollIntoView({behavior:"smooth"}); // s
 
 const centrala={id_error:"div-error",id_but:"but-error",cesta:"../Nocni-VLK.html",lic:null,
 posOn(){
-document.getElementById(this.id_but).addEventListener("click",this);
+document.getElementById(this.id_but).addEventListener("click",this); // přidání poschuchače na button Spustit aplikaci běžným způsobem
 },
 handleEvent(){
 location.replace(this.cesta); /* dojde k href na this.cesta bez možnosti návratu na error stránku */

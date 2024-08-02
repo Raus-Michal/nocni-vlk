@@ -3,7 +3,7 @@
 --b1:rgb(31,3,34); /* tmavě fialová */
 --b2:rgb(138,28,124); /* křiklavě fialová */
 --b2_50:rgba(138,28,124,0.5); /* křiklavě fialová - krytí 50% */
---b3:rgb(218,65,103); /* červená */
+--b3: rgb(258,65,130); /* červená --- původní=rgb(240, 12, 69) */
 --b4:rgb(240,188,212); /* světle růžová */
 --b5:rgb(137,157,120); /* světle zelená */
 --b5_50:rgba(137,157,120,0.5); /* světle zelená - krytí 50% */
@@ -157,27 +157,7 @@ transition:250ms;
 }
 
 
-/* pokud je obrazovka větší než 19em - 304px */
-@media only screen and (min-width:19em)
-{
 
-.kon
-{
-grid-template-rows:repeat(10,auto);
-grid-template-areas:
-"uhr uhr uhr uhr uhr uhr" 
-"can can can can can can"
-"odp odp odp odp odp odp"
-"pla pla pla nav2 nav2 nav2"
-"min min min nav2 nav2 nav2"
-"pre pre pre nav2 nav2 nav2"
-"poz poz poz poz poz poz"
-"hla hla hla hla hla kon"
-"jas jas jas jas jas zam"
-"obr obr obr obr obr obr"
-;
-}
-}
 
 
 /* MOBIL L pokud je obrazovka větší než 23.25em - 372px */
@@ -1135,14 +1115,6 @@ min-height:100%;
 background:var(--b1);
 }
 
-/* větší než 1600px - maximální šířka kontejneru
-@media only screen and (min-width:100em)
-{
-.o-kon
-{
-border:1px solid var(--b2_50);
-}} */
-
 .o-hlav
 {
 display:grid;
@@ -1270,14 +1242,6 @@ width:100%;
 /* max-width:100rem; */
 background:var(--b1);
 }
-
-/* při maximální šířce kontejneru 100rem
-@media only screen and (min-width: 100em)
-{
-.o-t
-{
-border:1px solid var(--b2_50);
-}} */
 
 .o-pata
 {
@@ -1545,14 +1509,6 @@ transition:5s opacity;
 max-width:300px;
 }}
 
-/* TABLET pokud je obrazovka větší než 27em - 432px 
-@media only screen and (min-width: 27em)
-{
-.can
-{
-max-width:400px;
-}} */
-
 .v-o
 {
 display:grid;
@@ -1811,17 +1767,6 @@ border-radius:50%;
 background:var(--b1);
 }
 
-/* MOBIL S pokud je obrazovka větší než 18em - 288px 
-@media only screen and (min-width: 18em)
-{
-.sem1,.sem2
-{
-width:3rem;
-min-width:3rem;
-height:3rem;
-min-height:3rem;
-}} */
-
 .sem1
 {
 animation:semafor1 1s ease-in-out infinite paused;
@@ -1859,7 +1804,8 @@ color:var(--b1);
 border:1px solid var(--b2);
 border-radius:8px;
 padding:0;
-transition: 2s;
+transition:.5s;
+width:100%;
 }
 
 /* pokud je obrazovka větší než 27em - 432px */
@@ -1917,6 +1863,189 @@ margin:1rem;
 gap:0rem;
 justify-content:center;
 }
+
+/* class pro Minutku */
+
+
+
+
+.d-min-box
+{
+color:var(--b4);
+background:var(--b1);
+padding:1rem;
+border-radius:8px;
+display: flex;
+flex-direction:column;
+align-items:center;
+gap:.5rem;
+width:auto;
+}
+
+/* pokud je obrazovka větší jak - 288px */
+@media only screen and (min-width: 18em)
+{
+.d-min-box
+{
+width:min-content;
+}}
+
+/* MOBIL L pokud je obrazovka větší než 23.25em - 372px */
+@media only screen and (min-width: 23.25em)
+{
+.d-min-box
+{
+width:auto;
+}}
+
+
+.min-inp
+{
+font-size:1rem;
+width:100%;
+max-width:20ch;
+margin:0;
+padding:.5rem;
+color:var(--b1);
+cursor:text;
+caret-color:var(--b2); /* barva cursoru */
+background:transparent;
+border:1px solid var(--b2);
+border-radius:5px;
+}
+
+.min-inp:focus {
+outline:none; /* Odstranění standardního zvýraznění focusu */
+background:white;
+}
+
+.min-inp::placeholder {
+color:rgba(0,0,0,0.7); /* černá průjlednost 70% */
+text-align:left;
+font-style:italic;
+}
+
+.min-odp
+{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:.5rem;
+border:2px solid var(--b2);
+background-color:black;
+color:var(--b3);
+border-radius:16px;
+padding:.5rem;
+font-size:1rem;
+}
+
+.zar /* class se přidává pomocí JavaScriptu pro rozzáření prvku - v minutka.js */
+{
+animation:zarit linear 2 .25s running;
+}
+
+.zar-nonstop /* class se přidává pomocí JavaScriptu pro rozzáření prvku - v minutka.js */
+{
+animation:zarit2 linear infinite 1s running;
+}
+
+@keyframes zarit
+{
+0%{box-shadow: 0px 0px 0px var(--b2);border:2px solid var(--b2);}
+100%{box-shadow: 0px 0px 32px var(--b2);border:2px solid var(--b5);}
+}
+
+@keyframes zarit2
+{
+0%{box-shadow: 0px 0px 0px var(--b2);border:2px solid var(--b2);}
+90%{box-shadow: 0px 0px 0px var(--b2);border:2px solid var(--b2);}
+100%{box-shadow: 0px 0px 32px var(--b2);border:2px solid var(--b5);}
+}
+
+.i-min-o
+{
+width:1.5rem;
+min-width:1.5rem;
+height:1.5rem;
+min-height:1.5rem;
+}
+
+.sec-m /* sekundy v ukazateli odpočtu minutky - aby si zachovaly šířku a neposkakoval odpočet */
+{
+display:inline-block;
+width:.5rem;
+}
+
+.box-minutky
+{
+/* box minutky, který se objeví u odpočtu minutky až ve chvíly timeoutu */
+display:none;
+opacity:0;
+transition:250ms;
+flex-direction:column;
+position:fixed;
+top:1rem;
+right:1rem;
+z-index:1;
+background:black;
+border-radius:16px;
+}
+
+.b-tim
+{
+/* blok timeout minutky */
+display:none;
+overflow:hidden;
+transition:250ms;
+}
+
+.p-min-tim
+{
+/* popisek minutky v timeoutu bloku */
+margin:.5rem 0;
+max-width:10ch;
+text-align:center;
+}
+
+
+.timeout-min /* css třída která se v minutka.js použije pro zobrazení popisku a ztušení minutky při timeoutu minutky */
+{
+border:2px solid var(--b3);
+padding:.5rem;
+}
+
+
+@keyframes tres
+{
+0%{transform:translate(0,0) rotate(0deg);}
+5%{transform:translate(-7%,0) rotate(0deg);}
+10%{transform:translate(-6%,3%) rotate(-25deg);}
+20%{transform:translate(-5%,-3%) rotate(25deg);}
+30%{transform:translate(-6%,3%) rotate(-25deg);}
+40%{transform:translate(-5%,-3%) rotate(25deg);}
+45%{transform:translate(-7%,0) rotate(0deg);}
+50%{transform:translate(7%,0) rotate(0deg);}
+60%{transform:translate(6%,3%) rotate(25deg);}
+70%{transform:translate(5%,-3%) rotate(-25deg);}
+80%{transform:translate(6%,3%) rotate(25deg);}
+95%{transform:translate(5%,-3%) rotate(-25deg);}
+100%{transform:translate(0,0) rotate(0deg);}
+}
+
+.budik /* class se přidává pomocí JavaScriptu pro temeout minutky, pohyb budíku - v minutka.js */
+{
+animation:tres linear infinite 2s running;
+}
+
+
+
+.pres_t
+{
+/* css zajistí že přesah textu se bude tečkovat, pokud bude chybět dostatečné zalomení textu mezerami - je to pro popisek minutky jak v timeoutu, tak v informačním dialogu k minutce */
+text-overflow:ellipsis;
+overflow:hidden;
+}
+/* konec class pro Minutku */
 
 .box-text
 {
@@ -2113,6 +2242,11 @@ display:flex;
 flex-direction:column;
 }
 
+.flex3
+{
+flex:3;
+}
+
 .jcc
 {
 justify-content:center;
@@ -2123,6 +2257,21 @@ justify-content:center;
 align-items:center;
 }
 
+.g1
+{
+gap:1rem;
+}
+
+.g015
+{
+gap:.15rem;
+}
+
+
+.wrap
+{
+flex-wrap:wrap;
+}
 
 .tj
 {
@@ -2144,6 +2293,11 @@ font-size:1.25rem;
 font-size:.7rem;
 }
 
+.f-1
+{
+font-size:1rem;
+}
+
 .f-1r
 {
 font-size:1rem;
@@ -2162,6 +2316,13 @@ line-height:1;
 {
 font-size:2rem;
 }
+
+.f-2r
+{
+font-size:2rem;
+font-size:calc(2rem + 1vw);
+}
+
 
 .f-115
 {
@@ -2182,6 +2343,11 @@ margin-top:0rem;
 .mt-2
 {
 margin-top:2rem;
+}
+
+.mxl
+{
+margin:2rem 1rem;
 }
 
 .mb-0
@@ -2209,6 +2375,7 @@ margin-bottom:.5rem;
 {
 margin-bottom:2rem;
 }
+
 
 .p0
 {
@@ -2260,7 +2427,10 @@ line-height:2;
 justify-self:end;
 }
 
-
+.c-b3
+{
+color:var(--b3);
+}
 
 
 .c-b5
@@ -2370,7 +2540,7 @@ position:sticky;
 top:0;
 left:0;
 will-change:transform;
-z-index:1;
+z-index:3;
 }
 
 .f110
@@ -2381,6 +2551,26 @@ flex:1 1 0;
 .b-w0
 {
 border-width: 0px;
+}
+
+.br8-l
+{
+border-radius:8px 0 0 8px;
+}
+
+.br8-r
+{
+border-radius:0 8px 8px 0;
+}
+
+.b-bl
+{
+background-color:black;
+}
+
+.b-b1
+{
+background-color:var(--b1);
 }
 
 .n-s::selection
@@ -2420,12 +2610,26 @@ color:white;
 z-index:99;
 }
 
+.w100
+{
+width:100%;
+}
+
 .w1
 {
 width:100%;
 height:100%;
 }
 
+.w45
+{
+width:4.5rem;
+}
+
+.wa
+{
+width:auto;
+}
 
 .d-n
 {

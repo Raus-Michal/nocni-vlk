@@ -296,23 +296,20 @@ let hodnota=parseInt(document.getElementById(id).value);
 if(hodnota<this.min){hodnota=this.min;}
 this.volume=hodnota/100;
 },
-barvy(){
+barvy(pole_id){
 /* barvení tlačítek s volbou zvuku */
-
-const b=[document.getElementById(p_nas.id_nas[3]),document.getElementById(p_nas.id_nas[4]),document.getElementById(p_nas.id_nas[5]),document.getElementById(p_nas.id_nas[6]),document.getElementById(p_nas.id_nas[7]),document.getElementById(p_nas.id_nas[8])]; /* button 1,2,3,4,5,6 - volba zvuku alarm Noční VLK - v centrum.js */
-
-
+const b=pole_id; // id buttonu 1,2,3,4,5,6 - volba zvuku alarm - zasláno z centrum.js - const p_nas
 let l1=b.length;
 for(let i=0;i<l1;i++)
 {
-b[i].style.borderColor=this.bc; /* přebarví všechny tlačítka na default barvu */
-b[i].style.boxShadow="0px 0px 0px transparent"; /* odebere stín všem tlačítkům */
+document.getElementById(b[i]).style.borderColor=this.bc; /* přebarví všechny tlačítka na default barvu */
+document.getElementById(b[i]).style.boxShadow="0px 0px 0px transparent"; /* odebere stín všem tlačítkům */
 }
 
-b[this.cislo].style.borderColor=this.bcT; // přebarvení tlačítka s volbou zvuku
-b[this.cislo].style.boxShadow=`0px 0px 10px ${this.bcT}`; /* přidá stín tlačítku, jehož zvuk byl vybrán */
+document.getElementById(b[this.cislo]).style.borderColor=this.bcT; // přebarvení tlačítka s volbou zvuku
+document.getElementById(b[this.cislo]).style.boxShadow=`0px 0px 10px ${this.bcT}`; /* přidá stín tlačítku, jehož zvuk byl vybrán */
 },
-volba(cislo){
+volba(cislo,pole_id){
 /* volba zvuku */
 if(this.cislo==cislo)
 {
@@ -322,10 +319,9 @@ return;
 }
 
 this.cislo=cislo; /* zapíše změnu do proměnné objektu */
-uloz.uloz(uloz.klice[10],this.cislo); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 
 this.hraj(false); /* přehraje zvuk 1x */
-this.barvy(); /* zajistí obarvení vybraného zvuku */
+this.barvy(pole_id); /* zajistí obarvení vybraného zvuku */
 },
 zastav(){
 window.audio[this.cislo].pause(); /* zapauzuje přehrávání zvuku */
@@ -349,6 +345,12 @@ const klik=Object.create(zvuk); /* udělá věrnou kopii objektu zvuk - pro GONG
 {
 klik.cislo=6; // označí číslo pro přehrávání stopy klik
 klik.zesilovat=false; // určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne
+}
+
+const zvuk_min=Object.create(zvuk); /* udělá věrnou kopii objektu zvuk - pro minutku - minutka,js */
+{
+zvuk_min.cislo=2; // označí číslo pro přehrávání stopy klik
+zvuk_min.zesilovat=true; // určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne
 }
 
 const obch={

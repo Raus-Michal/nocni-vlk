@@ -8,15 +8,23 @@ document.getElementById(zavrit).style.zIndex=-1; /* nedovolí klikat na prvnky s
 document.getElementById(zavrit).style.opacity=0; /* nastaví opacity=0 na staré okno */
 document.getElementById(zavrit).style.display="none"; /* nastaví display=none na staré okno */
 
+document.getElementById(minutka.id_box_uk).style.display="none"; // vypne ukazatel minutky, aby se neobjevoval při přechodu mezi jednotlivými kroky spouštění Nočního VLKa, prvky v minutka.js
+
 setTimeout(()=>{
 document.getElementById(otevrit).style.display=this.typ; // u nového okna zapne display=typ
 },this.TIME1); // zpoždění musí být, aby nedošlo k nežádoucímu poskočení okna
 
 setTimeout(()=>{
 document.getElementById(otevrit).style.opacity=1;
-document.getElementById(otevrit).style.zIndex=0;
+document.getElementById(otevrit).style.zIndex=2;
 document.getElementById(kotva).scrollIntoView({behavior:"smooth"});
 },this.TIME2);
+
+setTimeout(()=>{
+// zpoždění musí být, aby se ukazatel minutky neukazoval moc brzy mezi přechody transition opacity jednotlivých kroků spouštění Nočního VLKa
+document.getElementById(minutka.id_box_uk).style.display=minutka.display; // ukazatel minutky bude mít opět display block,flex anebo grid
+},this.TIME4);
+
 }};
 
 let osoba={o15:false,o30:false,o60:false,o120:false,i15:810,i30:1620,i60:3240,i120:6480,okruh:11,odloz_start:0,level:3}; /* objekt udržuje základní informace o nastavení uživatele při startu Nočního VLKa */
