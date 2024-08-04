@@ -8,15 +8,23 @@
 --b5:rgb(137,157,120); /* světle zelená */
 }
 
-@font-face {
-font-family: "nadpis";
-src:url("../font/nadpis.ttf");
+@font-face{
+font-display:fallback; /* vlastnost fontu, která zobrazí font se zpožděním 0.3s, kdy už by měl být načten - sníží se performace webu */
+font-family:"nadpis"; /* vlastní název fontu, který se posléze bude dále používat v CSS */
+src:url("../font/nadpis.woff2") format("woff2"),url("../font/nadpis.woff") format("woff");
+font-weight:normal;
+font-style:normal;
 }
 
-@font-face {
-font-family: "text";
-src:url("../font/text.ttf");
+
+@font-face{
+font-display:fallback; /* vlastnost fontu, která zobrazí font se zpožděním 0.3s, kdy už by měl být načten - sníží se performace webu */
+font-family:"text"; /* vlastní název fontu, který se posléze bude dále používat v CSS */
+src:url("../font/text.woff2") format("woff2"),url("../font/text.woff") format("woff");
+font-weight:normal;
+font-style:normal;
 }
+
 
 * {
 box-sizing:border-box;
