@@ -2018,7 +2018,9 @@ text-align:center;
 
 .timeout-min /* css třída která se v minutka.js použije pro zobrazení popisku a ztušení minutky při timeoutu minutky */
 {
-border:2px solid var(--b3);
+border:1px solid var(--b2);
+box-shadow:inset 2px 2px 3px var(--b2_50), inset -2px -2px 3px var(--b2_50), inset 2px -2px 3px var(--b2_50), inset -2px 2px 3px var(--b2_50);
+border-radius:16px;
 padding:.5rem;
 }
 
@@ -2310,7 +2312,7 @@ font-size:1rem;
 {
 font-size:1rem;
 font-size:calc(1rem + .5vw);
-line-height:1;
+line-height:1.2;
 }
 
 .f-3r

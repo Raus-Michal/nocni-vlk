@@ -18,20 +18,7 @@ alarm:false, // proměnná určuje zda je minutka v timeoutu, tedy v alarmu, tru
 konecny_cas:null,  // konečný čas v milisekundách v porovnání s počátečním časem v milisekundách od nulového data (1. ledna 1970 00:00:00 UTC)
 id_timeout:["blok-timeout","popisek-timeout","but-timeout"], // id prvků, které se zobrazí, když nastane timeout minutky
 css_timeout:["timeout-min","budik","zar","zar-nonstop"], // název css třídy, která se aplikuje na box vizuálního odpočtu pro zobrazení popisku a buttonu pro ukončení minutky, aplikuje css animaci blikání rámečku
-oziv(){
-// funkce oživí minutku
-const zapnuta=uloz.nacti(this.klice[17]); // načte z Local Storage zda byla minutka zapnuta - funkce v oziv.js
-
-if(zapnuta!="true")
-{
-return; // pokud nebyla minutka zapnuta - bude return a funkce se dále neprovede
-}
-
-// načte potřebné proměnné
-// zapne dialogové okno s tím, že minutka bude obnovena
-// v dialogovém oknu se dá Rozumím a spustí se funkce this.spustit
-
-},
+max_obnova:3600000, // maximální čas obnovy (v ms) po plánovaném timeoutu - 3600000ms = 60 min
 blikni(){
 // blikne odpočtem, pokud někdo znovu klikne na ikonky minutka, a minutka je přitom již aktivní
 document.getElementById(this.id_viz_uk[0]).classList.remove(this.css_timeout[2]); // odebere třídu class k buttonu odpočtu, která prvek dočasné rozzáří, pokud by byla již dříve přidána
@@ -48,6 +35,7 @@ pis_popisek(){
 // funkce pomocí posluchače na input type text, v reálném čase zapisuje popisek minutky do promenné this.popisek
 const a_popisek=document.getElementById(this.id_popisek_input).value; // zjistí value inputu s popiskem
 this.popisek=a_popisek; // value input type text zapíše do proměnné this.popisek
+uloz.uloz(uloz.klice[16],a_popisek); // uloží do Local Storage popisek Minutky - funkce v oziv.js
 },
 
 zmen_popisky(){
@@ -181,28 +169,18 @@ window.onbeforeunload=()=>{return "Chcete zavřít aplikaci Noční VLK?";}; /* 
 if(oziveni)
 {
 // pokud byla minutka spuštěna tak, že došlo k jejímu oživení
-console.log("oziveni");
-let timeout_cas=uloz.nacti(this.klice[15]); // načte konečný čas v milisekundách v porovnání s počátečním časem v milisekundách od nulového data (1. ledna 1970 00:00:00 UTC) na LocalStorage - v ozivit.js
-timeout_cas=parseInt(timeout_cas); // převede čas v textovém řetětci na číslo
-this.konecny_cas=timeout_cas; // konečný čas v milisekundách v porovnání s počátečním časem v milisekundách od nulového data (1. ledna 1970 00:00:00 UTC)
-
-let popisek_min=uloz.nacti(this.klice[16]); // načte popisek minutky
-this.popisek=popisek_min; // přepíše proměnnou, která určuje popisek minutky
 }
 else
 {
 // pokud byla minutka spuštěna běžně, bez jejího oživení
-console.log("bez oziveni");
 
 dia.off(dia.id[9]); // vypne dialogové okno spoutění Minutky a odebere všechny posluchače dialogového okna v centrum.js
 this.cas_minutky(); // vypočítá počáteční a konečný čas intervalu minutky
 }
 
 
-
-
-
 this.zmen_popisky(); // funkce změní popisky v nastavení minutky a v textu timeoutu minutky podle proměnné this.popisek
+
 
 setTimeout(()=>
 {
@@ -287,6 +265,10 @@ document.getElementById(this.id_info_uk[2]).innerText=zbyva_sec[1]; // přepíš
 if(a_cas>=k_cas)
 {
 // pokud dojde k tomu, že interval vypršel
+uk_min.innerText=0; // přepíše ukazatel zbývajících minut na 0
+uk_sec1.innerText=0; // přepíše ukazatel zbývajících sekund, první číslo, 1X na 0
+uk_sec2.innerText=0; // přepíše ukazatel zbývajících sekund, druhé číslo, X1 na 0
+
 this.timeout(); // funkce zajistí veškeré procesy spojené s ukončením minutky
 }
 
@@ -412,9 +394,6 @@ document.getElementById(this.id_timeout[0]).style.display="none"; // vypne se bl
 document.getElementById(this.id_box_uk).style.display="none"; // schová box pro odpočet minutky (box obsahuje: vizuální odpočet + prvky na ukončení)
 document.getElementById(this.id_box_uk).style.zIndex=1; // vrátí na default Zindex, celé minutky, který byl zvýšen při timeoutu, viz funkce this.timeout
 
-
-uloz.smaz(uloz.klice[17]); /* smaže informaci z local storage, je minutka zapnuta */
-
 if(this.opakovat)
 {
 // pokud uživatel aktivoval opakování minutky
@@ -423,7 +402,7 @@ this.spustit(); // spustí opět minutku
 
 },500);
 
-
+uloz.smaz(uloz.klice[17]); /* smaže informaci z local storage, je minutka zapnuta */
 
 },
 zrusit(){
@@ -435,7 +414,83 @@ this.posOFF_odpocet(); // funkce vypne veškeré posluchače událostí, ve vizu
 document.getElementById(this.id_box_uk).style.display="none"; // schová box pro odpočet minutky (box obsahuje: vizuální odpočet + prvky na ukončení)
 text.pis("Minutka byla zrušena"); // text pře celou obrazovku, funkce v centrum.js
 gong.hraj(false); /* zahraje GONG.mp3 - FALSE = 1x */
+uloz.smaz(uloz.klice[17]); /* smaže informaci z local storage, je minutka zapnuta */
+},
+ozivit(){
+// funkce provede veškeré procesy pro oživení minutky
+
+if(!uloz.ok){return false;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
+
+let minutka_zapnuta=uloz.nacti(uloz.klice[17]); // načítání z LocalStorage (v ozivit.js) - 17. klíč ukládá jesli byla minutka zapnuta=true anebo vypnuta=delete klíč
+
+if(minutka_zapnuta!="true")
+{
+// pokud nebyla minutka zapnuta, což právě jednoznačně ukazuje parametr proměnné TRUE, bude return a další kroky obnovy budou přerušeny
+return false;
 }
+
+let timeout=uloz.nacti(uloz.klice[15]); // načítání z LocalStorage (v ozivit.js) - 15. klíč ukládá čas, kdy kdy nastane timeout Minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
+timeout=parseInt(timeout); // převede čas z textového řetětce na číslo
+let navic_time=this.max_obnova; // načte maximální čas (v milisekundách) obnovy po plánovaném timeoutu
+const cas_aktual=Date.now(); // vrátí počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
+cas_pro_oziveni=timeout+navic_time; // k času timeautu Minutky přičte maximální čas pro čas obnovy
+
+if(cas_pro_oziveni<cas_aktual)
+{
+// pokud bude čas pro oživení menší než aktuální čas, bude return a další kroky obnovy budou přerušeny
+console.log("Překročen čas obnovy Minutky");
+return false;
+}
+else
+{
+this.konecny_cas=timeout; // do proměnné zapíše konečný čas minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
+}
+
+let popisek=uloz.nacti(uloz.klice[16]); // načítání z LocalStorage (v ozivit.js) - 16. klíč ukládá popisek minutky
+
+if(popisek=="")
+{
+// pokud nebude žádný popisek minutky načten, bude return a další kroky obnovy budou přerušeny
+return false;
+}
+else
+{
+document.getElementById(this.id_popisek_input).value=popisek; // změní popisek minutky v input type=text pro zadání minutky
+this.popisek=popisek; // změní proměnnou, která určuje popisek minutky
+}
+
+let opakovat_minutku=uloz.nacti(uloz.klice[18]); // načítání z LocalStorage (v ozivit.js) - 18. klíč ukládá jesli chtěl minutku uživatel opakovat
+
+if(opakovat_minutku=="true"||opakovat_minutku=="false")
+{
+// pokud bude uživatelem uložena varianta opakovat minutku, anebo ji neopakovat
+const check1=document.getElementById(this.id_check[0]); // načte input type=checked v zadání minutky pro volbu opakování minutky
+const check2=document.getElementById(this.id_check[1]); // načte input type=checked v informačním okně pro minutku pro volbu opakování minutky
+
+if(opakovat_minutku=="true")
+{
+// pokud uživatel měl zaškrklé pole opakovat minutku - zaškrknou se oba checkety - v nastavení Minutky a v informačním okně pro Minutku
+check1.checked=true;
+check2.checked=true;
+}
+else
+{
+// pokud uživatel NEměl zaškrklé pole opakovat minutku - ODškrknou se oba checkety - v nastavení Minutky a v informačním okně pro Minutku
+check1.checked=false;
+check2.checked=false;
+}}
+
+return true;
+/*
+console.log("2");
+this.spustit(true);
+*/
+
+
+
+}
+
+
 };
 
 pripravenost.minutka=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v autorun.js - informuje o načtení této js knihovny */

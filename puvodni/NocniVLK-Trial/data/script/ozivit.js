@@ -1,4 +1,12 @@
-﻿const uloz={osoba_kopie:{},z_den:"",cas_T:"",intr:"",ok:null,
+﻿const uloz={
+osoba_kopie:{},
+ozivit_minutku:false, // proměnná určuje, zda dojde po spuštění aplikace k automatickému oživení funkce minutka
+ozivit_vlka:false, // proměnná určuje, zda dojde po spuštění aplikace k automatickému oživení hlavní funkce Noční VLK
+z_den:"",
+cas_T:"",
+intr:"",
+ok:null,
+casovac_butt_oziv:null, // proměnná slouží pro časovač, který po určitém čase sníží opacity tlačítk Oživit na 50% a odebere mu posluchače, po zastavení nočního vlka
 klice:[ // klíče pro ukládání do Local Storage
 "osoba",
 "cas_p",
@@ -10,16 +18,18 @@ klice:[ // klíče pro ukládání do Local Storage
 "o120",
 "interval",
 "vlk_zas",
-"alarm_v", // klíč k volbě alarmu Noční VLK
+"cas_pro_oziv",
 "alarm_zv", // klíč volby zda chce užívatel postupné zesilování pro alarm Noční VLK
 "poznamky", // klíč pro Poznámky
 "alarm_min", // 13. klíč volby alarmu minutky
 "zes_min", // 14. klíč volby zda chce užívatel postupné zesilování pro alarm Minutky
-"cas_min", // 15. klíč ukládá čas, kdy byla spuštěna funkce Minutky
+"cas_min", // 15. klíč ukládá čas, kdy nastane timeout Minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
 "popis_m", // 16. klíč ukládá popisek minutky
 "zap_min", // 17. klíč ukládá jesli byla minutka zapnuta=true anebo vypnuta=delete klíč
 "opak_min" // 18. klíč ukládá jesli chtěl minutku uživatel opakovat
-],max_obnova_ms:3600000,v_obchuzce:false,
+],
+max_obnova_ms:3600000, // maximální čas obnovy po plánovaném timeoutu - 3600000ms = 60 min
+v_obchuzce:false,
 a(){
 /* funkce slouží k aktivaci - posouzení, zda je možno použít localstorage */
 
@@ -277,33 +287,32 @@ o_poznamky(){
 let poznamky=this.nacti(this.klice[12]); // načte případné poznámky uživatele uložené na LocalStorage
 document.getElementById(g_pos.poznamky[0]).value=poznamky; // poznámky uložené v LocalStorage vloží do textarea Poznámky - objekt g_pos je v centrum,js
 },
-oziv(tlacitkem){
-// funkce zajišťuje vše potřebné k oživení Nočního VLKa
 
-if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
-this.o_zvuk(); /* načte volbu zvuku alarmu Noční VLK uloženou uživatelem */
 
-this.o_poznamky(); // punkce načte z LocalStorage případné uložené poznámky
+obnovit_vlka(tlacitkem=false){
+// funkce provede prvotní úkony k obnovení hlavní funkce aplikace Noční VLK, pokud jsou procesy v pořádku, její návratová hodnota je TRUE, pokud potřebná data pro oživení chybí, její návratová hodnota je FALSE
+
+if(!uloz.ok){return false;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 this.osoba_kopie=Object.create(osoba); /* udělá věrnou kopii objektu osoba - v pruvodci.js */
 
 this.o_osoba(); /* načte data pro objekt osoba - v pruvodce.js */
 if(this.osoba_kopie=="")
 {
-return; /* pokud nejsou data k objektu osoba - bude return a neprovede se oživení */
+return false; /* pokud nejsou data k objektu osoba - bude return a neprovede se oživení */
 }
 
 this.o_cas_P(); /* načte časy počátku počítání intervalu */
 if(this.z_den=="")
 {
-return; /* pokud nejsou minimální potřebná data načtena - bude return a neprovede se oživení */
+return false; /* pokud nejsou minimální potřebná data načtena - bude return a neprovede se oživení */
 }
 
 this.intr=this.nacti(this.klice[8]); /* načte délku počítání intervalu */
 if(this.intr=="")
 {
-return; /* pokud není načtená délka intervalu */
+return false; /* pokud není načtená délka intervalu */
 }
 else
 {
@@ -315,35 +324,76 @@ this.intr=parseInt(this.intr); /* přebede text na číslo */
 const test=this.dead_time();
 if(!test)
 {
-return; /* pokud bude test false - obnova nebude */
+return false; /* pokud bude test false - obnova nebude */
 }  /* konec - KONTROLA - ABY NEDOŠLO K OŽIVENÍ VLKA po delším čase */
+
+
 
 this.o_Tout(); /* oživí počátek času počítání TIME OUTU */
 this.o_v_obchuz(); /* zjistí,zda nedošlo není oživení v obchůzce */
 
 
+
 if(!tlacitkem)
 {
 /* pokud nedošlo k oživení nočního VLKa Tlačítkem Oživit v hlavním kontejneru */
+
 const byl_vlk_zastaven=this.nacti(this.klice[9]); /* načte hodnotu z local storage */
+
+
 if(byl_vlk_zastaven=="true")
 {
 /* Pokud byl noční VLK zastaven */
-g_pos.ozivitOn(); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v centrum.js */
+g_pos.ozivitOn(this.z_den+this.max_obnova_ms+this.intr*1000); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v centrum.js */
 }
 else
 {
-g_pos.ozivitOn(); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v centrum.js - pokub by uživatel dal v dialogovém okně ESCape, aby měl k dispozici tlačítko Oživit */
+g_pos.ozivitOn(this.z_den+this.max_obnova_ms+this.intr*1000); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v centrum.js - pokub by uživatel dal v dialogovém okně ESCape, aby měl k dispozici tlačítko Oživit */
 this.o_obch(); /* funkce oživí obchůzky do příslušných formulářů */
-dia.on("d-nezastaven"); /* zapne dialogové okno s informací - že Noční VLK nebyl zastaven, po kterém následuje Dialogové okna Obnovení funkcí 'Nočního VLKa - v centrum.js */
-}
-}
+return true; // návratová hodnota bude true
+}}
 else
 {
 /* pokud bude noční VLK oživen pomočí tlačítka OŽIVIT */
 this.o_obch(); /* funkce oživí obchůzky do příslušných formulářů */
 vlk.ozivit(); /* spustí oživovací procesy Nočního VLKA - ve vlk.js */
 }
+},
+
+oziv(){
+// funkce zajišťuje vše potřebné k oživení Nočního VLKa
+
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
+
+this.o_zvuk(); /* oživí volbu zvuku alarmu Noční VLK a funkce Minutky uloženou uživatelem */
+
+this.o_poznamky(); // funkce načte z LocalStorage případné uložené poznámky
+
+const dia_minutka=minutka.ozivit(); // funkce provede veškeré procesy pro oživení minutky a vrátí hodnotu TRUE, pokud je vše připraveno
+const dia_vlk=this.obnovit_vlka(); // funkce provede oživovací procesy nočního VLKa, a jeho návratová hodnota bude TRUE, pokud je vše připraveno
+
+if(dia_vlk||dia_minutka)
+{
+// pokud nebyla funkce Noční VLK anebo Minutky zastavena a jedna z funkcí je připravena na oživení
+
+if(dia_vlk)
+{
+this.ozivit_vlka=true; // změní proměnnou tak, aby aplikace věděla, že hlavní funkce aplikace Noční VLK se bude obnovovat
+}
+
+if(dia_minutka)
+{
+this.ozivit_minutku=true; // změní proměnnou tak, aby aplikace věděla, že hlavní funkce Minutka
+}
+
+dia.on("d-nezastaven"); /* zapne dialogové okno s informací - že Noční VLK nebyl zastaven, po kterém následuje Dialogové okna Obnovení funkcí 'Nočního VLKa - v centrum.js */
+}
+else
+{
+this.ozivit_minutku=""; // vynuluje proměnnou, aby ji prohlížeč mozh vymazat z paměti, již nebude potřeba
+this.ozivit_vlka=""; // vynuluje proměnnou, aby ji prohlížeč mozh vymazat z paměti, již nebude potřeba
+}
+
 
 }
 };

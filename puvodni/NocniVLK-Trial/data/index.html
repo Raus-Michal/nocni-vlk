@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width , initial-scale=1.0 , viewport-fit=cover">
 
-<link rel="stylesheet" href="styl/optimal.css">
-<link rel="stylesheet" href="styl/vlk.css">
+<link rel="stylesheet" href="styl/optimal.css?v=1">
+<link rel="stylesheet" href="styl/vlk.css?v=1">
 
 <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
@@ -846,7 +846,7 @@ Zavřít
 <p class="tj">Aplikace je&nbsp;naprogramována v&nbsp;HTML&#8239;5, CSS&#8239;3 a&nbsp;JavaScriptu&#8239;ES6.</p>
 <p class="tj">Aplikace podléhá autorským právům.</p>
 <p class="tj">Výrobce aplikace: Boar-cz</p>
-<p class="tj">Verze aplikace: Zkušební verze 1.8</p>
+<p class="tj">Verze aplikace: Zkušební verze 1.9</p>
 
 </div></div>
 </section>
@@ -1392,14 +1392,14 @@ Zavřít
 </dialog>
 
 <dialog id="d-ozivM">
-<div class="d-kriz"><div class="sp-i"> </div></div>
+<div class="d-kriz"><div class="i-min"> </div></div>
 <div class="d-telo">
 <p>Obnovení Minutky</p>
 <p><span class="p_n">Funkce Minutky bude plně obnovena.</span></p>
 <p><span class="p_n">Čas během kterého byla aplikace přerušena bude dopočítán.</span></p>
 </div>
 <div class="d-butt d-butS">
-<button id="b-ozivM-ok" class="but" type="button" title="Obnovit Minutku">Obnovit</button>
+<button id="b-oziv-min" class="but" type="button" title="Obnovit Minutku">Obnovit</button>
 </div>
 </dialog>
 
@@ -1531,13 +1531,13 @@ Zavřít
 <video id="f-v" class="w1" src="svg/intro.mp4" playsinline="playsinline" preload="none" controls></video>
 </div></div>
 <script src="reg_sw.js" defer> /* REGISTRACE Servisního pracovníka pro offline režim, parametr defer zajišťuje asynchroní načítání po načtení stránky */ </script>
-<script src="script/autorun.js"> /* NESMÍ BÝT NACTEN ASYNC! shromažďuje údaje o tom, zda byly všechny knihovny asyc již načteny */ </script>
-<script src="script/ozivit.js" async> /* zajišťuje veškeré procesy, které souvisí s ukládáním dat uživatele */ </script>
-<script src="script/pruvodce.js" async>/* zajišťuje spusťení hlavní funkce aplikace Noční VLK */</script>
-<script src="script/kresly.js" async> /* vykresluje plátno CANVAS se systémem obchůzek */ </script>
-<script src="script/vlk.js" async> /* zajišťuje hlavní funkci aplikace Noční VLK - odpočet, zápis obchůzek atd. */ </script>
-<script src="script/ochrany.js" async> /* zajišťuje ochranu před uzamčením obrazovky a uspáním karty */ </script>
-<script src="script/minutka.js" async> /* obsahuje všechny funkcionality k funkce Minutka */  </script>
-<script src="script/centrum.js" async> /* zajišťuje prvotní spouštění potřebných funkcionali aplkace - např. hodiny visualView port API ... */  </script>
+<script src="script/autorun.js?v=1"> /* NESMÍ BÝT NACTEN ASYNC! shromažďuje údaje o tom, zda byly všechny knihovny asyc již načteny */ </script>
+<script src="script/ozivit.js?v=1" async> /* zajišťuje veškeré procesy, které souvisí s ukládáním dat uživatele */ </script>
+<script src="script/pruvodce.js?v=1" async>/* zajišťuje spusťení hlavní funkce aplikace Noční VLK */</script>
+<script src="script/kresly.js?v=1" async> /* vykresluje plátno CANVAS se systémem obchůzek */ </script>
+<script src="script/vlk.js?v=1" async> /* zajišťuje hlavní funkci aplikace Noční VLK - odpočet, zápis obchůzek atd. */ </script>
+<script src="script/ochrany.js?v=1" async> /* zajišťuje ochranu před uzamčením obrazovky a uspáním karty */ </script>
+<script src="script/minutka.js?v=1" async> /* obsahuje všechny funkcionality k funkce Minutka */  </script>
+<script src="script/centrum.js?v=1" async> /* zajišťuje prvotní spouštění potřebných funkcionali aplkace - např. hodiny visualView port API ... */  </script>
 </body>
 </html>

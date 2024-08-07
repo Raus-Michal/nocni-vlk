@@ -20,18 +20,6 @@ if(this.a_odpocet)
 // pokud je odpočet - hlavní funkce Noční VLK je zapnutý
 obch.odpocet(); /* funkce odpočítává konec Intervalu do obchůzky - ve vlk.js */
 }
-else
-{
-// pokud je odpočet - hlavní funkce Noční VLK vypnutý
-
-// kontrola, jestli nemá být ikonka Oživit deaktivována
-const ozivit=uloz.dead_time(); // funkce kontroluje zda není delší doba po 60MINUTÁCH od plánovaného TIMEOUTU, kdy je možné provést oživení, pokud je vše v pořádku vrací TRUE, pokud je doba kdy už není možné Nočního VLKa oživit vrací FALSE
-
-if(ozivit==false)
-{
-// Pokud bude překročena přípustná doba pro oživení hlavní funkce aplikace Noční VLK (více jak 60 minut po plánovaném TIMEOUTU)
-g_pos.ozivitOff(); // funkce vypne posluchač tlačítka Oživit a sníží jeho opacity na 50% - funkce je v teto JS knihovně, tedy v centrum.js
-}}
 
 if(this.a_uspano)
 {
@@ -116,17 +104,21 @@ t.title="Již není možné použít - email zobrazen"; /* změní title buttonu
 }};
 
 const dia={aktivni:"",
-id:["d-zas","d-obch","d-obchM","d-uspan","d-neni","d-nezastaven","d-oziv","d-kon","d-dotaz-oziv","d-minutka","d-minutka-info","d-dotaz-minutka"],
+id:["d-zas","d-obch","d-obchM","d-uspan","d-neni","d-nezastaven","d-oziv","d-kon","d-dotaz-oziv","d-minutka","d-minutka-info","d-dotaz-minutka","d-ozivM"],
 zas:["b-z-a","k-d-zas","b-z-n"],
 obch:["b-obch-a","k-d-obch","b-obch-n"],
 obchM:["b-obchM-a","k-d-obchM","b-obchM-n"],
 usp:["k-usp","b-usp-ok"],
 neni:["k-neni","b-neni-ok"],
-oziv:["b-nezastaven","b-oziv-ok"],
+oziv:["b-nezastaven", // 0 - tlačítko Dialogového okna o tom, že některé funkce nebyly zastaveny
+"b-oziv-ok",  // 1 - tlačítko Dialogového okna o tom, že funkce hlavní funkce aplikace Noční VLK bude obnovena
+"b-oziv-min" // 2 - tlačítko Dialogového okna o tom, že funkce minutka bude obnovena
+],
 ozit_dotaz:["b-dotaz-oziv-a","k-d-dotaz-oziv","b-dotaz-oziv-n"], // tlačítka dialogového okna Oživit nočního VLKa: ANO-NE
 minutka:["k-d-minutka","b-dotaz-minutka-z"], // tlačítka dialogového okna k Zadání minutky Křížek a Zrušit
 minutka_info:["k-d-minutka-info","min-zrusit-info"], // tlačítka dialogového okna k informaci o minutce Křížek a Zrušit minutku
 minutka_dotaz:["k-d-dotaz-minutka","b-dotaz-minutka-a","b-dotaz-minutka-n"], // tlačítka dialogového okna k dotazu o zrušení minutky Křížek, ANO,NE
+
 kont:"but-kon",
 handleEvent(e){
 const k=e.target.id; /* zjistí id prvku na který bylo kliknuto */
@@ -154,9 +146,8 @@ gong.hraj(false); /* zahraje GONG.mp3 - FALSE = 1x */
 poloha.reset(); /* vyresetuje hodnoty polohy v systému obchůzek - v kresly.js */
 
 if(uloz.ok){ // pokud funguje LocalStorage bude return - funkce v oziv.js
-g_pos.ozivitOn(); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v centrum.js */
+g_pos.ozivitOn(obch.z_den+obch.intr*1000+uloz.max_obnova_ms); // aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa, čas závorce uvádí počet milisekund za které budou posluchače odebrány (zapnutí obchůzky v milisekundách od nulového data (1. ledna 1970 00:00:00 UTC) ve vlk.js + zadaný intreval v sekundách * 1000, aby byly milisekundy ve vlk.js + maximální čas pro obnovení v milisekundách v oziv.js ) - v centrum.js
 }
-
 
 kresly.obr=null; /* vymaže z paměti obrázek Tlapky nočního vlka - v kresly.js */
 kresly.obr_nacten=false; /* hodnota určuje, že je vymazán z paměti obrázek tlapka Nočního VLKa - v kresly.js */
@@ -211,8 +202,8 @@ dia.off(this.id[2]); /* vypne dialogové okno */
 if(k==this.ozit_dotaz[0])
 {
 /* Kliknuto na ANO - Oživit Nočního VLKa */
+uloz.obnovit_vlka(true); // spustí oživovací procesy Nočního VLKA spuštěné tlačítkem - hodnota TRUE - v ozivit.js
 dia.off(this.id[8]); /* vypne dialogové okno */
-uloz.oziv(true); // spustí oživovací procesy Nočního VLKA spuštěné tlačítkem - hodnota TRUE - v ozivit.js
 }
 else if(k==this.ozit_dotaz[1]||k==this.ozit_dotaz[2])
 {
@@ -241,19 +232,47 @@ dia.off(this.id[4]); /* vypne dialogové okno */
 
 if(k==this.oziv[0])
 {
-/* Kliknuto na Rozumím - Noční VLK nebyl zastaven  */
+/* Kliknuto na Rozumím - Některé fukce v aplikaci nebyly zastaveny  */
 window.hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
 zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
 zamek.blok(); // aktivuje blokaci zámku obrazovky
 window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; // ochrana před náhodným uzavřením aplikace
 pinkani.hraj(false); /* přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace pro systém iOS */
 dia.off(this.id[5]); // vypne dialogové okno
+
+if(uloz.ozivit_minutku==true)
+{
+// pokud jsou dostupná data pro oživení FUNKCE minutka  promněnná ve oziv.js
+dia.on(this.id[12]); // zapne dialogové okno - Obnovení funkce Minutka
+uloz.ozivit_minutku=""; // vynuluje proměnnou, již nebude potřeba, ať ji prohlížeč může vypustit z paměti
+}
+else if(uloz.ozivit_vlka==true)
+{
+// pokud jsou dostupná data pro oživení hlavní fukce aplikace noční VLK promněnná ve oziv.js
 dia.on(this.id[6]); // zapne dialogové okno - Obnovení Nočního VLKa
+uloz.ozivit_vlka=""; // vynuluje proměnnou, již nebude potřeba, ať ji prohlížeč může vypustit z paměti
+}
+
+}
+
+if(k==this.oziv[2])
+{
+// Kliknuto na Obnovit - při spuštění aplikace - Funkce MINUTKA
+
+minutka.spustit(true); // spustí Funkci minutka, data pro obnovení již jsou nachystaná z minutka.ozivit v minutka.js
+
+if(uloz.ozivit_vlka==true)
+{
+// pokud jsou dostupná data pro oživení hlavní fukce aplikace noční VLK promněnná ve oziv.js
+dia.on(this.id[6]); // zapne dialogové okno - Obnovení Nočního VLKa
+uloz.ozivit_vlka=""; // vynuluje proměnnou, již nebude potřeba, ať ji prohlížeč může vypustit z paměti
+}
+dia.off(this.id[12]); /* vypne dialogové okno */
 }
 
 if(k==this.oziv[1])
 {
-/* Kliknuto na Obnovit - OŽIVENÍ NOČNÍHO VLKA  */
+/* Kliknuto na Obnovit - při spuštění aplikace - OŽIVENÍ NOČNÍHO VLKA  */
 vlk.ozivit(); /* spustí oživovací procesy Nočního VLKA - ve vlk.js */
 dia.off(this.id[6]); /* vypne dialogové okno */
 }
@@ -424,6 +443,12 @@ document.getElementById(this.minutka_dotaz[i]).addEventListener("click",this); /
 }
 }
 
+if(id==this.id[12])
+{
+// tlačítka oznámení, že bude obnovena funkce Minutky
+document.getElementById(this.oziv[2]).addEventListener("click",this);
+}
+
 
 },
 posOFF(id){
@@ -532,6 +557,12 @@ for(let i=0;i<l9;i++)
 {
 document.getElementById(this.minutka_dotaz[i]).removeEventListener("click",this); // odebrání posluchačů událostí k dotazu zrušení minutky
 }
+}
+
+if(id==this.id[12])
+{
+// tlačítka oznámení, že bude obnovena funkce Minutky
+document.getElementById(this.oziv[2]).removeEventListener("click",this);
 }
 
 },
@@ -1142,10 +1173,24 @@ pla:["pl","pl-svg","pl-p"], // Plánovač
 kon:["k","k-svg","k-p"], // kontakt
 pre:["pr","pr-svg","pr-p"], // přestávky
 poznamky:["pozn","but-poz","but-poz-off"], // poznámky:[id textarea, id button Zavřít, class buttonu, aby nešel vidět] 
-ozivitOn(){
+ozivitOn(interval=null){
 /* aktivace posluchče Oživit Nočního VLKA */
 document.getElementById(this.obj[5][0]).addEventListener("click",this); /* posluchač pro Oživit */
 document.getElementById(this.obj[5][0]).style.opacity=1; /* zvýší krytí na 100% */
+
+if(interval==null)
+{
+interval=uloz.max_obnova_ms; // pokud nebude zaslán do funkce interval po který má být vyblokováno tlačítko Obnovit, bude se vycházet podle času uloz.max_obnova_ms v uloz.js
+}
+else
+{
+interval=parseInt(interval); // pokud byl zaslán požadovaný čas na blokaci funkce tlačítka Oživit, převede se na číslo pro jistotu
+}
+
+clearTimeout(uloz.casovac_butt_oziv); // vynuluje časovač, který níže vypíná posluchače tlačítka Oživit
+uloz.casovac_butt_oziv=setTimeout(()=>{
+g_pos.ozivitOff(); // funkce vypne posluchač tlačítka Oživit a sníží jeho opacity na 50% - funkce je v teto JS knihovně, tedy v centrum.js
+},interval); // od Zastavení Nočního VLKa bude moct použít ještě tlačítko oživit podle času uloz.max_obnova_ms v uloz.js
 },
 
 ozivitOff(){
@@ -1357,7 +1402,7 @@ uloz.uloz(uloz.klice[12],text); // při každé změně textu v textarea poznám
 if(k==this.min[0]||k==this.min[1]||k==this.min[2])
 {
 /* KLIKNUTÍ NA MINUTKA */
-klik.hraj(false); // bude přehrávat zvuk 1x klik
+pinkani.hraj(false); // bude přehrávat zvuk 1x pinkání, aby bycha zachována první interakce s tímto audiem, aby fungovala ochrana před uspáním, pokud by nebyl zapnut Noční VLK
 
 if(!minutka.aktivni)
 {
@@ -1367,6 +1412,7 @@ dia.on(dia.id[9]); /* v centrum.js */
 else
 {
 // pokud je minutka aktivní
+klik.hraj(false); // bude přehrávat zvuk 1x klik
 dia.on(dia.id[10]); /* zapne dialogové okno s informacemi o minutce a možností jejího zrušení, funkce v centrum.js */
 }
 
