@@ -104,7 +104,21 @@ t.title="Již není možné použít - email zobrazen"; /* změní title buttonu
 }};
 
 const dia={aktivni:"",
-id:["d-zas","d-obch","d-obchM","d-uspan","d-neni","d-nezastaven","d-oziv","d-kon","d-dotaz-oziv","d-minutka","d-minutka-info","d-dotaz-minutka","d-ozivM"],
+id:[ // pole s id všech dialogových oken používaných v aplikaci
+"d-zas",
+"d-obch",
+"d-obchM",
+"d-uspan",
+"d-neni",
+"d-nezastaven",
+"d-oziv", // 6. id dialogového okna S oznámením, že Noční VLK bude plně obnoven
+"d-kon",
+"d-dotaz-oziv",
+"d-minutka",
+"d-minutka-info",
+"d-dotaz-minutka",
+"d-ozivM" // 12. id dialogového okna S oznámením, že funkce Minutka bude plně obnoven
+], 
 zas:["b-z-a","k-d-zas","b-z-n"],
 obch:["b-obch-a","k-d-obch","b-obch-n"],
 obchM:["b-obchM-a","k-d-obchM","b-obchM-n"],
@@ -584,6 +598,13 @@ this.aktivni=""; /* vynuluje proměnnou, která udává aktivní dialogové okno
 },
 vyp_akt(){
 /* funkce vypne právě aktivní dialogové okno */
+
+if(this.aktivni==this.id[6]||this.aktivni==this.id[12])
+{
+// pokud je právě aktivní okno this.id[6] - Oznámení o obnovení Nočního VLKa anebo this.id[12] - Oznámení o obnovení funkce Minutka, k vypnutí těchto dialogových oken nesmí nikdy dojít a tak bude následovat return
+return; // funkce bude v tomto místě ukončena
+}
+
 
 if(this.aktivni!="")
 {

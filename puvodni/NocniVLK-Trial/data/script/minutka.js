@@ -119,6 +119,14 @@ else if(p=="m1")
 z=z-1; // odečte - 1 k hodnotě
 }
 
+if(p=="p10"||p=="m10"||p=="p1"||p=="m1")
+{
+// pokud byl zaslán požadavek, došlo ke změně kliknutím na button a bude přehrán zvuk kliknutí
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
+}
+
+
+
 
 if(z<=1)
 {
@@ -147,6 +155,8 @@ document.getElementById(this.id_zadani[2]).disabled=false; // odstraní disabled
 this.int_zad=z; // přepíše hodnotu intervalu zadání minutky v minutách
 
 document.getElementById(this.id_uk).innerText=z; // přepíše ukazatel intervalu minutky ve spanu viditelném pro uživatele
+
+uloz.uloz(uloz.klice[19],z); // uloží do Local Storage, 19. klíč ukládá interval minutky, který byl zadán v minutách
 
 },
 posON_odpocet(){
@@ -429,7 +439,7 @@ if(minutka_zapnuta!="true")
 return false;
 }
 
-let timeout=uloz.nacti(uloz.klice[15]); // načítání z LocalStorage (v ozivit.js) - 15. klíč ukládá čas, kdy kdy nastane timeout Minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
+let timeout=uloz.nacti(uloz.klice[15]); // načítání z LocalStorage (v ozivit.js) - 15. klíč ukládá čas, kdy nastane timeout Minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
 timeout=parseInt(timeout); // převede čas z textového řetětce na číslo
 let navic_time=this.max_obnova; // načte maximální čas (v milisekundách) obnovy po plánovaném timeoutu
 const cas_aktual=Date.now(); // vrátí počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
@@ -438,7 +448,6 @@ cas_pro_oziveni=timeout+navic_time; // k času timeautu Minutky přičte maximá
 if(cas_pro_oziveni<cas_aktual)
 {
 // pokud bude čas pro oživení menší než aktuální čas, bude return a další kroky obnovy budou přerušeny
-console.log("Překročen čas obnovy Minutky");
 return false;
 }
 else
@@ -472,22 +481,26 @@ if(opakovat_minutku=="true")
 // pokud uživatel měl zaškrklé pole opakovat minutku - zaškrknou se oba checkety - v nastavení Minutky a v informačním okně pro Minutku
 check1.checked=true;
 check2.checked=true;
+this.opakovat=true; // změní proměnou , true= ano opakovat, false= ne neopakovat minutku po jejím ukončení
 }
 else
 {
 // pokud uživatel NEměl zaškrklé pole opakovat minutku - ODškrknou se oba checkety - v nastavení Minutky a v informačním okně pro Minutku
 check1.checked=false;
 check2.checked=false;
+this.opakovat=false; // změní proměnou , true= ano opakovat, false= ne neopakovat minutku po jejím ukončení
 }}
 
-return true;
-/*
-console.log("2");
-this.spustit(true);
-*/
+let interval_minutky=uloz.nacti(uloz.klice[19]); // načte z Local Storage, 19. klíč ukládá interval minutky, který byl zadán v minutách
+if(interval_minutky!="")
+{
+// pokud byl načten interval minutky
+interval_minutky=parseInt(interval_minutky); // převede textový řetězec na číslo
+this.int_zad=interval_minutky; // přepíše hodnotu intervalu zadání minutky v minutách
+this.int_zad_zmen(); // funkce provede změnu intervalu, změna je zaslána bez požadavku, tedy poze změní default hodnoty podle velikosti intervalu
+}
 
-
-
+return true; // vrátí hodnotu true - minutka je připravena k obnově
 }
 
 

@@ -26,7 +26,8 @@ klice:[ // klíče pro ukládání do Local Storage
 "cas_min", // 15. klíč ukládá čas, kdy nastane timeout Minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
 "popis_m", // 16. klíč ukládá popisek minutky
 "zap_min", // 17. klíč ukládá jesli byla minutka zapnuta=true anebo vypnuta=delete klíč
-"opak_min" // 18. klíč ukládá jesli chtěl minutku uživatel opakovat
+"opak_min", // 18. klíč ukládá jesli chtěl minutku uživatel opakovat
+"int_min", // 19. klíč ukládá interval minutky, který byl zadán v minutách
 ],
 max_obnova_ms:3600000, // maximální čas obnovy po plánovaném timeoutu - 3600000ms = 60 min
 v_obchuzce:false,
