@@ -12,17 +12,16 @@
 @font-face{
 font-display:fallback; /* vlastnost fontu, která zobrazí font se zpožděním 0.3s, kdy už by měl být načten - sníží se performace webu */
 font-family:"nadpis"; /* vlastní název fontu, který se posléze bude dále používat v CSS */
-src:url("../font/nadpis.woff2") format("woff2"),url("../font/nadpis.woff") format("woff");
-font-weight:normal;
+src:url("../font/Tektur.woff2") format("woff2 supports variations"),url("../font/Tektur.woff2") format("woff2-variations"),url("../font/Tektur.woff2") format("woff2"),url("../font/Tektur.woff") format("woff"); /* cesta k fontu se určuje vzhledem k umístění CSS souboru */
+font-weight:400 900; /* určuje rozsah šířky písma použitého v CSSku (v projektu) */
 font-style:normal;
 }
-
 
 @font-face{
 font-display:fallback; /* vlastnost fontu, která zobrazí font se zpožděním 0.3s, kdy už by měl být načten - sníží se performace webu */
 font-family:"text"; /* vlastní název fontu, který se posléze bude dále používat v CSS */
-src:url("../font/text.woff2") format("woff2"),url("../font/text.woff") format("woff");
-font-weight:normal;
+src:url("../font/Rubik.woff2") format("woff2 supports variations"),url("../font/Rubik.woff2") format("woff2-variations"),url("../font/Rubik.woff2") format("woff2"),url("../font/Rubik.woff") format("woff"); /* cesta k fontu se určuje vzhledem k umístění CSS souboru */
+font-weight:300 900; /* určuje rozsah šířky písma použitého v CSSku (v projektu) */
 font-style:normal;
 }
 
@@ -52,26 +51,26 @@ h1,h2,h3
 {
 text-align:center;
 font-family:"nadpis","Georgia","serif";
-font-weight:normal;
+font-weight:600;
 margin-bottom:1rem;
 }
 
 h1
 {
-font-size:1.5rem;
-font-size:calc(1.5rem + 1vw);
+font-size:2.5rem;
+font-size:calc(2.5rem + 1vw);
 }
 
 h2
 {
-font-size:1.25rem;
-font-size:calc(1.25rem + 1vw);
+font-size:1.2rem;
+font-size:calc(1.2rem + 2vw);
 }
 
 h3
 {
-font-size:1rem;
-font-size:calc(1rem + .75vw);
+font-size:1.5rem;
+font-size:calc(1.5rem + .75vw);
 padding-top:1rem;
 }
 
@@ -275,8 +274,9 @@ padding:.5rem 1rem 1rem 1rem;
 
 .hlav-kon h1
 {
-font-size:1.15rem;
-font-size:calc(1.15rem + 1vw);
+font-size:1.5rem;
+font-size:calc(1.5rem + 1vw);
+font-weight:500;
 margin:0;
 }
 
@@ -285,8 +285,7 @@ margin:0;
 {
 .hlav-kon h1
 {
-font-size:2rem;
-font-size:calc(2rem + 1vw);
+font-size:calc(1.5rem + 2vw);
 }}
 
 .nav-ul
@@ -487,7 +486,7 @@ left:0px;
 width:100%;
 height:100%;
 opacity:0;
-z-index:2;
+z-index:1;
 transition:5s opacity;
 }
 
@@ -1272,11 +1271,12 @@ padding-bottom:1.25rem;
 
 .o-pata button
 {
-font-family:"nadpis","Georgia","serif";
+font-family:"text","serif";
+font-weight:bold;
 font-size:1rem;
 background:var(--b5);
 color:var(--b1);
-border: 1px dotted var(--b1);
+border:1px dotted var(--b1);
 padding:.5rem;
 }
 
@@ -2107,6 +2107,39 @@ padding:1rem;
 100%{opacity:0;transform:scale(1);}
 }
 
+.a-b
+{
+/* animace zvětší tloušťku textu a spouští se JavaScriptem v kresly.js */
+animation:big-text 1s linear;
+}
+
+@keyframes big-text
+{
+/* animace zvětší tlouštku písma */
+0%{font-variation-settings:"wght" 300;}
+25%{font-variation-settings:"wght" 600;}
+50%{font-variation-settings:"wght" 300;}
+75%{font-variation-settings:"wght" 600;}
+100%{font-variation-settings:"wght" 300;}
+}
+
+
+.a-b-i
+{
+/* animace zvětší tloušťku textu - použití u výzvy k obchůzce a zvětšování obchůzky. která má být provedena */
+animation:big-text2 1s infinite linear;
+}
+
+@keyframes big-text2
+{
+/* animace zvětší tlouštku písma a změní barvu s velkou prodlevou - používá se na výzvu k obchůzce - zvýraznění 15,30,60 nebo 120 */
+0%{font-variation-settings:"wght" 600;color:var(--b1)}
+25%{font-variation-settings:"wght" 600;color:var(--b1)}
+50%{font-variation-settings:"wght" 900;color:var(--b3)}
+75%{font-variation-settings:"wght" 600;color:var(--b1)}
+100%{font-variation-settings:"wght" 600;color:var(--b1)}
+}
+
 .ch-s
 {
 width:2rem;
@@ -2190,9 +2223,9 @@ text-align:center;
 .tab th , td
 {
 padding:.5rem;
-font-family:"text","Verda","Arial","Sans-Serif";
+font-family:"text",sans-serif;
 font-size:1rem;
-font-size:calc(0.75rem + 0.5vw);
+font-size:calc(0.7rem + 0.5vw);
 line-height:1;
 border:1px solid var(--b2_50);
 }
@@ -2230,9 +2263,10 @@ font-size:1.25rem;
 
 .nad
 {
-font-size:1rem;
-font-size:calc(1rem + .5vw);
-font-weight:bold;
+font-size:1.25rem;
+font-size:calc(1.25rem + .5vw);
+font-family:"nadpis",sans-serif;
+font-weight:500;
 margin-bottom:.25rem;
 margin-top:1.5rem;
 line-height:1.1;
@@ -2326,13 +2360,6 @@ line-height:1;
 {
 font-size:2rem;
 }
-
-.f-2r
-{
-font-size:2rem;
-font-size:calc(2rem + 1vw);
-}
-
 
 .f-115
 {
@@ -2471,7 +2498,8 @@ cursor:default;
 
 .but
 {
-font-family:"nadpis","Georgia","serif";
+font-family:"text","serif";
+font-weight:bold;
 font-size:1rem;
 background:var(--b5);
 color:var(--b1);

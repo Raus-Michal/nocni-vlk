@@ -1,5 +1,19 @@
 ﻿const poloha={m_s:30,p1:0,p2:0,p3:0,p4:0,p5:0,p6:0,p7:0,p8:0,p9:0,p10:0,p11:0,p12:0,
+a_css:"a-b", // název CSS class, pro animaci rozšíření textu ve vlk.css
 
+anim_pl_obch(){
+// funkce spustí animaci rozšíření textu 15,30,60 anebo 120 PLÁNOVANÉ OBCHŮZKY
+const cislo=document.getElementById(obch.id_bud_obch); // id textu pro druh obchůzky, která bude následovat - ve vlk.js
+
+cislo.classList.remove(this.a_css); // odebere css třídu s animací, pokud ji objekt obsahuje
+
+setTimeout(()=>
+{
+cislo.classList.add(this.a_css); // přidá css třídu s animací, pokud ji objekt neobsahuje
+},250); // zpoždění musí být, jinak by odebrání a následné okamžité odebrání css třídy animaci nespustilo!
+
+
+},
 kontrola(zbyle_s){
 let zs=zbyle_s; /* zbylé sekundy z intervalu do obchůzky */
 
@@ -14,71 +28,92 @@ min=i+1; /* minimální čas v sekundách, kdy bude možné první polohu v okru
 }
 
 let dil=i/12; /* 1/12 je dílek každého posunu polohy */
-
+let zmena=null; // proměnná kontroluje zda došlo ke změně polohy
 
 if((zs<min)&&(zs>(i-dil))&&this.p1==0)
 {
 /* poloha 1. */
 this.p1=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can); /* vykreslý systém obchůzek s novou polohou  - nestandartně jako při oživení dojde k dočasnému posunu okruhu! ve vlk.js - objekt id je ve vlk.js */
 }
 else if((zs<(i-dil))&&(zs>(i-(dil*2)))&&this.p2==0)
 {
 /* poloha 2. */
 this.p2=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 else if((zs<(i-(dil*2)))&&(zs>(i-(dil*3)))&&this.p3==0)
 {
 /* poloha 3. */
 this.p3=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 else if((zs<(i-(dil*3)))&&(zs>(i-(dil*4)))&&this.p4==0)
 {
 this.p4=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 else if((zs<(i-(dil*4)))&&(zs>(i-(dil*5)))&&this.p5==0)
 {
 this.p5=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 else if((zs<(i-(dil*5)))&&(zs>(i-(dil*6)))&&this.p6==0)
 {
 this.p6=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 else if((zs<(i-(dil*6)))&&(zs>(i-(dil*7)))&&this.p7==0)
 {
 this.p7=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 else if((zs<(i-(dil*7)))&&(zs>(i-(dil*8)))&&this.p8==0)
 {
 this.p8=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 else if((zs<(i-(dil*8)))&&(zs>(i-(dil*9)))&&this.p9==0)
 {
 this.p9=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 else if((zs<(i-(dil*9)))&&(zs>(i-(dil*10)))&&this.p10==0)
 {
 this.p10=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 else if((zs<(i-(dil*10)))&&(zs>(i-(dil*11)))&&this.p11==0)
 {
 this.p11=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 else if((zs<(i-(dil*11)))&&(zs>=(i-(dil*12)))&&this.p12==0)
 {
 this.p12=1;
+zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
+
+if(zmena==true)
+{
+// pokud došlo ke změně polohy
+
+this.anim_pl_obch(); // pokud došlo ke změně polohy, zapne se funkce, která spustí animaci rozšíření textu Obchůzka do 15,30,60,120 za ...
+
+}
+
 },
 reset(){
 /* vyresetuje hodnoty a vykreslené poloze */

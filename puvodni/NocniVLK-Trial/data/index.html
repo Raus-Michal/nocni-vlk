@@ -54,7 +54,7 @@
 <div id="sec-odp" class="odp">
 <div class="odp-box">
 <p class="mb-0">Obchůzka</p>
-<p class="f-2r tuc mb-0">do&nbsp;<span id="obch_bud">??</span>&#8239;minut</p>
+<p class="mb-0">do&nbsp;<span id="obch_bud" class="uhr-h">??</span>&#8239;minut</p>
 <p class="mb-0">za</p>
 <p class="box-h t-odp"><span id="o-min" class="uhr-h">0</span><span id="o-sec1" class="uhr-s">0</span><span id="o-sec2" class="uhr-s">0</span></p>
 <button id="pl-ob" class="but bs" type="button" title="Provést obchůzku teď">Provést obchůzku teď</button>
@@ -539,7 +539,7 @@ Zavřít
 <div class="o-hlav p-s">
 <div class="na-i"> </div>
 <div class="o-c1">
-<h2>Nastavení</h2>
+<h2 class="mb-0">Nastavení</h2>
 </div>
 <button id="k-nas" class="o-c2" title="Zavřít">
 <span id="s-nas" class="o-kriz"> </span>
@@ -548,40 +548,6 @@ Zavřít
 </div>
 
 <div class="o-telo">
-
-<div class="mb-2 flex-c aic">
-<h3>Zvuky v&nbsp;aplikaci</h3>
-<p class="nad mb-1">Zvuk alarmu Noční&nbsp;VLK</p>
-<ol class="b-obch mb-1">
-<li><button type="button" id="bns1" class="kr-s" title="zvuk 1">1</button></li>
-<li><button type="button" id="bns2" class="kr-s" title="zvuk 2">2</button></li>
-<li><button type="button" id="bns3" class="kr-s" title="zvuk 3">3</button></li>
-<li><button type="button" id="bns4" class="kr-s" title="zvuk 4">4</button></li>
-<li><button type="button" id="bns5" class="kr-s" title="zvuk 5">5</button></li>
-<li><button type="button" id="bns6" class="kr-s" title="zvuk 6">6</button></li>
-</ol>
-
-<div class="flex-s mb-2">
-<input id="vlk_z" class="ch-s" type="checkbox" title="Zatržením je povoleno postupní zesilování hlasitosti" checked>
-<p class="mb-0">Postupné zesilování alarmu</p>
-</div>
-
-<p class="nad mb-1">Zvuk alarmu Minutka</p>
-<ol class="b-obch mb-1">
-<li><button type="button" id="bns1m" class="kr-s" title="zvuk 1">1</button></li>
-<li><button type="button" id="bns2m" class="kr-s" title="zvuk 2">2</button></li>
-<li><button type="button" id="bns3m" class="kr-s" title="zvuk 3">3</button></li>
-<li><button type="button" id="bns4m" class="kr-s" title="zvuk 4">4</button></li>
-<li><button type="button" id="bns5m" class="kr-s" title="zvuk 5">5</button></li>
-<li><button type="button" id="bns6m" class="kr-s" title="zvuk 6">6</button></li>
-</ol>
-
-<div class="flex-s mb-2">
-<input id="minutka_z" class="ch-s" type="checkbox" title="Zatržením je povoleno postupní zesilování hlasitosti" checked>
-<p class="mb-0">Postupné zesilování alarmu</p>
-</div>
-
-</div>
 
 <div id="n-i-blok" class="flex-c aic mb-2 d-n">
 <h3>Změna délky intervalu</h3>
@@ -639,6 +605,42 @@ Snížit interval
 </button>
 </div></div></div>
 
+<div class="mb-2 flex-c aic">
+<h3>Zvuky v&nbsp;aplikaci</h3>
+<p class="nad mb-1">Zvuk alarmu Noční&nbsp;VLK</p>
+<ol class="b-obch mb-1">
+<li><button type="button" id="bns1" class="kr-s" title="zvuk 1">1</button></li>
+<li><button type="button" id="bns2" class="kr-s" title="zvuk 2">2</button></li>
+<li><button type="button" id="bns3" class="kr-s" title="zvuk 3">3</button></li>
+<li><button type="button" id="bns4" class="kr-s" title="zvuk 4">4</button></li>
+<li><button type="button" id="bns5" class="kr-s" title="zvuk 5">5</button></li>
+<li><button type="button" id="bns6" class="kr-s" title="zvuk 6">6</button></li>
+</ol>
+
+<div class="flex-s mb-2">
+<input id="vlk_z" class="ch-s" type="checkbox" title="Zatržením je povoleno postupní zesilování hlasitosti" checked>
+<p class="mb-0">Postupné zesilování alarmu</p>
+</div>
+
+<p class="nad mb-1">Zvuk alarmu Minutka</p>
+<ol class="b-obch mb-1">
+<li><button type="button" id="bns1m" class="kr-s" title="zvuk 1">1</button></li>
+<li><button type="button" id="bns2m" class="kr-s" title="zvuk 2">2</button></li>
+<li><button type="button" id="bns3m" class="kr-s" title="zvuk 3">3</button></li>
+<li><button type="button" id="bns4m" class="kr-s" title="zvuk 4">4</button></li>
+<li><button type="button" id="bns5m" class="kr-s" title="zvuk 5">5</button></li>
+<li><button type="button" id="bns6m" class="kr-s" title="zvuk 6">6</button></li>
+</ol>
+
+<div class="flex-s mb-2">
+<input id="minutka_z" class="ch-s" type="checkbox" title="Zatržením je povoleno postupní zesilování hlasitosti" checked>
+<p class="mb-0">Postupné zesilování alarmu</p>
+</div>
+
+</div>
+
+
+
 <div class="flex-c aic d-n">
 <h3>Nastavení pro&nbsp;vývojáře</h3>
 <p class="tj">Není dostupné ve zkušební verzi aplikace.</p>
@@ -655,7 +657,7 @@ Snížit interval
 <div class="o-hlav p-s">
 <div class="ob-i"> </div>
 <div class="o-c1">
-<h2>Obchůzky</h2>
+<h2 class="mb-0">Obchůzky</h2>
 </div>
 <button id="k-ob" class="o-c2" title="Zavřít">
 <span id="s-ob" class="o-kriz"> </span>
@@ -695,7 +697,7 @@ Zavřít
 <div class="o-hlav p-s">
 <div class="o-log"> </div>
 <div class="o-c1">
-<h2>Návod</h2>
+<h2 class="mb-0">Návod</h2>
 </div>
 <button id="k-nav" class="o-c2" title="Zavřít">
 <span id="s-nav" class="o-kriz"> </span>
@@ -720,15 +722,15 @@ Zavřít
 <p class="tj">Aplikace Noční VLK své propočty zakládá na&nbsp;aktuálním čase ve&nbsp;Vašem zařízení. Pokud používáte aplikaci, neměňte v&nbsp;době používání aplikace datum a&nbsp;čas.</p>
 
 <h3>Otázky a odpovědi</h3>
-<p class="nad mt-0">Jak uzamčít zařízení, když&nbsp;od&nbsp;něj potřebuji odejít a&nbsp;aplikaci nechci vypínat?</p>
+<p class="nad mt-0">Jak uzamčít zařízení, když&nbsp;od&nbsp;něj potřebuji odejít?</p>
 <p class="tj">Pokud potřebujete od&nbsp;zařízení kde&nbsp;máte spuštěnou aplikaci Noční VLK odejít a&nbsp;uzamčít&nbsp;ho, postupujte následovně:</p>
 <ul class="s-zal">
-<li>nejprve aplikaci Noční&nbsp;VLK zastavte: zmačkněte tlačítko Zastavit s&nbsp;logem Nočního VLKa a&nbsp;potvrďte zastavení,</li>
+<li>nejprve aplikaci Noční&nbsp;VLK ukončete, uzavřením okna prohlížeče,</li>
 <li>zařízení uzamčete,</li>
 <li>při&nbsp;návratu zařízení odemkněte,</li>
-<li>zmáčkněte tlačítko Oživit a&nbsp;potvrďte Oživení</li>
+<li>spusťte aplikaci Noční&nbsp;VLK ve stejném prohlížeči jako byla spuštěna původně</li>
 </ul>
-<p class="tj">Následně aplikace Noční&nbsp;VLK obnoví své funkce a&nbsp;dopočítá veškerý čas, jako&nbsp;by aplikace nebyla zastavena.</p>
+<p class="tj">Aplikace Noční&nbsp;VLK, po úvodním spuštění, obnoví veškeré své funkce a&nbsp;dopočítá čas, jako&nbsp;by aplikace nebyla ukončena.</p>
 
 <p class="nad">Jak přidat anebo odebrat obchůzku, když&nbsp;už&nbsp;mám Nočního&nbsp;VLKa zaplého?</p>
 <p class="tj">Pokud potřebujete přidat anebo&nbsp;odebrat obchůzku a&nbsp;Noční&nbsp;VLK je&nbsp;již spuštěn, musí&nbsp;být nejprve zastaven.</p>
@@ -737,7 +739,7 @@ Zavřít
 <li>zmáčkněte tlačítko Zastavit s&nbsp;logem Nočního&nbsp;VLKa a&nbsp;potvrďte zastavení,</li>
 <li>zmáčkněte tlačítko Spustit s&nbsp;logem Nočního&nbsp;VLKa a&nbsp;v&nbsp;průvodci spouštěním zvolte aktuální obchůzky,</li>
 <li>průvodce spouštěním dokončete s&nbsp;volbou obchůzky s&nbsp;největším okruhem bez&nbsp;odloženého startu,</li>
-<li>v&nbsp;průvodci spouštěním zmáčkněte spuštění a&nbsp;proveďte obchůzku s&nbsp;největším okruhem</li>
+<li>v&nbsp;průvodci spouštěním zmáčkněte tlačítko Spustit a&nbsp;proveďte obchůzku s&nbsp;největším okruhem</li>
 </ul>
 <p class="tj">dále můžete aplikaci použítat i&nbsp;s&nbsp;přidanou anebo&nbsp;odebranou obchůzkou.</p>
 
@@ -759,7 +761,7 @@ Zavřít
 <div class="o-hlav p-s">
 <div class="o-log"> </div>
 <div class="o-c1">
-<h2>Funkce</h2>
+<h2 class="mb-0">Funkce</h2>
 </div>
 <button id="k-fun" class="o-c2" title="Zavřít">
 <span id="s-fun" class="o-kriz"> </span>
@@ -813,6 +815,11 @@ Podmínkou pro&nbsp;fungování&nbsp;je, že&nbsp;neuběhlo více jak&nbsp;60&#8
 <p class="nad">Postupné zesilování alarmu</p>
 <p class="tj">Aplikace má přednastaveno postupné zesilování alarmu. Při&nbsp;aktivaci výzvy k&nbsp;obchůzce nebude hlasitost zvuku výzvy na&nbsp;maximální výši, ale&nbsp;bude&nbsp;se postupně zesilovat. Na&nbsp;maximální zesílení vystoupá přibližně za&nbsp;10&#8239;sekund. Funkci postupného zesilování alarmu je&nbsp;možné vypnout v&nbsp;sekci Nastavení.</p>
 
+<p class="nad">Minutka</p>
+<p class="tj">
+Funkce Minutka umožňuje nastavení intervalu mimo hlavní funkci aplikace Noční&nbsp;VLK, která hlídá obchůzkové okruhy. Ve&nbsp;funkci minutka je&nbsp;možné nastavit interval až&nbsp;do&nbsp;120&nbsp;minut a&nbsp;po&nbsp;zaškrknutí volby Opakovat minutku po&nbsp;jejím ukončení, bude minutka opět po&nbsp;jejím ukončení zapnuta. Opakování minutky je&nbsp;možné během počítání intervalu vypnout kliknutím na&nbsp;odpočet minutky. Po&nbsp;spuštění minutky je&nbsp;možné tuto funkci zrušit kliknutím na&nbsp;odpočet minutky. Funkce Minutky má&nbsp;automatické obnovení, pokud dojde k&nbsp;ukončení aplikace a&nbsp;funkce Minutky bude aktivní, při&nbsp;opětovném spuštění aplikace bude automaticky plně obnovena (podmínkou&nbsp;je spuštění aplikace ve&nbsp;stejném prohlížeči jako byla spuštěna původně).
+</p>
+
 <p class="nad">Poznámky</p>
 <p class="tj">
 Poznámky slouží k&nbsp;uchování informací, pro&nbsp;které byste museli sáhnout po&nbsp;papíru a&nbsp;propisce. Zapsané poznámky se&nbsp;automaticky ukládají na&nbsp;interní uložiště. Po&nbsp;tomto uložení nedojde po&nbsp;uzavření aplikace Noční&nbsp;VLK <em>(z&nbsp;jakýchkoli příčin)</em> ke&nbsp;ztrátě poznámek a&nbsp;při opětovném spuštění aplikace Noční&nbsp;VLK <em>(ve&nbsp;stejném prohlížeči jako byla aplikace spuštěna původně)</em> se&nbsp;poznámky automaticky obnoví.
@@ -829,7 +836,7 @@ Poznámky slouží k&nbsp;uchování informací, pro&nbsp;které byste museli s�
 <div class="o-hlav p-s">
 <div class="o-log"> </div>
 <div class="o-c1">
-<h2>O&nbsp;plikaci</h2>
+<h2 class="mb-0">O&nbsp;plikaci</h2>
 </div>
 <button id="k-o-ap" class="o-c2" title="Zavřít">
 <span id="s-o-ap" class="o-kriz"> </span>
@@ -846,7 +853,7 @@ Zavřít
 <p class="tj">Aplikace je&nbsp;naprogramována v&nbsp;HTML&#8239;5, CSS&#8239;3 a&nbsp;JavaScriptu&#8239;ES6.</p>
 <p class="tj">Aplikace podléhá autorským právům.</p>
 <p class="tj">Výrobce aplikace: Boar-cz</p>
-<p class="tj">Verze aplikace: Zkušební verze 2.0</p>
+<p class="tj">Verze aplikace: Zkušební verze 2.1</p>
 
 </div></div>
 </section>
@@ -859,7 +866,7 @@ Zavřít
 <div class="o-hlav p-s">
 <div class="o-log"> </div>
 <div class="o-c1">
-<h2>Kontakt</h2>
+<h2 class="mb-0">Kontakt</h2>
 </div>
 <button id="k-kon" class="o-c2" title="Zavřít">
 <span id="s-kon" class="o-kriz"> </span>
@@ -1150,7 +1157,7 @@ Zavřít
 <div class="o-hlav p-s">
 <div class="o-log"> </div>
 <div class="o-c1">
-<h2>Přestávky</h2>
+<h2 class="mb-0">Přestávky</h2>
 </div>
 <button id="k-pre" class="o-c2" title="Zavřít">
 <span id="s-pre" class="o-kriz"> </span>
@@ -1261,7 +1268,7 @@ Zavřít
 
 <div id="ob-t" class="t-box">
 <p class="f-1r">Obchůzka do</p>
-<p id="ob" class="f-3r tuc">120</p>
+<p id="ob" class="f-3r a-b-i">120</p>
 <p class="f-1r">minut</p>
 </div>
 

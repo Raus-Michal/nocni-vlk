@@ -357,6 +357,7 @@ if(k==this.id_viz_uk[0]||k==this.id_viz_uk[1]||k==this.id_viz_uk[2]||k==this.id_
 // klik na vizuální box s odpočtem minutky (button s odpočtem) včetně prvků, které obsahuje
 klik.hraj(false); // bude přehrávat zvuk 1x klik
 dia.on(dia.id[10]); /* zapne dialogové okno s informacemi o minutce a možností jejího zrušení, funkce v centrum.js */
+this.odpocet(); // aby nedošlo k prodlevě kliku a odpočtu v informačním okně, spustí funkci odpočtu, aby okamžitě přepsala stav do konce intervalu Minutky
 }
 
 if(k==this.id_timeout[2])
@@ -431,43 +432,6 @@ ozivit(){
 
 if(!uloz.ok){return false;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
-let minutka_zapnuta=uloz.nacti(uloz.klice[17]); // načítání z LocalStorage (v ozivit.js) - 17. klíč ukládá jesli byla minutka zapnuta=true anebo vypnuta=delete klíč
-
-if(minutka_zapnuta!="true")
-{
-// pokud nebyla minutka zapnuta, což právě jednoznačně ukazuje parametr proměnné TRUE, bude return a další kroky obnovy budou přerušeny
-return false;
-}
-
-let timeout=uloz.nacti(uloz.klice[15]); // načítání z LocalStorage (v ozivit.js) - 15. klíč ukládá čas, kdy nastane timeout Minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
-timeout=parseInt(timeout); // převede čas z textového řetětce na číslo
-let navic_time=this.max_obnova; // načte maximální čas (v milisekundách) obnovy po plánovaném timeoutu
-const cas_aktual=Date.now(); // vrátí počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
-cas_pro_oziveni=timeout+navic_time; // k času timeautu Minutky přičte maximální čas pro čas obnovy
-
-if(cas_pro_oziveni<cas_aktual)
-{
-// pokud bude čas pro oživení menší než aktuální čas, bude return a další kroky obnovy budou přerušeny
-return false;
-}
-else
-{
-this.konecny_cas=timeout; // do proměnné zapíše konečný čas minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
-}
-
-let popisek=uloz.nacti(uloz.klice[16]); // načítání z LocalStorage (v ozivit.js) - 16. klíč ukládá popisek minutky
-
-if(popisek=="")
-{
-// pokud nebude žádný popisek minutky načten, bude return a další kroky obnovy budou přerušeny
-return false;
-}
-else
-{
-document.getElementById(this.id_popisek_input).value=popisek; // změní popisek minutky v input type=text pro zadání minutky
-this.popisek=popisek; // změní proměnnou, která určuje popisek minutky
-}
-
 let opakovat_minutku=uloz.nacti(uloz.klice[18]); // načítání z LocalStorage (v ozivit.js) - 18. klíč ukládá jesli chtěl minutku uživatel opakovat
 
 if(opakovat_minutku=="true"||opakovat_minutku=="false")
@@ -498,6 +462,44 @@ if(interval_minutky!="")
 interval_minutky=parseInt(interval_minutky); // převede textový řetězec na číslo
 this.int_zad=interval_minutky; // přepíše hodnotu intervalu zadání minutky v minutách
 this.int_zad_zmen(); // funkce provede změnu intervalu, změna je zaslána bez požadavku, tedy poze změní default hodnoty podle velikosti intervalu
+}
+
+
+let popisek=uloz.nacti(uloz.klice[16]); // načítání z LocalStorage (v ozivit.js) - 16. klíč ukládá popisek minutky
+
+if(popisek=="")
+{
+// pokud nebude žádný popisek minutky načten, bude return a další kroky obnovy budou přerušeny
+return false;
+}
+else
+{
+document.getElementById(this.id_popisek_input).value=popisek; // změní popisek minutky v input type=text pro zadání minutky
+this.popisek=popisek; // změní proměnnou, která určuje popisek minutky
+}
+
+let minutka_zapnuta=uloz.nacti(uloz.klice[17]); // načítání z LocalStorage (v ozivit.js) - 17. klíč ukládá jesli byla minutka zapnuta=true anebo vypnuta=delete klíč
+
+if(minutka_zapnuta!="true")
+{
+// pokud nebyla minutka zapnuta, což právě jednoznačně ukazuje parametr proměnné TRUE, bude return a další kroky obnovy budou přerušeny
+return false;
+}
+
+let timeout=uloz.nacti(uloz.klice[15]); // načítání z LocalStorage (v ozivit.js) - 15. klíč ukládá čas, kdy nastane timeout Minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
+timeout=parseInt(timeout); // převede čas z textového řetětce na číslo
+let navic_time=this.max_obnova; // načte maximální čas (v milisekundách) obnovy po plánovaném timeoutu
+const cas_aktual=Date.now(); // vrátí počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
+cas_pro_oziveni=timeout+navic_time; // k času timeautu Minutky přičte maximální čas pro čas obnovy
+
+if(cas_pro_oziveni<cas_aktual)
+{
+// pokud bude čas pro oživení menší než aktuální čas, bude return a další kroky obnovy budou přerušeny
+return false;
+}
+else
+{
+this.konecny_cas=timeout; // do proměnné zapíše konečný čas minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
 }
 
 return true; // vrátí hodnotu true - minutka je připravena k obnově

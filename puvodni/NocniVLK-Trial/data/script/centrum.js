@@ -1435,6 +1435,7 @@ else
 // pokud je minutka aktivní
 klik.hraj(false); // bude přehrávat zvuk 1x klik
 dia.on(dia.id[10]); /* zapne dialogové okno s informacemi o minutce a možností jejího zrušení, funkce v centrum.js */
+minutka.odpocet(); // aby nedošlo k prodlevě kliku a odpočtu v informačním okně, spustí funkci odpočtu, aby okamžitě přepsala stav do konce intervalu Minutky - v minutka.js
 }
 
 }
