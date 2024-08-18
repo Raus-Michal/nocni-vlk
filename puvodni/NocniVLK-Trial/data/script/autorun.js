@@ -7,9 +7,10 @@ ochrany:null,  // proměnná informuje, že byla načtena knihovna ochrany.js
 kresly:null, // proměnná informuje, že byla načtena knihovna kresly.js
 ozivit:null, // proměnná informuje, že byla načtena knihovna ozivit.js
 minutka:null, // proměnná informuje, že byla načtena knihovna minutka.js
+planovac:null, // proměnná informuje, že byla načtena knihovna planovac.js
 akce(){
 // funkce slouží ke kontrole, zda byly všechny JS knihovny potřebné pro chod aplikace načteny a pokud ano, spustí postupně všechny procesy
-if(this.pruvodce==true&&this.centrum==true&&this.vlk==true&&this.ochrany==true&&this.kresly==true&&this.ozivit==true&&this.minutka==true)
+if(this.pruvodce==true&&this.centrum==true&&this.vlk==true&&this.ochrany==true&&this.kresly==true&&this.ozivit==true&&this.minutka==true&&this.planovac==true)
 {
 clearTimeout(this.casovac); // zastaví časovač
 uloz.a(); // kontrola jestli funguje uživateli LocalStorage v ozivit.js
@@ -20,6 +21,16 @@ posuvnik.zahajeni(); /* funkce za určitý počet sekund schová posuvníky body
 g_pos.aktivace(); /* aktivuje všechny posluchače události hlavního kontajneru */
 tik.aktivace(); // funkce vypne WAIT a zapne hodiny, aktivuje SetInterval 500ms pro hlídání základních procesů aplikace hodiny ...
 uloz.oziv(); /* oživení hlavní funkce aplikace Noční VLK v ozivit.js */
+// nulování nepotřebných proměnných
+this.TIME=""; // vynuluje promnnou, aby mohla být vyřazena z paměti, již nebude potřeba
+this.pruvodce=""; // vynuluje promnnou, aby mohla být vyřazena z paměti, již nebude potřeba
+this.centrum=""; // vynuluje promnnou, aby mohla být vyřazena z paměti, již nebude potřeba
+this.vlk=""; // vynuluje promnnou, aby mohla být vyřazena z paměti, již nebude potřeba
+this.ochrany=""; // vynuluje promnnou, aby mohla být vyřazena z paměti, již nebude potřeba
+this.kresly=""; // vynuluje promnnou, aby mohla být vyřazena z paměti, již nebude potřeba
+this.ozivit=""; // vynuluje promnnou, aby mohla být vyřazena z paměti, již nebude potřeba
+this.minutka=""; // vynuluje promnnou, aby mohla být vyřazena z paměti, již nebude potřeba
+this.planovac=""; // vynuluje promnnou, aby mohla být vyřazena z paměti, již nebude potřeba
 }
 else
 {

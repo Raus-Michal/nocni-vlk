@@ -109,7 +109,7 @@ id:[ // pole s id všech dialogových oken používaných v aplikaci
 "d-obch",
 "d-obchM",
 "d-uspan",
-"d-neni",
+"d-planovac", // 4. id dialogového okna k zadání Plánovače
 "d-nezastaven",
 "d-oziv", // 6. id dialogového okna S oznámením, že Noční VLK bude plně obnoven
 "d-kon",
@@ -118,12 +118,12 @@ id:[ // pole s id všech dialogových oken používaných v aplikaci
 "d-minutka-info",
 "d-dotaz-minutka",
 "d-ozivM" // 12. id dialogového okna S oznámením, že funkce Minutka bude plně obnoven
+
 ], 
 zas:["b-z-a","k-d-zas","b-z-n"],
 obch:["b-obch-a","k-d-obch","b-obch-n"],
 obchM:["b-obchM-a","k-d-obchM","b-obchM-n"],
 usp:["k-usp","b-usp-ok"],
-neni:["k-neni","b-neni-ok"],
 oziv:["b-nezastaven", // 0 - tlačítko Dialogového okna o tom, že některé funkce nebyly zastaveny
 "b-oziv-ok",  // 1 - tlačítko Dialogového okna o tom, že funkce hlavní funkce aplikace Noční VLK bude obnovena
 "b-oziv-min" // 2 - tlačítko Dialogového okna o tom, že funkce minutka bude obnovena
@@ -132,7 +132,7 @@ ozit_dotaz:["b-dotaz-oziv-a","k-d-dotaz-oziv","b-dotaz-oziv-n"], // tlačítka d
 minutka:["k-d-minutka","b-dotaz-minutka-z"], // tlačítka dialogového okna k Zadání minutky Křížek a Zrušit
 minutka_info:["k-d-minutka-info","min-zrusit-info"], // tlačítka dialogového okna k informaci o minutce Křížek a Zrušit minutku
 minutka_dotaz:["k-d-dotaz-minutka","b-dotaz-minutka-a","b-dotaz-minutka-n"], // tlačítka dialogového okna k dotazu o zrušení minutky Křížek, ANO,NE
-
+planovac:["k-d-planovac","b-dotaz-planovac-z"], // tlačítka dialogového okna k Zadání plánovače Křížek a Zrušit
 kont:"but-kon",
 handleEvent(e){
 const k=e.target.id; /* zjistí id prvku na který bylo kliknuto */
@@ -237,13 +237,6 @@ klik.hraj(false); // bude přehrávat zvuk 1x klik
 dia.off(this.id[3]); /* vypne dialogové okno */
 }
 
-if(k==this.neni[0]||k==this.neni[1])
-{
-/* Kliknuto na Rozumím anebo Kříž - Funkce není naprogramovaná  */
-klik.hraj(false); // bude přehrávat zvuk 1x klik 
-dia.off(this.id[4]); /* vypne dialogové okno */
-}
-
 if(k==this.oziv[0])
 {
 /* Kliknuto na Rozumím - Některé fukce v aplikaci nebyly zastaveny  */
@@ -342,6 +335,13 @@ if(k==minutka.id_check[1])
 minutka.opakovat_zmena(e.target.checked); // funkce zajistí změny v proměnné a druhém checketu v informačním okně podle hodnoty, které v aktuálním checketu byla nastavena - v minutka.js
 }
 
+if(k==this.planovac[0]||k==this.planovac[1])
+{
+/* Kliknuto na Zrušit anebo Kříž - Zadání Plánovač  */
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
+dia.off(this.id[4]); /* vypne dialogové okno se zadáním Plánovače */
+}
+
 
 },
 posON(id){
@@ -385,12 +385,14 @@ document.getElementById(this.usp[i]).addEventListener("click",this);
 
 if(id==this.id[4])
 {
-/* tlačítka upozornění : Funkce není naprogramovaná */
-let l5=this.neni.length;
+/* tlačítka spustit Plánovač  */
+let l5=this.planovac.length; // délka pole
 for(let i=0;i<l5;i++)
 {
-document.getElementById(this.neni[i]).addEventListener("click",this);
-}}
+document.getElementById(this.planovac[i]).addEventListener("click",this); // tlačítka Křížek a Zrušit
+}
+planovac.posON_spust(); // zapne posluchače událostí všech inputů a tlačítka Spustit v spouštění Plánovače - v planovac.js
+}
 
 if(id==this.id[5])
 {
@@ -507,12 +509,14 @@ document.getElementById(this.usp[i]).removeEventListener("click",this);
 
 if(id==this.id[4])
 {
-/* tlačítka upozornění : Funkce není naprogramovaná */
-let l5=this.oziv.length;
+/* tlačítka dialogového okna Spustit Plánovač */
+let l5=this.planovac.length;
 for(let i=0;i<l5;i++)
 {
-document.getElementById(this.oziv[i]).removeEventListener("click",this);
-}}
+document.getElementById(this.planovac[i]).removeEventListener("click",this); // odebere posluchače Křížek a Zrušit v dialogovém oknu
+}
+planovac.posOFF_spust(); // vypne posluchače událostí všech inputů a tlačítka Spustit v spouštění Plánovače - v planovac.js
+}
 
 if(id==this.id[5])
 {
@@ -1423,11 +1427,10 @@ uloz.uloz(uloz.klice[12],text); // při každé změně textu v textarea poznám
 if(k==this.min[0]||k==this.min[1]||k==this.min[2])
 {
 /* KLIKNUTÍ NA MINUTKA */
-pinkani.hraj(false); // bude přehrávat zvuk 1x pinkání, aby bycha zachována první interakce s tímto audiem, aby fungovala ochrana před uspáním, pokud by nebyl zapnut Noční VLK
-
 if(!minutka.aktivni)
 {
 // pokud není minutka aktivní
+pinkani.hraj(false); // bude přehrávat zvuk 1x pinkání, aby bycha zachována první interakce s tímto audiem, aby fungovala ochrana před uspáním, pokud by nebyl zapnut Noční VLK
 dia.on(dia.id[9]); /* v centrum.js */
 }
 else
@@ -1440,11 +1443,12 @@ minutka.odpocet(); // aby nedošlo k prodlevě kliku a odpočtu v informačním 
 
 }
 
+
 if(k==this.pla[0]||k==this.pla[1]||k==this.pla[2])
 {
-/* KLIKNUTÍ PRO NENAPROGRAMOVANÉ FUNKCE */
-klik.hraj(false); // bude přehrávat zvuk 1x klik
-dia.on(dia.id[4]); /* v centrum.js */
+/* KLIKNUTÍ na Plánovač */
+pinkani.hraj(false); // bude přehrávat zvuk 1x pinkání, aby bycha zachována první interakce s tímto audiem, aby fungovala ochrana před uspáním, pokud by nebyl zapnut Noční VLK
+dia.on(dia.id[4]); /* otevře dialogové okno pro zadání Plánovač - v centrum.js */
 }
 
 }};

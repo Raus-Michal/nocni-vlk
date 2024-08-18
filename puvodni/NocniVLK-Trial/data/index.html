@@ -1360,20 +1360,6 @@ Zavřít
 </div>
 </dialog>
 
-<dialog id="d-neni">
-<div class="d-kriz">
-<button id="k-neni" type="button" class="o-kriz b-w0" title="Zavřít"> </button>
-</div>
-<div class="d-telo">
-<p>Promiňte</p>
-<p><span class="p_n">Funkce není&nbsp;součástí této verze aplikace.</span></p>
-<p><span class="p_n">Používáte zkušební&nbsp;verzi</span></p>
-</div>
-<div class="d-butt d-butS">
-<button id="b-neni-ok" class="but" type="button" title="Rozuměl jsem">Rozumím</button>
-</div>
-</dialog>
-
 <dialog id="d-nezastaven">
 <div class="d-kriz"><div class="sp-i"> </div></div>
 <div class="d-telo">
@@ -1445,16 +1431,16 @@ Zavřít
 </div>
 </div></div>
 <form id="spust-minutku" action="none.php" onSubmit="return false;">
-<div class="flex jcc aic mxl">
+<fieldset class="flex jcc aic mxl">
 <input id="popis-m" class="min-inp" type="text" placeholder="Popisek minutky" title="Napiš popisek k minutce" maxlength="20" required>
-</div>
-<div class="flex aic g1 mxl">
-<input id="opak_min1" class="ch-s" type="checkbox"><p class="mb-0">Opakovat minutku po&nbsp;jejím ukončení</p>
-</div>
-<div class="d-butt">
+</fieldset>
+<fieldset class="flex aic jcc g1 mxl">
+<input id="opak_min1" class="ch-s" type="checkbox" title="V případě souhlasu zaškrkněte" ><label class="mb-0">Opakovat minutku po&nbsp;jejím ukončení</label>
+</fieldset>
+<fieldset class="d-butt">
 <button class="but f110" type="submit" title="Spustit minutku">Spustit</button>
 <button id="b-dotaz-minutka-z" class="but f110" type="button" title="Zrušit spouštění">Zrušit</button>
-</div>
+</fieldset>
 </form>
 </dialog>
 
@@ -1482,8 +1468,8 @@ Zavřít
 </div>
 </div>
 <p id="min-inf-pop" class="mxl tc f-1r pres_t">popisek minutky</p>
-<div class="flex aic g1 mxl">
-<input id="opak_min2" class="ch-s" type="checkbox"><p class="mb-0">Opakovat minutku po&nbsp;jejím ukončení</p>
+<div class="flex aic jcc g1 mxl">
+<input id="opak_min2" class="ch-s" type="checkbox" title="V případě souhlasu zaškrkněte"><label class="mb-0">Opakovat minutku po&nbsp;jejím ukončení</label>
 </div>
 <div class="mxl mb-0">
 <button id="min-zrusit-info" class="but bs" type="button" title="Zastavit minutku">Zrušit minutku</button>
@@ -1501,6 +1487,44 @@ Zavřít
 <button id="b-dotaz-minutka-a" class="but f110" type="button" title="Provést">Ano</button>
 <button id="b-dotaz-minutka-n" class="but f110" type="button" title="Neprovést">Ne</button>
 </div>
+</dialog>
+
+
+<dialog id="d-planovac">
+<div class="d-kriz">
+<button id="k-d-planovac" type="button" class="o-kriz b-w0" title="Zavřít"> </button>
+</div>
+<div class="d-telo">
+<p>Plánovač</p>
+</div>
+<form id="form-plan" action="none.php" onSubmit="return false;">
+<fieldset class="flex-c aic jcc mxl mt-0 g015">
+<p class="mb-0">Čas spuštění plánu</p>
+<input id="cas-ulohy" type="time" class="min-inp wm-12r px f-2" title="Zadejte čas HODINA:MINUTA"  required>
+</fieldset>
+
+
+<fieldset class="flex jcc aic mxl">
+<input id="popis-plan" class="min-inp" type="text" placeholder="Popisek plánovače" title="Napiš popisek k plánovači" maxlength="20" required>
+</fieldset>
+
+<fieldset class="flex-c g1 mxl">
+<div class="flex aic g1">
+<input id="ch-bz" class="ch-s" type="checkbox" title="Zaškrknutím potvrdíte volbu"><label class="mb-0">Bez zvukového upozornění</label>
+</div>
+<div class="flex aic g1">
+<input id="ch-1x" class="ch-s" type="checkbox" title="Zaškrknutím potvrdíte volbu"><label class="mb-0">Zvuk upozornění přehrát&nbsp;1x</label>
+</div>
+<div class="flex aic g1">
+<input id="ch-rep" class="ch-s" type="checkbox" title="Zaškrknutím potvrdíte volbu" checked><label class="mb-0">Zvuk upozornění přehrávat do&nbsp;ukončení</label>
+</div>
+</fieldset>
+
+<div class="d-butt">
+<button class="but f110" type="submit" title="Spustit plánovač">Spustit</button>
+<button id="b-dotaz-planovac-z" class="but f110" type="button" title="Zrušit spouštění">Zrušit</button>
+</div>
+</form>
 </dialog>
 
 
@@ -1544,7 +1568,8 @@ Zavřít
 <script src="script/kresly.js?v=1" async> /* vykresluje plátno CANVAS se systémem obchůzek */ </script>
 <script src="script/vlk.js?v=1" async> /* zajišťuje hlavní funkci aplikace Noční VLK - odpočet, zápis obchůzek atd. */ </script>
 <script src="script/ochrany.js?v=1" async> /* zajišťuje ochranu před uzamčením obrazovky a uspáním karty */ </script>
-<script src="script/minutka.js?v=1" async> /* obsahuje všechny funkcionality k funkce Minutka */  </script>
-<script src="script/centrum.js?v=1" async> /* zajišťuje prvotní spouštění potřebných funkcionali aplkace - např. hodiny visualView port API ... */  </script>
+<script src="script/minutka.js?v=1" async> /* obsahuje všechny funkcionality k funkci Minutka */  </script>
+<script src="script/planovac.js?v=1" async> /* obsahuje všechny funkcionality k funkci Plánovač */  </script>
+<script src="script/centrum.js?v=1" async> /* zajišťuje prvotní spouštění potřebných funkcionalit aplkace - např. hodiny, visualView port API ... */  </script>
 </body>
 </html>

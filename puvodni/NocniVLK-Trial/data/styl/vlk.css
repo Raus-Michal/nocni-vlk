@@ -126,6 +126,11 @@ button:focus{
 outline:none; /* Odstranění standardního zvýraznění focusu */
 }
 
+fieldset
+{
+padding:0;
+}
+
 .h-kon
 {
 width:100%;
@@ -1184,7 +1189,7 @@ background:transparent;
 color:var(--b4);
 border:1px solid transparent;
 gap:.25rem;
-padding:0 .5rem 0 .5rem;
+padding-right:.5rem;
 }
 
 
@@ -2143,7 +2148,9 @@ animation:big-text2 1s infinite linear;
 .ch-s
 {
 width:2rem;
+min-width:2rem;
 height:2rem;
+min-height:2rem;
 }
 
 .ch-s:focus-visible
@@ -2372,11 +2379,6 @@ font-size:calc(1.15rem + 1vw);
 font-weight:bold;
 }
 
-.mt-0
-{
-margin-top:0rem;
-}
-
 .mt-2
 {
 margin-top:2rem;
@@ -2413,6 +2415,10 @@ margin-bottom:.5rem;
 margin-bottom:2rem;
 }
 
+.mt-0
+{
+margin-top:0rem;
+}
 
 .p0
 {
@@ -2482,6 +2488,11 @@ color:var(--b5);
 width:5rem;
 max-width:5rem;
 cursor:pointer;
+}
+
+.wm-12r
+{
+max-width:12rem;
 }
 
 .cp
