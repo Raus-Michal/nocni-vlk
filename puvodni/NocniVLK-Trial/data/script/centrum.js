@@ -1193,10 +1193,10 @@ kon_pre.id_k=["k-pre","s-pre","k-kon","s-kon"] // id button a svg křížků jed
 const g_pos={obj:[["spustit","spustit-svg"],["vl","vlm","min","cool","cel","pln","vpm","vp"],["ovl-zvuk","ovl-jas"],["but-nas","nas-svg"],["but-ob","ob-svg"],["but-oz","oz-svg"]],
 menu:["a-navod","a-funkce","a-o-aplikaci"], // položky menu: Návod, Funkce , O aplikaci
 zam:["zam","zam-svg"], // Zámek obrazovky
-min:["m","m-svg","m-p"], // Minutka
-pla:["pl","pl-svg","pl-p"], // Plánovač
-kon:["k","k-svg","k-p"], // kontakt
-pre:["pr","pr-svg","pr-p"], // přestávky
+min:["m","m-svg"], // Minutka
+pla:["pl","pl-svg"], // Plánovač
+kon:["k","k-svg"], // kontakt
+pre:["pr","pr-svg"], // přestávky
 poznamky:["pozn","but-poz","but-poz-off"], // poznámky:[id textarea, id button Zavřít, class buttonu, aby nešel vidět] 
 ozivitOn(interval=null){
 /* aktivace posluchče Oživit Nočního VLKA */
@@ -1403,14 +1403,14 @@ pol_menu.a(); // aktivuje posluchače událostí ke křížku Zavřít okno
 }
 
 
-if(k==this.pre[0]||k==this.pre[1]||k==this.pre[2])
+if(k==this.pre[0]||k==this.pre[1])
 {
 // kliknuto na Přestávky
 hl_kon.zavri(kon_pre.id[0],"flex",kon_pre.id[0]);  // zavře hlavní kontajner a otevře Přestávky - (IDnew,typ,id_scroll)
 kon_pre.a(); // aktivuje posluchače událostí ke křížku Zavřít okno
 }
 
-if(k==this.kon[0]||k==this.kon[1]||k==this.kon[2])
+if(k==this.kon[0]||k==this.kon[1])
 {
 // kliknuto na Kontakt
 hl_kon.zavri(kon_pre.id[1],"flex",kon_pre.id[1]);  // zavře hlavní kontajner a otevře Kontakt - (IDnew,typ,id_scroll)
@@ -1424,7 +1424,7 @@ let text=e.target.value; // zjistí value textarea poznámky
 uloz.uloz(uloz.klice[12],text); // při každé změně textu v textarea poznámky, uloží její value do Local Strorage pod klíčem- funkce je v ozivit.js
 }
 
-if(k==this.min[0]||k==this.min[1]||k==this.min[2])
+if(k==this.min[0]||k==this.min[1])
 {
 /* KLIKNUTÍ NA MINUTKA */
 if(!minutka.aktivni)
@@ -1444,7 +1444,7 @@ minutka.odpocet(); // aby nedošlo k prodlevě kliku a odpočtu v informačním 
 }
 
 
-if(k==this.pla[0]||k==this.pla[1]||k==this.pla[2])
+if(k==this.pla[0]||k==this.pla[1])
 {
 /* KLIKNUTÍ na Plánovač */
 pinkani.hraj(false); // bude přehrávat zvuk 1x pinkání, aby bycha zachována první interakce s tímto audiem, aby fungovala ochrana před uspáním, pokud by nebyl zapnut Noční VLK

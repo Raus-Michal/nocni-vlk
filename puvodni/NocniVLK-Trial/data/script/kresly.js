@@ -431,8 +431,17 @@ else
 // pokud bude mít text obchůzky jiný počet znaků, zde se počítá s obchůzkou do 120 min
 p.fillText(t1,130,125); // vykreslý text pouze OKRUH - 120 - první kruh obchůzky
 }
-p.fillText(t2,145,330); // vykreslý text - pouze 60,30 anebo 15 - druhý kruh obchůzky
+
+
+if(t2=="15")
+{
+// pokud bude značena obchůzka do 15 MINUT
+p.fillText(t2,155,330); // vykreslý text - pouze 15 - druhý kruh obchůzky
 }
+else
+{
+p.fillText(t2,145,330); // vykreslý text - pouze 60,30 - druhý kruh obchůzky
+}}
 
 
 
@@ -692,6 +701,8 @@ t3="30";
 t4="30";
 }
 
+/* Vykreslování textu - systém obchůzek */
+
 p.fillStyle=b3; // barva pro vykreslení textu
 if(nazev_platna==pruvodce.id_can_v||nazev_platna==pruvodce.id_can_r)
 {
@@ -714,18 +725,40 @@ p.font=f0; // font plátna- velký text
 
 if(t1.length==2)
 {
-// pokud bude mít text první obchůzky 2 znaky - obchůzky 15,30 a 60 min
-p.fillText(t1,145,125); // vykreslý text pouze OKRUH - 30 a 60 anebo 120 - první kruh obchůzky
+// pokud bude mít text první obchůzky 2 znaky - obchůzky 30 a 60 min
+p.fillText(t1,150,125); // vykreslý text pouze OKRUH - 30 a 60 - první kruh obchůzky
 }
 else
 {
 // pokud bude mít text obchůzky jiný počet znaků, zde se počítá s obchůzkou do 120 min
 p.fillText(t1,130,125); // vykreslý text pouze OKRUH - 120 - první kruh obchůzky
 }
-p.fillText(t2,230,230); // vykreslý text - pouze 60,30 anebo 15 - druhý kruh obchůzky
-p.fillText(t3,145,330); // vykreslý text - pouze 60,30 anebo 15 - třetí kruh obchůzky
-p.fillText(t4,65,230); // vykreslý text - pouze 60,30 anebo 15 - čtvrtý kruh obchůzky
+
+if(t2=="15")
+{
+// pokud bude značena obchůzka do 15 MINUT
+p.fillText(t2,255,230); // vykreslý text - pouze 15 - druhý kruh obchůzky
 }
+else
+{
+p.fillText(t2,240,230); // vykreslý text - pouze 60,30 - druhý kruh obchůzky
+}
+
+
+if(t3=="15")
+{
+// pokud bude značena obchůzka do 15 MINUT
+p.fillText(t3,160,330); // vykreslý text - pouze 15 - třetí kruh obchůzky
+}
+else
+{
+p.fillText(t3,150,330); // vykreslý text - pouze 60,30 - třetí kruh obchůzky
+}
+
+p.fillText(t4,65,230); // vykreslý text - 15 nebo 30 - čtvrtý kruh obchůzky
+}
+
+/* KONEC - Vykreslování textu - systém obchůzek */
 
 p.strokeStyle=b4;
 
