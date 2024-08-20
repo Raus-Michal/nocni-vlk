@@ -361,8 +361,8 @@ height:3rem;
 {
 .img-logo
 {
-width:4rem;
-height:4rem;
+width:calc(4rem + 1vw);
+height:calc(4rem + 1vw);
 }}
 
 .uhr
