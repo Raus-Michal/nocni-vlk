@@ -146,8 +146,10 @@ this.smaz(nazev_platna); /* nejprve se plátno vymaže */
 const objekt_platno=document.getElementById(nazev_platna); /* načte objekt plátna do promněnné */
 const p=objekt_platno.getContext("2d"); /* určí 2d vykreslování v plátnu */
 
-const f1="bold 25px/25px Verda,Helvetica,sans-serif";
-const f2="bold 20px/20px Verda,Helvetica,sans-serif";
+const f0="400 80px/80px text,sans-serif"; // font pro velký text
+const fs="400 50px/50px text,sans-serif"; // font pro střední text
+const f1="400 25px/25px text,sans-serif"; // font pro normál text
+const f2="400 20px/20px text,sans-serif"; // font pro menší text
 
 const b1="rgb(218,65,103)"; /* červená */
 const b2="rgb(137,157,120)"; /* zelená */
@@ -209,11 +211,31 @@ else if(o120==true)
 t1="120";
 }
 
-/* vykreslí text obchůzky */
-p.fillStyle=b3;
-p.fillText(o,140,85);
-p.fillText(d+t1+m,128,112);
-/* KONEC vykreslí tekt obchůzky */
+
+p.fillStyle=b3; // barva pro vykreslení textu
+if(nazev_platna==pruvodce.id_can_v||nazev_platna==pruvodce.id_can_r)
+{
+// pokud se bude vykreslovat CANVAS plátno v Průvodci spoštěním Nočního VLKa - volba obchůzky a rekapitulace - v pruvodce.js
+// vykreslí text obchůzky
+p.fillText(o,140,85); // text: "Obchůzka"
+p.fillText(d+t1+m,128,112); // text: "do" + okruh + "minut"
+}
+else if(nazev_platna==obch.id_can)
+{
+// pokud se bude vykreslovat CANVAS plátno se systémem obchůzek - v vlk.js
+// vykreslí text obchůzky
+p.font=f0; // font plátna- velký text
+if(t1.length==2)
+{
+// pokud bude mít text obchůzky 2 znaky - obchůzky 15,30 a 60 min
+p.fillText(t1,145,135); // vykreslý text pouze OKRUH - 15, 30 a 60
+}
+else
+{
+// pokud bude mít text obchůzky jiný počet znaků, zde se počítá s obchůzkou do 120 min
+p.fillText(t1,130,135); // vykreslý text pouze OKRUH - 120
+}}
+
 
 p.strokeStyle=b4; /* nastaví aktuální barvu čáry */
 
@@ -314,13 +336,13 @@ if(this.obr_nacten!=true)
 /* pokud není načten do globální proměnné obrázek tlapky Nočního Vlka - načte ji a vykreslí */
 this.obr=new Image();
 this.obr.src="svg/tlapka.svg";
-this.obr.onload=function(){p.drawImage(kresly.obr,125,130,150,200);};
+this.obr.onload=()=>{p.drawImage(kresly.obr,125,150,150,200);}; // vykreslí obrázek (x , y , width , height)
 this.obr_nacten=true;
 }
 else
 {
 /* pokud je v globální proměnné načten obrázek tlapky Nočního VLKa - vykreslí ji */
-p.drawImage(this.obr,125,130,150,200); /* vykreslí obrázek (promněnná obrázku , x , y , šířka obrázku , výška obrázku ), možno takto bezpečně vykreslit obrázek, který není načten dopředu jako globální promněnná */
+p.drawImage(this.obr,125,150,150,200); /* vykreslí obrázek ( x , y , šířka obrázku , výška obrázku ), možno takto bezpečně vykreslit obrázek, který není načten dopředu jako globální promněnná */
 }
 return;
 } /* KONEC pro systém SINGL obchůzek 15 minut nebo 30 minut nebo 60 minut nebo 120 minut */
@@ -340,13 +362,13 @@ if(this.obr_nacten!=true)
 /* pokud není načten do globální proměnné obrázek tlapky Nočního Vlka - načte ji a vykreslí */
 this.obr=new Image();
 this.obr.src="svg/tlapka.svg";
-this.obr.onload=function(){p.drawImage(kresly.obr,139.25,120,121.5,162);};
+this.obr.onload=()=>{p.drawImage(kresly.obr,145,132,104.03,138.51);};  // vykreslí obrázek (x , y , width , height)
 this.obr_nacten=true;
 }
 else
 {
 /* pokud je v globální proměnné načten obrázek tlapky Nočního VLKa - vykreslí ji */
-p.drawImage(this.obr,139.25,120,121.5,162); /* vykreslí obrázek (promněnná obrázku , x , y , šířka obrázku , výška obrázku ), možno takto bezpečně vykreslit obrázek, který není načten dopředu jako globální promněnná */
+p.drawImage(this.obr,145,132,104.03,138.51); /* vykreslí obrázek (promněnná obrázku , x , y , šířka obrázku , výška obrázku ), možno takto bezpečně vykreslit obrázek, který není načten dopředu jako globální promněnná */
 }
 
 p.beginPath(); /* kruh obchůzky 1. */
@@ -383,15 +405,36 @@ t1="120";
 t2="60";
 }
 
+p.fillStyle=b3; // barva pro vykreslení textu
+if(nazev_platna==pruvodce.id_can_v||nazev_platna==pruvodce.id_can_r)
+{
+// pokud se bude vykreslovat CANVAS plátno v Průvodci spoštěním Nočního VLKa - volba obchůzky a rekapitulace - v pruvodce.js
+// vykreslí text obchůzky
+p.fillText(o,145,90); // text: "Obchůzka" - první kruh obchůzky
+p.fillText(d+t1+m,133,117); // text: "do" + okruh + "minut" - první kruh obchůzky
+p.fillText(o,140,300); // text: "Obchůzka" - druhý kruh obchůzky
+p.fillText(d+t2+m,128,325); // text: "do" + okruh + "minut" - druhý kruh obchůzky
+}
+else if(nazev_platna==obch.id_can)
+{
+// pokud se bude vykreslovat CANVAS plátno se systémem obchůzek - v vlk.js
+// vykreslí text okruhů v systému obchůzek
+p.font=f0; // font plátna- velký text
+
+if(t1.length==2)
+{
+// pokud bude mít text první obchůzky 2 znaky - obchůzky 15,30 a 60 min
+p.fillText(t1,145,125); // vykreslý text pouze OKRUH - 30 a 60 anebo 120 - první kruh obchůzky
+}
+else
+{
+// pokud bude mít text obchůzky jiný počet znaků, zde se počítá s obchůzkou do 120 min
+p.fillText(t1,130,125); // vykreslý text pouze OKRUH - 120 - první kruh obchůzky
+}
+p.fillText(t2,145,330); // vykreslý text - pouze 60,30 anebo 15 - druhý kruh obchůzky
+}
 
 
-/* vykreslí text obchůzky */
-p.fillStyle=b3;
-p.fillText(o,140,85);
-p.fillText(d+t1+m,128,108);
-p.fillText(o,140,310);
-p.fillText(d+t2+m,128,335);
-/* KONEC vykreslí tekt obchůzky */
 
 p.lineWidth="10"; /* šířka čáry */
 
@@ -649,21 +692,40 @@ t3="30";
 t4="30";
 }
 
-p.fillStyle=b3;
+p.fillStyle=b3; // barva pro vykreslení textu
+if(nazev_platna==pruvodce.id_can_v||nazev_platna==pruvodce.id_can_r)
+{
+// pokud se bude vykreslovat CANVAS plátno v Průvodci spoštěním Nočního VLKa - volba obchůzky a rekapitulace - v pruvodce.js
+// vykreslí text obchůzky
+p.fillText(o,150,80); // text: "Obchůzka" - první kruh obchůzky
+p.fillText(d+t1+m,133,105); // text: "do" + okruh + "minut" - první kruh obchůzky
+p.fillText(o,200,155); // text: "Obchůzka" - druhý kruh obchůzky
+p.fillText(d+t2+m,190,180); // text: "do" + okruh + "minut" - druhý kruh obchůzky
+p.fillText(o,145,310); // text: "Obchůzka" - třetí kruh obchůzky
+p.fillText(d+t3+m,133,335); // text: "do" + okruh + "minut" - třetí kruh obchůzky
+p.fillText(o,66,215); // text: "Obchůzka" - čtvrtý kruh obchůzky
+p.fillText(d+t4+m,58,240); // text: "do" + okruh + "minut" - čtvrtý kruh obchůzky
+}
+else if(nazev_platna==obch.id_can)
+{
+// pokud se bude vykreslovat CANVAS plátno se systémem obchůzek - v vlk.js
+// vykreslí text okruhů v systému obchůzek
+p.font=f0; // font plátna- velký text
 
-p.fillText(o,150,80);
-p.fillText(d+t1+m,143,105);
-
-p.fillText(o,215,165);
-p.fillText(d+t2+m,202,190);
-
-p.fillText(o,150,310);
-p.fillText(d+t3+m,143,335);
-
-p.fillText(o,66,215);
-p.fillText(d+t4+m,58,240);
-
-/* KONEC vykreslí text obchůzky */
+if(t1.length==2)
+{
+// pokud bude mít text první obchůzky 2 znaky - obchůzky 15,30 a 60 min
+p.fillText(t1,145,125); // vykreslý text pouze OKRUH - 30 a 60 anebo 120 - první kruh obchůzky
+}
+else
+{
+// pokud bude mít text obchůzky jiný počet znaků, zde se počítá s obchůzkou do 120 min
+p.fillText(t1,130,125); // vykreslý text pouze OKRUH - 120 - první kruh obchůzky
+}
+p.fillText(t2,230,230); // vykreslý text - pouze 60,30 anebo 15 - druhý kruh obchůzky
+p.fillText(t3,145,330); // vykreslý text - pouze 60,30 anebo 15 - třetí kruh obchůzky
+p.fillText(t4,65,230); // vykreslý text - pouze 60,30 anebo 15 - čtvrtý kruh obchůzky
+}
 
 p.strokeStyle=b4;
 
@@ -1120,40 +1182,52 @@ t7="15";
 t8="15";
 }
 
+p.fillStyle=b3; // barva pro vykreslení textu
+if(nazev_platna==pruvodce.id_can_v||nazev_platna==pruvodce.id_can_r)
+{
+// pokud se bude vykreslovat CANVAS plátno v Průvodci spoštěním Nočního VLKa - volba obchůzky a rekapitulace - v pruvodce.js
+// vykreslí text obchůzky
 
-p.fillStyle=b1;
+p.fillText(o,150,145); // text: "Obchůzka" - I. kruh obchůzky
+p.fillText(d+t1+m,135,170); // text: "do" + okruh + "minut"  - I. kruh obchůzky
 
-p.fillText(o,150,145);
-p.fillText(d+t1+m,135,170);
+p.fillText(o,230,25); // text: "Obchůzka" - II. kruh obchůzky
+p.fillText(d+t2+m,220,50); // text: "do" + okruh + "minut"  - II. kruh obchůzky
 
-p.fillText(o,230,25);
-p.fillText(d+t2+m,220,50);
+p.fillText(o ,240,220); // text: "Obchůzka" - III. kruh obchůzky
+p.fillText(d+t3+m,230,245); // text: "do" + okruh + "minut"  - III. kruh obchůzky
 
-p.fillStyle=b3;
-p.fillText(o ,240,220);
-p.fillText(d+t3+m,230,245);
+p.fillText(o,228,375); // text: "Obchůzka" - IV. kruh obchůzky
+p.fillText(d+t4+m,217,395); // text: "do" + okruh + "minut"  - IV. kruh obchůzky
 
-p.fillStyle=b1;
-p.fillText(o,228,375);
-p.fillText(d+t4+m,217,395);
+p.fillText(o,63,275); // text: "Obchůzka" - V. kruh obchůzky
+p.fillText(d+t5+m,53,298); // text: "do" + okruh + "minut"  - V. kruh obchůzky
 
-p.fillText(o,63,275);
-p.fillText(d+t5+m,53,298);
+p.fillText(o,68,375); // text: "Obchůzka" - VI. kruh obchůzky
+p.fillText(d+t6+m,60,395); // text: "do" + okruh + "minut"  - VI. kruh obchůzky
 
-p.fillText(o,68,375);
-p.fillText(d+t6+m,60,395);
+p.fillText(o,60,200); // text: "Obchůzka" - VII. kruh obchůzky
+p.fillText(d+t7+m,60,225); // text: "do" + okruh + "minut"  - VII. kruh obchůzky
 
-p.fillStyle=b3;
+p.fillText(o,70,25); // text: "Obchůzka" - VIII. kruh obchůzky
+p.fillText(d+t8+m,60,50); // text: "do" + okruh + "minut"  - VIII. kruh obchůzky
 
-p.fillText(o,60,200);
-p.fillText(d+t7+m,60,225);
+}
+else if(nazev_platna==obch.id_can)
+{
+// pokud se bude vykreslovat CANVAS plátno se systémem obchůzek - v vlk.js
+// vykreslí text okruhů v systému obchůzek
+p.font=fs; // font plátna- střední
+p.fillText(t1,160,175); // vykreslý text pouze OKRUH - 120 - I. kruh obchůzky
+p.fillText(t2,280,50); // vykreslý text - 15 - II. kruh obchůzky
+p.fillText(t3,270,225); // vykreslý text - 30 anebo 15 - III. kruh obchůzky
+p.fillText(t4,280,395); // vykreslý text - 15 - IV. kruh obchůzky
+p.fillText(t5,170,280); // vykreslý text - 60 nebo 15 - V. kruh obchůzky
+p.fillText(t6,65,395); // vykreslý text - 15 - VI. kruh obchůzky
+p.fillText(t7,65,225); // vykreslý text - pouze 30 anebo 15 - VII. kruh obchůzky
+p.fillText(t8,65,50); // vykreslý text -  15 - VIII. kruh obchůzky
+}
 
-p.fillStyle=b1;
-
-p.fillText(o,70,25);
-p.fillText(d+t8+m,60,50);
-
-/* KONEC text k obchůzkám */
 
 p.strokeStyle=b4;
 p.lineWidth="10"; /* šířka čáry */
