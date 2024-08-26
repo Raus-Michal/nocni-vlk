@@ -175,14 +175,14 @@ z-index:-1;
 {
 position:relative;
 top:0;
-left:calc(50% - 6rem/2);
-width:6rem;
-height:6rem;
+left:calc(50% - 6.5rem/2);
+width:6.5rem;
+height:6.5rem;
 background:var(--b4);
 border-radius:50%;
 margin-bottom:-1rem;
 border:4px solid var(--b1);
-background:url("../svg/logo-an.svg") no-repeat var(--b4);
+background:url("../svg/logo-an.svg") -1px -2px no-repeat var(--b4); /* pozadí logo animace noční vlk s vycentrováním na střed kruhu */
 z-index:1;
 }
 
