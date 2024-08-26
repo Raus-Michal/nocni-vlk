@@ -2510,7 +2510,7 @@ cursor:default;
 .but
 {
 font-family:"text","serif";
-font-weight:bold;
+font-weight:500;
 font-size:1rem;
 background:var(--b5);
 color:var(--b1);
