@@ -21,13 +21,15 @@ klice:[ // klíče pro ukládání do Local Storage
 "cas_pro_oziv",
 "alarm_zv", // klíč volby zda chce užívatel postupné zesilování pro alarm Noční VLK
 "poznamky", // klíč pro Poznámky
-"alarm_min", // 13. klíč volby alarmu minutky
+"alarm_min", // 13. klíč volbu alarmu minutky
 "zes_min", // 14. klíč volby zda chce užívatel postupné zesilování pro alarm Minutky
 "cas_min", // 15. klíč ukládá čas, kdy nastane timeout Minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
 "popis_m", // 16. klíč ukládá popisek minutky
 "zap_min", // 17. klíč ukládá jesli byla minutka zapnuta=true anebo vypnuta=delete klíč
 "opak_min", // 18. klíč ukládá jesli chtěl minutku uživatel opakovat
 "int_min", // 19. klíč ukládá interval minutky, který byl zadán v minutách
+"alarm_plan", // 20. klíč ukládá volbu alarmu plánovač
+"zes_plan", // 21. klíč volby zda chce užívatel postupné zesilování pro alarm Plánovač
 ],
 max_obnova_ms:3600000, // maximální čas obnovy po plánovaném timeoutu - 3600000ms = 60 min
 v_obchuzce:false,
@@ -278,6 +280,34 @@ else if(zesilovani_min=="false")
 /* pokud uživatel nechtěl postupnéí zesilování */
 zvuk_min.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
 document.getElementById(p_nas.id_nas[4]).checked=false; /* odstraní Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
+}}
+
+
+// volba alarmu a zesilování Plánovač
+let volba_plan=this.nacti(this.klice[20]); /* načte volbu zvuku alarmu Plánovač uživatele uloženou na LocalStorage */
+let zesilovani_plan=this.nacti(this.klice[21]); /* načte volbu uživatele, zda chce postupně zvyšovat zvuk alarmu Plánovač */
+
+if(volba_plan!="")
+{
+/* pokud byla načtena nějáká volba */
+volba_plan=parseInt(volba_plan); /* převede textový řetězec na číslo */
+zvuk_plan.cislo=volba_plan; /* provede změnu volby alarmu Noční VLK v objektu zvuk - ve vlk.js */
+}
+
+if(zesilovani_plan!="")
+{
+/* pokud byl uložen požadavek uživatele na zesilování */
+if(zesilovani_plan=="true")
+{
+/* pokud uživatel žádá postupnéí zesilování */
+zvuk_plan.zesilovat=true; /* nastaví proměnnou na Povolit postupné zesilování - ve vlk.js */
+document.getElementById(p_nas.id_nas[5]).checked=true; /* nastaví Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
+}
+else if(zesilovani_plan=="false")
+{
+/* pokud uživatel nechtěl postupnéí zesilování */
+zvuk_plan.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
+document.getElementById(p_nas.id_nas[5]).checked=false; /* odstraní Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }}
 
 

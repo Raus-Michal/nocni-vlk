@@ -148,11 +148,12 @@ align-self:center;
 display:grid;
 grid-template-columns:repeat(6,1fr);
 align-content:center;
-grid-template-rows:repeat(11,auto);
+grid-template-rows:repeat(12,auto);
 grid-template-areas:
 "uhr uhr uhr uhr uhr uhr" 
 "can can can can can can"
 "odp odp odp odp odp odp"
+"uk uk uk uk uk uk"
 "pla pla nav2 nav2 nav2 nav2"
 "min min nav2 nav2 nav2 nav2"
 "pre pre nav2 nav2 nav2 nav2"
@@ -178,10 +179,12 @@ transition:250ms;
 .kon
 {
 grid-template-columns:repeat(12,1fr);
+grid-template-rows:repeat(11,auto);
 grid-template-areas:
 "uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
 "can can can can can can can can can can can can"
 "odp odp odp odp odp odp odp odp odp odp odp odp"
+"uk uk uk uk uk uk uk uk uk uk uk uk"
 "pla pla pla min min min nav2 nav2 nav2 nav2 nav2 nav2"
 "kon kon kon pre pre pre nav2 nav2 nav2 nav2 nav2 nav2"
 "zam zam zam zam zam zam nav2 nav2 nav2 nav2 nav2 nav2"
@@ -197,10 +200,11 @@ grid-template-areas:
 {
 .kon
 {
-grid-template-rows:repeat(8,auto);
+grid-template-rows:repeat(9,auto);
 grid-template-areas:
 "uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
 "can can can can can can odp odp odp odp odp odp"
+"uk uk uk uk uk uk uk uk uk uk uk uk"
 "pla pla pla min min min nav2 nav2 nav2 nav2 nav2 nav2"
 "kon kon kon pre pre pre nav2 nav2 nav2 nav2 nav2 nav2"
 "zam zam zam zam zam zam nav2 nav2 nav2 nav2 nav2 nav2"
@@ -214,10 +218,11 @@ grid-template-areas:
 {
 .kon
 {
-grid-template-rows:repeat(7,auto);
+grid-template-rows:repeat(8,auto);
 grid-template-areas:
 "uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
 "can can can can can can odp odp odp odp odp odp"
+"uk uk uk uk uk uk uk uk uk uk uk uk"
 "pla pla min min kon kon pre pre nav2 nav2 nav2 nav2"
 "jas jas jas jas jas zam zam zam nav2 nav2 nav2 nav2"
 "hla hla hla hla hla zam zam zam nav2 nav2 nav2 nav2"
@@ -231,10 +236,11 @@ grid-template-areas:
 .kon
 {
 grid-template-columns:repeat(14,1fr);
-grid-template-rows:repeat(6,auto);
+grid-template-rows:repeat(7,auto);
 grid-template-areas:
 "uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
 "can can can can can can can odp odp odp odp odp odp odp"
+"uk uk uk uk uk uk uk uk uk uk uk uk uk uk"
 "pla pla min min kon kon pre pre zam zam nav2 nav2 nav2 nav2"
 "jas jas jas jas poz poz poz poz poz poz nav2 nav2 nav2 nav2"
 "hla hla hla hla poz poz poz poz poz poz nav2 nav2 nav2 nav2"
@@ -569,7 +575,7 @@ margin:0rem;
 background:black;
 border-radius:10px;
 color:var(--b4);
-font-size:.7rem;
+font-size:.9rem;
 }
 
 
@@ -580,11 +586,11 @@ display:none;  /* pro li tlačítka Zastavit Nočního VLKa */
 
 
 /* MOBIL S pokud je obrazovka větší než 18em - 288px */
-@media only screen and (min-width: 18em)
+@media only screen and (min-width:18em)
 {
 .nav2-ul li button
 {
-font-size:.8rem;
+font-size:1rem;
 gap:.5rem;
 }}
 
@@ -606,23 +612,10 @@ gap:1rem;
 
 .na-i,.ob-i,.oz-i,.sp-i
 {
-width:2rem;
-height:2rem;
-min-width:2rem;
-min-height:2rem;
-background-repeat:no-repeat;
-}
-
-/* MOBIL S pokud je obrazovka větší než 18em - 288px */
-@media only screen and (min-width: 18em)
-{
-.na-i,.ob-i,.oz-i,.sp-i
-{
 width:2.5rem;
 height:2.5rem;
 min-width:2.5rem;
 min-height:2.5rem;
-}
 }
 
 /* MOBIL M pokud je obrazovka větší než 20em - 320px */
@@ -635,8 +628,6 @@ height:3rem;
 min-width:3rem;
 min-height:3rem;
 }}
-
-
 
 .na-i
 {
@@ -706,15 +697,11 @@ background-image:url('../svg/zamek.svg');
 }
 
 
-.minutka
-{
-grid-area:min;
-padding:1rem;
-}
+
 
 .i-box
 {
-font-family:"text","Verda","Arial","Sans-Serif";
+font-family:"text",sans-serif;
 background:transparent;
 color:var(--b4);
 display:flex;
@@ -758,6 +745,23 @@ min-width:3rem;
 min-height:3rem;
 }}
 
+.i-uk
+{
+width:1.5rem;
+height:1.5rem;
+min-width:1.5rem;
+min-height:1.5rem;
+}
+
+.i-uk-2
+{
+width:3rem;
+height:3rem;
+min-width:3rem;
+min-height:3rem;
+background-color:var(--b1);
+}
+
 .i-min
 {
 background-image:url('../svg/minutka.svg');
@@ -778,10 +782,9 @@ background-image:url('../svg/kontakt.svg');
 background-image:url('../svg/prestav.svg');
 }
 
-.planovac
+.i-uk,.i-uk-2
 {
-grid-area:pla;
-padding:1rem;
+background-image:url('../svg/plan.svg');
 }
 
 .poznamky
@@ -878,6 +881,18 @@ padding:0;
 z-index:-1;
 }
 
+.minutka
+{
+grid-area:min;
+padding:1rem;
+}
+
+.planovac
+{
+grid-area:pla;
+padding:1rem;
+}
+
 .kontakt
 {
 grid-area:kon;
@@ -889,6 +904,19 @@ padding:1rem;
 grid-area:pre;
 padding:1rem;
 }
+
+.minutka,.planovac,.kontakt,.prestavky
+{
+font-size:.8rem;
+}
+
+/* MOBIL S pokud je obrazovka větší než 18em - 288px */
+@media only screen and (min-width:18em)
+{
+.minutka,.planovac,.kontakt,.prestavky
+{
+font-size:1rem;
+}}
 
 .hlasitost
 {
@@ -1008,6 +1036,36 @@ grid-area:jas;
 padding:0 .5rem 0 1rem;
 }
 
+.plany
+{
+grid-area:uk;
+padding:0 1rem 1rem 1rem;
+/* display:none; */
+}
+
+.box-plany
+{
+display:grid;
+width:100%;
+grid-template-columns:minmax(5rem,1fr); /* tuto hodnotu je nutné zachovat, pokud bude pouze 1fr - při přetečení textu přeteče i box! je to ozkoušené! */
+gap:1rem;
+transition:250ms;
+}
+
+/* pokud je obrazovka větší než 34em = 544 */
+@media only screen and (min-width:34em)
+{
+.box-plany
+{
+grid-template-columns: repeat(auto-fit, minmax(15rem,.25fr));
+justify-content:center;
+}}
+
+.box-plany div
+{
+border:2px solid transparent; /* v animacích se používá barevný border, 2px transparent zaručí, že nebude poskakovat layout */
+transition:250ms opacity; /* pro postupné vymyzení plánu */
+}
 
 
 .paticka
@@ -1719,16 +1777,28 @@ min-height:1rem;
 background-image:url('../svg/hodiny.svg');
 }
 
-.i-nzv
+.i-nzv,.i-nzv2
 {
 width:2rem;
 height:2rem;
 min-width:2rem;
 min-height:2rem;
 border:none;
-background:transparent;
 background-image:url('../svg/no-zvuk.svg');
+background-color:transparent;
 }
+
+.i-nzv2
+{
+width:2.25rem;
+height:2.25rem;
+min-width:2.25rem;
+min-height:2.25rem;
+border:4px solid var(--b4);
+background-color:var(--b4);
+border-radius:50%;
+}
+
 
 
 
@@ -2281,6 +2351,12 @@ max-width:40ch;
 text-align:center;
 }
 
+.dib
+{
+display:block;
+}
+
+
 
 .flex
 {
@@ -2379,9 +2455,19 @@ font-size:calc(1.15rem + 1vw);
 font-weight:bold;
 }
 
+.m1
+{
+margin:1rem;
+}
+
 .mt-2
 {
 margin-top:2rem;
+}
+
+.mt-05
+{
+margin-top:.5rem;
 }
 
 .mxl
@@ -2481,6 +2567,10 @@ color:var(--b3);
 color:var(--b5);
 }
 
+.h-min
+{
+height:min-content;
+}
 
 
 .w5rem
@@ -2523,6 +2613,31 @@ padding:.5rem;
 width:100%;
 margin-bottom:1rem;
 }
+
+
+.butt-e-pl /* button - který vzhledově není buton a je pro plány - klinutí na plán je možné ho tímto tlačítkem editovat */
+{
+width:100%;
+background:transparent;
+border:none;
+padding:1rem;
+color:var(--b4);
+font-size:1rem;
+font-weight:normal;
+}
+
+.butt-e-pl-kryt /* kryt, aby button měl pro část s SVG, časem úlohy a boxem jedeno ID, tak je překryta tato část tímto krytem */
+{
+display:block;
+position:absolute;
+left:0;
+top:0;
+width:100%;
+height:100%;
+z-index:1;
+background:transparent;
+}
+
 
 .flex-s
 {
@@ -2583,6 +2698,8 @@ font-size:1rem;
 opacity:.5;
 }
 
+
+
 .p-s
 {
 position:sticky;
@@ -2599,7 +2716,7 @@ flex:1 1 0;
 
 .b-w0
 {
-border-width: 0px;
+border-width:0px;
 }
 
 .br8-l
@@ -2680,10 +2797,17 @@ width:4.5rem;
 width:auto;
 }
 
+.p-r
+{
+position:relative;
+}
+
 .d-n
 {
 display:none;
 }
+
+
 
 
 /* MOBIL S pokud je obrazovka větší než 18em - 288px 

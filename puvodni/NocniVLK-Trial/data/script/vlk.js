@@ -353,6 +353,12 @@ zvuk_min.cislo=2; // označí číslo pro přehrávání stopy klik
 zvuk_min.zesilovat=true; // určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne
 }
 
+const zvuk_plan=Object.create(zvuk); /* udělá věrnou kopii objektu zvuk - pro Plánovač */
+{
+zvuk_plan.cislo=4; // označí číslo pro přehrávání stopy alarmu Plánu
+zvuk_plan.zesilovat=true; // určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne
+}
+
 const obch={
 id_can:"can-hl", // id canvas pro vykreslování okruhu obchůzek
 id_bud_obch:"obch_bud", // id textu pro druh obchůzky, která bude následovat

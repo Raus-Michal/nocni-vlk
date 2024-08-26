@@ -172,9 +172,10 @@ spustit(oziveni=false){
 zvuk_min.hraj(false); // bude přehrávat zvuk upozornění minutky 1x - ve vlk.js
 document.getElementById(this.id_box_uk).style.zIndex=5; // dočasně zvýší Z-index kvůli případnému opakování minutky
 document.getElementById(this.id_box_uk).style.display=this.display; // zobrazí box pro odpočet minutky (box obsahuje: vizuální odpočet + prvky na ukončení)
-window.hlidac.aktivace(); /* aktivuje ochranu před uspáním v ochrany.js */
+zamek.blok(); // aktivuje blokaci zámku obrazovky
+window.hlidac.aktivace(); // aktivuje ochranu před uspáním v ochrany.js
 hlidac.minutka=true; // ochana před uspáním aplikace - tato proměnná hlídá jestli je funkce minutky aktivní, pokud je odpočet minutky aktivní=true pokud ne=false
-window.onbeforeunload=()=>{return "Chcete zavřít aplikaci Noční VLK?";}; /* ochrana před náhodným uzavřením aplikace */
+window.onbeforeunload=()=>{return "Chcete zavřít aplikaci Noční VLK?";}; // ochrana před náhodným uzavřením aplikace
 
 if(oziveni)
 {

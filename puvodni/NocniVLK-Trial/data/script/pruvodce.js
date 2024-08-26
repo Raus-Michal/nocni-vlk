@@ -8,6 +8,8 @@ document.getElementById(zavrit).style.zIndex=-1; /* nedovolí klikat na prvnky s
 document.getElementById(zavrit).style.opacity=0; /* nastaví opacity=0 na staré okno */
 document.getElementById(zavrit).style.display="none"; /* nastaví display=none na staré okno */
 
+hl_kon.otevrene_okno=otevrit; // proměnná zaznamená, které okno je otevřené, když je hlavní kontajner nastaven na display=none - v centrum.js
+
 setTimeout(()=>{
 document.getElementById(otevrit).style.display=this.typ; // u nového okna zapne display=typ
 },this.TIME1); // zpoždění musí být, aby nedošlo k nežádoucímu poskočení okna

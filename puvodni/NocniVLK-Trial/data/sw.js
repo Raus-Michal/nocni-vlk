@@ -67,6 +67,7 @@ self.addEventListener('install',function(event){
 ,"/nocni-vlk/data/svg/prestav.svg"
 ,"/nocni-vlk/data/svg/tlapka.svg"
 ,"/nocni-vlk/data/svg/zamek.svg"
+,"/nocni-vlk/data/svg/plan.svg"
 ,"/nocni-vlk/data/favicon/android-chrome-192x192.png"
 ,"/nocni-vlk/data/favicon/android-chrome-512x512.png"
 ,"/nocni-vlk/data/favicon/apple-touch-icon.png"

@@ -67,6 +67,7 @@ aktivovan:false, // proměnná hlídá, zda je hlídač před uspáním aplikace
 udalos_viditelnost:"", // proměnná slouží k určení, zda zařízení podporuje hlídání viditelnosti stránky a v jakém formátu
 odpocet:false, // tato proměnná hlídá jestli je odpočet zapnutý, tedy zda je zapnutá hlavní funkce aplikace Noční VLK
 minutka:false, // tato proměnná hlídá jestli je funkce minutky aktivní, pokud je odpočet minutky aktivní=true pokud ne=false
+planovac:false, // tato proměnná hlídá jestli je funkce plánovač aktivní, pokud zapnutý alespoň jeden plán=true pokud ne=false
 aktivace(){
 
 if(this.aktivovan) // pokud je již posluchač aktivní, deaktivuje ho
@@ -118,7 +119,7 @@ if(document.visibilityState==="hidden") /* pokud není obrazovka s apllikací vi
 {
 /* POKUD DOJDE K USPÁNÍ OKNA APLIKACE */
 
-if(this.odpocet||this.minutka) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
+if(this.odpocet||this.minutka||this.planovac) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
 {
 f_video.zvuk("ztlumit");  /* vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 pinkani.hraj(true); /* přehraje zvuk pinkání stále dokola */
@@ -130,7 +131,7 @@ else
 {
 /* POKUD DOJDE K OPĚTOVNÉMU ZBUZENÍ OKNA APLIKACE */
 
-if(this.odpocet||this.minutka) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
+if(this.odpocet||this.minutka||this.planovac) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
 {
 pinkani.zastav(); // zastaví přehrávání zvuku pinkání - ve vlk.js
 tik.a_uspano=false; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně přestat zesilovat zvuk pinkání
