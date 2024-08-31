@@ -18,17 +18,42 @@ this.pripraven=pole[3]; /* třetí položka v poly je výsledek testu, zda fungu
 blok(){
 if(this.pripraven==null)
 {
-this.pripravenost(); /* pokud nebylo zjištěno, zda zařízení podporuje blokaci zámku obrazovky, toto se provede */
+this.pripravenost(); // pokud nebylo zjištěno, zda zařízení podporuje blokaci zámku obrazovky, toto se provede
 }
 if(this.pripraven) // pokud je podporován zařízením blokace obrazovky
 {
-this.bA=navigator.wakeLock.request('screen'); /* aktivace blokace zámku obrazovky - vhodné dát do proměnné kvůli vypnutí a také kontrole */
+this.bA=navigator.wakeLock.request('screen'); // aktivace blokace zámku obrazovky - vhodné dát do proměnné kvůli vypnutí a také kontrole
 }
 else
 {
-f_video.pust(); /* pustí fake video - které zabrání uzamčení obrazovky */
-}
-}};
+f_video.pust(); // pustí fake video - které zabrání uzamčení obrazovky
+// this.posluchace_pro_kontrolu_videa(); - funkce aktivuje posluchače na kontrolu přehrávání videa, pouze pro potřebu kontroly
+}}
+
+/*
+,posluchace_pro_kontrolu_videa(){
+// funkce aktivuje posluchače na kontrolu přehrávání videa - pouze v případě potřeby sledovat stav fake videa
+
+const videoElement=document.getElementById(f_video.id); // načte HTML elemet videa do proměnné
+
+// Přidání posluchačů událostí na video element
+videoElement.addEventListener('play',()=>{
+console.log('Video se přehrává.');
+});
+
+videoElement.addEventListener('pause',()=> {
+console.log('Video bylo pauznuto.');
+});
+
+videoElement.addEventListener('ended',()=>{
+console.log('Video skončilo.');
+});
+
+videoElement.addEventListener('timeupdate',()=>{
+console.log('Video se přehrává a čas se aktualizuje.');
+});
+} */
+};
 
 const posuvnik={
 TIME:15000, /* zajišťuje odstranění posuvníku při nehýbání myší déle jak 15sekund */
@@ -173,19 +198,23 @@ return; /* pokud nebylo vybráno jestli zesílit anebo zeslabit- bude return */
 }},
 
 pust(){
-
 if(this.aktivovano==false)
 {
 this.aktivovano=true;
 }
 
 this.fake_video=document.getElementById(this.id); /* načte objekt fake video globální proměnné, jinak se to kouše v Safari */
+this.fake_video.currentTime=0; // video posune na začátek přehrívání
+this.fake_video.play();  // spustí fake video - globální proměnná objektu je ve stránce pod objektem video
+document.getElementById(this.id).style.visibility="hidden"; // video zneviditelní
 
-this.fake_video.play();  /* spustí fake video - globální proměnná objektu je ve stránce pod objektem video */
-document.getElementById(this.id).style.visibility="hidden";
+const touchStartEvent=new Event('touchstart',{bubbles:true,cancelable:true}); // vytvoření eventu pro simulaci dotyku 1
+this.fake_video.dispatchEvent(touchStartEvent); // simulaci dotyku na fake video 1
+const touchEndEvent=new Event('touchend',{bubbles:true,cancelable:true}); // vytvoření eventu pro simulaci dotyku 2
+this.fake_video.dispatchEvent(touchEndEvent); // simulaci dotyku na fake video 2
 
-clearTimeout(this.casovac);
-this.casovac= setTimeout(this.pust.bind(this) , this.TIME); /* zapne přehrávání videa za 20sekund  */
+clearTimeout(this.casovac); // vyčistí časovač
+this.casovac=setTimeout(this.pust.bind(this),this.TIME); // zapne přehrávání videa za 20sekund
 }};
 
 
