@@ -1040,6 +1040,7 @@ padding:0 .5rem 0 1rem;
 {
 grid-area:uk;
 padding:0 1rem 1rem 1rem;
+transition:250ms; /* pro animaci při řazení plánů */
 /* display:none; */
 }
 

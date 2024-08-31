@@ -54,6 +54,7 @@ document.getElementById(this.butt_spust).removeEventListener("submit",this); // 
 handleEvent(e){
 const k=e.target.id; // zjistí id prvku, na který bylo kliknuto
 
+klik.hraj(false); // bude přehrávat zvuk 1x klik
 
 if(k==this.id_spust[2]||k==this.id_spust[3]||k==this.id_spust[4])
 {
@@ -93,6 +94,8 @@ const plan=this.eduje_se; // podle této proměnné se zjistí který plán se e
 const cislo_pole=plan-1; // odečtem -1 získáme konkrétní umístění plánu v poli
 let zmena=""; // proměnná určuje změnu podle zaškrknutí konkrétního checketu
 
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
+
 // (false=bez zvuku;null=zvuk přehrát 1x;true=zvuk přehrávat do ukončení)
 
 // řešení zaškrkávání checketů - aby byl stále zaškrklý pouze jeden checked ze tří
@@ -122,8 +125,6 @@ zmena=true; // Zvuk upozornění přehrávat do ukončení
 }
 
 this.plany[cislo_pole][3]=zmena; // provede změnu nastavení uživatele konkrétního plánu, kde podpole [3] určuje volbu zvuku uživatele
-
-console.log(this.plany[cislo_pole]);
 
 }
 else if(k==this.butt_spust)
@@ -257,7 +258,7 @@ if(plan==0){
 return;
 }
 
-hlidac.planovac=true; // tato proměnná hlídá jestli je funkce plánovač aktivní, pokud zapnutý alespoň jeden plán=true pokud ne=false, pokud bude proměnná na true - bude aktivovat zvukou ochranu před uspáním - v ochrany.js
+
 
 const hodin=parseInt(document.getElementById(this.id_spust[0]).value[0]+document.getElementById(this.id_spust[0]).value[1]); // převede zadané hodiny na číslo
 const minut=parseInt(document.getElementById(this.id_spust[0]).value[3]+document.getElementById(this.id_spust[0]).value[4]); // převede zadané minuty na číslo
@@ -269,6 +270,12 @@ if(duplicita)
 // pokud byl čas zadané minutky již v jiné minutce zadán - bude return
 return;
 }
+
+
+
+
+hlidac.planovac=true; // tato proměnná hlídá jestli je funkce plánovač aktivní, pokud zapnutý alespoň jeden plán=true pokud ne=false, pokud bude proměnná na true - bude aktivovat zvukou ochranu před uspáním - v ochrany.js
+
 
 let minut_text=minut; // do proměnné zapíše minuty
 
@@ -333,6 +340,216 @@ dia.off(dia.id[4]); /* zavře dialogové okno pro zadání Plánovač a odebere 
 this.hlidat_plany=true; // proměnná určuje, zda je zapnutý nějáký plán a následně ve funkci window.tik.tak v centrum.js časovač hlídá čas, kdy má být plán aktiviván, true=nějáký plán je zapnutý, false=žádný plán není zapnutý
 
 zvuk_plan.hraj(false); // bude přehrávat zvuk upozornění Plánovače - true=dokola , false=1x - funkce ve vlk.js
+
+if(this.plany[1].length!=0){
+// pokud se nebude délka pole this.plany[1]!=0, znamená to, že plán 2 je aktivní a byl zadán, tedy je zadán více jak jeden plán a je možné jejich seřazení
+setTimeout(()=>{
+this.seradit_plady(); // funkce seřadí plány chronologicky
+},5000); // Časové zpoždění zajistí, že nedojde ke kolizy mezi animacemi vložení nového plánu, zároveň pokud se v mezičase plán, který byl vložen v aktuálním čase s přechodem přímo do alarmu, tento bude hned vymazán z řazení
+}
+},
+seradit_plady(){
+ // funkce seřadí plány chronologicky
+
+const cas=new Date(); // vytvoří objekt Date
+const hod=cas.getHours(); // zjistí kolik je hodin
+const min=cas.getMinutes(); // zjistí kolik je minut
+const aktualne_celkem_minut=hod*60+min; // Převedeme aktuální čas uživatele na počet minut od půlnoci
+let cas_plan=null; // čas plánu převeden na počet minut od půlnoci
+
+
+const plany_k_serazeni=[]; // pole plánů
+
+if(this.plany[0].length!=0){
+// pokud se nebude délka pole this.plany[0]!=0, znamená to, že plán 1 je aktivní a byl zadán
+cas_plan=this.plany[0][0]*60+this.plany[0][1];
+
+if(cas_plan<aktualne_celkem_minut)
+{
+// Pokud je čas úlohy menší než aktuální čas, přidáme k němu 24 hodin (1440 minut). Tímto způsobem "přesuneme" čas úlohy na následující den.
+cas_plan+=1440; // Přidáme 24 hodin (1440 minut) k času, který je menší než aktuální čas
+}
+plany_k_serazeni.push([1,cas_plan]); // přidá do pole [číslo plánu, čas plánu v minutách rozhodný pro jeho řazení]
+}
+
+if(this.plany[1].length!=0){
+// pokud se nebude délka pole this.plany[1]!=0, znamená to, že plán 2 je aktivní a byl zadán
+cas_plan=this.plany[1][0]*60+this.plany[1][1];
+
+if(cas_plan<aktualne_celkem_minut)
+{
+// Pokud je čas úlohy menší než aktuální čas, přidáme k němu 24 hodin (1440 minut). Tímto způsobem "přesuneme" čas úlohy na následující den.
+cas_plan+=1440; // Přidáme 24 hodin (1440 minut) k času, který je menší než aktuální čas
+}
+plany_k_serazeni.push([2,cas_plan]); // přidá do pole [číslo plánu, čas plánu v minutách rozhodný pro jeho řazení]
+}
+
+if(this.plany[2].length!=0){
+// pokud se nebude délka pole this.plany[2]!=0, znamená to, že plán 3 je aktivní a byl zadán
+
+cas_plan=this.plany[2][0]*60+this.plany[2][1];
+
+if(cas_plan<aktualne_celkem_minut)
+{
+// Pokud je čas úlohy menší než aktuální čas, přidáme k němu 24 hodin (1440 minut). Tímto způsobem "přesuneme" čas úlohy na následující den.
+cas_plan+=1440; // Přidáme 24 hodin (1440 minut) k času, který je menší než aktuální čas
+}
+plany_k_serazeni.push([3,cas_plan]); // přidá do pole [číslo plánu, čas plánu v minutách rozhodný pro jeho řazení]
+
+}
+
+if(this.plany[3].length!=0){
+// pokud se nebude délka pole this.plany[3]!=0, znamená to, že plán 4 je aktivní a byl zadán
+cas_plan=this.plany[3][0]*60+this.plany[3][1];
+
+if(cas_plan<aktualne_celkem_minut)
+{
+// Pokud je čas úlohy menší než aktuální čas, přidáme k němu 24 hodin (1440 minut). Tímto způsobem "přesuneme" čas úlohy na následující den.
+cas_plan+=1440; // Přidáme 24 hodin (1440 minut) k času, který je menší než aktuální čas
+}
+plany_k_serazeni.push([4,cas_plan]); // přidá do pole [číslo plánu, čas plánu v minutách rozhodný pro jeho řazení]
+}
+
+if(this.plany[4].length!=0){
+// pokud se nebude délka pole this.plany[4]!=0, znamená to, že plán 5 je aktivní a byl zadán
+cas_plan=this.plany[4][0]*60+this.plany[4][1];
+
+if(cas_plan<aktualne_celkem_minut)
+{
+// Pokud je čas úlohy menší než aktuální čas, přidáme k němu 24 hodin (1440 minut). Tímto způsobem "přesuneme" čas úlohy na následující den.
+cas_plan+=1440; // Přidáme 24 hodin (1440 minut) k času, který je menší než aktuální čas
+}
+plany_k_serazeni.push([5,cas_plan]); // přidá do pole [číslo plánu, čas plánu v minutách rozhodný pro jeho řazení]
+}
+
+if(this.plany[5].length!=0){
+// pokud se nebude délka pole this.plany[5]!=0, znamená to, že plán 6 je aktivní a byl zadán
+cas_plan=this.plany[5][0]*60+this.plany[5][1];
+
+if(cas_plan<aktualne_celkem_minut)
+{
+// Pokud je čas úlohy menší než aktuální čas, přidáme k němu 24 hodin (1440 minut). Tímto způsobem "přesuneme" čas úlohy na následující den.
+cas_plan+=1440; // Přidáme 24 hodin (1440 minut) k času, který je menší než aktuální čas
+}
+plany_k_serazeni.push([6,cas_plan]); // přidá do pole [číslo plánu, čas plánu v minutách rozhodný pro jeho řazení]
+}
+
+// Výše je určeno řazení plánů, plán, který má čas v minutách rozdný nejmenší bude řazen jako první a plán, který má čas v minutách nejvyšší bude řazen nakonec
+
+const delka_uloh=plany_k_serazeni.length; // zjistí délku pole k řazení
+const hodnoty_casu_k_porovnani=[]; // pole slouží k zápisu veškerých časů a jejich chronologickému seřazení
+
+for(let i=0;i<delka_uloh;i++)
+{
+hodnoty_casu_k_porovnani.push(plany_k_serazeni[i][1]); // zapíše do pole veškeré časy k porovnání
+}
+
+hodnoty_casu_k_porovnani.sort((a,b)=>{return a-b}); // seřadí časy porovnání chronologicky od nejmenší hodnoty po nejvyšší
+
+let d_hodnoty_casu=hodnoty_casu_k_porovnani.length; // délka pole
+
+
+const razeni_planu=[]; // zde budedou zapsány čísla plánu podle času plánu, od čísla plánu, který má nastat první až po plán, který má nastat poslední
+
+for(let k=0;k<d_hodnoty_casu;k++)
+{
+// provede test pro každou hodnotu pole
+for(let i=0;i<delka_uloh;i++)
+{
+// pro každý plán udělá test, pouze jeden plán může mít jednu hodnotu v čase k porovnání
+if(hodnoty_casu_k_porovnani[k]==plany_k_serazeni[i][1])
+{
+// pokud se shoduje čas plánu s časem k porovnání
+razeni_planu.push(plany_k_serazeni[i][0]); // zapíše číslo plánu do pole
+}}}
+
+const spravne_razeni=razeni_planu.slice(); // kopie pole razeni_planu, pole spravne_razeni funguje jako test, zda je potřeba vůbec provádět řazení
+spravne_razeni.sort((a,b)=>{return a-b}); // seřadí čísla plánů od nejmeněího po největší
+
+const d_razeni_planu=razeni_planu.length; // délka pole
+
+for(let i=0;i<d_razeni_planu;i++)
+{
+// smyčka otestuje, jestli ideální řazení plánů je rozdílné od řazení, které se má nově provést
+if(razeni_planu[i]!=spravne_razeni[i])
+{
+this.prepis_planu(razeni_planu); // funkce zajistí fyzické přepsání plánů podle jejich pořadí v návaznosti na čas jejich alarmu
+break; // aby se nepokračovalo ve smyččce, postačí jeden rozdíl v řazení plánů
+}}
+
+},
+prepis_planu(poradi){
+// funkce zajistí fyzické přepsání plánů podle jejich pořadí v návaznosti na čas jejich alarmu
+// console.log("poradi: "+poradi);
+this.hlidat_plany=false; // DOČASNĚ VYPNE HLÍDÁNÍ, zda nenastal čas alarmu plánu - proměnná určuje, zda je zapnutý nějáký plán a následně ve funkci window.tik.tak v centrum.js časovač hlídá čas, kdy má být plán aktiviván (pokud false=nehlídá se čas alarmu plánu, true=hlídá se čas alarmu plánu)
+
+
+if(dia.aktivni!="")
+{
+// pokud je aktivní nějáké dialogové okno (pokud dia.aktivni!="" , znamená to, že je aktivní nějáké dialogové okno), provede níže opatření - viz centrum.js
+
+if(dia.aktivni==dia.id[13])
+{
+// pokud by bylo právě aktivní dialogové okno s nastvením, konkrétního plánu - vše v centrum.js
+dia.off(dia.id[13]); // vypne dialogové okno s informací o konkrétním plánu
+}
+
+
+if(dia.aktivni==dia.id[14])
+{
+// pokud by bylo právě aktivní dialogové okno s dotazem, zda zrušit konkrétní plán - vše v centrum.js
+dia.off(dia.id[14]); // vypne dialogové okno s dotazem, zda zrušit konkrétní plán
+}
+}
+
+document.getElementById(this.id_hl_kon).style.opacity=0.2; // provede snížení opacity hlavního kontejneru s plány
+
+setTimeout(()=>{
+document.getElementById(this.id_hl_kon).style.opacity=1; // vrátí opacity hlavního kontejneru s plány na původní úroveň
+},300);
+
+const nove_poradi=poradi; // pole obsahuje chronologicky pořadí úloh, jak by měli být řazeny vzestupně podle času alarmu plánu
+const delka_nove_poradi=nove_poradi.length;
+
+const new_plany=[]; // pole pro nové pořadí plánů
+
+for(let i=0;i<delka_nove_poradi;i++)
+{
+new_plany.push(this.plany[nove_poradi[i]-1]); // do pole nových plánů bude postupně vloženo pole každého z plánů, -1 určuje místo v poli, které je vždy o 1 menší než číslo plánu
+}
+
+let delka_old_plany=this.plany.length; // délka pole starých plánů
+
+this.plany=new_plany; // dojde k přepisu stávajícího pole s plány na pole splány seřazeny chronologicky podle nastávajícího alarmu
+let delka_plany=this.plany.length; // délka pole
+for(let i=0;i<delka_plany;i++)
+{
+// smyčka provede veškeré změny na obrazovce uživatele po změně plánů
+
+let plan=i+1; // plán bude mít +1 oproti jeho pořadí v poli plánů
+let hodin=this.plany[i][0]; // načte hodinu plánu 
+let minut_text=this.plany[i][1]; // načte minutu plánu
+if(minut_text<10)
+{
+minut_text=`0${minut_text}`; // pokud budou minuty menší než 10 - přidá 0 na začátek, tato proměnná slouží pouze k innerText
+}
+let text=this.plany[i][2]; // načte text plánu
+
+document.getElementById(`${this.id_hod}${plan}`).innerText=hodin; // zapíše do spanu hodinu plánu
+document.getElementById(`${this.id_min}${plan}`).innerText=minut_text; // zapíše do spanu minutu plánu
+document.getElementById(`${this.id_text}${plan}`).innerText=text; // zapíše do spanu text plánu
+}
+
+
+
+for(let i=0;delka_plany<delka_old_plany;delka_plany++)
+{
+// smyčka vyrovná chybějí počet nezadaných plánů, pokud jejich počet neodpovídá původní délce pole zadaných plánů
+this.plany.push([]); // doplní do pole chybějící pole pro plány, které mají být teprve založeny
+}
+
+this.hlidat_plany=true; // OPĚT ZAPNE HLÍDÁNÍ, zda nenastal čas alarmu plánu - proměnná určuje, zda je zapnutý nějáký plán a následně ve funkci window.tik.tak v centrum.js časovač hlídá čas, kdy má být plán aktiviván (pokud false=nehlídá se čas alarmu plánu, true=hlídá se čas alarmu plánu)
+
 },
 duplicitni_cas(hod,min){
 
@@ -412,6 +629,9 @@ return false; // duplicitní čas nebyl zjištěn
 editovat(plan)
 {
 // funkce slouží ke změně parametrů dialogového okna k editaci konkrétního plánu
+
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
+
 const plan_pole=plan-1; // pole plánu je o jedno menší než konrétní plán
 const hodina_planu=this.plany[plan_pole][0]; // HODINA konkétního plánu - pole k datům o jednotlivých plánech 1-6. plán, plany[0-5]=[hodina plánu,minuta plánu, text plánu, zvuk plánu (false=bez zvuku;null=zvuk přehrát 1x;true=zvuk přehrávat do ukončení)];
 let minuta_planu=this.plany[plan_pole][1]; // MINUTA konkétního plánu - pole k datům o jednotlivých plánech 1-6. plán, plany[0-5]=[hodina plánu,minuta plánu, text plánu, zvuk plánu (false=bez zvuku;null=zvuk přehrát 1x;true=zvuk přehrávat do ukončení)];
