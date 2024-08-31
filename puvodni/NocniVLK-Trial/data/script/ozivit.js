@@ -2,6 +2,7 @@
 osoba_kopie:{},
 ozivit_minutku:false, // proměnná určuje, zda dojde po spuštění aplikace k automatickému oživení funkce minutka
 ozivit_vlka:false, // proměnná určuje, zda dojde po spuštění aplikace k automatickému oživení hlavní funkce Noční VLK
+ozivit_planovac:false, // proměnná určuje, zda dojde po spuštění aplikace k automatickému oživení funkce Plánovač
 z_den:"",
 cas_T:"",
 intr:"",
@@ -30,6 +31,8 @@ klice:[ // klíče pro ukládání do Local Storage
 "int_min", // 19. klíč ukládá interval minutky, který byl zadán v minutách
 "alarm_plan", // 20. klíč ukládá volbu alarmu plánovač
 "zes_plan", // 21. klíč volby zda chce užívatel postupné zesilování pro alarm Plánovač
+"plany", // 22. klíč který ukládá pole planovac.plany, toto pole má v sobě uloženo veškeré zadané plány uživatelem
+"pl_alarm" // 23. klíč který ukládá pole planovac.v_alarmu, toto pole slouží k zjištění, zda některý z plánů není aktuálně v alarmu
 ],
 max_obnova_ms:3600000, // maximální čas obnovy po plánovaném timeoutu - 3600000ms = 60 min
 v_obchuzce:false,
@@ -88,6 +91,26 @@ if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v ozi
 const data=osoba; /* Objekt v pruvodce.js */
 let konverce=JSON.stringify(data); /* provede konverzi, která je následně připravena k použití */
 this.uloz(this.klice[0],konverce); /* pošle data funkci, která se postará o uložení na localstorage */
+},
+plany(){
+// funkce slouží k ukládání dat pole planovac.plany, k oživení všech plánů - v planovac.js
+
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
+
+const data=planovac.plany; // pole je v planovac.js
+let konverce=JSON.stringify(data); // provede konverzi pole na textový řetězec, která je následně připravena k použití
+this.uloz(this.klice[22],konverce); // pošle data funkci, která se postará o uložení na localstorage
+},
+plany_v_alarmu(){
+// funkce slouží k ukládání dat pole planovac.plany, k zjištění, zda nebyl nějáký z plánů aktuálně v alarmu - v planovac.js
+
+if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
+
+const v_alarmu=planovac.data_v_alarmu; // funkce obsahuje pole pro data plánů v alarmu - v planovac.js
+
+const data=v_alarmu; // příprava na zápis do local storage
+let konverce=JSON.stringify(data); // provede konverzi pole na textový řetězec, která je následně připravena k použití
+this.uloz(this.klice[23],konverce); // pošle data funkci, která se postará o uložení na localstorage
 },
 s_obch(){
 
@@ -400,10 +423,12 @@ this.o_zvuk(); /* oživí volbu zvuku alarmu Noční VLK a funkce Minutky ulože
 
 this.o_poznamky(); // funkce načte z LocalStorage případné uložené poznámky
 
+const dia_planovac=planovac.ma_se_ozivit(); // fukce provede pouze kontrolu, zda je možné plánovač oživit, jestli jsou nějáká data pro oživení, pokud ANO vrátí TRUE, pokud NE vrátí false
 const dia_minutka=minutka.ozivit(); // funkce provede veškeré procesy pro oživení minutky a vrátí hodnotu TRUE, pokud je vše připraveno
 const dia_vlk=this.obnovit_vlka(); // funkce provede oživovací procesy nočního VLKa, a jeho návratová hodnota bude TRUE, pokud je vše připraveno
 
-if(dia_vlk||dia_minutka)
+
+if(dia_vlk||dia_minutka||dia_planovac)
 {
 // pokud nebyla funkce Noční VLK anebo Minutky zastavena a jedna z funkcí je připravena na oživení
 
@@ -414,15 +439,21 @@ this.ozivit_vlka=true; // změní proměnnou tak, aby aplikace věděla, že hla
 
 if(dia_minutka)
 {
-this.ozivit_minutku=true; // změní proměnnou tak, aby aplikace věděla, že hlavní funkce Minutka
+this.ozivit_minutku=true; // změní proměnnou tak, aby aplikace věděla, že funkce Minutka se bude obnovovat
+}
+
+if(dia_planovac)
+{
+this.ozivit_planovac=true; // změní proměnnou tak, aby aplikace věděla, že funkce Plánovač se bude obnovovat
 }
 
 dia.on("d-nezastaven"); /* zapne dialogové okno s informací - že Noční VLK nebyl zastaven, po kterém následuje Dialogové okna Obnovení funkcí 'Nočního VLKa - v centrum.js */
 }
 else
 {
-this.ozivit_minutku=""; // vynuluje proměnnou, aby ji prohlížeč mozh vymazat z paměti, již nebude potřeba
-this.ozivit_vlka=""; // vynuluje proměnnou, aby ji prohlížeč mozh vymazat z paměti, již nebude potřeba
+this.ozivit_minutku=""; // vynuluje proměnnou, aby ji prohlížeč mohl vymazat z paměti, již nebude potřeba
+this.ozivit_vlka=""; // vynuluje proměnnou, aby ji prohlížeč mohl vymazat z paměti, již nebude potřeba
+this.ozivit_planovac=""; // vynuluje proměnnou, aby ji prohlížeč mohl vymazat z paměti, již nebude potřeba
 }
 
 

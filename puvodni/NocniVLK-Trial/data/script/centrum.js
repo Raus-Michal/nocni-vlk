@@ -131,15 +131,17 @@ id:[ // pole s id všech dialogových oken používaných v aplikaci
 "d-ozivM", // 12. id dialogového okna S oznámením, že funkce Minutka bude plně obnoven
 "d-plan", // 13. id dialogového okna k informacím o konkrétním Plánu
 "d-dotaz-plan", // 14. id dialogového okna k zrušení konkrétního Plánu
-"d-max-plan" // 15. id dialogového okna oznamující, že již je zadán maximální počet plánů
-], 
+"d-max-plan", // 15. id dialogového okna oznamující, že již je zadán maximální počet plánů
+"d-ozivP", // 16. id dialogového okna S oznámením, že funkce Plánovač a tedy Plány budou obnoveny
+],
 zas:["b-z-a","k-d-zas","b-z-n"],
 obch:["b-obch-a","k-d-obch","b-obch-n"],
 obchM:["b-obchM-a","k-d-obchM","b-obchM-n"],
 usp:["k-usp","b-usp-ok"],
 oziv:["b-nezastaven", // 0 - tlačítko Dialogového okna o tom, že některé funkce nebyly zastaveny
 "b-oziv-ok",  // 1 - tlačítko Dialogového okna o tom, že funkce hlavní funkce aplikace Noční VLK bude obnovena
-"b-oziv-min" // 2 - tlačítko Dialogového okna o tom, že funkce minutka bude obnovena
+"b-oziv-min", // 2 - tlačítko Dialogového okna o tom, že funkce Minutka bude obnovena
+"b-oziv-plan" // 3 - tlačítko Dialogového okna o tom, že funkce Plánovač bude obnovena
 ],
 ozit_dotaz:["b-dotaz-oziv-a","k-d-dotaz-oziv","b-dotaz-oziv-n"], // tlačítka dialogového okna Oživit nočního VLKa: ANO-NE
 minutka:["k-d-minutka","b-dotaz-minutka-z"], // tlačítka dialogového okna k Zadání minutky Křížek a Zrušit
@@ -263,7 +265,14 @@ window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; // 
 pinkani.hraj(false); /* přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace pro systém iOS */
 dia.off(this.id[5]); // vypne dialogové okno
 
-if(uloz.ozivit_minutku==true)
+
+if(uloz.ozivit_planovac==true)
+{
+// pokud jsou dostupná data pro oživení Plánovače - ve oziv.js
+dia.on(this.id[16]); // zapne dialogové okno - Obnovení Plánovače
+uloz.ozivit_planovac=""; // vynuluje proměnnou, již nebude potřeba, ať ji prohlížeč může vypustit z paměti
+}
+else if(uloz.ozivit_minutku==true)
 {
 // pokud jsou dostupná data pro oživení FUNKCE minutka  promněnná ve oziv.js
 dia.on(this.id[12]); // zapne dialogové okno - Obnovení funkce Minutka
@@ -277,6 +286,24 @@ uloz.ozivit_vlka=""; // vynuluje proměnnou, již nebude potřeba, ať ji prohl�
 }
 
 }
+
+if(k==this.oziv[3])
+{
+// Kliknuto na Obnovit - při spuštění aplikace - Funkce Plánovač
+dia.off(this.id[16]); /* vypne dialogové okno */
+planovac.ozivit(); // zapne veškeré oživovací procesy k obnově plánů - v planovac.js
+if(uloz.ozivit_minutku==true)
+{
+// pokud jsou dostupná data pro oživení FUNKCE minutka  promněnná ve oziv.js
+dia.on(this.id[12]); // zapne dialogové okno - Obnovení funkce Minutka
+uloz.ozivit_minutku=""; // vynuluje proměnnou, již nebude potřeba, ať ji prohlížeč může vypustit z paměti
+}
+else if(uloz.ozivit_vlka==true)
+{
+// pokud jsou dostupná data pro oživení hlavní fukce aplikace noční VLK promněnná ve oziv.js
+dia.on(this.id[6]); // zapne dialogové okno - Obnovení Nočního VLKa
+uloz.ozivit_vlka=""; // vynuluje proměnnou, již nebude potřeba, ať ji prohlížeč může vypustit z paměti
+}}
 
 if(k==this.oziv[2])
 {
@@ -551,6 +578,12 @@ for(let i=0;i<l12;i++)
 document.getElementById(this.planovac_max[i]).addEventListener("click",this); // přidání posluchačů událostí k dotazu zda chce uživatel zrušit konkrétní Plán - Křížek, ANO-NE
 }}
 
+if(id==this.id[16])
+{
+// tlačítko oznámení, že bude obnovena funkce Plánovač
+document.getElementById(this.oziv[3]).addEventListener("click",this);
+}
+
 
 },
 posOFF(id){
@@ -698,6 +731,12 @@ for(let i=0;i<l12;i++)
 document.getElementById(this.planovac_max[i]).removeEventListener("click",this); // odebrání posluchačů událostí k dotazu zda chce uživatel zrušit konkrétní Plán - Křížek, ANO-NE
 }}
 
+if(id==this.id[16])
+{
+// tlačítko oznámení, že bude obnovena funkce Plánovač
+document.getElementById(this.oziv[3]).removeEventListener("click",this);
+}
+
 },
 on(id){
 /* otevření dialogového okna */
@@ -718,9 +757,9 @@ this.aktivni=""; /* vynuluje proměnnou, která udává aktivní dialogové okno
 vyp_akt(){
 /* funkce vypne právě aktivní dialogové okno */
 
-if(this.aktivni==this.id[6]||this.aktivni==this.id[12])
+if(this.aktivni==this.id[6]||this.aktivni==this.id[12]||this.aktivni==this.id[16])
 {
-// pokud je právě aktivní okno this.id[6] - Oznámení o obnovení Nočního VLKa anebo this.id[12] - Oznámení o obnovení funkce Minutka, k vypnutí těchto dialogových oken nesmí nikdy dojít a tak bude následovat return
+// pokud je právě aktivní okno this.id[6] - Oznámení o obnovení Nočního VLKa, this.id[12] - Oznámení o obnovení funkce Minutka anebo this.id[16] - Oznámení o obnovení funkce Minutka --- k vypnutí těchto dialogových oken nesmí nikdy dojít a tak bude následovat return
 return; // funkce bude v tomto místě ukončena
 }
 
