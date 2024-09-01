@@ -16,19 +16,29 @@ this.pripraven=pole[3]; /* třetí položka v poly je výsledek testu, zda fungu
 },
 
 blok(){
+// funkce zablokuje na zařízení uzamykání obrazovky
+
+if(window.matchMedia('(display-mode:standalone)').matches){
+// Aplikace je spuštěna jako PWA
+f_video.pust(); // pustí fake video - které zabrání uzamčení obrazovky
+}
+else
+{
+// Aplikace je spuštěna v prohlížeči
 if(this.pripraven==null)
 {
-this.pripravenost(); // pokud nebylo zjištěno, zda zařízení podporuje blokaci zámku obrazovky, toto se provede
+this.pripravenost(); // pokud nebylo zjištěno, zda zařízení podporuje blokaci zámku obrazovky - wakeLock API, toto se provede
 }
-if(this.pripraven) // pokud je podporován zařízením blokace obrazovky
+if(this.pripraven) // pokud je podporován zařízením blokace obrazovky - wakeLock API
 {
 this.bA=navigator.wakeLock.request('screen'); // aktivace blokace zámku obrazovky - vhodné dát do proměnné kvůli vypnutí a také kontrole
 }
 else
 {
+// pokud není podpora - wakeLock API
 f_video.pust(); // pustí fake video - které zabrání uzamčení obrazovky
 // this.posluchace_pro_kontrolu_videa(); - funkce aktivuje posluchače na kontrolu přehrávání videa, pouze pro potřebu kontroly
-}}
+}}}
 
 /*
 ,posluchace_pro_kontrolu_videa(){
@@ -175,7 +185,12 @@ uzamceni.jednou(); /* pokud bude aktivní zámek obrazovky - zobrazí, že je ap
 }
 }};
 
-const f_video={aktivovano:false,id:"f-v",fake_video:"",TIME:20000,casovac:null,
+const f_video={aktivovano:false,
+id:"f-v", // id fake videa které je skrytě přehráváno
+id_butt:"", // id fake butonu na který je rováděn simulovaný klik uživatele
+fake_video:"", // globální proměnná pro udržení vedea v paměti
+TIME:20000, // délka smyčky přehrávání
+casovac:null, // časovač pro video
 
 zvuk(co){
 
@@ -209,9 +224,9 @@ this.fake_video.play();  // spustí fake video - globální proměnná objektu j
 document.getElementById(this.id).style.visibility="hidden"; // video zneviditelní
 
 const touchStartEvent=new Event('touchstart',{bubbles:true,cancelable:true}); // vytvoření eventu pro simulaci dotyku 1
-this.fake_video.dispatchEvent(touchStartEvent); // simulaci dotyku na fake video 1
+document.getElementById("f-b").dispatchEvent(touchStartEvent); // simulaci dotyku na fake button
 const touchEndEvent=new Event('touchend',{bubbles:true,cancelable:true}); // vytvoření eventu pro simulaci dotyku 2
-this.fake_video.dispatchEvent(touchEndEvent); // simulaci dotyku na fake video 2
+document.getElementById("f-b").dispatchEvent(touchEndEvent); // simulaci dotyku na fake button 2
 
 clearTimeout(this.casovac); // vyčistí časovač
 this.casovac=setTimeout(this.pust.bind(this),this.TIME); // zapne přehrávání videa za 20sekund
