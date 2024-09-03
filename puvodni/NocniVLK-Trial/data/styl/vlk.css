@@ -690,17 +690,7 @@ font-size:1rem;
 }} 
 
 
-.i-zam
-{
-width:5rem;
-min-width:5rem;
-height:2.5rem;
-min-height:2.5rem;
-background-repeat:no-repeat;
-background-size:100%;
-margin-bottom:.25rem;
-background-image:url('../svg/zamek.svg');
-}
+
 
 
 
@@ -1123,48 +1113,69 @@ margin-bottom:.5rem;
 margin:0;
 }
 
-.o-1,.o-2,.o-3,.o-4,.o-5,.o-min
+
+
+
+.o-1,.o-1-m,.o-2,.o-3,.o-4,.o-5,.o-5-m,.o-min,.i-zam /* SVG ikony 200x100 */
 {
 width:5rem;
 height:auto;
-padding-top:2.5rem;
+padding-top:2.75rem;
 background-color:transparent;
 border:1px solid transparent;
 color:var(--b4);
 font-size:.75rem;
 background-repeat:no-repeat;
-background-size:100%;
+background-image:url('../svg/ico_200_100.svg');
+background-size:900%;
 margin-bottom:.25rem;
+text-wrap:nowrap;
 }
 
-.o-1
+.o-1 /* okno vlevo */
 {
-background-image:url('../svg/p_vlevo.svg');
+background-position:0 0;
 }
 
-.o-2
+.o-1-m /* vlevo-mini */
 {
-background-image:url('../svg/p_cela.svg');
+background-position:12.5% 0;
 }
 
-.o-3
+.o-min /* mini okno */
 {
-background-image:url('../svg/p_full.svg');
+background-position:25% 0;
 }
 
-.o-4
+.o-2 /* cool okno */
 {
-background-image:url('../svg/p_max.svg');
+background-position:37.5% 0;
 }
 
-.o-5
+.o-3 /* celé okno */
 {
-background-image:url('../svg/p_vpravo.svg');
+background-position:50% 0;
 }
 
-.o-min
+.o-4 /* plné okno */
 {
-background-image:url('../svg/p_min.svg');
+background-position:62.5% 0;
+}
+
+.o-5-m /* okno vpravo-mini */
+{
+background-position:75% 0;
+}
+
+.o-5 /* okno vpravo */
+{
+background-position:87.5% 0;
+}
+
+.i-zam /* zámek obrazovky */
+{
+padding-top:2.5rem;
+background-position:100% 0;
 }
 
 .okno

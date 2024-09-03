@@ -1,1 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" version="1.1" baseProfile="full" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"  stroke="rgb(240,188,212)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="50" cy="50" r="48" fill="none" /><path d="m 40,79 -13,-17 -9,-7 2,-12 8,-7.5 1.5,-20 13,15 7.5,-3 8,2.5 12,-14.5 1.5,19 7,8 3,10 -8.5,8.5 -12,18.5" /><path d="m 61,65 v 20 l -10,6 -10,-6 V 65" /><path d="m 48,80 3,2 3,-2" /><line x1="40" y1="53" x2="36" y2="48" /><line x1="61" y1="53" x2="65" y2="48" /></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" version="1.1" baseProfile="full" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"  stroke="rgb(240,188,212)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+<circle cx="50" cy="50" r="48" fill="none" />
+<path d="m 40,79 -13,-17 -9,-7 2,-12 8,-7.5 1.5,-20 13,15 7.5,-3 8,2.5 12,-14.5 1.5,19 7,8 3,10 -8.5,8.5 -12,18.5" />
+<path d="m 61,65 v 20 l -10,6 -10,-6 V 65" />
+<path d="m 48,80 3,2 3,-2" />
+<line x1="40" y1="53" x2="36" y2="48" />
+<line x1="61" y1="53" x2="65" y2="48" />
+</svg>
