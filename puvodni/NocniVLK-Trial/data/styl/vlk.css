@@ -353,24 +353,6 @@ width:100%;
 font-size:1rem;
 }}
 
-.img-logo
-{
-background-image:url('../svg/logo.svg');
-background-repeat:no-repeat;
-background-size:100%;
-width:3rem;
-height:3rem;
-}
-
-/*  MOBIL M pokud je obrazovka větší než 20.5em - 328px */
-@media only screen and (min-width: 20.5em)
-{
-.img-logo
-{
-width:calc(4rem + 1vw);
-height:calc(4rem + 1vw);
-}}
-
 .uhr
 {
 grid-area:uhr;
@@ -610,7 +592,51 @@ font-size:1rem;
 gap:1rem;
 }}
 
-.na-i,.ob-i,.oz-i,.sp-i,.var-i
+.img-logo,.i-min,.i-min-o,.i-pla,.i-kon,.i-pre,.na-i,.ob-i,.oz-i,.sp-i,.var-i,.i-plus,.i-minus,.ran-1,.ran-2,.i-uk,.i-uk-2,.o-kriz,.i-hod,.i-nzv,.i-nzv2
+{
+background-image:url('../svg/ico_100_100.svg');
+background-color:transparent;
+background-repeat:no-repeat;
+background-size:1900%;
+}
+
+.img-logo /* logo v header */
+{
+width:3rem;
+height:3rem;
+}
+
+/*  MOBIL M pokud je obrazovka větší než 20.5em - 328px */
+@media only screen and (min-width: 20.5em)
+{
+.img-logo
+{
+width:calc(4rem + 1vw);
+height:calc(4rem + 1vw);
+}}
+
+
+.i-plus,.i-minus /* ikona plus a mínus */
+{
+width:4rem;
+min-width:4rem;
+height:4rem;
+min-height:4rem;
+background-color:var(--b5);
+border-radius:50%;
+}
+
+
+.ran-1,.ran-2 /* ikona jas a hlasitost */
+{
+width:2rem;
+height:2rem;
+min-width:2rem;
+min-height:2rem;
+}
+
+
+.i-min,.i-pla,.i-kon,.i-pre,.na-i,.ob-i,.oz-i,.sp-i,.var-i /* ikony minutka, */
 {
 width:2.5rem;
 height:2.5rem;
@@ -618,10 +644,10 @@ min-width:2.5rem;
 min-height:2.5rem;
 }
 
-/* MOBIL M pokud je obrazovka větší než 20em - 320px */
+/* MOBIL S pokud je obrazovka větší než 20em */
 @media only screen and (min-width:20em)
 {
-.na-i,.ob-i,.oz-i,.sp-i
+.i-min,.i-pla,.i-kon,.i-pre,.na-i,.ob-i,.oz-i,.sp-i
 {
 width:3rem;
 height:3rem;
@@ -629,34 +655,176 @@ min-width:3rem;
 min-height:3rem;
 }}
 
-.na-i
+.i-min-o /* ikonka minutky v odpočtu */
 {
-background-image:url('../svg/nastav.svg');
-background-size:100%;
+width:1.5rem;
+min-width:1.5rem;
+height:1.5rem;
+min-height:1.5rem;
 }
 
-.ob-i
+.i-uk /* ikonka plán v jednotlivých zadaných plánech */
 {
-background-image:url('../svg/obchuzky.svg');
-background-size:100%;
+width:1.5rem;
+height:1.5rem;
+min-width:1.5rem;
+min-height:1.5rem;
 }
 
-.oz-i
+.i-uk-2 /* ikonka plán v zadání */
 {
-background-image:url('../svg/ozivit.svg');
-background-size:100%;
+width:3rem;
+height:3rem;
+min-width:3rem;
+min-height:3rem;
+background-color:var(--b1);
 }
 
-.sp-i
+
+.o-kriz /* ikonka křížku k oknům */
 {
-background-image:url('../svg/logo.svg');
-background-size:100%;
+width:1.5rem;
+height:1.5rem;
+min-width:1.5rem;
+min-height:1.5rem;
+background-color:transparent;
 }
 
-.var-i
+/* MOBIL S pokud je obrazovka větší než 18em - 288px */
+@media only screen and (min-width: 18em)
 {
-background-image:url('../svg/varovani.svg');
-background-size:100%;
+.o-kriz
+{
+width:2rem;
+height:2rem;
+min-width:2rem;
+min-height:2rem;
+}}
+
+.i-hod /* ikonka hodin - používá se u výzvy k obchůzce */
+{
+width:1rem;
+height:1rem;
+min-width:1rem;
+min-height:1rem;
+}
+
+.i-nzv,.i-nzv2 /* ikonka vypnout zvuk */
+{
+width:2rem;
+height:2rem;
+min-width:2rem;
+min-height:2rem;
+border:none;
+background-color:transparent;
+}
+
+.i-nzv2 /* ikonka vypnou zvuk u konkrétního plánu v alarmu */
+{
+width:2.25rem;
+height:2.25rem;
+min-width:2.25rem;
+min-height:2.25rem;
+border:4px solid var(--b4);
+background-color:var(--b4);
+border-radius:50%;
+}
+
+
+
+.img-logo /* logo v header */
+{
+background-position:0 0;
+}
+
+.sp-i /* logo v menu */
+{
+background-position:5.555% 0;
+}
+
+.ob-i /* obchůzky */
+{
+background-position:11.111% 0;
+}
+
+.na-i /* nastavení */
+{
+background-position:16.666% 0;
+}
+
+.oz-i /* oživit */
+{
+background-position:22.221% 0;
+}
+
+.i-min /* minutka - width:5 */
+{
+background-position:27.776% 0;
+}
+
+.i-min-o /* minutka v odpočtu - width:8 */
+{
+background-position:33.331% 0;
+}
+
+.i-pla /* plánovač */
+{
+background-position:38.886% 0;
+}
+
+.i-kon /* kontakt */
+{
+background-position:44.441% 0;
+}
+
+.i-pre /* přestávky */
+{
+background-position:49.996% 0;
+}
+
+.i-uk,.i-uk-2 /* plán */
+{
+background-position:55.551% 0;
+}
+
+.i-plus /* ikona plus */
+{
+background-position:61.106% 0;
+}
+
+.i-minus /* ikona mínus */
+{
+background-position:66.661% 0;
+}
+
+.var-i /* varování - vykřičník */
+{
+background-position:72.216% 0;
+}
+
+.o-kriz /* SVG křížek - uzavírání oken */
+{
+background-position:77.771% 0;
+}
+
+.i-nzv,.i-nzv2  /* vypnout zvuk */
+{
+background-position:83.326% 0;
+}
+
+.ran-1 /* hlasitost */
+{
+background-position:88.881% 0;
+}
+
+.ran-2 /* jas */
+{
+background-position:94.436% 0;
+}
+
+.i-hod /* hodiny */
+{
+background-position:100% 0; /* s výše zaokrohleným výpočtem měl vyjít 99.991% - tedy je možné výše 0.009% procent přerozdělit, pokud by někde ikony byly ořezané */
 }
 
 .zamek
@@ -689,12 +857,6 @@ font-size:.8rem;
 font-size:1rem;
 }} 
 
-
-
-
-
-
-
 .i-box
 {
 font-family:"text",sans-serif;
@@ -718,69 +880,6 @@ width:100%;
 .i-box p
 {
 margin:0;
-}
-
-.i-min,.i-pla,.i-kon,.i-pre
-{
-width:2.5rem;
-height:2.5rem;
-min-width:2.5rem;
-min-height:2.5rem;
-background-repeat:no-repeat;
-background-size:100%;
-}
-
-/* MOBIL S pokud je obrazovka větší než 20em */
-@media only screen and (min-width:20em)
-{
-.i-min,.i-pla,.i-kon,.i-pre
-{
-width:3rem;
-height:3rem;
-min-width:3rem;
-min-height:3rem;
-}}
-
-.i-uk
-{
-width:1.5rem;
-height:1.5rem;
-min-width:1.5rem;
-min-height:1.5rem;
-}
-
-.i-uk-2
-{
-width:3rem;
-height:3rem;
-min-width:3rem;
-min-height:3rem;
-background-color:var(--b1);
-}
-
-.i-min
-{
-background-image:url('../svg/minutka.svg');
-}
-
-.i-pla
-{
-background-image:url('../svg/planovac.svg');
-}
-
-.i-kon
-{
-background-image:url('../svg/kontakt.svg');
-}
-
-.i-pre
-{
-background-image:url('../svg/prestav.svg');
-}
-
-.i-uk,.i-uk-2
-{
-background-image:url('../svg/plan.svg');
 }
 
 .poznamky
@@ -999,32 +1098,10 @@ max-width:15rem;
 }
 } 
 
-.ran-1,.ran-2
-{
-width:2rem;
-height:2rem;
-min-width:2rem;
-min-height:2rem;
-background-repeat:no-repeat;
-background-size:100%;
-}
-
 .i-range
 {
 flex:1;
 }
-
-
-.ran-1
-{
-background-image:url('../svg/hlas.svg');
-}
-
-.ran-2
-{
-background-image:url('../svg/jas.svg');
-}
-
 
 .jas
 {
@@ -1267,30 +1344,6 @@ border:1px solid transparent;
 gap:.25rem;
 padding-right:.5rem;
 }
-
-
-.o-kriz
-{
-width:1.5rem;
-height:1.5rem;
-min-width:1.5rem;
-min-height:1.5rem;
-background-color:transparent;
-background-image:url('../svg/krizek.svg');
-background-size:100%;
-background-repeat:no-repeat;
-}
-
-/* MOBIL S pokud je obrazovka větší než 18em - 288px */
-@media only screen and (min-width: 18em)
-{
-.o-kriz
-{
-width:2rem;
-height:2rem;
-min-width:2rem;
-min-height:2rem;
-}}
 
 meter
 {
@@ -1556,28 +1609,6 @@ border:1px solid var(--b1);
 text-align:center;
 }
 
-.i-plus,.i-minus
-{
-width:4rem;
-min-width:4rem;
-height:4rem;
-min-height:4rem;
-background-size:100%;
-background-repeat:no-repeat;
-background-color:var(--b5);
-border-radius:50%;
-}
-
-.i-plus
-{
-background-image:url('../svg/plus.svg');
-}
-
-.i-minus
-{
-background-image:url('../svg/minus.svg');
-}
-
 .can
 {
 width:100%;
@@ -1778,48 +1809,6 @@ width:.5rem;
 min-width:.5rem;
 font-size:.75rem;
 }} 
-
-
-.i-hod,.i-nzv,.i-nzv2
-{
-background-repeat:no-repeat;
-background-size:100%;
-}
-
-.i-hod
-{
-width:1rem;
-height:1rem;
-min-width:1rem;
-min-height:1rem;
-background-image:url('../svg/hodiny.svg');
-}
-
-.i-nzv,.i-nzv2
-{
-width:2rem;
-height:2rem;
-min-width:2rem;
-min-height:2rem;
-border:none;
-background-image:url('../svg/no-zvuk.svg');
-background-color:transparent;
-}
-
-.i-nzv2
-{
-width:2.25rem;
-height:2.25rem;
-min-width:2.25rem;
-min-height:2.25rem;
-border:4px solid var(--b4);
-background-color:var(--b4);
-border-radius:50%;
-}
-
-
-
-
 
 .t-box
 {
@@ -2063,14 +2052,6 @@ animation:zarit2 linear infinite 1s running;
 100%{box-shadow: 0px 0px 32px var(--b2);border:2px solid var(--b5);}
 }
 
-.i-min-o
-{
-width:1.5rem;
-min-width:1.5rem;
-height:1.5rem;
-min-height:1.5rem;
-}
-
 .sec-m /* sekundy v ukazateli odpočtu minutky - aby si zachovaly šířku a neposkakoval odpočet */
 {
 display:inline-block;
@@ -2161,8 +2142,8 @@ border-bottom: 4px solid var(--b2);
 background:var(--b1);
 width:100%;
 height:auto;
-animation: anim-text-cel-obr 5s infinite paused linear;
-will-change: transform; /* zapnutí hardwerové akcelerace */
+animation:anim-text-cel-obr 5s infinite paused linear;
+will-change:transform; /* zapnutí hardwerové akcelerace */
 }
 
 .box-text p
