@@ -57,11 +57,12 @@ document.getElementById(this.butt_spust).removeEventListener("submit",this); // 
 handleEvent(e){
 const k=e.target.id; // zjistí id prvku, na který bylo kliknuto
 
-klik.hraj(false); // bude přehrávat zvuk 1x klik
-
 if(k==this.id_spust[2]||k==this.id_spust[3]||k==this.id_spust[4])
 {
 // kliknuto na checked 1 - 3 v zadání plánovače
+
+klik.hraj(false); // bude přehrávat zvuk 1x klik
+
 const ch1=document.getElementById(this.id_spust[2]); // checked-1
 const ch2=document.getElementById(this.id_spust[3]); // checked-2
 const ch3=document.getElementById(this.id_spust[4]); // checked-3
@@ -89,6 +90,9 @@ ch3.checked=true;
 else if(k==this.id_nas_plan[3]||k==this.id_nas_plan[4]||k==this.id_nas_plan[5])
 {
 // kliknuto na checked 1 - 3 v informací o Plánu (nastavení konkrétního plánu)
+
+klik.hraj(false); // bude přehrávat zvuk 1x klik
+
 const ch1=document.getElementById(this.id_nas_plan[3]); // načte HTML objekt checked - Bez zvukového upozornění
 const ch2=document.getElementById(this.id_nas_plan[4]); // načte HTML objekt checked - Zvuk upozornění přehrát 1x
 const ch3=document.getElementById(this.id_nas_plan[5]); // načte HTML objekt checked - Zvuk upozornění přehrávat do ukončení
@@ -96,8 +100,6 @@ const ch3=document.getElementById(this.id_nas_plan[5]); // načte HTML objekt ch
 const plan=this.eduje_se; // podle této proměnné se zjistí který plán se edituje
 const cislo_pole=plan-1; // odečtem -1 získáme konkrétní umístění plánu v poli
 let zmena=""; // proměnná určuje změnu podle zaškrknutí konkrétního checketu
-
-klik.hraj(false); // bude přehrávat zvuk 1x klik 
 
 // (false=bez zvuku;null=zvuk přehrát 1x;true=zvuk přehrávat do ukončení)
 
@@ -343,7 +345,7 @@ document.getElementById(`${this.id_butt_box}${plan}`).addEventListener("click",t
 dia.off(dia.id[4]); /* zavře dialogové okno pro zadání Plánovač a odebere posluchače - v centrum.js */
 this.hlidat_plany=true; // proměnná určuje, zda je zapnutý nějáký plán a následně ve funkci window.tik.tak v centrum.js časovač hlídá čas, kdy má být plán aktiviván, true=nějáký plán je zapnutý, false=žádný plán není zapnutý
 
-zvuk_plan.hraj(false); // bude přehrávat zvuk upozornění Plánovače - true=dokola , false=1x - funkce ve vlk.js
+zvuk_plan.hraj(null); // bude přehrávat zvuk upozornění Plánovače - true=dokola , false=1x , null=1x sníženě pro zvýšení interakce zvuku s aplikací - funkce ve vlk.js
 
 if(this.plany[1].length!=0){
 // pokud se nebude délka pole this.plany[1]!=0, znamená to, že plán 2 je aktivní a byl zadán, tedy je zadán více jak jeden plán a je možné jejich seřazení
@@ -981,7 +983,7 @@ ozivit(){
 
 if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
-zvuk_plan.hraj(false); // bude přehrávat zvuk upozornění Plánovače - true=dokola , false=1x - funkce ve vlk.js
+zvuk_plan.hraj(null); // bude přehrávat zvuk upozornění Plánovače - true=dokola , false=1x , null=1x sníženě pro zvýšení interakce zvuku s aplikací - funkce ve vlk.js
 zamek.blok(); // aktivuje blokaci zámku obrazovky
 window.hlidac.aktivace(); // aktivuje ochranu před uspáním v ochrany.js
 hlidac.planovac=true; // ochana před uspáním aplikace - tato proměnná hlídá jestli je funkce minutky aktivní, pokud je odpočet minutky aktivní=true pokud ne=false

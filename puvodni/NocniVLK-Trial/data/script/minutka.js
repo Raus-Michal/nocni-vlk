@@ -169,7 +169,7 @@ document.getElementById(this.id_viz_uk[0]).removeEventListener("click",this); //
 },
 spustit(oziveni=false){
 
-zvuk_min.hraj(false); // bude přehrávat zvuk upozornění minutky 1x - ve vlk.js
+zvuk_min.hraj(null); // bude přehrávat zvuk upozornění minutky 1x sníženou hlasitostí pro zvýšení interaktivity aplikace se zvukem - ve vlk.js
 document.getElementById(this.id_box_uk).style.zIndex=5; // dočasně zvýší Z-index kvůli případnému opakování minutky
 document.getElementById(this.id_box_uk).style.display=this.display; // zobrazí box pro odpočet minutky (box obsahuje: vizuální odpočet + prvky na ukončení)
 zamek.blok(); // aktivuje blokaci zámku obrazovky

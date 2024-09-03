@@ -262,7 +262,7 @@ window.hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
 zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
 zamek.blok(); // aktivuje blokaci zámku obrazovky
 window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; // ochrana před náhodným uzavřením aplikace
-pinkani.hraj(false); /* přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace pro systém iOS */
+pinkani.hraj(null); // přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace především pro systém iOS, parametr NULL slouží pro toto přehrávání
 dia.off(this.id[5]); // vypne dialogové okno
 
 
@@ -1506,7 +1506,7 @@ const k=e.target.id; /* zjistí ID prvku na který bylo kliknuto */
 if(k==this.obj[0][0]||k==this.obj[0][1]) /* pokud se ID prvku anebo ID SVG prvku rovná */
 {
 /* Kliknuto na Spustit Nočního VLKA */
-pinkani.hraj(false); /* přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace pro systém iOS */
+pinkani.hraj(null); // přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace především pro systém iOS, parametr NULL slouží pro toto přehrávání
 pruvodce.a(); /* funkce, která má být kliknutím spuštěna - v pruvodce.js */
 }
 
@@ -1516,7 +1516,7 @@ if(k==this.obj[5][0]||k==this.obj[5][1]) /* pokud se ID prvku anebo ID SVG prvku
 window.hlidac.aktivace(); // opětovně aktivuje ochranu před uspáním
 zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
 window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; // ochrana před náhodným uzavřením aplikace
-pinkani.hraj(false); /* přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace pro systém iOS */
+pinkani.hraj(null); // přehraje zvuk pinkání 1 x - tento zvuk je kvůli inicializaci pinkání a jeho správnému fungování při uspání aplikace především pro systém iOS, parametr NULL slouží pro toto přehrávání
 dia.on(dia.id[8]); // zapne dialogové okno - S dotazem, zda chce uživatel Obnovení Nočního VLKa
 }
 
@@ -1654,7 +1654,7 @@ if(k==this.min[0]||k==this.min[1])
 if(!minutka.aktivni)
 {
 // pokud není minutka aktivní
-pinkani.hraj(false); // bude přehrávat zvuk 1x pinkání, aby bycha zachována první interakce s tímto audiem, aby fungovala ochrana před uspáním, pokud by nebyl zapnut Noční VLK
+pinkani.hraj(null); // bude přehrávat zvuk 1x pinkání, aby bycha zachována první interakce s tímto audiem, aby fungovala ochrana před uspáním, pokud by nebyl zapnut Noční VLK, parametr NULL je určen pro toto přehrávání
 dia.on(dia.id[9]); /* v centrum.js */
 }
 else
@@ -1682,7 +1682,7 @@ return;
 if(planovac.v_alarmu[0]!=true&&planovac.v_alarmu[1]!=true&&planovac.v_alarmu[2]!=true&&planovac.v_alarmu[3]!=true&&planovac.v_alarmu[4]!=true&&planovac.v_alarmu[5]!=true)
 {
 // pokud není v alarmu žádný z 1-6 plánů - v planovac.js
-pinkani.hraj(false); // bude přehrávat zvuk 1x pinkání, aby bycha zachována první interakce s tímto audiem, aby fungovala ochrana před uspáním, pokud by nebyl zapnut Noční VLK
+pinkani.hraj(null); // bude přehrávat zvuk 1x pinkání, aby bycha zachována první interakce s tímto audiem, aby fungovala ochrana před uspáním, pokud by nebyl zapnut Noční VLK, parametr NULL je určen pro toto přehrávání
 dia.on(dia.id[4]); /* otevře dialogové okno pro zadání Plánovač - v centrum.js */
 window.hlidac.aktivace(); // opětovně aktivuje ochranu před uspáním
 }

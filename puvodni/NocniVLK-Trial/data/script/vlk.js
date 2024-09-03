@@ -28,7 +28,7 @@ obch.aktivace(); /* zapne výzvu k obchůzce - pokud nebude nastavený odložen�
 else
 {
 text.pis("Start první obchůzky byl&nbsp;odložen");
-zvuk.hraj(false); /* zahraje zvuk alarmu - FALSE = 1x  - tento zvuk je kvůli inicializaci zvuku alarmu a jeho správnému fungování při odloženém startu pro systém iOS */
+zvuk.hraj(null); // zahraje zvuk alarmu - NULL = 1x se sníženou hlasitostí  - tento zvuk je kvůli inicializaci zvuku alarmu a jeho správnému fungování při odloženém startu obzvlášť pro systém iOS
 kresly.system(obch.id_can); /* vykreslí systém v hlavním kontejneru */
 hlidac.odpocet=true;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se počítá */
 obch.pocitej(); // začne odpočítávat interval do obchůzky
@@ -69,7 +69,7 @@ pruvodce.box_int(); /* funkce určuje zda bude v průvodci a v nastavený vidite
 
 if(uloz.v_obchuzce!=true)
 { /* pokud nebyla obchůzka aktivní - v oziv.js */
-zvuk.hraj(false); /* zahraje zvuk alarmu - FALSE = 1x  - tento zvuk je kvůli inicializaci zvuku alarmu a jeho správnému fungování při odloženém startu pro systém iOS */
+zvuk.hraj(null); // zahraje zvuk alarmu - NULL = 1x se sníženou hlasitostí  - tento zvuk je kvůli inicializaci zvuku alarmu a jeho správnému fungování při odloženém startu obzvlášť pro systém iOS
 text.pis("Noční&nbsp;VLK byl&nbsp;oživen");
 this.ozivit.kresly_system(); /* funkce slouží k nestandartnímu vykreslení systému obchůzek na hlavní stránce po oživení */
 tik.a_odpocet=true; /* proměnná, která funkci tik.tak() ve centrum.js dáva informaci o tom, že odpočet se počítá */
@@ -205,7 +205,7 @@ obch.pl_obch(); // vypíše text plánované obchůzky
 osoba.okruh=okruh_puvodni; /* po vykreslení systému obchůzek, vrátí okruh na původní stav */
 };
 
-window.audio =[]; // vytvoření globálního objektu window, pro uložení audio mp3, které bude používat aplikace
+window.audio=[]; // vytvoření globálního objektu window, pro uložení audio mp3, které bude používat aplikace
 window.zalozeno=false; // vytvoření globálního objektu window, které určuje, zda byly mp3 audia zoloženy do globální proměnné window.audio
 
 
@@ -213,8 +213,9 @@ const zvuk={
 zesilovat:true, // určuje zda bude zvuk přehráván postupným zesilováním, pokud true= ano , false=ne
 cislo:0,
 alarm:["alarm/alarm1.mp3","alarm/alarm2.mp3","alarm/alarm3.mp3","alarm/alarm4.mp3","alarm/alarm5.mp3","alarm/alarm6.mp3","alarm/klik.mp3"], // mp3 audia, které jsou používána v aplikaci
-volume_min:0.05,
-volume:0.75,
+volume_min:0.05, // minimální hlasitost zvuku, která se používá jako výchozí pro postupné zesilování
+volume_inic:0.1, // hlasitost pro inicializaci zvuku, jeho první přehrátí pro zvýšení interakce konkrétního zvuku s aplikací
+volume:0.75, // default hlasitost zvuku
 bc:"rgb(218,65,103)",
 bcT:"rgb(137,157,120)",
 zaloz(){
@@ -241,7 +242,13 @@ this.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly 
 }
 
 window.audio[this.cislo].loop=jak; /* pokud bude jak false - zajistí, že přehraje zvuk pouze 1x ; pokud true - bude se přehrávat dokola */
-this.volume_min=0.05; /* dá nejnižší hlasitost na default */
+
+if(this.volume_min==0.05)
+{
+// pokud nebude this.volume_min nastavena na default hodnotu
+this.volume_min=0.05; // dá nejnižší hlasitost na default
+}
+
 
 if(jak==true)
 {
@@ -262,8 +269,22 @@ else if(jak==false)
 window.audio[this.cislo].volume=this.volume; /* nastavení defaul hlasitosi je 75% */
 window.audio[this.cislo].play(); /* pustí mp3 */
 }
+else if(jak==null)
+{
+// přehrávání zvuku pro inicializaci samotného zvuku, pro zvýšení interakce zvuku s aplikací
+if(this.volume>0.25)
+{
+// pokud je současná hlasitost větší jak 25%
+window.audio[this.cislo].volume=this.volume_inic; // nastavení hlasitosti na default inicializační hlasitost zvuku = 0.1 , tedy hlasitost 10%
+}
+else
+{
+// pokud je současná hlasitost nižší než 25%
+window.audio[this.cislo].volume=this.volume_min; // minimální hlasitost zvuku, která se používá jako výchozí pro postupné zesilování
+}
 
-},
+window.audio[this.cislo].play(); /* pustí mp3 */
+}},
 zesiluj(){
 /* funkce postupně zesiluje hlasitost alarmu - použito v centrum.js - funkce TIK */
 
@@ -325,6 +346,7 @@ this.barvy(pole_id); /* zajistí obarvení vybraného zvuku */
 },
 zastav(){
 window.audio[this.cislo].pause(); /* zapauzuje přehrávání zvuku */
+this.volume_min=0.05; // nastaví proměnou na default
 window.audio[this.cislo].currentTime=0; // posune přehrávání mp3 na její začátek, taa, aby při dalším spuštění opět začínala na začátku
 }};
 
