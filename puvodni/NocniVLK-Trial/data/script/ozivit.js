@@ -36,6 +36,8 @@ klice:[ // klíče pro ukládání do Local Storage
 ],
 max_obnova_ms:3600000, // maximální čas obnovy po plánovaném timeoutu - 3600000ms = 60 min
 v_obchuzce:false,
+id_kar:["ob-nv","ob-min","ob-pla"], // id jednotlivých karet Noční VLK, Minutka , Plánovač - tyto karty jsou v dialogovém okně s Oznámením, že některé funkce nebyly ukončeny a budou obnoveny při startu aplikace
+_class:"d-n", // název css třídy pro vlastnost HTML prvku display=none ve vlk.css 
 a(){
 /* funkce slouží k aktivaci - posouzení, zda je možno použít localstorage */
 
@@ -435,16 +437,19 @@ if(dia_vlk||dia_minutka||dia_planovac)
 if(dia_vlk)
 {
 this.ozivit_vlka=true; // změní proměnnou tak, aby aplikace věděla, že hlavní funkce aplikace Noční VLK se bude obnovovat
+document.getElementById(this.id_kar[0]).classList.remove(this._class); // pokud HTML objekt s ID this.id_kar[0] (Karta Logo a název Noční VLK v dialogovém oknu s oznámením o obnovení funkcí) obsahuje CSS třídu this._class, bude mu odebrána (v tomto případě mu bude odebráno display=none)
 }
 
 if(dia_minutka)
 {
 this.ozivit_minutku=true; // změní proměnnou tak, aby aplikace věděla, že funkce Minutka se bude obnovovat
+document.getElementById(this.id_kar[1]).classList.remove(this._class); // pokud HTML objekt s ID this.id_kar[1] (Karta Logo a název Minutka v dialogovém oknu s oznámením o obnovení funkcí) obsahuje CSS třídu this._class, bude mu odebrána (v tomto případě mu bude odebráno display=none)
 }
 
 if(dia_planovac)
 {
 this.ozivit_planovac=true; // změní proměnnou tak, aby aplikace věděla, že funkce Plánovač se bude obnovovat
+document.getElementById(this.id_kar[2]).classList.remove(this._class); // pokud HTML objekt s ID this.id_kar[2] (Karta Logo a název Plánovač v dialogovém oknu s oznámením o obnovení funkcí) obsahuje CSS třídu this._class, bude mu odebrána (v tomto případě mu bude odebráno display=none)
 }
 
 dia.on("d-nezastaven"); /* zapne dialogové okno s informací - že Noční VLK nebyl zastaven, po kterém následuje Dialogové okna Obnovení funkcí 'Nočního VLKa - v centrum.js */

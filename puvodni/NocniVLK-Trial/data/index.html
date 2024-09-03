@@ -847,11 +847,10 @@ Zavřít
 <p class="tj">Při&nbsp;používání aplikace Noční VLK, nesmí dojít k&nbsp;uzamčení obrazovky anebo k&nbsp;režimu spánku zařízení. Pokud&nbsp;se tak stane, aplikace Noční&nbsp;VLK se&nbsp;stává nefunkční.</p>
 <p class="tj">Před&nbsp;automatickým uzamčením obrazovky je&nbsp;aplikace chráněna. Pokud&nbsp;je aplikace viditelně na&nbsp;obrazovce <em>(postačí v&nbsp;části obrazovky)</em>, nedochází k&nbsp;automatickému uzamčení obrazovky.</p>
 <p class="tj">Pokud dojde k&nbsp;uzamčení obrazovky, aplikace spustí zvukové upozornění, aby zabránila svému nefungování.</p>
-
+<p class="tj">Aplikaci Noční&nbsp;VLK nepřekrývejte jinou aplikací a&nbsp;neminimalizujte do&nbsp;lišty Windows. Mějte aplikaci viditelně na&nbsp;obrazovce svého zařízení, alespoň v&nbsp;části obrazovky.</p>
+<p class="tj">Počítače, tablety i&nbsp;telefony mají tendenci aplikace, které nejsou aktivní <em>(nejsou viditelně na obrazovce)</em> uspávat a&nbsp;dočasně vypínat z&nbsp;důvodů úspory energie.</p>
+<p class="tj">Proti tomuto nežádoucímu jevu je&nbsp;aplikace chráněna a&nbsp;pokud dojde k&nbsp;uspání aplikace, spustí&nbsp;se zvukové upozornění. Výjimku tvoří aplikace náročné na&nbsp;výkon, například přehrávání videa přes&nbsp;celou obrazovku, které&nbsp;umožňuje překrýt aplikaci Noční&nbsp;VLK, aniž&nbsp;by došlo k&nbsp;omezení funkce této aplikace.</p>
 <p class="tj">Pokud není Vaše zařízení v&nbsp;optimální kondici, napřídklad není dostatek místa na&nbsp;disku, probíhá aktualizace systému, zařízení se&nbsp;seká a&nbsp;podobně, může dojít k&nbsp;nesprávnému fungování aplikace. Z&nbsp;tohoto důvodu je&nbsp;nutné mít zařízení ve&nbsp;kterém je&nbsp;aplikace spuštěna v&nbsp;dobré kondici, především mít dostatek místa pro vyrovnávací pamět na&nbsp;disku anebo paměťové kartě.</p>
-
-<p class="tj">Aplikaci Noční&nbsp;VLK nepřekrívejte jinou aplikací a&nbsp;neminimalizujte do&nbsp;lišty Windows. Mějte aplikaci viditelně na&nbsp;obrazovce svého zařízení, alespoň v&nbsp;části obrazovky. Počítače, tablety i&nbsp;telefony mají tendenci aplikace, které nejsou aktivní <em>(nejsou viditelně na obrazovce)</em> uspávat a&nbsp;dočasně vypínat z&nbsp;důvodů úspory energie. Proti tomuto nežádoucímu jevu je&nbsp;aplikace chráněna a&nbsp;pokud dojde k&nbsp;uspání aplikace, spustí&nbsp;se zvukové upozornění. Výjimku tvoří aplikace náročné na&nbsp;výkon, například přehrávání videa přes&nbsp;celou obrazovku, které&nbsp;umožňuje překrýt aplikaci Noční&nbsp;VLK, aniž&nbsp;by došlo k&nbsp;omezení funkce této aplikace.</p>
-
 <p class="tj">Aplikace Noční VLK své propočty zakládá na&nbsp;aktuálním čase ve&nbsp;Vašem zařízení. Pokud používáte aplikaci, neměňte v&nbsp;době používání aplikace datum a&nbsp;čas.</p>
 
 <h3>Otázky a odpovědi</h3>
@@ -1235,9 +1234,9 @@ Zavřít
 <caption><h3>Vysílací znaky</h3></caption>
 <thead>
 <tr>
-<th scope="col" >Volaný</th>
-<th scope="col" >Kanál</th>
-<th scope="col" >Volací znak</th>
+<th scope="col">Volaný</th>
+<th scope="col">Kanál</th>
+<th scope="col">Volací znak</th>
 </tr>
 </thead>
 
@@ -1321,9 +1320,9 @@ Zavřít
 <table class="tab tab-c mt-2">
 <thead>
 <tr>
-<th scope="col" >Oddíl</th>
-<th scope="col" >Přestávky den</th>
-<th scope="col" >Přestávky noc</th>
+<th scope="col">Oddíl</th>
+<th scope="col">Přestávky den</th>
+<th scope="col">Přestávky noc</th>
 </tr>
 </thead>
 <tbody>
@@ -1502,9 +1501,13 @@ Zavřít
 <button id="k-usp" type="button" class="o-kriz b-w0" title="Zavřít"> </button>
 </div>
 <div class="d-telo">
-<p>Pozor!</p>
-<p>Aplkace byla uspána</p>
-<p><span class="p_n">Více v záložce Návod</span></p>
+<div class="flex jcc mb-1">
+<div class="b-b1 b50 px">
+<div class="var-i"> </div>
+</div>
+</div>
+<p>Aplikace byla uspána</p>
+<p class="mb-2"><span class="p_n">Více v záložce Návod</span></p>
 </div>
 <div class="d-butt d-butS">
 <button id="b-usp-ok" class="but" type="button" title="Rozuměl jsem">Rozumím</button>
@@ -1512,11 +1515,30 @@ Zavřít
 </dialog>
 
 <dialog id="d-nezastaven">
-<div class="d-kriz"><div class="sp-i"> </div></div>
+<div class="d-kriz"><div class="var-i"> </div></div>
 <div class="d-telo">
-<p>Některé funkce nebyly zastaveny</p>
-<p><span class="p_n">Některé funkce v aplikaci nebyly zastaveny a&nbsp;budou plně obnoveny.</span></p>
-<p><span class="p_n">Pokud chcete aplikaci zavřít, nejprve zastavte veškeré funkce.</span></p>
+<p>Některé funkce nebyly ukončeny</p>
+<div class="flex g1 jcs wrap mb-1">
+<div id="ob-nv" class="flex-c g015 w-min aic d-n">
+<div class="b-b1 p05 b50">
+<div class="sp-i"> </div>
+</div>
+<p class="mb-0"><span class="p_n">Noční&nbsp;VLK</span></p>
+</div>
+<div id="ob-min" class="flex-c g015 w-min aic d-n">
+<div class="b-b1 p05 b50">
+<div class="i-min"> </div>
+</div>
+<p class="mb-0"><span class="p_n">Minutka</span></p>
+</div>
+<div id="ob-pla" class="flex-c g015 w-min aic d-n">
+<div class="b-b1 p05 b50">
+<div class="i-pla"> </div>
+</div>
+<p class="mb-0"><span class="p_n">Plánovač</span></p>
+</div>
+</div>
+<p><span class="p_n">Tyto funkce nebyly ukončeny a&nbsp;budou plně obnoveny.</span></p>
 </div>
 <div class="d-butt d-butS">
 <button id="b-nezastaven" class="but" type="button" title="Rozuměl jsem">Rozumím</button>
@@ -1526,8 +1548,8 @@ Zavřít
 <dialog id="d-oziv">
 <div class="d-kriz"><div class="sp-i"> </div></div>
 <div class="d-telo">
-<p>Obnovení Noční VLK</p>
-<p><span class="p_n">Funkce Noční VLK bude plně obnovena.</span></p>
+<p>Obnovení Noční&nbsp;VLK</p>
+<p><span class="p_n">Funkce Noční&nbsp;VLK bude plně obnovena.</span></p>
 <p><span class="p_n">Čas během kterého byla aplikace přerušena bude dopočítán.</span></p>
 </div>
 <div class="d-butt d-butS">
@@ -1666,7 +1688,7 @@ Zavřít
 <input id="cas-ulohy" type="time" class="min-inp wm-12r px f-2" title="Zadejte čas HODINA:MINUTA"  required>
 </fieldset>
 <fieldset class="flex jcc aic mxl">
-<input id="popis-plan" class="min-inp" type="text" placeholder="Popisek plánovače" title="Napiš popisek k plánovači" maxlength="20" required>
+<input id="popis-plan" class="min-inp" type="text" placeholder="Popisek plánu" title="Napiš popisek k plánu" maxlength="20" required>
 </fieldset>
 <fieldset class="flex-c g1 mxl">
 <div class="flex aic g1">

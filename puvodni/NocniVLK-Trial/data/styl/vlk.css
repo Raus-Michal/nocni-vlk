@@ -610,7 +610,7 @@ font-size:1rem;
 gap:1rem;
 }}
 
-.na-i,.ob-i,.oz-i,.sp-i
+.na-i,.ob-i,.oz-i,.sp-i,.var-i
 {
 width:2.5rem;
 height:2.5rem;
@@ -619,7 +619,7 @@ min-height:2.5rem;
 }
 
 /* MOBIL M pokud je obrazovka větší než 20em - 320px */
-@media only screen and (min-width: 20em)
+@media only screen and (min-width:20em)
 {
 .na-i,.ob-i,.oz-i,.sp-i
 {
@@ -650,6 +650,12 @@ background-size:100%;
 .sp-i
 {
 background-image:url('../svg/logo.svg');
+background-size:100%;
+}
+
+.var-i
+{
+background-image:url('../svg/varovani.svg');
 background-size:100%;
 }
 
@@ -734,8 +740,8 @@ background-repeat:no-repeat;
 background-size:100%;
 }
 
-/* MOBIL S pokud je obrazovka větší než 18em - 288px */
-@media only screen and (min-width: 18em)
+/* MOBIL S pokud je obrazovka větší než 20em */
+@media only screen and (min-width:20em)
 {
 .i-min,.i-pla,.i-kon,.i-pre
 {
@@ -1907,7 +1913,7 @@ background-color: rgba(0,0,0,0.7);
 
 dialog::-webkit-scrollbar { display: none; }
 
-.d-kriz
+.d-kriz /* hlavička dialogového okna, používá se u dialogů, kde je křížek na uzavření anebo obrázek v pravé části okna */
 {
 display: flex;
 justify-content: flex-end;
@@ -2380,6 +2386,12 @@ flex:3;
 justify-content:center;
 }
 
+.jcs
+{
+justify-content:space-evenly;
+}
+
+
 .aic
 {
 align-items:center;
@@ -2512,6 +2524,11 @@ margin-top:0rem;
 padding:0;
 }
 
+.p05
+{
+padding:.5rem;
+}
+
 .px
 {
 padding:.5rem;
@@ -2584,6 +2601,11 @@ cursor:pointer;
 .wm-12r
 {
 max-width:12rem;
+}
+
+.w-min
+{
+width:min-content;
 }
 
 .cp
@@ -2728,6 +2750,11 @@ border-radius:8px 0 0 8px;
 .br8-r
 {
 border-radius:0 8px 8px 0;
+}
+
+.b50
+{
+border-radius:50%;
 }
 
 .b-bl
