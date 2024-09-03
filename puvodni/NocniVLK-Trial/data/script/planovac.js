@@ -25,7 +25,7 @@ povoleni_zesilovat:false, // tato proměnná se mění v návaznosti na druhu sp
 id_nas_plan:["hod-p-n","min-p-n","plan-pop-n","ch-bz-n","ch-1x-n","ch-rep-n"], // id prvky pro nastavení konkrétního plánu v dialogovém okně [0:hodina plánu,1:minuta plán,2:popisek plánu,3:checked - Bez zvukového upozornění,4:checked - Zvuk upozornění přehrát 1x,5:checked - Zvuk upozornění přehrávat do ukončení]
 eduje_se:null, // proměnná slouží k zachycení plánu, který se právě edituje v dialogovém oknu nastavení konkrétního Plánu, proměnná v sobě uchovává konkrétní číslo plánu 1-6
 data_v_alarmu:[[],[],[],[],[],[]], // do globální proměnné se vloží data ke konkrétnímu plánu, který je v alarmu, tuto globální proměnnou následně používá funkce uloz.plany_v_alarmu která toto pole s daty uládá na local strorage - ve oziv.js
-_css:["d-n","zar","budik","zar-nonstop"], // názvy css class tříd pro animace - ve vlk.css
+_css:["d-n","zar","budik","zar-nonstop","bl33"], // názvy css class tříd pro animace - ve vlk.css
 min_pres:30, // proměnná určuje maximální dobu v minutách mezi nastaveným plánem a přesahem pro oživení plánu, tak aby došlo k jeho oživení do alarmu viz funkce this.zapnout_alarm_plan
 posON_spust(){
 // funkce přidá posluchače pro Spustit Plánovač, mimo Křížek a Zrušit, tyto posluchače se spouštějí vrámci objektu const dia v centrum.js
@@ -820,6 +820,8 @@ this.sroll_na(plan); // opět scrool na plán
 
 document.getElementById(`${this.id_butt_box}${plan}`).removeEventListener("click",this); // odebere posluchač k buttonu, který je hlaví box plánu - kliknutí na něj otevře dialogové okno s informací o konkrétním plánu a možnosti jeho zrušení
 
+document.getElementById(`${this.id_butt_box}${plan}`).classList.remove(this._css[4]); // odebere class třídu (pokud jí HTML objekt má), která box plánu podle požadavku 1 - 6 odebere css třídu nastavující border-left: 3px solid var(--b3)
+
 document.getElementById(`${this.id_box_hl}${plan}`).classList.remove(this._css[1]); // odebere class třídu (pokud jí HTML objekt má), která box plánu podle požadavku 1 - 6 odebere css třídu nastavující bliknutí boxu 2x za sebou, tato třída byla přidána při založení plánu viz funkce this.zaloz
 
 document.getElementById(`${this.id_bud}${plan}`).classList.add(this._css[2]); // přidá css třídu, která spustí animaci pohybujícího se budíku
@@ -875,11 +877,14 @@ zvuk_plan.zastav(); // zastaví zvuk upozornění Plánovače - funkce ve vlk.js
 
 document.getElementById(`${this.id_box_hl}${plan}`).style.opacity=0; // nechá pomalu vymyzet ukončený plán
 
+
 setTimeout(()=>{
 document.getElementById(`${this.id_bud}${plan}`).classList.remove(this._css[2]); // odebere css třídu, která spustí animaci pohybujícího se budíku
 document.getElementById(`${this.id_box_hl}${plan}`).classList.remove(this._css[3]); // odebere třídu class k boxu plánu, která prvek dočasné rozzáří
+document.getElementById(`${this.id_butt_box}${plan}`).classList.add(this._css[4]); // přidá class třídu (pokud jí HTML objekt nemá), která box plánu podle požadavku 1 - 6 přidá css třídu nastavující border-left: 3px solid var(--b3)
 document.getElementById(`${this.id_box_up}${plan}`).classList.add(this._css[0]); // přidá css třídu, která blok s buttonem ok, případně vypni zvuk dávala na display=none
 document.getElementById(`${this.id_box_hl}${plan}`).classList.add(this._css[0]); // přidá css třídu, která celý blok s plánem dá na display=none
+document.getElementById(`${this.id_box_hl}${plan}`).classList.remove(this._css[1]); // odebere class třídu (pokud jí HTML objekt má), která box plánu podle požadavku 1 - 6 odebere css třídu nastavující bliknutí boxu 2x za sebou, tato třída byla přidána při založení plánu viz funkce this.zaloz
 }
 ,300); // zpoždění 300ms dá prostor transition opacity=0
 
@@ -1096,12 +1101,17 @@ if(minut<10)
 // pokud je počet minut menší než 10 minut
 minut=`0${minut}`; // přidá 0 před číslo 0-9
 }
-document.getElementById(`${this.id_min}${i+1}`).innerText=minut; // zapíše do spanu minutu plánu
-document.getElementById(`${this.id_text}${i+1}`).innerText=plany[i][2]; // zapíše do spanu text plánu
+document.getElementById(`${this.id_min}${i+1}`).innerText=minut; // zapíše do spanu minutu plánu , (i+1 - plány jsou řazeny od 1 ale jejich poloha v poli od 0, proto +1)
+document.getElementById(`${this.id_text}${i+1}`).innerText=plany[i][2]; // zapíše do spanu text plánu , (i+1 - plány jsou řazeny od 1 ale jejich poloha v poli od 0, proto +1)
 if(v_alarmu[i].length==0)
 {
 // pokud se data k plánu v alarmu == 0, znamená to , že daný plán není v alarmu a je možné mu přiřadit tento posluchač událostí
 document.getElementById(`${this.id_butt_box}${i+1}`).addEventListener("click",this); // přidá posluchač k buttonu, který je hlaví box plánu - kliknutí na něj otevře dialogové okno s informací o konkrétním plánu a možnosti jeho zrušení (i+1 - plány jsou řazeny od 1 ale jejich poloha v poli od 0, proto +1)
+
+setTimeout(()=>
+{
+document.getElementById(`${this.id_box_hl}${[i+1]}`).classList.add(this._css[1]); // přidá class třídu (pokud jí HTML objekt nemá), která box plánu podle požadavku 1 - 6 přidá css třídu nastavující bliknutí boxu 2x za sebou, tato třída byla přidána také při založení plánu viz funkce this.zaloz : (i+1 - plány jsou řazeny od 1 ale jejich poloha v poli od 0, proto +1)
+},250+500*i); // zpoždění pro první plán bude 250ms - 250+500*0, pro druhý 750ms - 250+500*1, pro třetí 1250ms - 250+500*2 ... atd.
 }
 }
 }

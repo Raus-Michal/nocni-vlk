@@ -2529,6 +2529,11 @@ padding:0;
 padding:.5rem;
 }
 
+.pb025
+{
+padding-bottom:.25rem;
+}
+
 .px
 {
 padding:.5rem;
@@ -2607,6 +2612,8 @@ max-width:12rem;
 {
 width:min-content;
 }
+
+
 
 .cp
 {
@@ -2750,6 +2757,16 @@ border-radius:8px 0 0 8px;
 .br8-r
 {
 border-radius:0 8px 8px 0;
+}
+
+.bl33
+{
+border-left:solid 3px var(--b3);
+}
+
+.bb13
+{
+border-bottom:1px dotted var(--b3);
 }
 
 .b50
