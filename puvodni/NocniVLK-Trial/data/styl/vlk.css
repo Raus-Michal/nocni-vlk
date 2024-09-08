@@ -2685,9 +2685,8 @@ gap:.5rem;
 gap:1rem;
 }} 
 
-.em-imp
+.em-imp /* input pro email programátora */
 {
-padding:.25rem;
 width:100%;
 max-width:12rem;
 text-align:center;
@@ -2696,24 +2695,32 @@ border-radius:5px;
 background:white;
 color:var(--b1);
 cursor:text;
-}
-
-/* MOBIL S pokud je obrazovka větší než 18em - 288px */
-@media only screen and (min-width: 18em)
-{
-.em-imp
-{
 font-size:.8rem;
 padding:.5rem;
-}}
+}
 
-/* MOBIL M pokud je obrazovka větší než 20.5em - 328px */
-@media only screen and (min-width: 20.5em)
+/* MOBIL S pokud je obrazovka větší než 20em - 320px */
+@media only screen and (min-width:20em)
 {
 .em-imp
 {
 font-size:1rem;
 }}
+
+.zkop /* informační text: Zkopírováno */
+{
+position:absolute;
+left:0;
+top:0;
+background:var(--b5);
+padding:.5rem;
+margin:0;
+border-radius:4px;
+opacity:0;
+z-index:-1;
+transition:opacity 250ms;
+}
+
 
 
 .op05
@@ -2839,6 +2846,11 @@ width:auto;
 .p-r
 {
 position:relative;
+}
+
+.d-inlb
+{
+display:inline-block;
 }
 
 .d-n

@@ -99,19 +99,84 @@ const hodinyO=Object.create(hodiny); /* hodiny ve Výzvě k obchůzce */
 {hodinyO.id=["o-h","o-s1","o-s2"];} /* přepis potřebných hodnot v objektu */
 
 
-const mail={id_butt:"zob-em",id_inp:"inp-em", m:["..z.","xm@","@a",".c","ri","iu","mls","z","rt","sqhc","eaw"],
+const mail={
+id_butt:"zob-em", // id buttonu Zobrazit email - který bude následně po kliknutí upraven na Kopírovat email
+id_inp:"inp-em", // input type="text" , kde bude samotný email zobrazen
+id_kop:"zkopir", // id prvku s informací Zkopírováno
+m:["..z.","xm@","@a",".c","ri","iu","mls","z","rt","sqhc","eaw"], // pole z kterého bude vytvořen email
+zobrazen:false, // proměnná určuje, zda byl email již uživateli zobrazen
+delka:null, // délka řetězce emailu
+email:"", // proměnná pro dočasné zapsání emailu
+T:500, // časové zpoždění
 posluchac(){
-document.getElementById(this.id_butt).addEventListener("click",this); /* přidá buttonu posluchač klik */
+document.getElementById(this.id_butt).addEventListener("click",this); // přidá buttonu posluchač klik
 },
 handleEvent(){
-let x=this.m; /* kopie this.m pole  */
-let k=x[4][0]+x[2][1]+x[5][1]+x[9][0]+x[0][0]+x[6][0]+x[4][1]+x[9][3]+x[9][2]+x[10][1]+x[6][1]+x[1][2]+x[10][0]+x[6][0]+x[2][1]+x[4][1]+x[6][1]+x[0][1]+x[9][3]+x[0][2]; /* výsek emailu */
-const inp=document.getElementById(this.id_inp); /* input pro zobrazení emailu */
 const t=document.getElementById(this.id_butt); /* button zobrazit email */
-inp.value=k; /* do inputu pro email vloží email */
-t.removeEventListener("click",this); /* vypne posluchače buttonu pro zobrazení emailu */
-t.disabled=true; /* disablet buttonu */
-t.title="Již není možné použít - email zobrazen"; /* změní title buttonu */
+if(!this.zobrazen)
+{
+// pokud nebyl zatím email zobrazen bude proměnná this.zobrazen==false - ZOBRAZENÍ EMAILU
+let x=this.m; /* kopie this.m pole  */
+this.email=x[4][0]+x[2][1]+x[5][1]+x[9][0]+x[0][0]+x[6][0]+x[4][1]+x[9][3]+x[9][2]+x[10][1]+x[6][1]+x[1][2]+x[10][0]+x[6][0]+x[2][1]+x[4][1]+x[6][1]+x[0][1]+x[9][3]+x[0][2]; /* výsek emailu */
+t.removeEventListener("click",this); // odebere posluchače buttonu pro zobrazení emailu
+this.delka=0; // nastaví základní délku na 0
+this.text_postupne(); // začne postupně vypisovat písmena emailu
+// inp.value=k; do inputu pro email vloží email
+t.style.opacity=0; // sníži vyditelnost tlačítka
+setTimeout(()=>{
+t.style.opacity=1; // zvýší vyditelnost tlačítka
+t.title="Kopírovat"; // změní title buttonu
+t.innerText="Kopírovat email"; // z,ění text buttonu
+this.zobrazen=true; // změní proměnnou na true - tímto se určí, že email je zobrazen
+t.addEventListener("click",this); // přidá posluchače buttonu pro zobrazení emailu
+},this.T+100); // časové zpoždění pro transition opacity
+}
+else
+{
+// pokud byl již email zobrazen bude proměnná this.zobrazen==true - KOPÍROVÁNÍ EMAILU
+const kop=document.getElementById(this.id_kop); // načtení do proměnné HTML element text ZKOPÍROVÁNO
+kop.style.width=parseInt(document.getElementById(this.id_inp).offsetWidth)+"px"; // šířka textu ZKOPÍROVÁNO bude stejná jako inputu s textem emailu
+kop.style.opacity=1; // zvýší opacity textu ZKOPÍROVÁNO na 1
+kop.style.zIndex=1; // zvýší z-index textu ZKOPÍROVÁNO na 1
+t.removeEventListener("click",this); // odebere buttonu Kopírovat email, posluchač klik
+this.k_do_schranky(); // funkce zajistí zkopírování obsahu in put type="text" do schránky
+setTimeout(()=>{
+t.addEventListener("click",this); // přidá buttonu Kopírovat email, posluchač klik
+kop.style.opacity=0; // sníží opacity textu ZKOPÍROVÁNO na 0
+kop.style.zIndex=-1; // sníží z-index textu ZKOPÍROVÁNO na -1
+},this.T); // časové zpoždění pro transition opacity
+}
+},
+text_postupne(){
+// funkce postupně vypíše text emailu
+const e_delka=this.email.length; // délka řetězce dočasného emailu
+if(e_delka==this.delka)
+{
+// pokud bude délka emailu == delka ciklů
+this.delka=null; // vynuluje proměnnou
+this.email=""; // vynuluje proměnnou
+return;
+}
+document.getElementById(this.id_inp).value+=this.email[this.delka]; // přidá do value znak emalu podle cyklu
+this.delka++; // přičte jeden cyklus
+setTimeout(this.text_postupne.bind(this),this.T/e_delka); // časové zpoždění pro výpis jednoho písmene = čas zpoždění transition opacity/počet písmen emailu
+},
+k_do_schranky(){
+// funkce zajistí zkopírování obsahu in put type="text" do schránky navigator.clipboard API
+const inp=document.getElementById(this.id_inp); // vloží do proměnné input type="text" se samotným emailem
+if(navigator.clipboard){
+// pokud bude v zařízení uživatele navigator.clipboard API
+navigator.clipboard.writeText(inp.value); // do navigator.clipboard API vloží obasah inputu s emailem
+}
+else
+{
+// Náhradní řešení v případě, že nefunguje navigator.clipboard API
+inp.select(); // udělá select textu v input
+document.execCommand('copy'); // kopírování do paměti zařízení
+setTimeout(()=>{
+const anotherElement=document.getElementById(this.id_butt); // načte objekt button Kopírovat email
+if(anotherElement){anotherElement.focus();}},200); // přehodí focus textu na button Kopírovat
+}
 }};
 
 const dia={aktivni:"",
