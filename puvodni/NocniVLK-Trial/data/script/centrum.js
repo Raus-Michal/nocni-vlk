@@ -794,7 +794,7 @@ document.getElementById(this.kon).style.display="none"; /* schová kontajner */
 this.aktivni=false;  /* informuje Visulawievport API o DEaktivaci okna */
 }};
 
-const obrazovka={max:1024,min_vyska:530,min_sirka:260,a_sirka:320,cool:800,id_kotva:"hl-kon",id_kotva2:"k-h",TIME:200,vyska:null,sirka:null,d_vyska:null,d_sirka:null,top:null,left:null,
+const obrazovka={max:1024,min_vyska:590,min_sirka:260,a_sirka:320,cool:800,id_kotva:"hl-kon",id_kotva2:"k-h",TIME:200,vyska:null,sirka:null,d_vyska:null,d_sirka:null,top:null,left:null,
 
 velikost(){
 this.vyska=window.screen.height; /* výška obrazovky */
@@ -895,7 +895,7 @@ document.getElementById(dia.id[i]).style.filter=`brightness(${hodnota}%)`; /* zm
 }}}; /* KONEC změna jasu aplikace */
 
 const p_nas={id_blok:"n-i-blok",id:"nastaveni",
-id_nas:["k-nas","in-plus1-n","in-minus1-n","vlk_z","minutka_z","planovac_z"], // id tlačítek v nastavení
+id_nas:["k-nas","in-plus1-n","in-minus1-n","vlk_z","minutka_z","planovac_z","poloha_z"], // id tlačítek v nastavení
 id_zvuk_vlk:["bns1","bns2","bns3","bns4","bns5","bns6"], // id tlačítek nastavení zvuku Nočního VLKa
 id_zvuk_minutka:["bns1m","bns2m","bns3m","bns4m","bns5m","bns6m"], // id tlačítek nastavení zvuku Minutky
 id_zvuk_planovac:["bns1p","bns2p","bns3p","bns4p","bns5p","bns6p"], // id tlačítek nastavení zvuku Plánovač
@@ -1152,10 +1152,20 @@ zvuk_plan.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilov�
 uloz.uloz(uloz.klice[22],"false"); //  uloží volbu zesilování zvuku uživatele na LocalStorage - v ozivit.js
 }
 }
-
-
-
-}};
+else if(k==this.id_nas[6])
+{
+// klik na checked Zobrazit sekci Poloha aplikace
+if(e.target.checked)
+{
+// pokud bude po kliku Checkedbox - zatržen = bude true
+document.getElementById(hl_kon.id_sek_poloha).style.display="block"; // zobrazí panel pro sekci Poloha aplikace 
+}
+else
+{
+// pokud NEbude po kliku Checkedbox - zatržen = bude false
+document.getElementById(hl_kon.id_sek_poloha).style.display="none"; // schová panel pro sekci Poloha aplikace 
+}
+}}};
 
  /* Objekt pro tlačítko Obchůzky */
 const p_ob={id:"obchuzky",id_ob:["k-ob"],id_but:"ob-obch",id_svg:["s-ob"],
@@ -1823,8 +1833,7 @@ TIME1:100, // časová prodleva 1
 TIME2:150, // časová prodleva 2
 f_id_cisti:["obch15","obch30","obch60","obch120"], // pole obsahuje id formulářů s obchůzkami
 otevrene_okno:"", // proměnná v sobě uchovává id otevřeného okna, po dobu, kdy je hlavní kontejner nastaven na display=none
-
-
+id_sek_poloha:"poloha", // id HTML kontejneru sekce Poloha aplikace
  /* OBJEKT OVLÁDÁ ZAVÍRÁNÍ A OTVÍRÁNÍ HL. KONTAJNERU */
 
 cisti_form(){
@@ -1888,10 +1897,16 @@ location.replace(this.cesta); /* dojde k href na this.cesta bez možnosti návra
 poloh(){
 /* funkce ruší zobrazení polohy aplikace pro telefony, tablety atd. */
 obrazovka.velikost(); /* zjistí jak je na tom velikost obrazovky */
-if(parseInt(obrazovka.sirka)<=obrazovka.max)
+if(parseInt(obrazovka.sirka)<obrazovka.max)
 {
 /* pokud je obrazovka menší než 1024px, což je rozměr obrazovky malého monitoru PC ale také iPADu na šířku - proto menší rovno */
-document.getElementById("poloha").style.display="none"; /* schová panel pro určení polohy aplikace */
+document.getElementById(hl_kon.id_sek_poloha).style.display="none"; // schová panel pro sekci Poloha aplikace 
+document.getElementById(p_nas.id_nas[6]).checked=false; // vypne zatržení v Nastavení checketu Zobrazit sekci Poloha aplikace
+}
+else
+{
+// pokud je obrazovka větší než požadovaná velikost
+document.getElementById(p_nas.id_nas[6]).checked=true; // zapne zatržení v Nastavení checketu Zobrazit sekci Poloha aplikace
 }},
 licence(){
 /* funkce kontroluje, zda byla aplikace spuštěna s potvrzením licenčních podmínek a testy */

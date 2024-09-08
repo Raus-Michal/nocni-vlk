@@ -329,7 +329,7 @@ Vpravo
 <meter class="mb-025" low="0" high="1" optimum="0.7" value="0.2"> 1. krok </meter>
 <p>Průběh spouštění</p>
 </div>
-<button id="k1" class="o-c2" title="Zavřít">
+<button id="k1" class="o-c2" type="button" title="Zavřít">
 <span id="s-k1" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -390,7 +390,7 @@ Zavřít
 <meter class="mb-025" low="0" high="1" optimum="0.7" value="0.4"> 2. krok </meter>
 <p>Průběh spouštění</p>
 </div>
-<button id="k2" class="o-c2" title="Zavřít">
+<button id="k2" class="o-c2" type="button" title="Zavřít">
 <span id="s-k2" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -442,12 +442,12 @@ Zavřít
 <div class="int-p">
 <p class="f-2 tc w5rem cd">Level <span id="i-l">3</span>&#8239;/&#8239;7</p>
 <div> </div>
-<button id="in-plus1" title="plus" class="pl-mn">
+<button id="in-plus1" title="plus" class="pl-mn" type="button">
 <span id="in-plus2" class="i-plus"> </span>
 Zvýšit interval
 </button>
 
-<button id="in-minus1" title="mínus" class="pl-mn">
+<button id="in-minus1" title="mínus" class="pl-mn" type="button">
 <span id="in-minus2" class="i-minus"> </span>
 Snížit interval
 </button>
@@ -474,7 +474,7 @@ Snížit interval
 <meter class="mb-025" low="0" high="1" optimum="0.7" value="0.6"> 3. krok </meter>
 <p>Průběh spouštění</p>
 </div>
-<button id="k3" class="o-c2" title="Zavřít">
+<button id="k3" class="o-c2" title="Zavřít" type="button">
 <span id="s-k3" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -511,7 +511,7 @@ Zavřít
 <meter class="mb-025" low="0" high="1" optimum="0.7" value="0.8"> 4. krok </meter>
 <p>Průběh spouštění</p>
 </div>
-<button id="k4" class="o-c2" title="Zavřít">
+<button id="k4" class="o-c2" title="Zavřít" type="button">
 <span id="s-k4" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -555,7 +555,7 @@ Zavřít
 <meter class="mb-025" low="0" high="1" optimum="0.7" value="1.0"> 5. krok </meter>
 <p>Průběh spouštění</p>
 </div>
-<button id="k5" class="o-c2" title="Zavřít">
+<button id="k5" class="o-c2" title="Zavřít" type="button">
 <span id="s-k5" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -658,7 +658,7 @@ Zavřít
 <div class="o-c1">
 <h2 class="mb-0">Nastavení</h2>
 </div>
-<button id="k-nas" class="o-c2" title="Zavřít">
+<button id="k-nas" class="o-c2" title="Zavřít" type="button">
 <span id="s-nas" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -711,12 +711,12 @@ Zavřít
 <div class="int-p">
 <p class="f-2 tc w5rem cd">Level <span id="i-l-n">3</span>&#8239;/&#8239;7</p>
 <div> </div>
-<button id="in-plus1-n" title="plus" class="pl-mn">
+<button id="in-plus1-n" title="plus" class="pl-mn" type="button">
 <span id="in-plus2-n" class="i-plus"> </span>
 Zvýšit interval
 </button>
 
-<button id="in-minus1-n" title="mínus" class="pl-mn">
+<button id="in-minus1-n" title="mínus" class="pl-mn" type="button">
 <span id="in-minus2-n" class="i-minus"> </span>
 Snížit interval
 </button>
@@ -736,7 +736,7 @@ Snížit interval
 
 <div class="flex-s mb-2">
 <input id="vlk_z" class="ch-s" type="checkbox" title="Zatržením je povoleno postupní zesilování hlasitosti" checked>
-<p class="mb-0">Postupné zesilování alarmu</p>
+<label class="mb-0">Postupné zesilování alarmu</label>
 </div>
 
 <p class="nad mb-1">Zvuk alarmu Minutka</p>
@@ -751,7 +751,7 @@ Snížit interval
 
 <div class="flex-s mb-2">
 <input id="minutka_z" class="ch-s" type="checkbox" title="Zatržením je povoleno postupní zesilování hlasitosti" checked>
-<p class="mb-0">Postupné zesilování alarmu</p>
+<label class="mb-0">Postupné zesilování alarmu</label>
 </div>
 
 
@@ -767,16 +767,20 @@ Snížit interval
 
 <div class="flex-s mb-2">
 <input id="planovac_z" class="ch-s" type="checkbox" title="Zatržením je povoleno postupní zesilování hlasitosti" checked>
-<p class="mb-0">Postupné zesilování alarmu</p>
+<label class="mb-0">Postupné zesilování alarmu</label>
 </div>
 
 </div>
 
 
 
-<div class="flex-c aic d-n">
-<h3>Nastavení pro&nbsp;vývojáře</h3>
-<p class="tj">Není dostupné ve zkušební verzi aplikace.</p>
+<div class="flex-c aic">
+
+<div class="flex-s mb-2">
+<input id="poloha_z" class="ch-s" type="checkbox" title="Zatržením je zobrazena sekce Poloha aplikace" checked>
+<label class="mb-0">Zobrazit sekci Poloha aplikace</label>
+</div>
+
 </div>
 
 
@@ -792,7 +796,7 @@ Snížit interval
 <div class="o-c1">
 <h2 class="mb-0">Obchůzky</h2>
 </div>
-<button id="k-ob" class="o-c2" title="Zavřít">
+<button id="k-ob" class="o-c2" title="Zavřít" type="button">
 <span id="s-ob" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -832,7 +836,7 @@ Zavřít
 <div class="o-c1">
 <h2 class="mb-0">Návod</h2>
 </div>
-<button id="k-nav" class="o-c2" title="Zavřít">
+<button id="k-nav" class="o-c2" title="Zavřít" type="button">
 <span id="s-nav" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -895,7 +899,7 @@ Zavřít
 <div class="o-c1">
 <h2 class="mb-0">Funkce</h2>
 </div>
-<button id="k-fun" class="o-c2" title="Zavřít">
+<button id="k-fun" class="o-c2" title="Zavřít" type="button">
 <span id="s-fun" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -983,7 +987,7 @@ Poznámky slouží k&nbsp;uchování informací, pro&nbsp;které byste museli s�
 <div class="o-c1">
 <h2 class="mb-0">O&nbsp;plikaci</h2>
 </div>
-<button id="k-o-ap" class="o-c2" title="Zavřít">
+<button id="k-o-ap" class="o-c2" title="Zavřít" type="button">
 <span id="s-o-ap" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -1013,7 +1017,7 @@ Zavřít
 <div class="o-c1">
 <h2 class="mb-0">Kontakt</h2>
 </div>
-<button id="k-kon" class="o-c2" title="Zavřít">
+<button id="k-kon" class="o-c2" title="Zavřít" type="button">
 <span id="s-kon" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -1309,7 +1313,7 @@ Zavřít
 <div class="o-c1">
 <h2 class="mb-0">Přestávky</h2>
 </div>
-<button id="k-pre" class="o-c2" title="Zavřít">
+<button id="k-pre" class="o-c2" title="Zavřít" type="button">
 <span id="s-pre" class="o-kriz"> </span>
 Zavřít
 </button>
@@ -1803,13 +1807,13 @@ Zavřít
 <div id="zamek" class="okno">
 <div class="flex jcc aic px">
 <div class="flex-c aic">
-<div class="sp-i l-zam"> </div>
+<div class="img-logo l-zam"> </div>
 <p class="f-2 tc n-s">Aplikace je&nbsp;uzamčena</p>
 <p class="tc n-s">Pro odemčení: dvakrát rychle za&nbsp;sebou klikněte na&nbsp;obrazovku prstem anebo&nbsp;myší.</p>
 </div>
 </div>
 </div>
-<button id="f-b" class="fb" type="button" stitle="fake klik">F</button>
+<button id="f-b" class="fb" type="button" title="fake klik">F</button>
 
 <div class="f">
 <video id="f-v" class="w1" webkit-playsinline="webkit-playsinline" playsinline="playsinline" width="320" heigth="240" controls>

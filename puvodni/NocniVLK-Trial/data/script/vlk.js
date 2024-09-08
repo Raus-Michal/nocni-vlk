@@ -384,21 +384,29 @@ zvuk_plan.zesilovat=true; // určuje zda bude zvuk přehráván postupným zesil
 const obch={
 id_can:"can-hl", // id canvas pro vykreslování okruhu obchůzek
 id_bud_obch:"obch_bud", // id textu pro druh obchůzky, která bude následovat
-id_tlapa:"tlapa",id_f:["obch15","obch30","obch60","obch120"],intr:null,id:"obchuzka",id_ob:"ob-t",id_b:["vz1","vz2","p-obch"],id_an:["ss1","ss2","ss3","ss4"],id_odp:["o-min","o-sec1","o-sec2"],id_t_out:["t-out-m","t-out-s1","t-out-s2"],id_t:"ob",z_den:null,cas_T:null,TIME:250,TIME2:750,
+id_tlapa:"tlapa",id_f:["obch15","obch30","obch60","obch120"],intr:null,id:"obchuzka",id_ob:"ob-t",id_b:["vz1","vz2","p-obch"],id_an:["ss1","ss2","ss3","ss4"],id_odp:["o-min","o-sec1","o-sec2"],id_t_out:["t-out-m","t-out-s1","t-out-s2"],id_t:"ob",z_den:null,cas_T:null,TIME:250,
+TIME2:750,
+casovac:null, // časovač k tranmision opacity img TLAPA, kdyby nebyl časovač a uživatel by neustále potvrzoval Provést obchůzku teď, došlo by ke konfliktu
 tlapa(urci){
 const [kruh,tlapa]=[document.getElementById(this.id_can),document.getElementById(this.id_tlapa)]; /* načte do promněnné objekty DOM */
 
 if(urci=="tlapa")
 {
 /* tlapa půjde vidět a kruh se schová */
+clearTimeout(this.casovac); // vynuluje časovač, kdyby nebyl časovač a uživatel by neustále potvrzoval Provést obchůzku teď, došlo by ke konfliktu
 kruh.style.opacity=0;
 tlapa.style.opacity=1;
+tlapa.style.zIndex=1;
 }
 else if(urci=="kruh")
 {
 /* kruh půjde vidět a tlapa se schová */
 kruh.style.opacity=1;
 tlapa.style.opacity=0;
+clearTimeout(this.casovac); // vynuluje časovač, kdyby nebyl časovač a uživatel by neustále potvrzoval Provést obchůzku teď, došlo by ke konfliktu
+console.log("akce");
+this.casovac=setTimeout(()=>{tlapa.style.zIndex=-1; console.log("z"); // změní zIndex - aby byla tlapa pod canvasem
+},5000); // drobné zpoždění zajistí bezproblémový vykteslení transition opacity na 0
 }},
 zaz_casTO(zbyle_s){
 /* funkce zapíše do proměnných aktivaci počátku počítání TIOMOUTU */
