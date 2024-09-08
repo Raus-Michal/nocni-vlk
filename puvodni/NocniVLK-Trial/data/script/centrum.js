@@ -859,7 +859,7 @@ document.getElementById(this.kon).style.display="none"; /* schová kontajner */
 this.aktivni=false;  /* informuje Visulawievport API o DEaktivaci okna */
 }};
 
-const obrazovka={max:1024,min_vyska:590,min_sirka:260,a_sirka:320,cool:800,id_kotva:"hl-kon",id_kotva2:"k-h",TIME:200,vyska:null,sirka:null,d_vyska:null,d_sirka:null,top:null,left:null,
+const obrazovka={max:1024,min_vyska:590,min_sirka:260,a_sirka:320,cool:820,id_kotva:"hl-kon",id_kotva2:"k-h",TIME:200,vyska:null,sirka:null,d_vyska:null,d_sirka:null,top:null,left:null,
 
 velikost(){
 this.vyska=window.screen.height; /* výška obrazovky */

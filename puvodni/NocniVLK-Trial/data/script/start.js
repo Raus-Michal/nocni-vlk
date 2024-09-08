@@ -43,24 +43,84 @@ const kontakt=Object.create(licence); /* kopie objektu licence pro kontakt */
 {kontakt.id_a="kont-1";kontakt.id_dia="dia-kon";kontakt.id_dia_butt="but-kon";kontakt.id_dia_nad="nad-kon";} /* změna id pro kontakt */
 
 
-const mail={id_butt:"zob-em",id_inp:"inp-em",m:["..z.","xm@","@a",".c","ri","iu","mls","z","rt","sqhc","eaw"],
+const mail={
+id_butt:"zob-em", // id buttonu Zobrazit email - který bude následně po kliknutí upraven na Kopírovat email
+id_inp:"inp-em", // input type="text" , kde bude samotný email zobrazen
+id_kop:"zkopir", // id prvku s informací Zkopírováno
+m:["..z.","xm@","@a",".c","ri","iu","mls","z","rt","sqhc","eaw"], // pole z kterého bude vytvořen email
+zobrazen:false, // proměnná určuje, zda byl email již uživateli zobrazen
+delka:null, // délka řetězce emailu
+email:"", // proměnná pro dočasné zapsání emailu
+T:500, // časové zpoždění
 posluchac(){
-let t=document.getElementById(this.id_butt);
-t.addEventListener("click",this);
-},
-posluchacOff(){
-let t=document.getElementById(this.id_butt);
-t.removeEventListener("click",this);
+document.getElementById(this.id_butt).addEventListener("click",this); // přidá buttonu posluchač klik
 },
 handleEvent(){
+const t=document.getElementById(this.id_butt); /* button zobrazit email */
+if(!this.zobrazen)
+{
+// pokud nebyl zatím email zobrazen bude proměnná this.zobrazen==false - ZOBRAZENÍ EMAILU
 let x=this.m; /* kopie this.m pole  */
-let k=x[4][0]+x[2][1]+x[5][1]+x[9][0]+x[0][0]+x[6][0]+x[4][1]+x[9][3]+x[9][2]+x[10][1]+x[6][1]+x[1][2]+x[10][0]+x[6][0]+x[2][1]+x[4][1]+x[6][1]+x[0][1]+x[9][3]+x[0][2]; /* výsek emailu */
-let inp=document.getElementById(this.id_inp); /* input s emailem */
-let t=document.getElementById(this.id_butt); /* button pro zobrazení emailu */
-inp.value=k; /* hodnota inputu */
-this.posluchacOff(); /* vypne posluchač k buttonu zobrazit email */
-t.disabled=true; /* disablet button */
-t.title="Již není možné použít - email zobrazen"; /* new title button */
+this.email=x[4][0]+x[2][1]+x[5][1]+x[9][0]+x[0][0]+x[6][0]+x[4][1]+x[9][3]+x[9][2]+x[10][1]+x[6][1]+x[1][2]+x[10][0]+x[6][0]+x[2][1]+x[4][1]+x[6][1]+x[0][1]+x[9][3]+x[0][2]; /* výsek emailu */
+t.removeEventListener("click",this); // odebere posluchače buttonu pro zobrazení emailu
+this.delka=0; // nastaví základní délku na 0
+this.text_postupne(); // začne postupně vypisovat písmena emailu
+// inp.value=k; do inputu pro email vloží email
+t.style.opacity=0; // sníži vyditelnost tlačítka
+setTimeout(()=>{
+t.style.opacity=1; // zvýší vyditelnost tlačítka
+t.title="Kopírovat"; // změní title buttonu
+t.innerText="Kopírovat email"; // z,ění text buttonu
+this.zobrazen=true; // změní proměnnou na true - tímto se určí, že email je zobrazen
+t.addEventListener("click",this); // přidá posluchače buttonu pro zobrazení emailu
+},this.T+100); // časové zpoždění pro transition opacity
+}
+else
+{
+// pokud byl již email zobrazen bude proměnná this.zobrazen==true - KOPÍROVÁNÍ EMAILU
+const kop=document.getElementById(this.id_kop); // načtení do proměnné HTML element text ZKOPÍROVÁNO
+kop.style.width=parseInt(document.getElementById(this.id_inp).offsetWidth)+"px"; // šířka textu ZKOPÍROVÁNO bude stejná jako inputu s textem emailu
+kop.style.opacity=1; // zvýší opacity textu ZKOPÍROVÁNO na 1
+kop.style.zIndex=1; // zvýší z-index textu ZKOPÍROVÁNO na 1
+t.removeEventListener("click",this); // odebere buttonu Kopírovat email, posluchač klik
+this.k_do_schranky(); // funkce zajistí zkopírování obsahu in put type="text" do schránky
+setTimeout(()=>{
+t.addEventListener("click",this); // přidá buttonu Kopírovat email, posluchač klik
+kop.style.opacity=0; // sníží opacity textu ZKOPÍROVÁNO na 0
+kop.style.zIndex=-1; // sníží z-index textu ZKOPÍROVÁNO na -1
+},this.T); // časové zpoždění pro transition opacity
+}
+},
+text_postupne(){
+// funkce postupně vypíše text emailu
+const e_delka=this.email.length; // délka řetězce dočasného emailu
+if(e_delka==this.delka)
+{
+// pokud bude délka emailu == delka ciklů
+this.delka=null; // vynuluje proměnnou
+this.email=""; // vynuluje proměnnou
+return;
+}
+document.getElementById(this.id_inp).value+=this.email[this.delka]; // přidá do value znak emalu podle cyklu
+this.delka++; // přičte jeden cyklus
+setTimeout(this.text_postupne.bind(this),this.T/e_delka); // časové zpoždění pro výpis jednoho písmene = čas zpoždění transition opacity/počet písmen emailu
+},
+k_do_schranky(){
+// funkce zajistí zkopírování obsahu in put type="text" do schránky navigator.clipboard API
+const inp=document.getElementById(this.id_inp); // vloží do proměnné input type="text" se samotným emailem
+if(navigator.clipboard){
+// pokud bude v zařízení uživatele navigator.clipboard API
+navigator.clipboard.writeText(inp.value); // do navigator.clipboard API vloží obasah inputu s emailem
+}
+else
+{
+// Náhradní řešení v případě, že nefunguje navigator.clipboard API
+inp.select(); // udělá select textu v input
+document.execCommand('copy'); // kopírování do paměti zařízení
+setTimeout(()=>{
+const anotherElement=document.getElementById(this.id_butt); // načte objekt button Kopírovat email
+if(anotherElement){anotherElement.focus();}},200); // přehodí focus textu na button Kopírovat
+}
 }};
 
 const souhlas={id_ch:"souh",
@@ -234,7 +294,7 @@ this.prechod();
 setTimeout("zvuk.hrajSan();pokr3.posluchac();",this.CAS+1000);
 };} /* úprava potřebných proměnných a funkcí z kopie objektu */
 
-const obr={min_sirka_aplikace:320,max_sirka_aplikace:790,vyska_aplikace:800,vyska:null,sirka:null,d_vyska:null,d_sirka:null,top:null,left:null,
+const obr={min_sirka_aplikace:320,max_sirka_aplikace:800,vyska_aplikace:800,vyska:null,sirka:null,d_vyska:null,d_sirka:null,top:null,left:null,
 velikost(){
 this.vyska=window.screen.height; /* výška obrazovky */
 this.sirka=window.screen.width; /* šířka obrazovky */
@@ -347,19 +407,19 @@ const pokr4=Object.create(pokr1);
 {pokr4.id_but="butt-4";
 pokr4.okno1_id="okno4";
 pokr4.handleEvent=function(){
-if(volbaOkna.okna[0]==true)
+if(volbaOkna.okna[0])
 {
 /* Okno vlevo */
 otevri.okno(obr.min_sirka_aplikace,obr.d_vyska,obr.left,obr.top);
 }
-else if(volbaOkna.okna[1]==true)
+else if(volbaOkna.okna[1])
 {
 /* Celé okno */
 otevri.okno(obr.d_sirka,obr.d_vyska,obr.left,obr.top);
 }
-else if(volbaOkna.okna[2]==true)
+else if(volbaOkna.okna[2])
 {
-/* Okno max */
+/* Cool okno */
 if(obr.vyska_aplikace<obr.d_vyska)
 {
 otevri.okno(obr.max_sirka_aplikace,obr.vyska_aplikace,(obr.d_sirka-obr.max_sirka_aplikace)/2,(obr.d_vyska-obr.vyska_aplikace)/2);
@@ -368,7 +428,7 @@ else
 {
 otevri.okno(obr.max_sirka_aplikace,obr.d_vyska,(obr.d_sirka-obr.max_sirka_aplikace)/2,obr.top);
 }}
-else if(volbaOkna.okna[3]==true)
+else if(volbaOkna.okna[3])
 {
 /* Okno vpravo */
 let vpravo=obr.left+obr.d_sirka-obr.min_sirka_aplikace;
@@ -392,7 +452,7 @@ document.body.style.minHeight=`${v}px`;
 },
 aktivace(){
 /* Posluchače */
-window.visualViewport.addEventListener("resize", this);
+window.visualViewport.addEventListener("resize",this);
 window.visualViewport.addEventListener("scroll",this);
 addEventListener("scroll",this);
 },
@@ -408,9 +468,10 @@ setTimeout(this.handleEvent.bind(this),1000); // aktivuje Visual View port API -
 const akce=()=>{
 v_port.zahajit(); /* aktivace visualViewport API */
 souhlas.posluchac();
-document.getElementById(souhlas.id_ch).disabled=false;
+document.getElementById(souhlas.id_ch).disabled=false; // odstraní disabled na checked s Licenčními podmínkami - který je default, pro případ, že by uživatel neměl Javascript
+document.getElementById(souhlas.id_ch).checked=false; // zajistí odškrknutí checked s licenčními podmínkami
 f(souhlas.id_ch);
-document.getElementById(pokr1.id_but).disabled=false;
+document.getElementById(pokr1.id_but).disabled=false; // odstraní disabled na tlačítku 1. Pkkračovat - který je default, pro případ, že by uživatel neměl Javascript
 mail.posluchac();
 kontakt.pust("kontakt");
 licence.pust("licence");

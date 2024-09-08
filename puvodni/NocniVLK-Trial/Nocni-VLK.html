@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<link rel="stylesheet" href="data/styl/optimal.css?v=1">
-<link rel="stylesheet" href="data/styl/start.css?v=1">
-<title>Noční VLK</title>
+<link rel="stylesheet" href="data/styl/start.css?v=2">
+<link rel="preload" as="image" href="data/svg/logo-an.svg">
+<title>Noční VLK - spouštění aplikace</title>
 <meta name="description" content="On-line webová aplikace, která pohlídá časové intervaly pro kontrolní obchůzky: objektu, věcí anebo osob.">
 <meta name="keywords" content="obchůzky,intervaly,hlídání">
 <meta name="author" content="Boar-cz">
 <meta property="og:title" content="Noční VLK">
 <meta property="og:description" content="On-line webová aplikace, která pohlídá časové intervaly pro kontrolní obchůzky: objektu, věcí anebo osob.">
-<meta property="og:image" content="https://www.boar-cz.info/nocni-vlk/data/nahled/nahled.png">
+<meta property="og:image" content="https://www.boar-cz.info/nocni-vlk/data/nahled/nahled.png?v=1">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="Noční VLK">
 <meta property="og:type" content="object">
 <meta property="og:url" content="https://www.boar-cz.info/nocni-vlk/">
-<meta name="robots" content="index , follow">
+<meta name="robots" content="index,follow">
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="https://www.boar-cz.info/nocni-vlk/">
 <meta property="twitter:title" content="Noční VLK">
 <meta property="twitter:description" content="On-line webová aplikace, která pohlídá časové intervaly pro kontrolní obchůzky: objektu, věcí anebo osob.">
-<meta property="twitter:image" content="https://www.boar-cz.info/nocni-vlk/data/nahled/nahled.png">
+<meta property="twitter:image" content="https://www.boar-cz.info/nocni-vlk/data/nahled/nahled.png?v=1">
 <link rel="apple-touch-icon" sizes="180x180" href="data/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="data/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="data/favicon/favicon-16x16.png">
@@ -41,7 +41,7 @@
 "dateCreated": "2023-11-01",
 "dateModified": "2024-08-17",
 "datePublished": "2023-11-01",
-"version": "[1,2]",
+"version": "[2,5]",
 "mainEntityOfPage": "https://www.boar-cz.info",
 "description": "On-line webová aplikace, která pohlídá časové intervaly pro kontrolní obchůzky: objektu, věcí anebo osob.",
 "abstract": "Jedinečná on-line aplikace, která pohlídá kontrolu objektu, věcí anebo osob.",
@@ -55,13 +55,16 @@
 },
 "offers": {
 "@type": "Offer",
-"price": "200000",
+"price": "500000",
 "priceCurrency": "CZK"
 }}
 </script>
 </head>
 <body>
+<header>
 <h1 id="h1-logo" class="hl-logo">Noční VLK</h1>
+</header>
+
 <noscript>
 <div class="no-script">
 <p>Není zapnutý JavaScript!</p>
@@ -69,6 +72,9 @@
 <p>Bez&nbsp;zapnutého JavaScriptu není možné aplikaci používat.</p>
 </div>
 </noscript>
+
+
+<main>
 <section id="okno1" class="tr">
 <div class="logo-an"> </div>
 <div class="okno">
@@ -294,6 +300,11 @@
 </div>
 </div>
 </section>
+</main>
+
+<footer class="pata">
+<p>Aplikace podléhá autorským právům společnosti <a href="https://www.boar-cz.info" title="Webové stránky výrobce aplikace" target="_blank">Boar-cz</a></p>
+</footer>
 
 <div id="zaver" class="d-n"><p class="inf cb4">Aplikace Noční&nbsp;VLK byla spuštěna.</p> <p class="cb4">Aplikace Noční&nbsp;VLK byla spuštěna v&nbsp;novém okně&#8239;(kartě). Současné okno&#8239;(kartu), můžete zavřít.</p></div>
 
@@ -317,13 +328,15 @@
 </dialog>
 
 <dialog id="dia-kon">
-<h2 id="nad-kon">Kontakt Boar-cz</h2>
+<h2 id="nad-kon">Kontakt <span class="d-ilb">Boar-cz</span></h2>
 <p class="jus ha">V&nbsp;případě potřeby, <strong>můžete kontaktovat programátora pomocí emailu</strong>. Níže je&nbsp;tlačítko, kterým&nbsp;zobrazite email na&nbsp;programátora.</p>
 <p class="jus ha"><strong>Do&nbsp;předmětu emailu programátorovi uveďte</strong>: Aplikace Noční&nbsp;VLK.</p>
-
-<div class="t-c m-b1">
-<button id="zob-em" class="bt m-b1" type="button" title="Zobrazit email na programátora">Zobrazit email</button>
-<p class="flex-s">Email:<input id="inp-em" class="em-imp" type="text" placeholder="zmáčkni tlačítko výše" readonly></p>
+<div class="box-e">
+<button id="zob-em" class="bt" type="button" title="Zobrazit email na programátora">Zobrazit email</button>
+<div class="p-r">
+<input id="inp-em" class="em-imp" type="text" placeholder="zmáčkni tlačítko výše" value="" readonly>
+<p id="zkopir" class="zkop">Zkopírováno</p>
+</div>
 </div>
 
 <div class="b-box t-r">
