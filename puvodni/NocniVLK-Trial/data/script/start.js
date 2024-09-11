@@ -304,7 +304,7 @@ this.top=window.screen.availTop; /* Dostupné horní umístění na obrazovce */
 this.left=window.screen.availLeft; /* Dostupné levé umístění na obrazovce */
 }};
 
-const volbaOkna={okna:[false,false,true,false],id:["o-vlevo","o-cel","o-celso","o-vpravo"],idSVG:["o-vlevoi","o-celi","o-celsoi","o-vpravoi"],barva:"rgba(137,157,120,0.5)",
+const volbaOkna={okna:[false,false,true,false],id:["o-vlevo","o-cel","o-coll","o-vpravo"],idSVG:["o-vlevoi","o-celi","o-colli","o-vpravoi"],barva:"rgba(137,157,120,0.5)",
 aktivace(){
 this.obarvit();
 this.posluchace();
