@@ -893,91 +893,108 @@ document.getElementById(this.kon).style.display="none"; /* schová kontajner */
 this.aktivni=false;  /* informuje Visulawievport API o DEaktivaci okna */
 }};
 
-const obrazovka={max:1024,min_vyska:590,min_sirka:260,a_sirka:320,cool:820,id_kotva:"hl-kon",id_kotva2:"k-h",TIME:200,vyska:null,sirka:null,d_vyska:null,d_sirka:null,top:null,left:null,
-
-velikost(){
-this.vyska=window.screen.height; /* výška obrazovky */
-this.sirka=window.screen.width; /* šířka obrazovky */
-this.d_vyska=window.screen.availHeight; /* Dostupná výška obrazovky */
-this.d_sirka=window.screen.availWidth; /* Dostupná šířka obrazovky */
-this.top=window.screen.availTop; /* Dostupné horní umístění na obrazovce */
-this.left=window.screen.availLeft; /* Dostupné levé umístění na obrazovce */
-},
-
+const obrazovka={
 zmen(jak){
 // funkce zajišťuje změnu polohy aplikace
 
+const min_vyska=590; // výška min-okno
+const min_sirka=260; // šířka okna min-vlevo a min-vpravo a min-okno
+const a_sirka=320; // šířka okna vlevo a vpravo
+const cool=820; // výška a šířka cool okna
+const d_vyska=parseInt(window.screen.availHeight); // Dostupná výška obrazovky
+const d_sirka=parseInt(window.screen.availWidth); // Dostupná šířka obrazovky
+const top=parseInt(window.screen.availTop); // Dostupné horní umístění na obrazovce
+const left=parseInt(window.screen.availLeft); // Dostupné levé umístění na obrazovce
+let kotva="hl-kon"; // id kotvy 1 pro scrool
+let kotva2="k-h"; // id kotvy 2 pro scroll
+
 klik.hraj(false); // bude přehrávat zvuk 1x klik
-let [Nleft,Ntop,Nsirka,Nvyska,kotva]=[this.top,this.left,this.min_sirka,this.min_vyska,this.id_kotva];
+
+let [Nleft,Ntop,Nsirka,Nvyska]=[0,0,0,0]; // parametry okna, které se budou měnit podle volby uživatele
 
 if(jak=="vl")
 {
-Nleft=this.left;
-Ntop=this.top;
-Nsirka=this.a_sirka;
-Nvyska=this.d_vyska;
+// okno vlevo
+Nleft=left;
+Ntop=top;
+Nsirka=a_sirka;
+Nvyska=d_vyska;
 }
 else if(jak=="vlm")
 {
-Nleft=this.left;
-Ntop=this.top;
-Nsirka=this.min_sirka;
-Nvyska=this.d_vyska;
+// vlevo mini
+Nleft=left;
+Ntop=top;
+Nsirka=min_sirka;
+Nvyska=d_vyska;
 }
 else if(jak=="min")
 {
-Nleft=0;
-Ntop=0;
-Nsirka=this.min_sirka;
-Nvyska=this.min_vyska;
-kotva=this.id_kotva2;
+// mini okno
+Nleft=left;
+Ntop=top;
+Nsirka=min_sirka;
+Nvyska=min_vyska;
+kotva=kotva2; // id kotva 2 pro scroll
 }
 else if(jak=="cool")
 {
-if(this.cool<this.d_vyska)
+// cool okno
+if(cool<d_vyska)
 {
-Nleft=(this.d_sirka-this.cool)/2;
-Ntop=(this.d_vyska-this.cool)/2;
-Nsirka=this.cool;
-Nvyska=this.cool;
+Nleft=(d_sirka-cool)/2;
+Ntop=(d_vyska-cool)/2;
+Nsirka=cool;
+Nvyska=cool;
 }
 else
 {
-Nleft=(this.d_sirka-this.cool)/2;
-Ntop=this.top;
-Nsirka=this.cool;
-Nvyska=this.d_vyska;
+Nleft=(d_sirka-cool)/2;
+Ntop=top;
+Nsirka=cool;
+Nvyska=d_vyska;
 }}
 else if(jak=="cel")
 {
-Nleft=this.left;
-Ntop=this.top;
-Nsirka=this.d_sirka;
-Nvyska=this.d_vyska;
+// celé okno
+Nleft=left;
+Ntop=top;
+Nsirka=d_sirka;
+Nvyska=d_vyska;
 }
 else if(jak=="pln")
 {
-document.documentElement.requestFullscreen();
-setTimeout(`document.getElementById("${kotva}").scrollIntoView({behavior:"smooth"});`,this.TIME);
+// plné okno
+document.documentElement.requestFullscreen(); // zapne režim full screen
+setTimeout(`document.getElementById("${kotva}").scrollIntoView({behavior:"smooth"});`,this.TIME); // udělá scrool na kotvu
 return;
 }
 else if(jak=="vpm")
 {
-Nleft=this.d_sirka-this.min_sirka;
-Ntop=this.top;
-Nsirka=this.min_sirka;
-Nvyska=this.d_vyska;
+// vpravo mini okno
+Nleft=d_sirka-min_sirka;
+Ntop=top;
+Nsirka=min_sirka;
+Nvyska=d_vyska;
 }
 else if(jak=="vp")
 {
-Nleft=this.d_sirka-this.a_sirka;
-Ntop=this.top;
-Nsirka=this.a_sirka;
-Nvyska=this.d_vyska;
+// vpravo okno
+Nleft=d_sirka-a_sirka;
+Ntop=top;
+Nsirka=a_sirka;
+Nvyska=d_vyska;
 }
-window.resizeTo(Nsirka,Nvyska);
-window.moveTo(Nleft,Ntop);
-setTimeout(`document.getElementById("${kotva}").scrollIntoView({behavior:"smooth"});`,this.TIME);
+window.resizeTo(Nsirka,Nvyska); // změna velikosti okna
+setTimeout(()=>{
+window.moveTo(Nleft,Ntop); // posun okna
+},50); // drobné zpoždění
+setTimeout(`document.getElementById("${kotva}").scrollIntoView({behavior:"smooth"});`,200); // scroll na kotvu - drobné zpoždění
+},
+podpora_resizeTo_moveTo()
+{
+// funkce kontroleje jestli je aplikace spuštěna na mobilním zařízení a nebo není
+return /Mobi|Android|iPad|iPhone/.test(navigator.userAgent); // pokud se jedná o mobilní zařízení anebo table vrací TRUE
 }};
 
 /* změna jasu aplikace */
@@ -1995,17 +2012,17 @@ location.replace(this.cesta); /* dojde k href na this.cesta bez možnosti návra
 },
 poloh(){
 /* funkce ruší zobrazení polohy aplikace pro telefony, tablety atd. */
-obrazovka.velikost(); /* zjistí jak je na tom velikost obrazovky */
-if(parseInt(obrazovka.sirka)<obrazovka.max)
+const test_podpory=obrazovka.podpora_resizeTo_moveTo(); // funkce kontroleje jestli je aplikace spuštěna na mobilním zařízení a nebo není
+if(!test_podpory)
 {
-/* pokud je obrazovka menší než 1024px, což je rozměr obrazovky malého monitoru PC ale také iPADu na šířku - proto menší rovno */
-document.getElementById(hl_kon.id_sek_poloha).style.display="none"; // schová panel pro sekci Poloha aplikace 
-document.getElementById(p_nas.id_nas[6]).checked=false; // vypne zatržení v Nastavení checketu Zobrazit sekci Poloha aplikace
+// pokud se nejedná o mobilní zařízení
+document.getElementById(p_nas.id_nas[6]).checked=true; // zapne zatržení v Nastavení checketu Zobrazit sekci Poloha aplikace
+document.getElementById(hl_kon.id_sek_poloha).style.display="block"; // zobrazí panel pro sekci Poloha aplikace 
 }
 else
 {
-// pokud je obrazovka větší než požadovaná velikost
-document.getElementById(p_nas.id_nas[6]).checked=true; // zapne zatržení v Nastavení checketu Zobrazit sekci Poloha aplikace
+// pokud se jedná o mobilní zařízení
+document.getElementById(p_nas.id_nas[6]).checked=false; // vypne zatržení v Nastavení checketu Zobrazit sekci Poloha aplikace
 }},
 licence(){
 /* funkce kontroluje, zda byla aplikace spuštěna s potvrzením licenčních podmínek a testy */

@@ -1379,6 +1379,7 @@ grid-area:obr;
 padding:1rem 1rem 0 1rem;
 border-top:3px solid black;
 margin-top:.5rem;
+display:none;
 }
 
 .box-pol
@@ -1747,6 +1748,7 @@ display:grid;
 grid-template-columns:1fr .25fr;
 gap:1rem;
 width:100%;
+max-width:64rem; /* 1024 px */
 }
 
 .int-flex
@@ -1898,9 +1900,10 @@ max-width:30rem;
 
 .ob-f p
 {
-font-size:1.25rem;
-font-size:calc(1.25rem + .5vw);
-margin-bottom:.5rem;
+font-size:1.15rem;
+font-size:calc(1.15rem + .5vw);
+font-weight:600;
+margin-bottom:.25rem;
 }
 
 .ob-f textarea
@@ -1908,6 +1911,7 @@ margin-bottom:.5rem;
 font-family:"text","Verda","Arial","Sans-Serif";
 font-size:1.25rem;
 font-size:calc(1.25rem + .5vw);
+font-weight:450;
 width:100%;
 height:10rem;
 background:var(--b4);
@@ -1917,7 +1921,16 @@ border-radius:8px;
 margin-bottom:1.5rem;
 }
 
+.ob-f textarea:focus{
+outline:none; /* Odstranění standardního zvýraznění focusu */
+background:var(--b5);
+}
 
+.ob-f textarea::placeholder{
+color:rgba(0,0,0,0.7); /* černá průjlednost 70% */
+text-align:left;
+font-style:italic;
+}
 
 .box-uzaver
 {

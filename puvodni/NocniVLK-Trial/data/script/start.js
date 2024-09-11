@@ -313,6 +313,10 @@ this.d_vyska=window.screen.availHeight; /* Dostupná výška obrazovky */
 this.d_sirka=window.screen.availWidth; /* Dostupná šířka obrazovky */
 this.top=window.screen.availTop; /* Dostupné horní umístění na obrazovce */
 this.left=window.screen.availLeft; /* Dostupné levé umístění na obrazovce */
+},
+kon_pod_zmeny_okna(){
+// funkce kontroleje jestli je aplikace spuštěna na mobilním zařízení a nebo není
+return /Mobi|Android|iPad|iPhone/.test(navigator.userAgent); // pokud se jedná o mobilní zařízení anebo table vrací TRUE
 }};
 
 const volbaOkna={okna:[false,false,true,false],id:["o-vlevo","o-cel","o-coll","o-vpravo"],idSVG:["o-vlevoi","o-celi","o-colli","o-vpravoi"],barva:"rgba(137,157,120,0.5)",
@@ -367,7 +371,7 @@ document.getElementById(this.id[i]).style.background="transparent";
 }}}};
 
 const otevri={stranka:"",
-okno(sirka,vyska,zleva,zhora){
+okno(sirka=0,vyska=0,zleva=0,zhora=0){
 let over={};
 over.cas=Date.now(); /* vrátí počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC) */
 over.celkem=[over.cas,test.ready_ul,test.ready_usp,test.ready_bl]; /* pole s kontrolní sumou a výsledky testů */
@@ -376,6 +380,14 @@ try
 const konverce=JSON.stringify(over.celkem);
 over.kontrola=`?${konverce}`;
 this.stranka=`data/index.html${over.kontrola}`;
+if(sirka==0&&vyska==0&&zleva==0&&zhora==0)
+{
+// požadavek na otevření okna na mobilní uzařízení anebo bez zaslabých požadavků
+window.location.replace(this.stranka); // replace na samotnou aplikaci Noční VLK
+}
+else
+{
+// jední se o zaslaná data a bude widnow.open podle zaslaných parametrů
 const newWindow=window.open(this.stranka,"_blank",`width=${sirka},height=${vyska},left=${zleva},top=${zhora},resizable=yes`,true);
 if (newWindow){
 // Nové okno bylo úspěšně otevřeno, nyní pokusíme se zavřít hlavní okno
@@ -388,6 +400,7 @@ window.close(); // zavře staré okno
 else{
 // Pokud se nové okno neotevřelo
 alert('Aplikaci se nepodařilo otevřít. Kontaktujte programátora.');
+}
 }
 }
 catch(e)
@@ -410,19 +423,18 @@ pokr3.okno2_id="okno4";
 
 pokr3.handleEvent=function(){
 clearTimeout(zvuk.casovac); /* vypne časovač přehrávání zvuku */
-obr.velikost(); /* zjistí velikost obrazovky zařízení */
-
-if(parseInt(obr.sirka)>1024)
+const zmena_obrazovky=obr.kon_pod_zmeny_okna(); // funkce kontroleje jestli je aplikace spuštěna na mobilním zařízení a nebo není
+if(!zmena_obrazovky)
 {
-/* pokud je obrazovka širší-rovna 1024px, což je rozměr obrazovky malého monitoru PC */
+// pokud zařízení není mobilním zařízením
 this.prechod();
 setTimeout("pokr4.posluchac();",this.CAS+1000);
+obr.velikost(); // zjistí velikost obrazovky zařízení
 volbaOkna.aktivace();
 }
 else
 {
-otevri.okno(obr.d_sirka,obr.d_vyska,obr.left,obr.top);
-ende.uvod(this.okno1_id); /* zavře průvodce spuštěním a zobrazí, že došlo ke spuštění aplikace v pracovním okně */
+otevri.okno(); // požadavek na otevření hlavní části aplikace bez parametrů, znamená že bude otevření pro mobilní zařízení
 }};} /* změna parametrů kopie objektu */
 
 const pokr4=Object.create(pokr1);
