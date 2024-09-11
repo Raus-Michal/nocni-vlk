@@ -2003,6 +2003,13 @@ this.posOn(); /* zapne posluchač události pro button Error DIV */
 }},
 
 komplet(){
+
+window.setTimeout(()=>{
+if(window.opener){
+// pokud existuje rodičovské okno
+window.opener.close(); // zavře rodičovské okno
+}},250); // Krátké zpoždění
+
 v_port.zahajit(); /* Aktivuje posluchče a parametry pro rozměry Kontejnerů s pomocí visualViewport API  */
 /* funkce spouští veškeré potřebné procesy pro start aplikace */
 this.licence(); // zkontroluje, zda byly uživatelem schváleny licenční podmínky

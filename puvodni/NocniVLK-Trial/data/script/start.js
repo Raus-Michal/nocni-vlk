@@ -365,7 +365,19 @@ try
 const konverce=JSON.stringify(over.celkem);
 over.kontrola=`?${konverce}`;
 this.stranka=`data/index.html${over.kontrola}`;
-window.open(this.stranka,"Noční VLK",`width=${sirka},height=${vyska},left=${zleva},top=${zhora}`);
+const newWindow=window.open(this.stranka,"_blank",`width=${sirka},height=${vyska},left=${zleva},top=${zhora},resizable=yes`,true);
+if (newWindow){
+// Nové okno bylo úspěšně otevřeno, nyní pokusíme se zavřít hlavní okno
+window.setTimeout(()=>{
+if(!newWindow.closed){
+// pokud není nové okno zavřené
+window.close(); // zavře staré okno
+}},250); // Krátké zpoždění, aby se nové okno stihlo otevřít
+}
+else{
+// Pokud se nové okno neotevřelo
+alert('Aplikaci se nepodařilo otevřít. Kontaktujte programátora.');
+}
 }
 catch(e)
 {
@@ -400,7 +412,6 @@ else
 {
 otevri.okno(obr.d_sirka,obr.d_vyska,obr.left,obr.top);
 ende.uvod(this.okno1_id); /* zavře průvodce spuštěním a zobrazí, že došlo ke spuštění aplikace v pracovním okně */
-window.close();
 }};} /* změna parametrů kopie objektu */
 
 const pokr4=Object.create(pokr1);
@@ -439,7 +450,6 @@ else
 return alert("Něco se pokazilo - kontaktujte programátora!");
 }
 ende.uvod(this.okno1_id); /* zavře průvodce spuštěním a zobrazí, že došlo ke spuštění aplikace v pracovním okně */
-window.close();
 };} /* změna parametrů kopie objektu */
 
 
