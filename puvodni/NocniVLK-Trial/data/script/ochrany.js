@@ -233,6 +233,14 @@ this.casovac=setTimeout(this.pust.bind(this),this.TIME); // zapne přehrávání
 }};
 
 
+const chyba_ukladani={
+id_chyba_text:"chyba-text", // id prvku k dialogovému oknu zobrazující chybovou hlášku Problémi s místem na disku anebo paměťové kartě, kde se pomocí text innert zobrazí konkrétní chyba
 
+zobrazit_chybu(chyba=""){
+// funkce prostřednictvím dialogového okna zobrazí chybu s nedostatkem místa na disku anebo že nefunguje ukládání na Local storage
+dia.on(dia.id[17]); // otevře dialogové okna s chybovou informací - Problémy s místem na disku anebo s místem na paměťové kartě - v centrum.js
+document.getElementById(this.id_chyba_text).innerText=chyba; // přepíše v dialogovém okně text s chybou, která nastala
+gong.hraj(false); // zahraje GONG.mp3 - FALSE = 1x - ve vlk.js
+}};
 
 pripravenost.ochrany=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v autorun.js - informuje o načtení této js knihovny */

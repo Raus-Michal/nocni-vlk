@@ -136,15 +136,18 @@ else
 // pokud byl již email zobrazen bude proměnná this.zobrazen==true - KOPÍROVÁNÍ EMAILU
 const kop=document.getElementById(this.id_kop); // načtení do proměnné HTML element text ZKOPÍROVÁNO
 kop.style.width=parseInt(document.getElementById(this.id_inp).offsetWidth)+"px"; // šířka textu ZKOPÍROVÁNO bude stejná jako inputu s textem emailu
+kop.style.height=parseInt(document.getElementById(this.id_inp).offsetHeight)+"px"; // výška textu ZKOPÍROVÁNO bude stejná jako inputu s textem emailu
 kop.style.opacity=1; // zvýší opacity textu ZKOPÍROVÁNO na 1
 kop.style.zIndex=1; // zvýší z-index textu ZKOPÍROVÁNO na 1
 t.removeEventListener("click",this); // odebere buttonu Kopírovat email, posluchač klik
 this.k_do_schranky(); // funkce zajistí zkopírování obsahu in put type="text" do schránky
 setTimeout(()=>{
-t.addEventListener("click",this); // přidá buttonu Kopírovat email, posluchač klik
 kop.style.opacity=0; // sníží opacity textu ZKOPÍROVÁNO na 0
+},this.T+500); // + 500 ms na přečtení
+setTimeout(()=>{
+t.addEventListener("click",this); // přidá buttonu Kopírovat email, posluchač klik
 kop.style.zIndex=-1; // sníží z-index textu ZKOPÍROVÁNO na -1
-},this.T); // časové zpoždění pro transition opacity
+},this.T+500+500); // 500 ms + 500 ms transmition opacity
 }
 },
 text_postupne(){
@@ -198,6 +201,7 @@ id:[ // pole s id všech dialogových oken používaných v aplikaci
 "d-dotaz-plan", // 14. id dialogového okna k zrušení konkrétního Plánu
 "d-max-plan", // 15. id dialogového okna oznamující, že již je zadán maximální počet plánů
 "d-ozivP", // 16. id dialogového okna S oznámením, že funkce Plánovač a tedy Plány budou obnoveny
+"d-chyba", // 17. id dialogového okna s chybovou informací - Problémy s místem na disku anebo s místem na paměťové kartě
 ],
 zas:["b-z-a","k-d-zas","b-z-n"],
 obch:["b-obch-a","k-d-obch","b-obch-n"],
@@ -216,7 +220,8 @@ planovac:["k-d-planovac","b-dotaz-planovac-z"], // tlačítka dialogového okna 
 planovac_info:["k-d-plan","plan-zrusit"], // tlačítka dialogového okna info ke konkrétnímu Plánu - Křižek a Zrušit plán
 planovac_dotaz:["k-d-dotaz-plan","b-dotaz-plan-a","b-dotaz-plan-n"], //  tlačítka dialogového okna dotazu ke zrušení konkrétního Plánu - Křížek , Ano-Ne
 planovac_max:["k-max-plan","b-max-plan-ok"], // tlačítka dialogového okna oznamující, že již je zadán maximální počet plánů - Křížek a Rozumím
-kont:"but-kon",
+kont:"but-kon", // button pro zobrazení kontaktu na programátora, který se následně změní na kopírovat email
+chyba_dia:["k-chyba","b-chyba-ok"], // křížek a button k dialogovému oknu zobrazující chybovou hlášku Problémi s místem na disku anebo paměťové kartě
 handleEvent(e){
 const k=e.target.id; /* zjistí id prvku na který bylo kliknuto */
 
@@ -299,6 +304,10 @@ dia.off(this.id[2]); /* vypne dialogové okno */
 if(k==this.ozit_dotaz[0])
 {
 /* Kliknuto na ANO - Oživit Nočního VLKa */
+zvuk.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny (ve vlk.js)
+window.hlidac.aktivace(); /* opětovně aktivuje ochranu před uspáním */
+zamek.blok(); // aktivuje blokaci zámku obrazovky
+window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; // ochrana před náhodným uzavřením aplikace
 uloz.obnovit_vlka(true); // spustí oživovací procesy Nočního VLKA spuštěné tlačítkem - hodnota TRUE - v ozivit.js
 dia.off(this.id[8]); /* vypne dialogové okno */
 }
@@ -492,6 +501,14 @@ klik.hraj(false); // bude přehrávat zvuk 1x klik
 this.off(this.id[15]); // zavře dialogové okno s oznámením, že již byl zadán maximální počet Plánů a odebere posluchače událostí
 }
 
+
+if(k==this.chyba_dia[0]||k==this.chyba_dia[1])
+{
+// Kliknuto na Křížek anebo ROzumím u dialogového okna oznamující, Problémy s místem na disku anebo paměťové kartě
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
+this.off(this.id[17]); // zavře dialogové okno s oznámením, Problémy s místem na disku anebo paměťové kartě
+}
+
 },
 posON(id){
 // posluchače k tlačítkům Dialogových oken
@@ -649,6 +666,14 @@ if(id==this.id[16])
 document.getElementById(this.oziv[3]).addEventListener("click",this);
 }
 
+if(id==this.id[17])
+{
+// tlačítka Křížek, Rozumím - Chybová hláška problémy s místem na disku anebo paměťové kartě
+let l13=this.chyba_dia.length;
+for(let i=0;i<l13;i++)
+{
+document.getElementById(this.chyba_dia[i]).addEventListener("click",this); // přidání posluchačů událostí: Křížek, Rozumím - Chybová hláška problémy s místem na disku anebo paměťové kartě
+}}
 
 },
 posOFF(id){
@@ -801,6 +826,15 @@ if(id==this.id[16])
 // tlačítko oznámení, že bude obnovena funkce Plánovač
 document.getElementById(this.oziv[3]).removeEventListener("click",this);
 }
+
+if(id==this.id[17])
+{
+// tlačítka Křížek, Rozumím - Chybová hláška problémy s místem na disku anebo paměťové kartě
+let l13=this.chyba_dia.length;
+for(let i=0;i<l13;i++)
+{
+document.getElementById(this.chyba_dia[i]).removeEventListener("click",this); // odebere posluchačů událostí: Křížek, Rozumím - Chybová hláška problémy s místem na disku anebo paměťové kartě
+}}
 
 },
 on(id){

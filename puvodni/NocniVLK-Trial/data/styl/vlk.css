@@ -2927,6 +2927,7 @@ border-radius:4px;
 opacity:0;
 z-index:-1;
 transition:opacity 250ms;
+font-size:1.2rem;
 }
 
 

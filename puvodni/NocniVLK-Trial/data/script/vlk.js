@@ -404,8 +404,8 @@ else if(urci=="kruh")
 kruh.style.opacity=1;
 tlapa.style.opacity=0;
 clearTimeout(this.casovac); // vynuluje časovač, kdyby nebyl časovač a uživatel by neustále potvrzoval Provést obchůzku teď, došlo by ke konfliktu
-console.log("akce");
-this.casovac=setTimeout(()=>{tlapa.style.zIndex=-1; console.log("z"); // změní zIndex - aby byla tlapa pod canvasem
+this.casovac=setTimeout(()=>{
+tlapa.style.zIndex=-1; // změní zIndex - aby byla tlapa pod canvasem
 },5000); // drobné zpoždění zajistí bezproblémový vykteslení transition opacity na 0
 }},
 zaz_casTO(zbyle_s){

@@ -455,11 +455,8 @@ plany_k_serazeni.push([6,cas_plan]); // přidá do pole [číslo plánu, čas pl
 
 const delka_uloh=plany_k_serazeni.length; // zjistí délku pole k řazení
 
-console.log(delka_uloh);
-
 if(delka_uloh<=1)
 {
-console.log("return");
 // pokud bude jeden plán k seřazení anebo žádný plán - bude return
 return;
 }
@@ -710,9 +707,6 @@ document.getElementById(this.id_nas_plan[5]).removeEventListener("click",this); 
 },
 hlidac(){
 // funkce hlídá, jestli už nastal čas pro aktivaci zadaného plánu anebo plánů, je spuštěná funkcí window.tik.tak v centrum.js
-
-console.log("hlidac");
-
 
 const plan=[null,null,null,null,null,null]; // rozhodne, který plán je aktivní
 const plany_ke_kontrole=[];

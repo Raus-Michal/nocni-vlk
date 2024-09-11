@@ -80,15 +80,18 @@ else
 // pokud byl již email zobrazen bude proměnná this.zobrazen==true - KOPÍROVÁNÍ EMAILU
 const kop=document.getElementById(this.id_kop); // načtení do proměnné HTML element text ZKOPÍROVÁNO
 kop.style.width=parseInt(document.getElementById(this.id_inp).offsetWidth)+"px"; // šířka textu ZKOPÍROVÁNO bude stejná jako inputu s textem emailu
+kop.style.height=parseInt(document.getElementById(this.id_inp).offsetHeight)+"px"; // výška textu ZKOPÍROVÁNO bude stejná jako inputu s textem emailu
 kop.style.opacity=1; // zvýší opacity textu ZKOPÍROVÁNO na 1
 kop.style.zIndex=1; // zvýší z-index textu ZKOPÍROVÁNO na 1
 t.removeEventListener("click",this); // odebere buttonu Kopírovat email, posluchač klik
 this.k_do_schranky(); // funkce zajistí zkopírování obsahu in put type="text" do schránky
 setTimeout(()=>{
-t.addEventListener("click",this); // přidá buttonu Kopírovat email, posluchač klik
 kop.style.opacity=0; // sníží opacity textu ZKOPÍROVÁNO na 0
+},this.T+500); // + 500 ms na přečtení
+setTimeout(()=>{
+t.addEventListener("click",this); // přidá buttonu Kopírovat email, posluchač klik
 kop.style.zIndex=-1; // sníží z-index textu ZKOPÍROVÁNO na -1
-},this.T); // časové zpoždění pro transition opacity
+},this.T+500+500); // 500 ms + 500 ms transmition opacity
 }
 },
 text_postupne(){
@@ -141,18 +144,26 @@ pokr1.posluchacOff(); /* vypne posluchač k buttonu dále */
 b(pokr1.id_but); /* blur buttonu */
 }}};
 
-const test={ready_ul:null,ready_usp:null,ready_bl:null,class_ok:" t-ok",class_ko:" t-ko",id_uspa:["img-uspa","b-usp-ch"],id_ukla:["img-ukla","b-data-ch"],
+const test={ready_ul:null,ready_usp:null,ready_bl:null,class_ok:"t-ok",class_ko:"t-ko",id_uspa:["img-uspa","b-usp-ch"],id_ukla:["img-ukla","b-data-ch"],
 /* ready_ul == výsledek test localstorage , ready_bl == výsledek testu blokace uzamykání obrazovky , ready_usp == výsledek testu ochrany proti uspávání */
 
 uloziste(){
-/* detekce zda funguje localstorage */
-try
-{
-return this.ready_ul="localStorage" in window && window["localStorage"] !== null; /* pokud funkce localstorage funguje vrátí hodnotu true - uloziste.ready == true */
+// detekce zda funguje localstorage
+
+ // Kontrola, zda prohlížeč podporuje Local Storage
+if(typeof localStorage==='undefined'){
+console.log('Local Storage není podporován prohlížečem.');
+return this.ready_ul=false;
 }
-catch(e)
-{
-return this.ready_ul=false; /* pokud funkce localstorage NEfunguje vrátí hodnotu false - uloziste.ready == false */
+try{
+// Testovací zápis a čtení z Local Storage (ověříme, zda je funkční)
+localStorage.setItem('testKey','testValue');
+localStorage.removeItem('testKey');
+return this.ready_ul=true;
+}catch(e){
+// Pokud zápis/čtení selže, Local Storage je buď zakázán, nebo je problém s místem
+console.log('Local Storage je podporován, ale nelze do něj zapisovat.');
+return this.ready_ul=false;
 }},
 blokace(){
 /* test jesli je Blokace zámku obrazovky v pohlížeči povolena - pokud NE - NÁHRADNÍ ŘEŠENÍ - nefunguje na telefonech !!!! */
@@ -208,7 +219,7 @@ else
 c_us=this.class_ko;
 d_us="block";
 }
-document.getElementById(this.id_uspa[0]).className+=c_us; /* přidá třídu s patřičným obrázkem */
+document.getElementById(this.id_uspa[0]).classList.add(c_us); // přidá třídu s patřičným obrázkem
 document.getElementById(this.id_uspa[1]).style.display=d_us; /* zobrazí anebo nezobrazí chybovou informaci */
 
 /* opatření k testu ukládání dat - localstorage */
@@ -223,8 +234,8 @@ else
 c_ul=this.class_ko;
 d_ul="block";
 }
-document.getElementById(this.id_ukla[0]).className+=c_ul; /* přidá třídu s patřičným obrázkem */
-document.getElementById(this.id_ukla[1]).style.display=d_ul;  /* zobrazí anebo nezobrazí chybovou informaci */
+document.getElementById(this.id_ukla[0]).classList.add(c_ul); // přidá třídu s patřičným obrázkem
+document.getElementById(this.id_ukla[1]).style.display=d_ul;  // zobrazí anebo nezobrazí chybovou informaci
 },
 all(){
 /* funkce provede všechny potřebné testy */

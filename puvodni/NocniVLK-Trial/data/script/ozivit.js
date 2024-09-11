@@ -43,6 +43,7 @@ a(){
 
 if(this.ok==null)
 {
+// pokud proměnná, která hlídá zda prohlížeč podporuje anebo funguje Local storage zatím nebyla naplněna hodnotou
 let retezec=location.search.slice(1); /* odebere Otazník z řetězce - aby mohlo dojít ke konverci JSON */
 let pole="";
 try
@@ -54,16 +55,64 @@ catch(e)
 return; /* něco se pokazilo a nepodařilo se dostat pomocí JSON z řetězce pole - funkce bude ukončena */
 }
 this.ok=pole[1]; /* první položka v poly je výsledek testu, zda funguje Local storage - viz start.js funkce over */
+
+
+if(this.ok)
+{
+// pokud je local storage podporován a funkční bude this.ok==true
+this.zadost_o_trvale_uloziste(); // funkce zkontroluje jestli prohlížeč povolil aplikaci trvalé uložiště, pokud ne, pokusí se o udělení žádosti
+}
 }},
+zadost_o_trvale_uloziste(){
+// funkce zkontroluje jestli prohlížeč povolil aplikaci trvalé uložiště, pokud ne, pokusí se o udělení žádosti
+if(navigator.storage&&navigator.storage.persisted)
+{
+navigator.storage.persisted().then(isPersisted=>{
+if(isPersisted)
+{
+console.log('Úložiště je trvalé.');
+}
+else
+{
+console.log('Úložiště není trvalé.');
+navigator.storage.persist().then(granted => {
+if(granted)
+{
+console.log('Trvalé úložiště bylo uděleno.');
+}
+else
+{
+console.log('Prohlížeč neudělil trvalé úložiště.');
+}});}});}
+},
 uloz(klic,data){
 /* funkce zajišťuje ukládání dat na local storage */
 
 if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
-localStorage.removeItem(klic); /* nejprve provede smazání dat pod klíčem */
-localStorage.setItem(klic,data); /* provede uložení dat na localStorage [klíč,data k uložení] */
+try{
+// Zápis do Local Storage
+localStorage.removeItem(klic); // nejprve provede smazání dat pod klíčem
+localStorage.setItem(klic,data); // provede uložení dat na localStorage [klíč,data k uložení]
+}catch(e){
+// Pokud je vyhozena chyba, zkontrolujeme, zda jde o QuotaExceededError
 
-},
+let chyba=""; // do proměnné se uloží chyba, která nastala
+
+if(e.code===22||e.name==='QuotaExceededError')
+{
+// Kvóta Local Storage byla překročena. Dostatek místa na disku, ale omezení pro Local Storage
+chyba="Dostatek místa na disku, ale omezení pro lokální uložiště.";
+console.log('Kvóta Local Storage byla překročena. Dostatek místa na disku, ale omezení pro Local Storage.');
+}
+else
+{
+// Došlo k problému s ukládáním do Local Storage, pravděpodobně kvůli nedostatku místa na disku
+chyba="Došlo k problému s ukládáním. Pravděpodobně kvůli nedostatku místa na disku anebo paměťové kartě";
+console.log('Došlo k problému s ukládáním do Local Storage, pravděpodobně kvůli nedostatku místa na disku.');
+}
+chyba_ukladani.zobrazit_chybu(chyba); // funkce prostřednictvím dialogového okna zobrazí chybu s nedostatkem místa na disku anebo že nefunguje ukládání na Local storage - v ochrany.js
+}},
 nacti(klic){
 /* funkce zajišťuje ukládání dat na local storage */
 
