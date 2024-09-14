@@ -691,15 +691,17 @@ font-size:1rem;
 .pata
 {
 position:absolute;
-left:0px;
-bottom:0px;
 padding:1rem;
 z-index:0;
+right:0;
+top:0;
+width:calc(6rem + 10vw);
+text-align:center;
 }
 
 .pata p
 {
-font-size:.8rem;
+font-size:calc(.7rem + .1vw);
 }
 
 .pata a
@@ -707,7 +709,7 @@ font-size:.8rem;
 color:var(--b4);
 border:none;
 padding:0;
-font-size:1rem;
+font-size:calc(.9rem + .1vw);
 display:inline-block;
 }
 
