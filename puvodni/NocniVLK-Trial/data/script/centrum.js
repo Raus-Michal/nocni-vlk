@@ -4,6 +4,7 @@ a_obchuzka:false, // určuje zda je aktivní upozornění na obchůzku
 a_odpocet:false, // určuje, zda je aktivní odpočet do obchůzky (tedy zda je zapnutý Noční VLK)
 a_uspano:false, // proměnná určuje zda došlo k uspání aplikace
 class_h:"uhr-h", // název class v CSS, která zruší pozůstatek stínu z animace stínování Wait...
+cyklus_kon_platna:null, // proměnná hlídá počet ciklů, kdy se má kontrolovat jestli nedošlo k vymazání HLAVNÍHO plátna CANVAS se systémem obchůzek
 tak(){ /* funkce je nekonečný interval zajišťující veškeré procesy, které je třeba hlídat v reálném čase */
 hodiny.tik(); /* zápis hodin na hlavním kontejneru */
 
@@ -19,6 +20,18 @@ if(this.a_odpocet)
 {
 // pokud je odpočet - hlavní funkce Noční VLK je zapnutý
 obch.odpocet(); /* funkce odpočítává konec Intervalu do obchůzky - ve vlk.js */
+}
+
+if(this.a_odpocet&&canvas_vymaz.hlidac)
+{
+// pokud se počítá odpočet do obchůzky hlavní funkce aplikace Noční VLK a je proměnná canvas_vymaz.hlidac=TREU, proměnná canvas_vymaz.hlidac určuje jestli se hlídá vymazání plátna CANVAS se systémem obchůzek - pokud TRUE=hlídání je zapnuté, FALSE=HLÍDÁNÍ JE VYPNUTÉ - kontrolovat výmaz plátna canvas v objektu TIK ve centrum.js 
+this.cyklus_kon_platna++; // přidá k cyklu +1 každých 500ms
+if(this.cyklus_kon_platna>=10)
+{
+// pokud je cyklus překročen, tedy za cca 5 sekund
+canvas_vymaz.kontrola(); // funkce zkontroluje jestli nedošlo k vymazání HLAVNÍHO plátna CANVAS se systémem obchůzek - v ochrany.js
+this.cyklus_kon_platna=null; // vynuluje počítání cyklu
+}
 }
 
 if(this.a_uspano)
@@ -202,6 +215,7 @@ id:[ // pole s id všech dialogových oken používaných v aplikaci
 "d-max-plan", // 15. id dialogového okna oznamující, že již je zadán maximální počet plánů
 "d-ozivP", // 16. id dialogového okna S oznámením, že funkce Plánovač a tedy Plány budou obnoveny
 "d-chyba", // 17. id dialogového okna s chybovou informací - Problémy s místem na disku anebo s místem na paměťové kartě
+"d-kolaps", // 18. id dialogového okna s chybovou informací - Kolaps aplikace
 ],
 zas:["b-z-a","k-d-zas","b-z-n"],
 obch:["b-obch-a","k-d-obch","b-obch-n"],
@@ -221,7 +235,8 @@ planovac_info:["k-d-plan","plan-zrusit"], // tlačítka dialogového okna info k
 planovac_dotaz:["k-d-dotaz-plan","b-dotaz-plan-a","b-dotaz-plan-n"], //  tlačítka dialogového okna dotazu ke zrušení konkrétního Plánu - Křížek , Ano-Ne
 planovac_max:["k-max-plan","b-max-plan-ok"], // tlačítka dialogového okna oznamující, že již je zadán maximální počet plánů - Křížek a Rozumím
 kont:"but-kon", // button pro zobrazení kontaktu na programátora, který se následně změní na kopírovat email
-chyba_dia:["k-chyba","b-chyba-ok"], // křížek a button k dialogovému oknu zobrazující chybovou hlášku Problémi s místem na disku anebo paměťové kartě
+chyba_dia:["k-chyba","b-chyba-ok"], // id křížek a button k dialogovému oknu zobrazující chybovou hlášku Problémi s místem na disku anebo paměťové kartě
+kolaps_dia:["k-kolaps","b-kolaps-ok"], // id křížek a button k dialogovému oknu zobrazující hlášku o Kolapsu zařízení
 handleEvent(e){
 const k=e.target.id; /* zjistí id prvku na který bylo kliknuto */
 
@@ -326,6 +341,14 @@ zamek.blok(); /* aktivuje blokaci zámku obrazovky */
 /* window.onbeforeunload=function(){return 'Chcete zavřít aplikaci Noční VLK?';};  ochrana před náhodným uzavřením aplikace */
 uzamceni.jednou(); /* pokud bude aktivní zámek obrazovky - zobrazí, že je aplikace uzamčena */
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
+
+if(window.tik.a_odpocet)
+{
+// pokud je zaplý odpočet intervalu do obchůzky hlavní funkce aplikace Noční VLK - proměnná v objektu TIK ve centrum.js
+window.tik.cyklus_kon_platna=null; // vynuluje počítání cyklu kontroly výmazu plátna canvas v objektu TIK ve centrum.js
+canvas_vymaz.hlidac=true;  // proměnná určuje jestli se hlídá vymazání plátna CANVAS se systémem obchůzek - pokud TRUE=hlídání je zapnuté, FALSE=HLÍDÁNÍ JE VYPNUTÉ - kontrolovat výmaz plátna canvas v objektu TIK ve centrum.js
+}
+
 dia.off(this.id[3]); /* vypne dialogové okno */
 }
 
@@ -509,6 +532,16 @@ klik.hraj(false); // bude přehrávat zvuk 1x klik
 this.off(this.id[17]); // zavře dialogové okno s oznámením, Problémy s místem na disku anebo paměťové kartě
 }
 
+if(k==this.kolaps_dia[0]||k==this.kolaps_dia[1])
+{
+// Kliknuto na Křížek anebo ROzumím u dialogového okna: Kolaps aplikace
+// pokud je zobrazena chyba o tom, že zařízení není v dostatečné kondici - canvas_vymaz.hlidac v ochrany.js
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
+vlk.ozivit.kresly_system(obch.id_can); // znovu vykreslí HLAVNÍ plátno se systémem obchůzek v aktuálním stavu - funkce ve vlk.js
+canvas_vymaz.hlidac=true;  // proměnná určuje jestli se hlídá vymazání plátna CANVAS se systémem obchůzek - pokud TRUE=hlídání je zapnuté, FALSE=HLÍDÁNÍ JE VYPNUTÉ - kontrolovat výmaz plátna canvas v objektu TIK ve centrum.js 
+this.off(this.id[18]); // zavře dialogové okno s oznámením: Kolaps aplikace
+}
+
 },
 posON(id){
 // posluchače k tlačítkům Dialogových oken
@@ -675,6 +708,15 @@ for(let i=0;i<l13;i++)
 document.getElementById(this.chyba_dia[i]).addEventListener("click",this); // přidání posluchačů událostí: Křížek, Rozumím - Chybová hláška problémy s místem na disku anebo paměťové kartě
 }}
 
+if(id==this.id[18])
+{
+// tlačítka Křížek, Rozumím - Chybová hláška: Kolaps aplikace
+let l14=this.kolaps_dia.length;
+for(let i=0;i<l14;i++)
+{
+document.getElementById(this.kolaps_dia[i]).addEventListener("click",this); // přidání posluchačů událostí: Křížek, Rozumím - Chybová hláška: Kolaps aplikace
+}}
+
 },
 posOFF(id){
 // odebírání posluchačů událostí k Dialogovým oknům
@@ -836,6 +878,15 @@ for(let i=0;i<l13;i++)
 document.getElementById(this.chyba_dia[i]).removeEventListener("click",this); // odebere posluchačů událostí: Křížek, Rozumím - Chybová hláška problémy s místem na disku anebo paměťové kartě
 }}
 
+if(id==this.id[18])
+{
+// tlačítka Křížek, Rozumím - Chybová hláška: Kolaps aplikace
+let l14=this.kolaps_dia.length;
+for(let i=0;i<l14;i++)
+{
+document.getElementById(this.kolaps_dia[i]).removeEventListener("click",this); // odebrání posluchačů událostí: Křížek, Rozumím - Chybová hláška: Kolaps aplikace
+}}
+
 },
 on(id){
 /* otevření dialogového okna */
@@ -856,9 +907,9 @@ this.aktivni=""; /* vynuluje proměnnou, která udává aktivní dialogové okno
 vyp_akt(){
 /* funkce vypne právě aktivní dialogové okno */
 
-if(this.aktivni==this.id[6]||this.aktivni==this.id[12]||this.aktivni==this.id[16])
+if(this.aktivni==this.id[6]||this.aktivni==this.id[12]||this.aktivni==this.id[16]||this.aktivni==this.id[18])
 {
-// pokud je právě aktivní okno this.id[6] - Oznámení o obnovení Nočního VLKa, this.id[12] - Oznámení o obnovení funkce Minutka anebo this.id[16] - Oznámení o obnovení funkce Minutka --- k vypnutí těchto dialogových oken nesmí nikdy dojít a tak bude následovat return
+// pokud je právě aktivní okno this.id[6] - Oznámení o obnovení Nočního VLKa, this.id[12] - Oznámení o obnovení funkce Minutka anebo this.id[16] - Oznámení o obnovení funkce Minutka --- k vypnutí těchto dialogových oken nesmí nikdy dojít a tak bude následovat return - this.id[18] - Upozornění - Kolaps aplikace
 return; // funkce bude v tomto místě ukončena
 }
 
@@ -2071,7 +2122,7 @@ return; /* pokud nebude licence v pořádku ukončí funkci */
 this.poloh(); // zkontroluje velikost obrazovky uživatele, pokud neodpovídá požadovaným rozměrům, schová panel s možnostmi polohování aplikace
 hl_kon.cisti_form(); /* vyčistí formuláře obchůzek, tak, aby tam nezůstala případná nežádoucí data */
 window.onbeforeunload=()=>{return 'Chcete zavřít aplikaci Noční VLK?';}; /* ochrana před náhodným uzavřením aplikace */
-
+window.hlidac.aktivace(); // aktivuje ochranu před uspáním
 }};
 
 pripravenost.centrum=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v autorun.js - informuje o načtení této js knihovny */

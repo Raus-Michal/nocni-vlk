@@ -159,6 +159,7 @@ if(this.odpocet||this.minutka||this.planovac) /* proměnná, která z vlk.js dá
 f_video.zvuk("ztlumit");  /* vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 pinkani.hraj(true); /* přehraje zvuk pinkání stále dokola */
 tik.a_uspano=true; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně začít zesilovat zvuk pinkání
+canvas_vymaz.hlidac=false; // přestane se hlídat vymazání plátna CANVAS se systémem obchůzek - proměnná určuje jestli se hlídá vymazání plátna CANVAS se systémem obchůzek - pokud TRUE=hlídání je zapnuté, FALSE=HLÍDÁNÍ JE VYPNUTÉ - kontrolovat výmaz plátna canvas v objektu TIK ve centrum.js 
 }
 
 }
@@ -179,6 +180,19 @@ else
 pinkani.zastav(); // zastaví přehrávání zvuku pinkání - ve vlk.js
 tik.a_uspano=false; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně přestat zesilovat zvuk pinkání
 }
+
+if(!this.odpocet&&uloz.ok)
+{
+// pokud není aktivní odpočet intervalu do obchůzky a funguje local storage, dojde ke kontrole jestli je možné ještě oživit Nočního VLKa, toto se aktivuje většinou časovačem, kde po vypršení času se tlačítko Oživit vypne, pokud ovšem byla aplikace minimalizována v liště windows anebo přenuto do jiného okna u telefónu anebo tabletu, obvykle dojde k uspání aplikace a vypnutí tohoto časovače, následně při obnovení okna aplikace zpět není vypnuto tlačítko Obnovit, ipřesto, že obnova již není možná
+const zobrazit_ozivit=uloz.dead_time(); // KONTROLA - ABY NEDOŠLO K OŽIVENÍ VLKA po více jak 60MINUTÁCH od plánovaného TIMEOUTU, pokud je oživení možné vrací TRUE, pokud možné není vrací FALSE - funkce v ozivit.js
+
+if(!zobrazit_ozivit)
+{
+// pokud není oživení možné - vypne tlačítko Oživit
+clearTimeout(uloz.casovac_butt_oziv); // vynuluje časovač, který vypíná posluchače tlačítka Oživit, za určitý požadovaný časový úsek
+g_pos.ozivitOff(); // funkce vypne posluchač tlačítka Oživit a sníží jeho opacity na 50% - funkce je v teto JS knihovně, tedy v centrum.js
+}}
+
 
 v_port.handleEvent(); /* aktivuje propočet velikosti ona podle VisualViewport API - na některých zaříueních např. iPad dojde jinak ke "scvrknutí" okna aplikace */
 uzamceni.jednou(); /* pokud bude aktivní zámek obrazovky - zobrazí, že je aplikace uzamčena */
@@ -242,5 +256,38 @@ dia.on(dia.id[17]); // otevře dialogové okna s chybovou informací - Problémy
 document.getElementById(this.id_chyba_text).innerText=chyba; // přepíše v dialogovém okně text s chybou, která nastala
 gong.hraj(false); // zahraje GONG.mp3 - FALSE = 1x - ve vlk.js
 }};
+
+const canvas_vymaz={
+// objek slouží ke kontrole, zda nedošlo k vymazání plátna CANVAS se systémem obchůzek, to se může stát když dojde ke kolapsu zařízení například nedostatek místa na disku v počítači
+hlidac:true, // proměnná určuje jestli se hlídá vymazání plátna CANVAS se systémem obchůzek - pokud TRUE=hlídání je zapnuté, FALSE=HLÍDÁNÍ JE VYPNUTÉ
+empty(){
+// funkce vytvoří imaginární prázdné plátno s rozměry HLAVNÍHO plátna CANVAS, kde se zobrazuje uživateli systém obchůzek a z tohoto data získá data URL (base64), tedy data URL (base64), jako by plátno bylo vymazáno
+const emptyCanvas=document.createElement('canvas'); // vytvoří imaginární plátno canvas
+emptyCanvas.width=document.getElementById(obch.id_can).width; // přidělí imaginárnímu plátnu canvas šířku HLAVNÍHO plátna canvas, kde je zobrazen systém obchůzek - obch.id_can je ve vlk.js
+emptyCanvas.height=document.getElementById(obch.id_can).height; // přidělí imaginárnímu plátnu canvas výšku HLAVNÍHO plátna canvas, kde je zobrazen systém obchůzek - obch.id_can je ve vlk.js
+
+return emptyCanvas.toDataURL(); // funkce vrátí data URL (base64) prázdného plátna, které velikostí odpovídá HLAVNÍMU plátnu, tedy data URL (base64) tohoto imaginárního plátna odpovídají datům URL (base64) fakticky prázdnému plátnu HLAVNÍHO plátna canvas kde se zobrazuje uživateli systém obchůzek
+},
+kontrola(){
+// funkce kontroluje jestli nedošlo k vymazání HLAVNÍHO plátna CANVAS, kde je zobrazován uživateli systém obchůzek, k tomu dochází, pokud dojde například ke kolapsu aplikace vlivem nedostatku místa na disku anebo paměťové kartě zařízení
+let data_full=null; // proměnná zjistí data URL (base64) plného plátna
+let data_empty=this.empty(); // proměnná zjistí jaká jsou data URL (base64) má prázdné plátno
+
+try{
+// ochranné provedení načtení dat URL (base64) z hlaního plátna, funkce může selhat, pokud jsou na plátně CANVAS načteny externí obrázky, což je u okruhu SINGL a DABL obrázek tlapky, v takovém případě je plátno "znečištěné" a z bezpečnostních důvodů je zabráněno načtení data URL plátna CANVAS
+data_full=document.getElementById(obch.id_can).toDataURL(); // do proměnné načte data URL (base64) plátna canvas 
+}
+catch(e)
+{
+// pokud bude plátno "znečištěno" = bude v něm nahrán obrázek tlapka.svg (to bývá na SINGL a DABL okruhu) - nastane tato podmínka, a plátno tedy není prázdné
+}
+
+if(data_full==data_empty)
+{
+// pokud se data URL plného plátna shoduji s daty URL prázdného plátna - plátno bylo vymazáno
+dia.on(dia.id[18]); // zapne dialogové okno: Kolaps aplikace
+gong.hraj(false); // zahraje GONG.mp3 - FALSE = 1x 
+this.hlidac=false; // proměnná určuje jestli se hlídá vymazání plátna CANVAS se systémem obchůzek - pokud TRUE=hlídání je zapnuté, FALSE=HLÍDÁNÍ JE VYPNUTÉ
+}}};
 
 pripravenost.ochrany=true; /* MUSÍ BÝT NA POSLEDNÍM ŘÁDKU KNIHOVNY - v autorun.js - informuje o načtení této js knihovny */

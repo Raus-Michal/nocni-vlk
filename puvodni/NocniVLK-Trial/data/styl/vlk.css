@@ -258,7 +258,7 @@ background:black;
 h1,h2,h3
 {
 text-align:center;
-font-family:"nadpis","Georgia","serif";
+font-family:"nadpis","Georgia",serif;
 font-weight:600;
 margin-bottom:1rem;
 }
@@ -275,11 +275,12 @@ font-size:1.2rem;
 font-size:calc(1.2rem + 2vw);
 }
 
+
 h3
 {
 font-size:1.5rem;
 font-size:calc(1.5rem + .75vw);
-padding-top:1rem;
+padding-top:1.5rem;
 }
 
 img
@@ -307,6 +308,9 @@ a,input,button
 cursor:pointer;
 transition:500ms;
 }
+
+
+p::selection,span::selection,textarea::selection,input::selection,label::selection,button::selection,h1::selection,h2::selection,h3::selection,a::selection,li::selection,em::selection,strong::selection,td::selection,time::selection{color:black;background-color:aqua};
 
 button
 {
@@ -572,7 +576,7 @@ justify-content:center;
 {
 text-align:center;
 padding:.25rem;
-margin:0 1rem 0 1rem;
+margin:1rem 1rem 0 1rem;
 width:min-content;
 }
 
@@ -1132,7 +1136,7 @@ border-radius:5px;
 height:100%;
 min-height:5rem;
 hyphens:auto;
-text-align:justify;
+text-align:left;
 }
 
 .poz-area:focus {
@@ -1575,7 +1579,7 @@ background:var(--b5); /* barva ukazatele měřidla */
 
 .o-telo
 {
-padding: 0 1rem 1rem 1rem;
+padding:4rem 1rem 1rem 1rem;
 overflow:auto;
 }
 
@@ -2544,12 +2548,20 @@ max-width:45ch;
 
 .s-zal li
 {
-font-size:1rem;
+font-size:.8rem;
+line-height:1.25;
 text-align:justify;
 hyphens:auto;
 margin-bottom:.5rem;
-line-height:1.25;
 }
+
+/* MOBIL S pokud je obrazovka větší než 18em - 288px */
+@media only screen and (min-width: 18em)
+{
+.s-zal li
+{
+font-size:1rem;
+}} 
 
 /* pokud je obrazovka větší než 32em - 512px */
 @media only screen and (min-width:32em)
@@ -2671,6 +2683,14 @@ line-height:1;
 font-size:2rem;
 }
 
+.h2-f /* class pro použití velikosti písma o velikosti nadpisu H2 */
+{
+font-size:1.2rem;
+font-size:calc(1.2rem + 2vw);
+font-family:"nadpis","Georgia",serif;
+font-weight:600;
+}
+
 .f-115
 {
 font-size:1.15rem;
@@ -2738,10 +2758,16 @@ margin-top:0rem;
 padding:0;
 }
 
+.pt0
+{
+padding-top:0;
+}
+
 .p05
 {
 padding:.5rem;
 }
+
 
 .pb025
 {
@@ -2940,7 +2966,6 @@ border-radius:4px;
 opacity:0;
 z-index:-1;
 transition:opacity 250ms;
-font-size:1.2rem;
 }
 
 
@@ -2954,7 +2979,8 @@ opacity:.5;
 
 .p-s
 {
-position:sticky;
+position:fixed;
+width:100%;
 top:0;
 left:0;
 will-change:transform;

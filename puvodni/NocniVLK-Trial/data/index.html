@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<link rel="stylesheet" href="styl/vlk.css?v=2">
+<link rel="stylesheet" href="styl/vlk.css?v=3">
 <meta name="description" content="Samotná webová aplikace Noční-VLK, která pohlídá časové intervaly pro kontrolní obchůzky: objektu, věcí anebo osob.">
 <meta name="keywords" content="obchůzky,intervaly,hlídání">
 <meta name="author" content="Boar-cz">
 <meta property="og:title" content="Noční VLK - aplikace">
 <meta property="og:description" content="Samotná webová aplikace Noční-VLK, která pohlídá časové intervaly pro kontrolní obchůzky: objektu, věcí anebo osob.">
-<meta property="og:image" content="https://www.boar-cz.info/nocni-vlk/data/nahled/nahled.png?v=2">
+<meta property="og:image" content="https://www.boar-cz.info/nocni-vlk/data/nahled/nahled.png?v=3">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:update_time" content="2024-09-08T18:00:00+01:00">
+<meta property="og:update_time" content="2024-09-17T18:00:00+01:00">
 <meta property="og:locale" content="cs_CZ">
 <meta property="og:site_name" content="Noční VLK">
 <meta property="og:type" content="website">
@@ -23,12 +23,12 @@
 <meta property="twitter:url" content="https://www.boar-cz.info/nocni-vlk/">
 <meta property="twitter:title" content="Noční VLK - aplikace">
 <meta property="twitter:description" content="Samotná webová aplikace Noční-VLK, která pohlídá časové intervaly pro kontrolní obchůzky: objektu, věcí anebo osob.">
-<meta property="twitter:image" content="https://www.boar-cz.info/nocni-vlk/data/nahled/nahled.png?v=2">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png?v=2">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png?v=2">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png?v=2">
-<link rel="manifest" href="favicon/site.webmanifest?v=2">
-<link rel="mask-icon" href="favicon/safari-pinned-tab.svg?v=2" color="#5bbad5">
+<meta property="twitter:image" content="https://www.boar-cz.info/nocni-vlk/data/nahled/nahled.png?v=3">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png?v=3">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png?v=3">
+<link rel="manifest" href="favicon/site.webmanifest?v=3">
+<link rel="mask-icon" href="favicon/safari-pinned-tab.svg?v=3" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#9f00a7">
 <meta name="theme-color" content="#ffffff">
 <title>Noční VLK - aplikace</title>
@@ -38,9 +38,9 @@
 "@type": "WebApplication",
 "@id": "WebApplication",
 "dateCreated": "2023-11-01",
-"dateModified": "2024-09-08",
+"dateModified": "2024-09-17",
 "datePublished": "2023-11-01",
-"version": "[2,5]",
+"version": "[1,0]",
 "mainEntityOfPage": "https://www.boar-cz.info",
 "description": "Samotná webová aplikace Noční VLK, která pohlídá časové intervaly pro kontrolu: objektu, věcí anebo osob.",
 "abstract": "Jedinečná on-line aplikace Noční VLK, která pohlídá časové úseky objektu, věcí anebo osob.",
@@ -373,7 +373,7 @@ Vpravo
 Zavřít
 </button>
 </div>
-<div class="o-telo">
+<div class="o-telo pt0">
 <div class="flex-c aic">
 <p id="n1" class="nad mb-1">Označte obchůzky na&nbsp;Vašem oddíle</p>    
 <p class="tj">Kliknutím označte obchůzky, které jsou na&nbsp;Vašem oddíle a&nbsp;pokračujte do&nbsp;dalšího kroku.</p>
@@ -430,7 +430,7 @@ Zavřít
 Zavřít
 </button>
 </div>
-<div class="o-telo o-telo-s">
+<div class="o-telo o-telo-s pt0">
 <p id="n2" class="nad mb-1">Výběr délky intervalu</p>
 <p class="tj">Délky intervalu do&nbsp;obchůzky jsou přednastaveny. Tyto&nbsp;intervaly mohou být změněny. Změny je&nbsp;možné provést teď anebo&nbsp;kdykoli později v&nbsp;nastavení.</p>
 <div class="int-box">
@@ -498,7 +498,7 @@ Snížit interval
 Zavřít
 </button>
 </div>
-<div class="o-telo v-o">
+<div class="o-telo pt0 v-o">
 <p id="n3" class="nad mb-1">Volba první obchůzky</p>
 <p class="tj">V&nbsp;případě obchůzek různého druhu, je&nbsp;možné zvolit, kterou obchůzkou bude obchůzková činnost zahájena. <span class="c-b5">První obchůzka je&nbsp;znázorněna plným kolečkem zelené barvy.</span></p>
 <canvas id="can-v-o" class="can" height="400" width="400">Canvas není podporován Vaším prohlížečem</canvas>
@@ -526,7 +526,7 @@ Zavřít
 Zavřít
 </button>
 </div>
-<div class="o-telo v-o">
+<div class="o-telo pt0 v-o">
 <p id="n4" class="nad mb-1">Zvolte odložený start první obchůzky</p>
 <p class="tj">Výzvu k&nbsp;provedení první obchůzky je&nbsp;možné odložit. Výzva k&nbsp;první obchůzce, tak&nbsp;nenastane bezprostředně po&nbsp;spuštění, ale&nbsp;se&nbsp;zvoleným odkladem. Maximální odklad první obchůzky je&nbsp;120&#8239;minut.</p>
 <div class="flex jcc">
@@ -564,7 +564,7 @@ Zavřít
 Zavřít
 </button>
 </div>
-<div class="o-telo">
+<div class="o-telo pt0">
 <div class="flex-c aic">
 <p id="n5" class="nad mb-1">Rekapitulace</p>
 <p class="tj mb-2">Před spuštěním si&nbsp;zkontrolujte nastavení a&nbsp;připadně jej opravte pomocí tlačítka Zpět krok</p>
@@ -829,32 +829,35 @@ Zavřít
 
 <div class="o-telo flex-c aic">
 <h3>Zapnutí Nočního&nbsp;VLKa</h3>
-<p class="tj">Hlavní funkci aplikace Noční VLK, spustíte&nbsp;tak, že&nbsp;kliknete na&nbsp;tlačítko Spustit s&nbsp;logem Nočního&nbsp;VLKa. Po&nbsp;zmáčknutí tohoto tlačítka, se&nbsp;zobrazí průvodce spouštěním ve&nbsp;kterém si&nbsp;nastavíte parametry obchůzkové činnosti, krok po&nbsp;kroku. Poslední krok průvodce spouštěním je&nbsp;zakončen tlačítkem Spustit, kde&nbsp;po&nbsp;jeho zmáčknutí je&nbsp;hlavní funkce aplikace Noční&nbsp;VLK zapnuta.</p>
+<p class="tj">Hlavní funkci aplikace Noční VLK, spustíte&nbsp;tak, že&nbsp;kliknete na&nbsp;tlačítko Spustit s&nbsp;logem Nočního&nbsp;VLKa.</p>
+<p class="tj">Po&nbsp;zmáčknutí tohoto tlačítka, se&nbsp;zobrazí průvodce spouštěním, ve&nbsp;kterém si&nbsp;nastavíte parametry obchůzkové činnosti, krok po&nbsp;kroku.</p>
+<p class="tj">Poslední krok průvodce spouštěním je&nbsp;zakončen tlačítkem Spustit, kde&nbsp;po&nbsp;jeho zmáčknutí je&nbsp;hlavní funkce aplikace Noční&nbsp;VLK zapnuta.</p>
+
 <p class="tj">Hlavní funkce aplikace Noční VLK řídí obchůzkovou činnost, tím&nbsp;způsobem, že&nbsp;upozorňuje na&nbsp;konkrétní obchůzky za&nbsp;určitý časový interval, podle parametrů, které&nbsp;byly v&nbsp;průvodci spouštěním nastaveny. Potvrzené obchůzky jsou zapsány v&nbsp;aktuálním čase do&nbsp;sekce Obchůzky s&nbsp;ikonkou panáčka.</p>
 
 <h3>Jak aplikaci Noční&nbsp;VLK nepoužívat</h3>
 <p class="tj">Při&nbsp;používání aplikace Noční VLK, nesmí dojít k&nbsp;uzamčení obrazovky anebo k&nbsp;režimu spánku zařízení. Pokud&nbsp;se tak stane, aplikace Noční&nbsp;VLK se&nbsp;stává nefunkční.</p>
 <p class="tj">Před&nbsp;automatickým uzamčením obrazovky je&nbsp;aplikace chráněna. Pokud&nbsp;je aplikace viditelně na&nbsp;obrazovce <em>(postačí v&nbsp;části obrazovky)</em>, nedochází k&nbsp;automatickému uzamčení obrazovky.</p>
-<p class="tj">Pokud dojde k&nbsp;uzamčení obrazovky, aplikace spustí zvukové upozornění, aby zabránila svému nefungování.</p>
 <p class="tj">Aplikaci Noční&nbsp;VLK nepřekrývejte jinou aplikací a&nbsp;neminimalizujte do&nbsp;lišty Windows. Mějte aplikaci viditelně na&nbsp;obrazovce svého zařízení, alespoň v&nbsp;části obrazovky.</p>
-<p class="tj">Počítače, tablety i&nbsp;telefony mají tendenci aplikace, které nejsou aktivní <em>(nejsou viditelně na obrazovce)</em> uspávat a&nbsp;dočasně vypínat z&nbsp;důvodů úspory energie.</p>
-<p class="tj">Proti tomuto nežádoucímu jevu je&nbsp;aplikace chráněna a&nbsp;pokud dojde k&nbsp;uspání aplikace, spustí&nbsp;se zvukové upozornění. Výjimku tvoří aplikace náročné na&nbsp;výkon, například přehrávání videa přes&nbsp;celou obrazovku, které&nbsp;umožňuje překrýt aplikaci Noční&nbsp;VLK, aniž&nbsp;by došlo k&nbsp;omezení funkce této aplikace.</p>
-<p class="tj">Pokud není Vaše zařízení v&nbsp;optimální kondici, napřídklad není dostatek místa na&nbsp;disku, probíhá aktualizace systému, zařízení se&nbsp;seká a&nbsp;podobně, může dojít k&nbsp;nesprávnému fungování aplikace. Z&nbsp;tohoto důvodu je&nbsp;nutné mít zařízení ve&nbsp;kterém je&nbsp;aplikace spuštěna v&nbsp;dobré kondici, především mít dostatek místa pro vyrovnávací pamět na&nbsp;disku anebo paměťové kartě.</p>
+<p class="tj">Pokud dojde k&nbsp;uzamčení obrazovky, minimalizování aplikace anebo překrytí aplikace jinou aplikací a&nbsp;současně je aktivní funkce Noční&nbsp;VLK, Minutka anebo&nbsp;Plánovač: <strong>aplikace spustí zvukové upozornění</strong>, aby&nbsp;zabránila svému nefungování. Současně <strong>zobrazí dialogové okno s&nbsp;upozorněním</strong>, že&nbsp;<strong>aplikace byla uspána</strong>.</p>
+<p class="tj">Počítače, tablety i&nbsp;telefony mají tendenci aplikace, které nejsou aktivní <em>(nejsou viditelně na obrazovce)</em>, uspávat a&nbsp;dočasně vypínat z&nbsp;důvodů úspory energie.</p>
+<p class="tj">Výjimku tvoří aplikace náročné na&nbsp;výkon, například přehrávání videa přes&nbsp;celou obrazovku, které&nbsp;umožňuje překrýt aplikaci Noční&nbsp;VLK, aniž&nbsp;by došlo k&nbsp;omezení funkce této aplikace.</p>
+<p class="tj">Pokud není Vaše zařízení v&nbsp;optimální kondici, například není dostatek místa na&nbsp;disku, probíhá aktualizace systému, zařízení se&nbsp;seká a&nbsp;podobně, může dojít k&nbsp;nesprávnému fungování aplikace. Z&nbsp;tohoto důvodu je&nbsp;nutné mít zařízení ve&nbsp;kterém je&nbsp;aplikace spuštěna v&nbsp;dobré kondici, především mít dostatek místa pro vyrovnávací paměť na&nbsp;disku anebo paměťové kartě.</p>
 <p class="tj">Aplikace Noční VLK své propočty zakládá na&nbsp;aktuálním čase ve&nbsp;Vašem zařízení. Pokud používáte aplikaci, neměňte v&nbsp;době používání aplikace datum a&nbsp;čas.</p>
 
 <h3>Otázky a odpovědi</h3>
-<p class="nad mt-0">Jak uzamčít zařízení, když&nbsp;od&nbsp;něj potřebuji odejít?</p>
-<p class="tj">Pokud potřebujete od&nbsp;zařízení kde&nbsp;máte spuštěnou aplikaci Noční VLK odejít a&nbsp;uzamčít&nbsp;ho, postupujte následovně:</p>
+<p class="nad mt-0">Jak uzamknout zařízení, když&nbsp;od&nbsp;něj potřebuji odejít?</p>
+<p class="tj">Pokud potřebujete od&nbsp;zařízení, kde&nbsp;máte spuštěnou aplikaci Noční VLK odejít a&nbsp;uzamknout&nbsp;ho, postupujte následovně:</p>
 <ul class="s-zal">
 <li>nejprve aplikaci Noční&nbsp;VLK ukončete, uzavřením okna prohlížeče,</li>
-<li>zařízení uzamčete,</li>
+<li>zařízení uzamkněte,</li>
 <li>při&nbsp;návratu zařízení odemkněte,</li>
-<li>spusťte aplikaci Noční&nbsp;VLK ve stejném prohlížeči jako byla spuštěna původně</li>
+<li>spusťte aplikaci Noční&nbsp;VLK stejným způsobem, jako&nbsp;byla spuštěna původně</li>
 </ul>
 <p class="tj">Aplikace Noční&nbsp;VLK, po úvodním spuštění, obnoví veškeré své funkce a&nbsp;dopočítá čas, jako&nbsp;by aplikace nebyla ukončena.</p>
 
-<p class="nad">Jak přidat anebo odebrat obchůzku, když&nbsp;už&nbsp;mám Nočního&nbsp;VLKa zaplého?</p>
-<p class="tj">Pokud potřebujete přidat anebo&nbsp;odebrat obchůzku a&nbsp;Noční&nbsp;VLK je&nbsp;již spuštěn, musí&nbsp;být nejprve zastaven.</p>
+<p class="nad">Jak přidat anebo odebrat obchůzku, když&nbsp;už&nbsp;mám Nočního&nbsp;VLKa zapnutého?</p>
+<p class="tj">Pokud potřebujete přidat anebo&nbsp;odebrat obchůzku a&nbsp;hlavní funkce Noční&nbsp;VLK je&nbsp;již spuštěna, musí&nbsp;být nejprve zastavena.</p>
 <p class="tj">Nejbezpečnější způsob:</p>
 <ul class="s-zal">
 <li>zmáčkněte tlačítko Zastavit s&nbsp;logem Nočního&nbsp;VLKa a&nbsp;potvrďte zastavení,</li>
@@ -862,14 +865,31 @@ Zavřít
 <li>průvodce spouštěním dokončete s&nbsp;volbou obchůzky s&nbsp;největším okruhem bez&nbsp;odloženého startu,</li>
 <li>v&nbsp;průvodci spouštěním zmáčkněte tlačítko Spustit a&nbsp;proveďte obchůzku s&nbsp;největším okruhem</li>
 </ul>
-<p class="tj">dále můžete aplikaci použítat i&nbsp;s&nbsp;přidanou anebo&nbsp;odebranou obchůzkou.</p>
+<p class="tj">dále můžete aplikaci používat i&nbsp;s&nbsp;přidanou anebo&nbsp;odebranou obchůzkou.</p>
 
 
 <p class="nad">Aplikaci jsem nechtěně vypl, co&nbsp;mám&nbsp;teď dělat?</p>
-<p class="tj">Pokud dojde k&nbsp;nechtěnnému vypnutí aplikace, aplikaci spusťte stejným způsobem jako původně <em>(ve&nbsp;stejném prohlížeči)</em>. Jakmile bude aplikace spuštěna, automaticky zahájí procesy obnovy.</p>
+<p class="tj">Pokud dojde k&nbsp;nechtěnému vypnutí aplikace, aplikaci spusťte stejným způsobem jako původně.</p>
+<p class="tj">Jakmile bude dokončeno úvodní spuštění aplikace <em>(souhlas s&nbsp;licenčními podmínkami, test funkcí&nbsp;…)</em> a&nbsp;zapne&nbsp;se hlavní část aplikace, automaticky budou zahájeny procesy obnovy všech funkcí, které v&nbsp;době ukončení aplikace byly aktivní.</p>
+
+<p class="nad">Zkolaboval&nbsp;mi systém, musel jsem zařízení znovu zapnout, co&nbsp;mám&nbsp;teď dělat?</p>
+<p class="tj">Pokud dojde k&nbsp;nechtěnému vypnutí aplikace, aplikaci spusťte stejným způsobem jako původně.</p>
+<p class="tj">Jakmile bude dokončeno úvodní spuštění aplikace <em>(souhlas s&nbsp;licenčními podmínkami, test funkcí&nbsp;…)</em> a&nbsp;zapne&nbsp;se hlavní část aplikace, automaticky budou zahájeny procesy obnovy všech funkcí, které v&nbsp;době ukončení aplikace byly aktivní.</p>
 
 <p class="nad">Zastavil jsem Nočního VLKa a&nbsp;aplikaci jsem nechtěně vypl, jenže jsem&nbsp;si neopsal obchůzky, co&nbsp;teď?</p>
-<p class="tj">Aplikaci spusťte stejným způsobem jako původně <em>(ve&nbsp;stejném prohlížeči)</em>. Zmáčkněte záložku Obchůzky se&nbsp;symbolem panáčka. V&nbsp;zobrazené sekci zmáčkněte tlačítko Obnovit obchůzky uložené aplikací. Obchůzky budou obnoveny.</p>
+<ul class="s-zal">
+<li>Spusťte aplikaci Noční&nbsp;VLK stejným způsobem, jako&nbsp;byla spuštěna původně,</li>
+<li>zmáčkněte záložku Obchůzky se&nbsp;symbolem panáčka,</li>
+<li>v&nbsp;zobrazené sekci zmáčkněte tlačítko Obnovit obchůzky uložené aplikací,</li>
+<li>obchůzky budou obnoveny.</li>
+</ul>
+
+<p class="nad">Dnes bude změna času z&nbsp;letního na&nbsp;zimní anebo naopak, mohu používat aplikaci?</p>
+<p class="tj">Hlavní funkci aplikace Noční&nbsp;VLK a&nbsp;funkci Minutka změna času z&nbsp;letního na&nbsp;zimní anebo ze&nbsp;zimního na&nbsp;letní <strong>neovlivní</strong>.</p>
+<p class="tj">Hlavní funkce aplikace Noční&nbsp;VLK a&nbsp;Minutka své propočty zakládá na&nbsp;odečtu Unixového času. Systém Unixového času identifikuje časové okamžiky pomocí počtu sekund uplynulých od&nbsp;okamžiku koordinovaného světového času <time datetime="1970-01-01T00:00:00">1.&nbsp;ledna&nbsp;1970 00:00:00&nbsp;UTC</time>. Unixový čas není ani&nbsp;lineární reprezentací času, ani&nbsp;přesnou reprezentací koordinovaného světového času.</p>
+
+<p class="nad">Když přehrávám video ve&nbsp;Windows přes&nbsp;celou obrazovku, aplikace hlásí, že&nbsp;byla&nbsp;uspána, co&nbsp;s&nbsp;tím?</p>
+<p class="tj">Okno s&nbsp;videm zmenšete tak, aby zůstalo viditelně na&nbsp;obrazovce a&nbsp;současně jste mohli na&nbsp;aplikaci Noční&nbsp;VLK potvrdit Rozumím, oknu s&nbsp;upozorněním, že&nbsp;aplikace byla uspána. Po&nbsp;potvrzení Rozumím v&nbsp;aplikaci Noční&nbsp;VLK následně klikněte dvakrát rychle za&nbsp;sebou levým tlačítkem myši do&nbsp;okna s&nbsp;videem. Video by&nbsp;mělo být přes&nbsp;celou obrazovku bez&nbsp;kolize s&nbsp;aplikací Noční&nbsp;VLK.</p>
 </div></div>
 </section>
 
@@ -893,72 +913,88 @@ Zavřít
 
 <p class="nad">Výzva k&nbsp;obchůzce</p>
 <p class="tj">Výzva k&nbsp;obchůzce je&nbsp;signalizována zvukem alarmu a&nbsp;oknem s&nbsp;informací, která&nbsp;konkrétní obchůzka má&nbsp;být provedena.</p>
-<p class="tj">Zvuk&nbsp;alarmu je&nbsp;přehráván do&nbsp;doby, než&nbsp;je vypnut pomocí tlačítka se&nbsp;symbolem přeškrtnutého reproduktoru anebo tlačítkem Provedu obchůzku.</p>
+<p class="tj">Zvuk&nbsp;alarmu je&nbsp;přehráván do&nbsp;doby, než&nbsp;je vypnut pomocí tlačítka se&nbsp;symbolem přeškrtnutého reproduktoru anebo tlačítka Provedu obchůzku.</p>
 <p class="tj">Aplikace nemá vizuální navádění, tedy je&nbsp;nutné, aby&nbsp;uživatel věděl, kde&nbsp;tuto aplikaci má&nbsp;spuštěnou (<em>v&nbsp;jakém prohlížeči, v&nbsp;jakém okně, a&nbsp;podobně</em>).</p>
 
 <p class="nad">Potvrzení výzvy k&nbsp;obchůzce</p>
 <p class="tj">Výzvu k&nbsp;obchůzce potvrdíte stlačením tlačítka Provedu obchůzku, myší anebo&nbsp;dotykem prstu, podle možností na&nbsp;Vašem zařízení.</p>
-<p class="tj">Výzvu k&nbsp;obchůzce je&nbsp;možné potvrdit (<em>u&nbsp;počítaču se systémem Windows</em>) také klávesou Enter anebo&nbsp;Mezerník, pokud&nbsp;je aplikace v&nbsp;aktivním okně vašeho zařízení.</p>
+<p class="tj">Výzvu k&nbsp;obchůzce je&nbsp;možné potvrdit (<em>u&nbsp;počítače se&nbsp;systémem Windows</em>) také klávesou Enter anebo&nbsp;Mezerník, pokud&nbsp;je aplikace v&nbsp;aktivním okně Vašeho zařízení.</p>
 <p class="tj">Pokud je aplikace v&nbsp;aktivním okně Windows, tak&nbsp;při&nbsp;výzvě k&nbsp;obchůzce: <strong>první stlačení klávesy Enter anebo&nbsp;Mezerník vypne zvuk alarmu, druhé stlačení klávesy Enter anebo&nbsp;Mezerník potvrdí provedení obchůzky</strong>.</p>
 
 <p class="nad">Interval do&nbsp;obchůzky</p>
 <p class="tj">Odpočet intervalu do&nbsp;obchůzky je&nbsp;uveden v&nbsp;minutách a&nbsp;sekundách.</p>
 <p class="tj">Začíná&nbsp;se odpočítávat po&nbsp;potvrzení výzvy k&nbsp;obchůzce a&nbsp;zastaví&nbsp;se ve&nbsp;chvíli, kdy&nbsp;je zobrazena další výzva s&nbsp;obchůzkou.</p>
-<p class="tj">Do&nbsp;doby, než&nbsp;je potvrzena nová výzva s&nbsp;obchůzkou, se&nbsp;interval do&nbsp;další obchůzky neodpočítává.</p>
+<p class="tj">Dokud není potvrzena výzva s&nbsp;obchůzkou interval do&nbsp;další obchůzky neodpočítává.</p>
 
 <p class="nad">Zaznamenání obchůzky</p>
-<p class="tj">
-Po&nbsp;potvrzení výzvy k&nbsp;obchůzce se&nbsp;tato zaznamená do&nbsp;Obchůzek. Zaznamenává&nbsp;se aktuální čas potvrzení výzvy k&nbsp;obchůzce v&nbsp;hodinách a&nbsp;minutách. Sekundy&nbsp;jsou zaokrouhlovány, kde&nbsp;více jak&nbsp;45&nbsp;sekund je&nbsp;zaokrouhleno na&nbsp;celou minutu nahoru a&nbsp;pod 45&nbsp;sekund na&nbsp;celou minutu dolů. Z&nbsp;formuláře zapsaných obchůzek je&nbsp;možné zapsané obchůzky editovat, i&nbsp;kdykoli mazat, další potvrzené výzvy k&nbsp;obchůzce, se&nbsp;do&nbsp;zápisu obchůzek budou dále zapisovat.
-</p>
-<p class="nad">Obnovit obchůzky uložené aplikací</p>
-<p class="tj">
-Aplikace automaticky potvrzené výzvy k&nbsp;obchůzce zaznamenává do&nbsp;Obchůzek a&nbsp;také ukládá na&nbsp;interní uložiště. Ve&nbsp;chvíli, kdy&nbsp;nekorespondují obchůzky zaznamenané v&nbsp;Obchůzkách s&nbsp;obchůzkami na&nbsp;interním uložišti, zezelená tlačítko Obnovit obchůzky uložené aplikací, které&nbsp;je umístěné nad&nbsp;formuláři se&nbsp;zapsanými obchůzkami. Pomocí tohoto tlačítka je&nbsp;možné navrátit obchůzky uložené na&nbsp;interní uložiště do&nbsp;formulářů se&nbsp;zaznamenanými obchůzkami. Tato funkce se&nbsp;hodí ve&nbsp;chvíli, kdy&nbsp;si obchůzky nedopatřením smažete anebo&nbsp;uzavřete okno prohlížeče, aniž&nbsp;byste obchůzky opsaly.
-</p>
-<p class="tj">
-Ukládání obchůzek na&nbsp;interní uložiště, funguje&nbsp;tak, že&nbsp;při&nbsp;spuštění hlavní funkce aplikace Noční&nbsp;VLK, se&nbsp;nejprve smaže veškerý obsah v&nbsp;interním uložišti <em>(aby&nbsp;došlo k&nbsp;pročištění uložených obchůzek)</em>, dále se uloží případné obchůzky, které&nbsp;se právě nacházení ve&nbsp;formuláři s&nbsp;obchůzkami a&nbsp;následně se&nbsp;ukládá každá potvrzená obchůzku do&nbsp;interního uložiště. Jakmile&nbsp;se&nbsp;opět spustí hlavní funkce aplikace Noční&nbsp;VLK, opakuje&nbsp;se předchozí uvedený proces.
-</p>
-<p class="tj">
-Podmínkou pro&nbsp;fungování této funkce&nbsp;je, že&nbsp;aplikace Noční&nbsp;VLK bude spuštěna ve&nbsp;stejném prohlížeči jako&nbsp;byla spuštěna původně. Pokud byla aplikace spuštěna původně v&nbsp;prohlížeči Microsoft&nbsp;Edge, opět musí být aplikace spuštěna v&nbsp;prohlížeči Microsoft&nbsp;Edge.
+<p class="tj">Po&nbsp;potvrzení výzvy k&nbsp;obchůzce se&nbsp;tato zaznamená do&nbsp;Obchůzek.</p>
+<p class="tj">Zaznamenává&nbsp;se aktuální čas potvrzení výzvy k&nbsp;obchůzce v&nbsp;hodinách a&nbsp;minutách.</p>
+<p class="tj">Sekundy&nbsp;jsou zaokrouhlovány, kde&nbsp;více jak&nbsp;45&nbsp;sekund je&nbsp;zaokrouhleno na&nbsp;celou minutu nahoru a&nbsp;pod 45&nbsp;sekund na&nbsp;celou minutu dolů.</p>
+<p class="tj">Ve&nbsp;formuláři s&nbsp;obchůzkami je&nbsp;možné zapsané obchůzky editovat, i&nbsp;kdykoli mazat. Následující potvrzené výzvy k&nbsp;obchůzce, se&nbsp;do&nbsp;zápisu obchůzek budou dále zapisovat.
 </p>
 
-<p class="nad">Poloha aplikace</p>
-<p class="tj">U&nbsp;počítačů a&nbsp;dalších zařízení s&nbsp;obrazovkou větší jak&nbsp;1024&#8239;px se&nbsp;vvdolní části obrazovky aplikace zobrazuje Poloha aplikace. Aby&nbsp;funkce správně fungovala pro&nbsp;polohování aplikace používejte pouze toto polohování, pokud změníte polohu aplikace pomocí okna Windows&nbsp;-&nbsp;Maximalizovat, systém Windows přebírá kontrolu nad&nbsp;oknem aplikace a&nbsp;funkce Polohování aplikace je&nbsp;dočasně nefunkční. Pokud chcete aplikaci maximalizovat, použijte v&nbsp;aplikaci Polohování okna možnost Celé okno.</p>
+<p class="nad">Obnovit obchůzky uložené aplikací</p>
+<p class="tj">Aplikace automaticky potvrzené výzvy k&nbsp;obchůzce zaznamenává do&nbsp;Obchůzek a&nbsp;také ukládá na&nbsp;interní uložiště.</p>
+<p class="tj">Ve&nbsp;chvíli, kdy&nbsp;nekorespondují obchůzky zaznamenané v&nbsp;Obchůzkách s&nbsp;obchůzkami na&nbsp;interním uložišti, zezelená tlačítko Obnovit obchůzky uložené aplikací, které&nbsp;je umístěné nad&nbsp;formuláři se&nbsp;zapsanými obchůzkami.</p>
+<p class="tj">Pomocí tohoto tlačítka je&nbsp;možné navrátit obchůzky uložené na&nbsp;interním uložišti do&nbsp;formulářů se&nbsp;zaznamenanými obchůzkami.</p>
+<p class="tj">Tato funkce se&nbsp;hodí ve&nbsp;chvíli, kdy&nbsp;se obchůzky nedopatřením smažou anebo&nbsp;se&nbsp;uzavře okno prohlížeče, aniž&nbsp;by&nbsp;byly obchůzky opsány.</p>
+<p class="tj">
+Ukládání obchůzek na&nbsp;interní uložiště, funguje&nbsp;tak, že&nbsp;při&nbsp;spuštění hlavní funkce aplikace Noční&nbsp;VLK, se&nbsp;nejprve smaže veškerý obsah v&nbsp;interním uložišti <em>(aby&nbsp;došlo k&nbsp;pročištění uložených obchůzek)</em>, dále se uloží případné obchůzky, které&nbsp;se právě nacházení ve&nbsp;formuláři s&nbsp;obchůzkami.</p>
+<p class="tj">Na&nbsp;interní uložiště se&nbsp;dále ukládá každá potvrzená obchůzku.</p>
+<p class="tj">Jakmile&nbsp;se&nbsp;opět spustí hlavní funkce aplikace Noční&nbsp;VLK, opakuje&nbsp;se předchozí uvedený proces.</p>
+<p class="tj">Podmínkou pro&nbsp;fungování této funkce&nbsp;je, že&nbsp;aplikace Noční&nbsp;VLK bude spuštěna ve&nbsp;stejném prohlížeči jako&nbsp;byla spuštěna původně.</p>
+<p class="tj">Pokud byla aplikace spuštěna původně v&nbsp;prohlížeči Microsoft&nbsp;Edge z&nbsp;lokálního disku zařízení, opět musí být aplikace spuštěna v&nbsp;prohlížeči Microsoft&nbsp;Edge z&nbsp;lokálního disku zařízení.</p>
 
 <p class="nad">Oživit</p>
-<p class="tj">Pokud Nočního&nbsp;VLKa zastavíte pomocí tlačítka Zastavit se&nbsp;symbolem Nočního&nbsp;VLKa <em>(pokud aplikaci potřebujete například dočasně vypnout)</em> je&nbsp;možné pomocí tlačítka Oživit se&nbsp;symbolem záchranného kříže ho&nbsp;opět uvést do&nbsp;chodu, jako&nbsp;by nikdy nebyl zastaven. Čas&nbsp;přerušení Nočního&nbsp;VLKa bude dopočítán. Oživení je&nbsp;možné provést až&nbsp;do&nbsp;60&#8239;minut od&nbsp;plánovaného Time&nbsp;outu obchůzky.</p>
+<p class="tj">Pokud hlavní funkci Noční&nbsp;VLK zastavíte pomocí tlačítka Zastavit <em>(funkci potřebujete například dočasně vypnout)</em> je&nbsp;možné pomocí tlačítka Oživit tuto funkci opět uvést do&nbsp;chodu, jako&nbsp;by nikdy nebyla zastavena (čas&nbsp;přerušení funkce bude dopočítán).</p>
+<p class="tj">Oživení je&nbsp;možné provést až&nbsp;do&nbsp;60&#8239;minut od&nbsp;plánovaného Time&nbsp;outu obchůzky.</p>
+<p class="tj">Pokud je&nbsp;hlavní funkce aplikace Noční&nbsp;VLK spuštěna a&nbsp;dojde například ke&nbsp;kolapsu aplikace, systému nebo&nbsp;nechtěnému uzavření okna prohlížeče, aplikaci opět spusťte stejným způsobem jako původně.</p>
+<p class="tj">Aplikace automaticky zahájí obnovovací proces hlavní funkce Noční&nbsp;VLK a&nbsp;dopočítá čas do&nbsp;obchůzky, jako&nbsp;by aplikace byla celou dobu spuštěna. Obnoví také zvolené okruhy, volbu zvuků a&nbsp;veškeré obchůzky uložené aplikací.</p>
+<p class="tj">Podmínkou pro&nbsp;fungování oživení&nbsp;je, že&nbsp;neuběhlo více jak&nbsp;60&#8239;minut od&nbsp;plánovaného Time&nbsp;outu obchůzky a&nbsp;aplikace Noční&nbsp;VLK je&nbsp;spuštěna stejným způsobem jako byla spuštěna původně.</p>
+<p class="tj">Pokud jste aplikaci spustili původně z&nbsp;plochy zařízení v&nbsp;prohlížeči Google&nbsp;Chrome, opět&nbsp;musí být aplikace spuštěna z&nbsp;plochy zařízení v&nbsp;prohlížeči Google&nbsp;Chrome.</p>
 
-<p class="tj">
-Pokud je&nbsp;Noční&nbsp;VLK spuštěn a&nbsp;dojde například ke&nbsp;kolapsu aplikace, počítače nebo&nbsp;nechtěnému uzavření okna prohlížeče, aplikaci opět spusťte běžným způsobem a&nbsp;ve&nbsp;stejném prohlížeči jako původně. Aplikace Noční&#8239;VLK automaticky zahájí obnovovací proces a&nbsp;dopočítá čas do&nbsp;obchůzky, jako&nbsp;by aplikace byla celou dobu spuštěna. Obnoví také zvolené obchůzky, volbu zvuků a&nbsp;veškeré obchůzky uložené aplikací.
-</p>
-<p class="tj">
-Podmínkou pro&nbsp;fungování&nbsp;je, že&nbsp;neuběhlo více jak&nbsp;60&#8239;minut od&nbsp;plánovaného Time&nbsp;outu obchůzky a&nbsp;aplikace Noční&nbsp;VLK je&nbsp;spuštěna ve&nbsp;stejném prohlížeči jako byla spuštěna původně. Pokud jste aplikaci spustili původně v&nbsp;prohlížeči Google&nbsp;Chrome, opět musí být aplikace spuštěna v&nbsp;prohlížeči Google&nbsp;Chrome.
-</p>
+<p class="nad">Poloha aplikace</p>
+<p class="tj">U&nbsp;zařízení, které podporují polohování oken aplikace, se&nbsp;v&nbsp;dolní části obrazovky aplikace, zobrazuje sekce Poloha aplikace.</p>
+<p class="tj">Pomocí této funkce je&nbsp;možné aplikaci na&nbsp;Vašem zařízení různě polohovat.</p>
+<p class="tj">Aby&nbsp;funkce správně fungovala, pro&nbsp;polohování aplikace používejte pouze toto polohování.</p>
+<p class="tj">Pokud změníte polohu aplikace pomocí okna Windows&nbsp;-&nbsp;Maximalizovat, systém Windows přebírá kontrolu nad&nbsp;oknem aplikace a&nbsp;funkce Poloha aplikace je&nbsp;dočasně nefunkční.</p>
+<p class="tj">Pokud chcete okno aplikace maximalizovat, použijte v&nbsp;sekci Poloha aplikace, možnost Celé&nbsp;okno.</p>
+<p class="tj">U&nbsp;zařízení, která polohování aplikace nepodporuje, se&nbsp;tato sekce nezobrazí.</p>
+<p class="tj">Pokud se&nbsp;domníváte, že&nbsp;Vaše zařízení podporuje polohování aplikace, je&nbsp;možné tuto sekci zviditelnit v&nbsp;Nastavení, zatržením možnosti Zobrazit sekci Poloha aplikace.</p>
+
 
 <p class="nad">Postupné zesilování alarmu</p>
-<p class="tj">Aplikace má přednastaveno postupné zesilování alarmu. Při&nbsp;aktivaci výzvy k&nbsp;obchůzce nebude hlasitost zvuku výzvy na&nbsp;maximální výši, ale&nbsp;bude&nbsp;se postupně zesilovat. Na&nbsp;maximální zesílení vystoupá přibližně za&nbsp;10&#8239;sekund. Funkci postupného zesilování alarmu je&nbsp;možné vypnout v&nbsp;sekci Nastavení.</p>
+<p class="tj">Aplikace má přednastaveno postupné zesilování alarmu.</p>
+<p class="tj">Při&nbsp;aktivaci zvukového alarmu nebude hlasitost zvuku alarmu na&nbsp;maximální výši, ale&nbsp;bude&nbsp;se postupně zesilovat.</p>
+<p class="tj">Na&nbsp;maximální zesílení vystoupá přibližně za&nbsp;10&#8239;sekund.</p>
+<p class="tj">Funkci postupného zesilování alarmu je&nbsp;možné vypnout v&nbsp;sekci Nastavení.</p>
 
 <p class="nad">Minutka</p>
-<p class="tj">
-Funkce Minutka umožňuje nastavení intervalu mimo hlavní funkci aplikace Noční&nbsp;VLK, která hlídá obchůzkové okruhy. Ve&nbsp;funkci minutka je&nbsp;možné nastavit interval až&nbsp;do&nbsp;120&#8239;minut a&nbsp;po&nbsp;zaškrknutí volby Opakovat minutku po&nbsp;jejím ukončení, bude minutka opět po&nbsp;jejím ukončení zapnuta. Opakování minutky je&nbsp;možné během počítání intervalu vypnout kliknutím na&nbsp;odpočet minutky. Po&nbsp;spuštění minutky je&nbsp;možné tuto funkci zrušit kliknutím na&nbsp;odpočet minutky. Funkce Minutky má&nbsp;automatické obnovení, pokud dojde k&nbsp;ukončení aplikace a&nbsp;funkce Minutky bude aktivní, při&nbsp;opětovném spuštění aplikace bude automaticky plně obnovena (podmínkou&nbsp;je spuštění aplikace ve&nbsp;stejném prohlížeči jako byla spuštěna původně).
-</p>
+<p class="tj">Funkce Minutka umožňuje nastavení intervalu mimo hlavní funkci aplikace Noční&nbsp;VLK, která hlídá obchůzkové okruhy.</p>
+<p class="tj">Ve&nbsp;funkci minutka je&nbsp;možné nastavit interval až&nbsp;do&nbsp;120&#8239;minut.</p>
+<p class="tj">Zatržením volby Opakovat minutku po&nbsp;jejím ukončení, bude minutka opět po&nbsp;jejím ukončení zapnuta s&nbsp;přednastaveným intervalem.</p>
+<p class="tj">Opakování minutky je&nbsp;možné během počítání intervalu minutky vypnout kliknutím na&nbsp;odpočet minutky.</p>
+<p class="tj">Po&nbsp;spuštění minutky je&nbsp;možné tuto funkci zrušit kliknutím na&nbsp;odpočet minutky.</p>
+<p class="tj">Funkce Minutky má&nbsp;automatické obnovení, pokud dojde k&nbsp;ukončení aplikace a&nbsp;funkce Minutky bude aktivní, při&nbsp;opětovném spuštění aplikace bude automaticky plně obnovena (podmínkou&nbsp;je spuštění aplikace stejným způsobem jako byla spuštěna původně).</p>
 
 
 <p class="nad">Plánovač</p>
 <p class="tj">
 Funkce Plánovač, slouží k&nbsp;plánování činností mimo&nbsp;rámec obchůzkové činnosti. Například v&nbsp;22:30&#8239;hod se má provést nějaká činnost, dále v&nbsp;1:15&#8239;hod a&nbsp;v&nbsp;4:00&#8239;hod. Veškeré tyto plány si&nbsp;v&nbsp;požadovaném čase zapíšete do&nbsp;Plánovače.</p>
-<p class="tj">Jakmile nastane čas plánu, aplikace spustí upozornění na&nbsp;konkrétní plán. V&nbsp;Plánovači je možné nastavit až&nbsp;šest plánů v&nbsp;různém čase. V&nbsp;plánovači není možné zadat více plánů ve&nbsp;stejném čase.
-</p>
+<p class="tj">Jakmile nastane čas plánu, aplikace spustí upozornění na&nbsp;konkrétní plán.</p>
+<p class="tj">V&nbsp;Plánovači je možné nastavit až&nbsp;šest plánů v&nbsp;různém čase.</p>
+<p class="tj">V&nbsp;plánovači není možné zadat více plánů ve&nbsp;stejném čase.</p>
 
 <p class="tj">
-Zadané plány jsou automaticky ukládány na&nbsp;interní uložiště vašeho zařízení, tedy&nbsp;při nechtěném ukončení aplikace jsou po&nbsp;opětovném spuštění aplikace (ve&nbsp;stejném prohlížeči jako byla aplikace původně spuštěna) automaticky obnoveny.</p>
+Zadané plány jsou automaticky ukládány na&nbsp;interní uložiště Vašeho zařízení, tedy&nbsp;při nechtěném ukončení aplikace jsou po&nbsp;opětovném spuštění aplikace <em>(podmínkou&nbsp;je spuštění aplikace stejným způsobem jako byla spuštěna původně)</em> automaticky obnoveny.</p>
 
 <p class="tj">Pokud mezi ukončením aplikace a&nbsp;plánem neuběhlo více jak 30&#8239;minut, naplánovaná úloha, se&nbsp;po&nbsp;spuštění aplikace aktivuje s&nbsp;upozorněním. Například pokud&nbsp;si nastavíte plán v&nbsp;4:05&#8239;hod. a&nbsp;v&nbsp;4:00&#8239;hod. dojde k&nbsp;vypnutí aplikace, kterou následně spustíte do&nbsp;4:35&#8239;hod. (to&nbsp;je například v&nbsp;4:15&#8239;hod anebo&nbsp;4:25&#8239;hod.&nbsp;atd.), úloha se&nbsp;obnoví s&nbsp;upozornění (zvukovým i&nbsp;vizuálním).
 </p>
 
 <p class="nad">Poznámky</p>
-<p class="tj">
-Poznámky slouží k&nbsp;uchování informací, pro&nbsp;které byste museli sáhnout po&nbsp;papíru a&nbsp;propisce. Zapsané poznámky se&nbsp;automaticky ukládají na&nbsp;interní uložiště. Po&nbsp;tomto uložení nedojde po&nbsp;uzavření aplikace Noční&nbsp;VLK <em>(z&nbsp;jakýchkoli příčin)</em> ke&nbsp;ztrátě poznámek a&nbsp;při opětovném spuštění aplikace Noční&nbsp;VLK <em>(ve&nbsp;stejném prohlížeči jako byla aplikace spuštěna původně)</em> se&nbsp;poznámky automaticky obnoví.
-</p>
+<p class="tj">Poznámky slouží k&nbsp;uchování informací, pro&nbsp;které byste museli sáhnout po&nbsp;papíru a&nbsp;propisce.</p>
+<p class="tj">Zapsané poznámky se&nbsp;automaticky ukládají na&nbsp;interní uložiště.</p>
+<p class="tj">Po&nbsp;tomto uložení nedojde po&nbsp;uzavření aplikace Noční&nbsp;VLK <em>(z&nbsp;jakýchkoli příčin)</em> ke&nbsp;ztrátě poznámek a&nbsp;při opětovném spuštění aplikace Noční&nbsp;VLK <em>(podmínkou&nbsp;je spuštění aplikace stejným způsobem jako byla spuštěna původně)</em>, se&nbsp;poznámky automaticky obnoví.</p>
 </div></div>
 </section>
 
@@ -983,15 +1019,15 @@ Zavřít
 <p class="tj mb-05 tuc">Účel aplikace Noční&nbsp;VLK</p>
 <ul class="s-zal mb-1">
 <li>snížení chyby, která může nastat vlivem záměny druhu obchůzky, která&nbsp;má být provedena,</li>
-<li>zautomatizování časového záznamu o&nbsp;provedení obchůzky,</li>
-<li>snížení psychické zátěže dozorce, odbouráním jeho soustředění na&nbsp;činnost, která&nbsp;má být vykonána v&nbsp;určitém čase anebo za&nbsp;určitý čas.</li>
+<li>zautomatizování časového záznamu o&nbsp;provedené obchůzky,</li>
+<li>snížení psychické zátěže dozorce, odbouráním soustředění na&nbsp;činnost, která&nbsp;má být vykonána v&nbsp;určitém čase anebo za&nbsp;určitý čas.</li>
 </ul>
 
-<p class="tj">Aplikace je&nbsp;responsivní a&nbsp;určena pro&nbsp;telefony, tablety, notebooky a&nbsp;počítače s&nbsp;operačním systémem Windows, Android a&nbsp;iOS.</p>
+<p class="tj">Aplikace je&nbsp;responsivní a&nbsp;určena pro&nbsp;počítače, notebooky, tablety a telefony s&nbsp;operačním systémem Windows, Android a&nbsp;iOS.</p>
 <p class="tj">Aplikace je&nbsp;naprogramována v&nbsp;jazyce HTML&#8239;5, CSS&#8239;3 a&nbsp;JavaScriptu&#8239;ES6.</p>
 <p class="tj">Aplikace podléhá autorským právům.</p>
 <p class="tj">Výrobce aplikace: Boar-cz</p>
-<p class="tj">Verze aplikace: Zkušební verze 2.6</p>
+<p class="tj">Verze aplikace: 1.0</p>
 
 <address class="kontakt tc">
 <p class="lh2">Máte otázku k&nbsp;této aplikaci?
@@ -1299,13 +1335,12 @@ Zavřít
 </section>
 
 
-<section id="prestavky" class="okno">
+<div id="prestavky" class="okno">
 <div class="o-t">
-
 <div class="o-hlav p-s">
 <div class="i-pre"> </div>
 <div class="o-c1">
-<h2 class="mb-0">Přestávky</h2>
+<p class="h2-f mb-0">Přestávky</p>
 </div>
 <button id="k-pre" class="o-c2" title="Zavřít" type="button">
 <span id="s-pre" class="o-kriz"> </span>
@@ -1394,7 +1429,7 @@ Zavřít
 </div>
 <p class="t-j tc">Platné k&nbsp;<time datetime="2024-07-01">1.&nbsp;7.&nbsp;2024</time></p>
 </div></div>
-</section>
+</div>
 
 
 <div id="obchuzka" class="box-uzaver">
@@ -1584,13 +1619,13 @@ Zavřít
 <button id="but-kon" type="button" class="o-kriz b-w0" title="Zavřít"> </button>
 </div>
 <div class="d-telo">
-<h2 id="nad-kon">Kontakt <span class="d-inlb">Boar-cz</span></h2>
+<p class="nad" id="nad-kon">Kontakt <span class="d-inlb">Boar-cz</span></p>
 <p class="jus ha"><span class="p_n">Programátora aplikace můžete kontaktovat pomocí emailu.</span></p>
 <div class="flex-c aic g1 mb-1">
 <button id="zob-em" class="but" type="button" title="Zobrazit email na programátora">Zobrazit email</button>
 <div class="p-r">
 <input id="inp-em" class="em-imp" type="text" placeholder="zmáčkni tlačítko výše" value="" readonly>
-<p id="zkopir" class="zkop">Zkopírováno</p>
+<p id="zkopir" class="zkop flex jcc aic"><span class="p_n">Zkopírováno</span></p>
 </div>
 </div>
 <p class="jus ha mb-0"><span class="p_n">Do&nbsp;předmětu emailu programátorovi uveďte:</span></p>
@@ -1797,6 +1832,31 @@ Zavřít
 </div>
 </dialog>
 
+<dialog id="d-kolaps">
+<div class="d-kriz">
+<button id="k-kolaps" type="button" class="o-kriz b-w0" title="Zavřít"> </button>
+</div>
+<div class="d-telo">
+<div class="flex jcc mb-1">
+<div class="b-b1 b50 px">
+<div class="var-i"> </div>
+</div>
+</div>
+<p>Kolaps aplikace</p>
+<p><span id="chyba-text" class="p_n">Došlo k&nbsp;vážnému kolapsu aplikace. Pokud se&nbsp;bude situace opakovat, aplikace nemusí správně fungovat anebo se&nbsp;může zhroutit.</span></p>
+<p class="mb-05"><span id="chyba-text" class="p_n tuc">Možné příčiny:</span></p>
+<ul class="mb-2">
+<li class="mb-025">nedostatek paměti v&nbsp;zařízení,</li>
+<li class="mb-025">nedostatek místa na&nbsp;disku anebo paměťové kartě,</li>
+<li class="mb-025">probíhá aktualizace zařízení,</li>
+<li class="mb-025">v&nbsp;zařízení je&nbsp;zapnutá jiná aplikace náročná na&nbsp;výkon.</li>
+</ul>
+</div>
+<div class="d-butt d-butS">
+<button id="b-kolaps-ok" class="but" type="button" title="Rozuměl jsem">Rozumím</button>
+</div>
+</dialog>
+
 
 <noscript>
 <div class="no-script">
@@ -1831,22 +1891,22 @@ Zavřít
 </div>
 </div>
 </div>
-<button id="f-b" class="fb" type="button" title="fake klik">F</button>
+<button id="f-b" class="fb" type="button" title="Noční-VLK">F</button>
 
 <div class="f">
 <video id="f-v" playsinline="playsinline" preload="none" controls>
 <source src="svg/intro.mp4" type="video/mp4">
 </video>
  </div>
-<script src="reg_sw.js" defer> /* REGISTRACE Servisního pracovníka pro offline režim, parametr defer zajišťuje asynchroní načítání po načtení stránky */ </script>
-<script src="script/autorun.js?v=1"> /* NESMÍ BÝT NACTEN ASYNC! shromažďuje údaje o tom, zda byly všechny knihovny asyc již načteny */ </script>
-<script src="script/ozivit.js?v=1" async> /* zajišťuje veškeré procesy, které souvisí s ukládáním dat uživatele */ </script>
-<script src="script/pruvodce.js?v=1" async>/* zajišťuje spusťení hlavní funkce aplikace Noční VLK */</script>
-<script src="script/kresly.js?v=1" async> /* vykresluje plátno CANVAS se systémem obchůzek */ </script>
-<script src="script/vlk.js?v=1" async> /* zajišťuje hlavní funkci aplikace Noční VLK - odpočet, zápis obchůzek atd. */ </script>
-<script src="script/ochrany.js?v=1" async> /* zajišťuje ochranu před uzamčením obrazovky a uspáním karty */ </script>
-<script src="script/minutka.js?v=1" async> /* obsahuje všechny funkcionality k funkci Minutka */  </script>
-<script src="script/planovac.js?v=1" async> /* obsahuje všechny funkcionality k funkci Plánovač */  </script>
-<script src="script/centrum.js?v=1" async> /* zajišťuje prvotní spouštění potřebných funkcionalit aplkace - např. hodiny, visualView port API ... */  </script>
+<script src="reg_sw.js?v=3" defer> /* REGISTRACE Servisního pracovníka pro offline režim, parametr defer zajišťuje asynchroní načítání po načtení stránky */ </script>
+<script src="script/autorun.js?v=3"> /* NESMÍ BÝT NACTEN ASYNC! shromažďuje údaje o tom, zda byly všechny knihovny asyc již načteny */ </script>
+<script src="script/ozivit.js?v=3" async> /* zajišťuje veškeré procesy, které souvisí s ukládáním dat uživatele */ </script>
+<script src="script/pruvodce.js?v=3" async>/* zajišťuje spusťení hlavní funkce aplikace Noční VLK */</script>
+<script src="script/kresly.js?v=3" async> /* vykresluje plátno CANVAS se systémem obchůzek */ </script>
+<script src="script/vlk.js?v=3" async> /* zajišťuje hlavní funkci aplikace Noční VLK - odpočet, zápis obchůzek atd. */ </script>
+<script src="script/ochrany.js?v=3" async> /* zajišťuje ochranu před uzamčením obrazovky a uspáním karty */ </script>
+<script src="script/minutka.js?v=3" async> /* obsahuje všechny funkcionality k funkci Minutka */  </script>
+<script src="script/planovac.js?v=3" async> /* obsahuje všechny funkcionality k funkci Plánovač */  </script>
+<script src="script/centrum.js?v=3" async> /* zajišťuje prvotní spouštění potřebných funkcionalit aplkace - např. hodiny, visualView port API ... */  </script>
 </body>
 </html>

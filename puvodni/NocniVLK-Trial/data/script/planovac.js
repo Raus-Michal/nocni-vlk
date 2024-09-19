@@ -209,6 +209,33 @@ else if(k==`${this.id_butt_zvuk}1`||k==`${this.id_butt_zvuk}2`||k==`${this.id_bu
 // kliknuto na button Vypni zvuk v alarmu plánu 1-6
 zvuk_plan.zastav(); // zastaví zvuk upozornění Plánovače - funkce ve vlk.js
 this.povoleni_zesilovat=false; // dočasný zákaz zesilování, tento zákaz je však jen sekundární, díky tomuto zákazu se o zesilování nemůže vůbec pokusit ve funkci tik.tak v centrum.js, rozhodující pro zesilování je však proměnná zvuk_plan.zesilovat, která určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne - ve vlk.js
+let plan=null; // proměnná (níže v podmínkách) určí na který button o vypnutí plánu bylo kliknuto
+if(k==`${this.id_butt_zvuk}1`)
+{
+plan=1; // určí, že byl klik na button vypni zvuk - Plán 1
+}
+else if(k==`${this.id_butt_zvuk}2`)
+{
+plan=2; // určí, že byl klik na button vypni zvuk - Plán 2
+}
+else if(k==`${this.id_butt_zvuk}3`)
+{
+plan=3; // určí, že byl klik na button vypni zvuk - Plán 3
+}
+else if(k==`${this.id_butt_zvuk}4`)
+{
+plan=4; // určí, že byl klik na button vypni zvuk - Plán 4
+}
+else if(k==`${this.id_butt_zvuk}5`)
+{
+plan=5; // určí, že byl klik na button vypni zvuk - Plán 5
+}
+else if(k==`${this.id_butt_zvuk}2`)
+{
+plan=6; // určí, že byl klik na button vypni zvuk - Plán 6
+}
+const ok=document.getElementById(`${this.id_butt_uk}${plan}`); // HTML objekt buttonu OK - ukončení Plánu
+ok.focus(); // fokus na button  OK - ukončení Plánu
 }
 else if(k==`${this.id_butt_box}1`||k==`${this.id_text}1`||k==`${this.id_kryt}1`)
 {
@@ -830,26 +857,37 @@ console.log(this.plany[plan-1]);
 console.log(this.plany[plan-1][3]);
 */
 
+const noZvuk=document.getElementById(`${this.id_butt_zvuk}${plan}`); // HTML objekt button Vypni zvuk u konkrétního Plánu
+const ok=document.getElementById(`${this.id_butt_uk}${plan}`); // HTML objekt buttonu OK - ukončení Plánu
+
+
 if(this.plany[plan-1][3]==true)
 {
 // pokud tomuto konkrétnímu plánu byl zadán požadavek Přehrát zvuk upozornění dokola - this.plany[plan-1][3]=(false=bez zvuku;null=zvuk přehrát 1x;true=zvuk přehrávat do ukončení)
-document.getElementById(`${this.id_butt_zvuk}${plan}`).classList.remove(this._css[0]); // pokud byla třída CSS přidána, bude odebrána, class nastavuje objekt HTML display=none
-document.getElementById(`${this.id_butt_zvuk}${plan}`).addEventListener("click",this); // přidá posluchač události k buttonu Vypni zvuk
-
+noZvuk.classList.remove(this._css[0]); // pokud byla třída CSS přidána, bude odebrána, class nastavuje objekt HTML display=none
+noZvuk.addEventListener("click",this); // přidá posluchač události k buttonu Vypni zvuk
+setTimeout(()=>{
+noZvuk.focus(); // fokus button Vypni zvuk u konkrétního plánu
+},1000); // focus na tlačítko vypni zvuk Plánu za dostatečnou rezeru
 zvuk_plan.hraj(true); // bude přehrávat zvuk upozornění Plánovače - true=dokola , false=1x - funkce ve vlk.js
 this.povoleni_zesilovat=true; // dočasné povolení zesilování, toto povolení je však jen sekundární, díky tomuto povolení se o zesilování může pokusit ve funkci tik.tak v centrum.js, rozhodující pro zesilování je však proměnná zvuk_plan.zesilovat, která určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne - ve vlk.js
 }
 else
 {
-document.getElementById(`${this.id_butt_zvuk}${plan}`).classList.add(this._css[0]); // pokud nebyla třída CSS přidána, bude přidána, class nastavuje objekt HTML display=none
+noZvuk.classList.add(this._css[0]); // pokud nebyla třída CSS přidána, bude přidána, class nastavuje objekt HTML display=none
 if(this.plany[plan-1][3]==null)
 {
 // pokud tomuto konkrétnímu plánu byl zadán požadavek Přehrát zvuk upozornění 1x - this.plany[plan-1][3]=(false=bez zvuku;null=zvuk přehrát 1x;true=zvuk přehrávat do ukončení)
+
+setTimeout(()=>{
+ok.focus(); // fokus buttonu OK - ukončení Plánu
+},1000); // focus na buttonu OK - ukončení Plánu za dostatečnou rezeru
+
 this.povoleni_zesilovat=false; // dočasný zákaz zesilování, tento zákaz je však jen sekundární, díky tomuto zákazu se o zesilování nemůže vůbec pokusit ve funkci tik.tak v centrum.js, rozhodující pro zesilování je však proměnná zvuk_plan.zesilovat, která určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne - ve vlk.js
 zvuk_plan.hraj(false); // bude přehrávat zvuk upozornění Plánovače - true=dokola , false=1x - funkce ve vlk.js
 }}
 
-document.getElementById(`${this.id_butt_uk}${plan}`).addEventListener("click",this); // přidá posluchač události k buttonu OK - ukončení Plánu
+ok.addEventListener("click",this); // přidá posluchač události k buttonu OK - ukončení Plánu
 
 this.v_alarmu[plan-1]=true; // proměnná určuje, zda je nějáký plán aktuálně v alarmu, pokud bude pole naplněno true, -1 odebírá pro správné zařazení plánu do jeho pole, pole jsou pro plány rozděleny následovně:[plán1,plán2,plán3,plán4,plán5,plán6]
 this.data_v_alarmu[plan-1]=this.plany[plan-1]; // do globální proměnné se vloží data ke konkrétnímu plánu, který je v alarmu, tuto globální proměnnou následně používá funkce uloz.plany_v_alarmu která toto pole s daty uládá na local strorage - ve oziv.js

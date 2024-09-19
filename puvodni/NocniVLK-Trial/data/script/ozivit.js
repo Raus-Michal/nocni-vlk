@@ -270,7 +270,19 @@ this.v_obchuzce=false;
 dead_time(){
 /* KONTROLA - ABY NEDOŠLO K OŽIVENÍ VLKA po více jak 60MINUTÁCH od plánovaného TIMEOUTU */
 let akt_ms=Date.now(); /* vrátí počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC) */
+
+this.intr=this.nacti(this.klice[8]); /* načte délku počítání intervalu */
+if(this.intr=="")
+{
+return false; /* pokud není načtená délka intervalu */
+}
+else
+{
+this.intr=parseInt(this.intr); /* přebede text na číslo */
+}
+
 let interval=this.intr*1000; /* délka intervalu v sekundách se přepíše na milisekundy */
+
 
 if(akt_ms<(this.z_den+this.max_obnova_ms+interval))
 {
@@ -413,17 +425,6 @@ if(this.z_den=="")
 {
 return false; /* pokud nejsou minimální potřebná data načtena - bude return a neprovede se oživení */
 }
-
-this.intr=this.nacti(this.klice[8]); /* načte délku počítání intervalu */
-if(this.intr=="")
-{
-return false; /* pokud není načtená délka intervalu */
-}
-else
-{
-this.intr=parseInt(this.intr); /* přebede text na číslo */
-}
-
 
  /* KONTROLA - ABY NEDOŠLO K OŽIVENÍ VLKA po delším čase */
 const test=this.dead_time();
