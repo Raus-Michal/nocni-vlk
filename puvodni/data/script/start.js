@@ -8,10 +8,8 @@ id_dia_bottom:"bot-kot", // id kotvy na konci dialogového okna
 t:600, // čas za který má proběhnout scroll na nadpis dialogového okna
 tb:100, // čas za který se má provést scroll na konec dialogového okna
 
-pust(funkce){
-// změna href odkazu na funkci javascriptu
-const odkaz=document.getElementById(this.id_a); // načte objekt odkazu
-odkaz.href=`javascript:${funkce}.dia("${this.id_dia_nad}","${this.id_dia_bottom}");`; // změna hrev odkazu
+pust(){
+document.getElementById(this.id_a).addEventListener("click",()=>{licence.dia(this.id_dia_nad,this.id_dia_butt);}); // přidání posluchače událostí k A licence
 },
 dia(nad_id,bottom_id){
 const okno=document.getElementById(this.id_dia); // načte objekt dialogového okna
@@ -40,7 +38,19 @@ document.getElementById(o).blur(); /* blur z objektu */
 
 
 const kontakt=Object.create(licence); /* kopie objektu licence pro kontakt */
-{kontakt.id_a="kont-1";kontakt.id_dia="dia-kon";kontakt.id_dia_butt="but-kon";kontakt.id_dia_nad="nad-kon";} /* změna id pro kontakt */
+{
+kontakt.id_a=["kont-1","kont-2","kont-3","kont-4"]; // id všech A html objektů Kontaktujte nás!
+kontakt.id_dia="dia-kon";kontakt.id_dia_butt="but-kon";kontakt.id_dia_nad="nad-kon";
+kontakt.pust=function(){
+
+let d=this.id_a.length; // délka pole
+for(let i=0;i<d;i++)
+{
+document.getElementById(this.id_a[i]).addEventListener("click",()=>{this.dia(this.id_dia_nad,this.id_dia_butt);}); // přidání posluchače událostí k A kontakt 1 - 4
+}
+
+};
+} /* změna id pro kontakt */
 
 
 const mail={
@@ -59,7 +69,7 @@ handleEvent(){
 const t=document.getElementById(this.id_butt); /* button zobrazit email */
 if(!this.zobrazen)
 {
-// pokud nebyl zatím email zobrazen bude proměnná this.zobrazen==false - ZOBRAZENÍ EMAILU
+// pokud nebyl zatím email zobrazen bude proměnná this.zobrazen===false - ZOBRAZENÍ EMAILU
 let x=this.m; /* kopie this.m pole  */
 this.email=x[4][0]+x[2][1]+x[5][1]+x[9][0]+x[0][0]+x[6][0]+x[4][1]+x[9][3]+x[9][2]+x[10][1]+x[6][1]+x[1][2]+x[10][0]+x[6][0]+x[2][1]+x[4][1]+x[6][1]+x[0][1]+x[9][3]+x[0][2]; /* výsek emailu */
 t.removeEventListener("click",this); // odebere posluchače buttonu pro zobrazení emailu
@@ -97,9 +107,9 @@ kop.style.zIndex=-1; // sníží z-index textu ZKOPÍROVÁNO na -1
 text_postupne(){
 // funkce postupně vypíše text emailu
 const e_delka=this.email.length; // délka řetězce dočasného emailu
-if(e_delka==this.delka)
+if(e_delka===this.delka)
 {
-// pokud bude délka emailu == delka ciklů
+// pokud bude délka emailu === delka ciklů
 this.delka=null; // vynuluje proměnnou
 this.email=""; // vynuluje proměnnou
 return;
@@ -119,7 +129,7 @@ else
 {
 // Náhradní řešení v případě, že nefunguje navigator.clipboard API
 inp.select(); // udělá select textu v input
-document.execCommand('copy'); // kopírování do paměti zařízení
+document.execCommand("copy"); // kopírování do paměti zařízení
 setTimeout(()=>{
 const anotherElement=document.getElementById(this.id_butt); // načte objekt button Kopírovat email
 if(anotherElement){anotherElement.focus();}},200); // přehodí focus textu na button Kopírovat
@@ -133,12 +143,12 @@ check.addEventListener("click",this);
 },
 handleEvent(){
 const check=document.getElementById(this.id_ch);
-if(check.checked==true)
+if(check.checked===true)
 {
 pokr1.posluchac(); /* aktivuje posluchač k button Dále */
 f(pokr1.id_but); /* fokus buttonu */
 }
-else if(check.checked==false)
+else if(check.checked===false)
 {
 pokr1.posluchacOff(); /* vypne posluchač k buttonu dále */
 b(pokr1.id_but); /* blur buttonu */
@@ -151,23 +161,23 @@ uloziste(){
 // detekce zda funguje localstorage
 
  // Kontrola, zda prohlížeč podporuje Local Storage
-if(typeof localStorage==='undefined'){
-console.log('Local Storage není podporován prohlížečem.');
+if(typeof localStorage==="undefined"){
+console.log("Local Storage není podporován prohlížečem.");
 return this.ready_ul=false;
 }
 try{
 // Testovací zápis a čtení z Local Storage (ověříme, zda je funkční)
-localStorage.setItem('testKey','testValue');
-localStorage.removeItem('testKey');
+localStorage.setItem("testKey","testValue");
+localStorage.removeItem("testKey");
 return this.ready_ul=true;
 }catch(e){
 // Pokud zápis/čtení selže, Local Storage je buď zakázán, nebo je problém s místem
-console.log('Local Storage je podporován, ale nelze do něj zapisovat.');
+console.log(`Local Storage je podporován, ale nelze do něj zapisovat. Chyba:${e}`);
 return this.ready_ul=false;
 }},
 blokace(){
 /* test jesli je Blokace zámku obrazovky v pohlížeči povolena - pokud NE - NÁHRADNÍ ŘEŠENÍ - nefunguje na telefonech !!!! */
-if('wakeLock' in navigator)
+if("wakeLock" in navigator)
 {
 return this.ready_bl=true;
 }
@@ -177,21 +187,17 @@ return this.ready_bl=false;
 }},
 uspani(){
 let neviditelnost;
-let udalos_viditelnost;
 if(typeof document.hidden!=="undefined")
 {
 neviditelnost="hidden";
-udalos_viditelnost="visibilitychange";
 }
 else if(typeof document.msHidden!=="undefined")
 {
 neviditelnost="msHidden";
-udalos_viditelnost="msvisibilitychange";
 }
 else if(typeof document.webkitHidden!=="undefined")
 {
 neviditelnost="webkidHidden";
-udalos_viditelnost="webkitvisibilitychange";
 }
 /* KONEC kontrola kompatibility */
 if(typeof document.addEventListener==="undefined"||neviditelnost===undefined)
@@ -209,7 +215,7 @@ vyhod(){
 
 /* opatření k testu ochrana před uspáním */
 let c_us="",d_us="";
-if(this.ready_usp==true)
+if(this.ready_usp===true)
 {
 c_us=this.class_ok;
 d_us="none";
@@ -224,7 +230,7 @@ document.getElementById(this.id_uspa[1]).style.display=d_us; /* zobrazí anebo n
 
 /* opatření k testu ukládání dat - localstorage */
 let c_ul="",d_ul="";
-if(this.ready_ul==true)
+if(this.ready_ul===true)
 {
 c_ul=this.class_ok;
 d_ul="none";
@@ -251,17 +257,18 @@ this.mp3=new Audio(this.cesta);
 this.nahrano=true;
 },
 hrajSan(){
-if(this.nahrano!=true)
+if(this.nahrano!==true)
 {
 this.nahraj(); /* pokud není mp3 nahraná do paměti - nahraje ji */
 }
-this.mp3.load();
 this.mp3.loop=false; /* zajistí, že přehraje zvuk pouze 1x */
 this.mp3.volume=0.75; /* nastavení defaul hlasitosi na 75% */
-this.mp3.oncanplaythrough=function(){
-document.getElementById(zvuk.id_animace).beginElement(); /* zapne animaci na SVG obrázku */
+const self=this; // uložení kontextu this do proměnné self
+this.mp3.oncanplaythrough=()=>{
+document.getElementById(self.id_animace).beginElement(); /* zapne animaci na SVG obrázku */
 zvuk.mp3.play();
 };
+this.mp3.load();
 this.casovac=setTimeout(this.hrajSan.bind(this),this.smicka);
 }};
 
@@ -283,7 +290,10 @@ handleEvent(){
 test.all(); /* provede všechny potřebné testy: localstorage,blokace zámku obrazovky a test proti uspání okna */
 test.vyhod(); /* vyhodnocení testu a přijetí opatření - zobrazení chybových hlášení včetně SVG ok anebo ko */
 this.prechod();
-setTimeout("pokr2.posluchac();",this.CAS+2000);
+setTimeout(()=>
+{
+pokr2.posluchac();
+},this.CAS+1000);
 },
 posunUP(){
 document.getElementById(this.id_kotva).scrollIntoView({behavior:"smooth"});
@@ -291,9 +301,13 @@ document.getElementById(this.id_kotva).scrollIntoView({behavior:"smooth"});
 prechod(){
 document.getElementById(this.okno1_id).style.opacity=0;
 
-setTimeout(`document.getElementById("${this.okno1_id}").style.display="none";document.getElementById("${this.okno2_id}").style.display='block';`,this.CAS);
+setTimeout(`document.getElementById("${this.okno1_id}").style.display="none";document.getElementById("${this.okno2_id}").style.display="block";`,this.CAS);
 setTimeout(`document.getElementById("${this.okno2_id}").style.opacity=1;`,this.CAS+100);
-setTimeout(this.posunUP.bind(this),this.CAS+250); /* zajistí posun okna na hlavní kotvu - Nadpis Logo H1 */
+
+setTimeout(()=>{
+this.posunUP();
+},this.CAS+250);
+
 document.getElementById(this.id_but).removeEventListener("click",this); /* odebere posluchač */
 }};
 
@@ -302,7 +316,11 @@ const pokr2=Object.create(pokr1); /* udělá kopii objektu */
 pokr2.handleEvent=function(){
 zvuk.nahraj(); /* nahraje mp3 do paměti */
 this.prechod();
-setTimeout("zvuk.hrajSan();pokr3.posluchac();",this.CAS+1000);
+setTimeout(()=>
+{
+zvuk.hrajSan();
+pokr3.posluchac();
+},this.CAS+1000);
 };} /* úprava potřebných proměnných a funkcí z kopie objektu */
 
 const obr={min_sirka_aplikace:320,max_sirka_aplikace:800,vyska_aplikace:800,vyska:null,sirka:null,d_vyska:null,d_sirka:null,top:null,left:null,
@@ -338,19 +356,19 @@ for(let i=0;i<l;i++)
 this.okna[i]=false; /* dá všechny tlačítka okna na false */
 }
 
-if(k==this.id[0]||k==this.idSVG[0]) /* pokud bylo kliknuto na ID button vlevo anebo SVG v buttonu */
+if(k===this.id[0]||k===this.idSVG[0]) /* pokud bylo kliknuto na ID button vlevo anebo SVG v buttonu */
 {
 this.okna[0]=true;
 }
-else if(k==this.id[1]||k==this.idSVG[1])
+else if(k===this.id[1]||k===this.idSVG[1])
 {
 this.okna[1]=true;
 }
-else if(k==this.id[2]||k==this.idSVG[2])
+else if(k===this.id[2]||k===this.idSVG[2])
 {
 this.okna[2]=true;
 }
-else if(k==this.id[3]||k==this.idSVG[3])
+else if(k===this.id[3]||k===this.idSVG[3])
 {
 this.okna[3]=true;
 }
@@ -361,11 +379,11 @@ obarvit(){
 let l=this.okna.length; /* délka pole this.okna */
 for(let i=0;i<l;i++)
 {
-if(this.okna[i]==true)
+if(this.okna[i]===true)
 {
 document.getElementById(this.id[i]).style.background=this.barva;
 }
-else if(this.okna[i]==false)
+else if(this.okna[i]===false)
 {
 document.getElementById(this.id[i]).style.background="transparent";
 }}}};
@@ -380,7 +398,7 @@ try
 const konverce=JSON.stringify(over.celkem);
 over.kontrola=`?${konverce}`;
 this.stranka=`data/index.html${over.kontrola}`;
-if(sirka==0&&vyska==0&&zleva==0&&zhora==0)
+if(sirka===0&&vyska===0&&zleva===0&&zhora===0)
 {
 // požadavek na otevření okna na mobilní uzařízení anebo bez zaslabých požadavků
 window.location.replace(this.stranka); // replace na samotnou aplikaci Noční VLK
@@ -399,7 +417,7 @@ window.close(); // zavře staré okno
 }
 else{
 // Pokud se nové okno neotevřelo
-alert('Aplikaci se nepodařilo otevřít. Kontaktujte programátora.');
+alert("Aplikaci se nepodařilo otevřít. Kontaktujte programátora.");
 }
 }
 }
@@ -428,7 +446,9 @@ if(!zmena_obrazovky)
 {
 // pokud zařízení není mobilním zařízením
 this.prechod();
-setTimeout("pokr4.posluchac();",this.CAS+1000);
+setTimeout(()=>{
+pokr4.posluchac();
+},this.CAS+1000);
 obr.velikost(); // zjistí velikost obrazovky zařízení
 volbaOkna.aktivace();
 }
@@ -506,7 +526,7 @@ document.getElementById(souhlas.id_ch).checked=false; // zajistí odškrknutí c
 f(souhlas.id_ch);
 document.getElementById(pokr1.id_but).disabled=false; // odstraní disabled na tlačítku 1. Pkkračovat - který je default, pro případ, že by uživatel neměl Javascript
 mail.posluchac();
-kontakt.pust("kontakt");
-licence.pust("licence");
+kontakt.pust();
+licence.pust();
 };
 akce();

@@ -98,28 +98,28 @@ int_zad_zmen(pozadavek=""){
 let p=pozadavek; // proměnná kopíruje zaslaný požadavek do funkce na změnu ukazatele zadání intervalu minutky
 let z=this.int_zad; // načte aktuální interval zadání v minutách
 
-if(p=="p10")
+if(p==="p10")
 {
 // pokud je požadavek + 10 min
 z=z+10; // přidá + 10 k hodnotě
 }
-else if(p=="m10")
+else if(p==="m10")
 {
 // pokud je požadavek - 10 min
 z=z-10; // odečte - 10 k hodnotě
 }
-else if(p=="p1")
+else if(p==="p1")
 {
 // pokud je požadavek + 1 min
 z=z+1; // přidá + 1 k hodnotě
 }
-else if(p=="m1")
+else if(p==="m1")
 {
 // pokud je požadavek - 1 min
 z=z-1; // odečte - 1 k hodnotě
 }
 
-if(p=="p10"||p=="m10"||p=="p1"||p=="m1")
+if(p==="p10"||p==="m10"||p==="p1"||p==="m1")
 {
 // pokud byl zaslán požadavek, došlo ke změně kliknutím na button a bude přehrán zvuk kliknutí
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
@@ -177,18 +177,12 @@ window.hlidac.aktivace(); // aktivuje ochranu před uspáním v ochrany.js
 hlidac.minutka=true; // ochana před uspáním aplikace - tato proměnná hlídá jestli je funkce minutky aktivní, pokud je odpočet minutky aktivní=true pokud ne=false
 window.onbeforeunload=()=>{return "Chcete zavřít aplikaci Noční VLK?";}; // ochrana před náhodným uzavřením aplikace
 
-if(oziveni)
-{
-// pokud byla minutka spuštěna tak, že došlo k jejímu oživení
-}
-else
+if(!oziveni)
 {
 // pokud byla minutka spuštěna běžně, bez jejího oživení
-
 dia.off(dia.id[9]); // vypne dialogové okno spoutění Minutky a odebere všechny posluchače dialogového okna v centrum.js
 this.cas_minutky(); // vypočítá počáteční a konečný čas intervalu minutky
 }
-
 
 this.zmen_popisky(); // funkce změní popisky v nastavení minutky a v textu timeoutu minutky podle proměnné this.popisek
 
@@ -226,7 +220,7 @@ cas_minutky(){
 // funkce vypočítá konečný čas minutky podle nastaveného intervalu uživatelem
 
 const p=Date.now(); // vrátí počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
-const int=this.int_zad * 60 * 1000; // proměnná vypočítá čas v milisekundách z intervalu zadaným uživatelem
+const int=this.int_zad*60*1000; // proměnná vypočítá čas v milisekundách z intervalu zadaným uživatelem
 this.konecny_cas=p+int; // konečný čas v milisekundách v porovnání s počátečním časem v milisekundách od nulového data (1. ledna 1970 00:00:00 UTC)
 
 uloz.uloz(uloz.klice[15],this.konecny_cas); // uloží konečný čas v milisekundách v porovnání s počátečním časem v milisekundách od nulového data (1. ledna 1970 00:00:00 UTC) na LocalStorage - v ozivit.js
@@ -264,7 +258,7 @@ uk_min.innerText=zbyva_min; // přepíše ukazatel zbývajících minut
 uk_sec1.innerText=zbyva_sec[0]; // přepíše ukazatel zbývajících sekund, první číslo, 1X
 uk_sec2.innerText=zbyva_sec[1]; // přepíše ukazatel zbývajících sekund, druhé číslo, X1
 
-if(dia.aktivni==dia.id[10])
+if(dia.aktivni===dia.id[10])
 {
 // pokud bude aktivní dialogové okno informace o minutce, začne přepisovat čas zbývajícího intervalu i v tomto dialogovém okně, porovnávací proměnné v centrum.js
 document.getElementById(this.id_info_uk[0]).innerText=zbyva_min; // přepíše ukazatel zbývajících minut v dialogovém okně informace o minutce
@@ -320,40 +314,40 @@ handleEvent(e){
 
 const k=e.target.id; // zjistí id prvku na který bylo kliknuto
 
-if(k==this.id_zadani[0])
+if(k===this.id_zadani[0])
 {
 // klik + 10 min
 this.int_zad_zmen("p10"); // pošle do funce požadavek na zvýšení intervalu minutky o 10 minut
 }
 
-if(k==this.id_zadani[1])
+else if(k===this.id_zadani[1])
 {
 // klik - 10 min
 this.int_zad_zmen("m10"); // pošle do funce požadavek na snížení intervalu minutky o 10 minut
 }
 
-if(k==this.id_zadani[2])
+else if(k===this.id_zadani[2])
 {
 // klik + 1 min
 this.int_zad_zmen("p1"); // pošle do funce požadavek na zvýšení intervalu minutky o 1 minutu
 }
 
 
-if(k==this.id_zadani[3])
+else if(k===this.id_zadani[3])
 {
 // klik - 1 min
 this.int_zad_zmen("m1"); // pošle do funce požadavek na snížení intervalu minutky o 1 minut
 }
 
 
-if(k==this.spust)
+else if(k===this.spust)
 {
 // klik na Spustit Minutku
 this.spustit(); // funkce zajistí potřebné kroky pro aktivaci minutky
 }
 
 
-if(k==this.id_viz_uk[0]||k==this.id_viz_uk[1]||k==this.id_viz_uk[2]||k==this.id_viz_uk[3]||k==this.id_viz_uk[4]||k==this.id_viz_uk[5])
+else if(k===this.id_viz_uk[0]||k===this.id_viz_uk[1]||k===this.id_viz_uk[2]||k===this.id_viz_uk[3]||k===this.id_viz_uk[4]||k===this.id_viz_uk[5])
 {
 // klik na vizuální box s odpočtem minutky (button s odpočtem) včetně prvků, které obsahuje
 klik.hraj(false); // bude přehrávat zvuk 1x klik
@@ -361,20 +355,20 @@ dia.on(dia.id[10]); /* zapne dialogové okno s informacemi o minutce a možnost�
 this.odpocet(); // aby nedošlo k prodlevě kliku a odpočtu v informačním okně, spustí funkci odpočtu, aby okamžitě přepsala stav do konce intervalu Minutky
 }
 
-if(k==this.id_timeout[2])
+else if(k===this.id_timeout[2])
 {
 // klik na OK - ukončení Timeoutu minutky
 this.ukoncit(); // funkce ukončí veškeré procesy, které nastanou po zmáčknutí OK timeoutu minutky
 }
 
-if(k==this.id_popisek_input)
+else if(k===this.id_popisek_input)
 {
 // vepsán znak do input text popisek minutky
 this.pis_popisek(); // funkce zajistí přepis z input type text popis minutky do proměnné this.popisek
 }
 
 
-if(k==this.id_check[0])
+if(k===this.id_check[0])
 {
 // klik na checked (zatrhávací políčko) Opakovat minutku po jejím ukončení - v Spuštění minutky 
 this.opakovat_zmena(e.target.checked); // funkce zajistí změny v proměnné a druhém checketu v informačním okně podle hodnoty, které v aktuálním checketu byla nastavena
@@ -435,13 +429,13 @@ if(!uloz.ok){return false;} // pokud nefunguje LocalStorage bude return - funkce
 
 let opakovat_minutku=uloz.nacti(uloz.klice[18]); // načítání z LocalStorage (v ozivit.js) - 18. klíč ukládá jesli chtěl minutku uživatel opakovat
 
-if(opakovat_minutku=="true"||opakovat_minutku=="false")
+if(opakovat_minutku===true||opakovat_minutku===false)
 {
 // pokud bude uživatelem uložena varianta opakovat minutku, anebo ji neopakovat
 const check1=document.getElementById(this.id_check[0]); // načte input type=checked v zadání minutky pro volbu opakování minutky
 const check2=document.getElementById(this.id_check[1]); // načte input type=checked v informačním okně pro minutku pro volbu opakování minutky
 
-if(opakovat_minutku=="true")
+if(opakovat_minutku)
 {
 // pokud uživatel měl zaškrklé pole opakovat minutku - zaškrknou se oba checkety - v nastavení Minutky a v informačním okně pro Minutku
 check1.checked=true;
@@ -457,7 +451,7 @@ this.opakovat=false; // změní proměnou , true= ano opakovat, false= ne neopak
 }}
 
 let interval_minutky=uloz.nacti(uloz.klice[19]); // načte z Local Storage, 19. klíč ukládá interval minutky, který byl zadán v minutách
-if(interval_minutky!="")
+if(interval_minutky!=="")
 {
 // pokud byl načten interval minutky
 interval_minutky=parseInt(interval_minutky); // převede textový řetězec na číslo
@@ -468,7 +462,7 @@ this.int_zad_zmen(); // funkce provede změnu intervalu, změna je zaslána bez 
 
 let popisek=uloz.nacti(uloz.klice[16]); // načítání z LocalStorage (v ozivit.js) - 16. klíč ukládá popisek minutky
 
-if(popisek=="")
+if(popisek==="")
 {
 // pokud nebude žádný popisek minutky načten, bude return a další kroky obnovy budou přerušeny
 return false;
@@ -481,7 +475,7 @@ this.popisek=popisek; // změní proměnnou, která určuje popisek minutky
 
 let minutka_zapnuta=uloz.nacti(uloz.klice[17]); // načítání z LocalStorage (v ozivit.js) - 17. klíč ukládá jesli byla minutka zapnuta=true anebo vypnuta=delete klíč
 
-if(minutka_zapnuta!="true")
+if(minutka_zapnuta!==true)
 {
 // pokud nebyla minutka zapnuta, což právě jednoznačně ukazuje parametr proměnné TRUE, bude return a další kroky obnovy budou přerušeny
 return false;

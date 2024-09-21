@@ -1,17 +1,17 @@
 ﻿const posun={id_okna:"spust",typ:"flex",id_nadpis:"n",TIME1:100,TIME2:150,TIME3:250,TIME4:500,
 okna(stare,nove){
 /* funkce zajišťuje posun mezi jednotlivými kroky nastavení Spustit Nočního VLKa */
-const zavrit=this.id_okna+stare; // id okna mají stejný id + jsou jednotlivě odčíslovány, což vytvoří celkový string id okna
-const otevrit=this.id_okna+nove; //  id okna mají stejný id + jsou jednotlivě odčíslovány, což vytvoří celkový string id okna
-const kotva=this.id_nadpis+nove; //  id nadpisy mají stejný id + jsou jednotlivě odčíslovány, což vytvoří celkový string id nadpisu
+const zavrit=`${this.id_okna}${stare}`; // id okna mají stejný id + jsou jednotlivě odčíslovány, což vytvoří celkový string id okna
+const otevrit=`${this.id_okna}${nove}`; //  id okna mají stejný id + jsou jednotlivě odčíslovány, což vytvoří celkový string id okna
+const kotva=`${this.id_nadpis}${nove}`; //  id nadpisy mají stejný id + jsou jednotlivě odčíslovány, což vytvoří celkový string id nadpisu
 document.getElementById(zavrit).style.zIndex=-1; /* nedovolí klikat na prvnky starého okna - není třeba vypínat posluchče, aby nedošlo k více kliku */
 document.getElementById(zavrit).style.opacity=0; /* nastaví opacity=0 na staré okno */
 document.getElementById(zavrit).style.display="none"; /* nastaví display=none na staré okno */
 
-hl_kon.otevrene_okno=otevrit; // proměnná zaznamená, které okno je otevřené, když je hlavní kontajner nastaven na display=none - v centrum.js
-
 setTimeout(()=>{
 document.getElementById(otevrit).style.display=this.typ; // u nového okna zapne display=typ
+hl_kon.otevrene_okno=otevrit; // proměnná zaznamená, které okno je otevřené, když je hlavní kontajner nastaven na display=none - v centrum.js
+v_port.prepocet(); // aktivuje přepočet velikosti okna podle Visual viewport - v centrum.js
 },this.TIME1); // zpoždění musí být, aby nedošlo k nežádoucímu poskočení okna
 
 setTimeout(()=>{
@@ -90,8 +90,6 @@ int_id:["int-15","int-30","int-60","int-120"],int_id_r:["int-15r","int-30r","int
 id_can_r:"can-rek", // id CANVAS plátna pro rekapitulaci
 id_odl:[["o10P",10],["o10M",-10],["o1P",1],["o1M",-1]],id_odl_u:["o-start","o-start-r"],
 a(){
-v_port.pruvodce=true; /* informuje visulViewport API o tom, že je průvodce zapnut */
-v_port.handleEvent(); /* aktivuje první redukci okna - protože doposud nebyly zapnuté posluchače visualViewportu API */
 hl_kon.zavri("spust1","flex","n1"); /* zavře hlavní kontajner a otevře první okno průvodce Spustit Nočního VLKa */
 this.trep(); // funkce začne třepat TERČI podle tohoi, zda jsou konkrétní obchůzky aktivní
 this.terc_barvy(); /* funkce přebarvuje TERČE: 1.strana průvodce + v rekapitulaci - poslední strana průvodce */
@@ -235,7 +233,6 @@ break;
 case this.tl_dal[4]: /* Klik na Spustit */
 zamek.blok(); /* aktivuje blokaci zámku obrazovky */
 hl_kon.otevri(this.id_okno[4]); // zavře Průvodce spouštěním Nočního VLKa a zapne Hlavní kontejner
-v_port.pruvodce=false; /* informuje Visualwievport, že průvodce spuštěním nočního VLKa je ukončen */
 vlk.zapni(); // aktiveje hlavní funkci aplikace Noční VLK
 break;
 
@@ -268,38 +265,38 @@ break;
 } /* KONEC kliknutí na posun okna a SPUŠTĚNÍ */
 
 
-if(k==this.tl_kriz[0]||k==this.svg_kriz[0]||k==this.tl_kriz[1]||k==this.svg_kriz[1]||k==this.tl_kriz[2]||k==this.svg_kriz[2]||k==this.tl_kriz[3]||k==this.svg_kriz[3]||k==this.tl_kriz[4]||k==this.svg_kriz[4])
+if(k===this.tl_kriz[0]||k===this.svg_kriz[0]||k===this.tl_kriz[1]||k===this.svg_kriz[1]||k===this.tl_kriz[2]||k===this.svg_kriz[2]||k===this.tl_kriz[3]||k===this.svg_kriz[3]||k===this.tl_kriz[4]||k===this.svg_kriz[4])
 {
 /* kliknuto na Křížek v průvodci spuštění Nočnmího VLKa */
 this.kriz();
 }
 
 /* kliknutí na terčík Vloba obchůzky */
-if(k==this.id_terc[0]||k==this.id_obch[0]||k==this.id_obch[1])
+if(k===this.id_terc[0]||k===this.id_obch[0]||k===this.id_obch[1])
 {
 this.obch(15);
 }
-else if(k==this.id_terc[1]||k==this.id_obch[2]||k==this.id_obch[3])
+else if(k===this.id_terc[1]||k===this.id_obch[2]||k===this.id_obch[3])
 {
 this.obch(30);
 }
-else if(k==this.id_terc[2]||k==this.id_obch[4]||k==this.id_obch[5])
+else if(k===this.id_terc[2]||k===this.id_obch[4]||k===this.id_obch[5])
 {
 this.obch(60);
 }
-else if(k==this.id_terc[3]||k==this.id_obch[6]||k==this.id_obch[7])
+else if(k===this.id_terc[3]||k===this.id_obch[6]||k===this.id_obch[7])
 {
 this.obch(120);
 }
 /* KONEC kliknutí na terčík Vloba obchůzky */
 
 /* kliknutí na plus anebo minus Interval */
-if(k==this.intBUTid[0]||k==this.intBUTid[1])
+if(k===this.intBUTid[0]||k===this.intBUTid[1])
 {
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
 this.inter("plus");
 }
-else if(k==this.intBUTid[2]||k==this.intBUTid[3])
+else if(k===this.intBUTid[2]||k===this.intBUTid[3])
 {
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
 this.inter("minus");
@@ -307,7 +304,7 @@ this.inter("minus");
 /* KONEC kliknutí na plus anebo minus Interval */
 
 /* Kliknutí na změnit první obchůzku */
-if(k==this.id_but_z)
+if(k===this.id_but_z)
 {
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
 this.o_posun(); /* posune obchůzku na další: +11 */
@@ -386,22 +383,22 @@ let max=null; /* proměnná slouží k posouzení maximalnímu posunu obchůzky 
 let okr=osoba.okruh; /* načte aktuální volbu první obchůzky uživatelem */
 
 /* pro systém SINGL obchůzek 15 minut nebo 30 minut nebo 60 minut nebo 120 minut */
-if((o15==true&&o30==false&&o60==false&&o120==false)||(o15==false&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==false&&o60==true&&o120==false)||(o15==false&&o30==false&&o60==false&&o120==true))
+if((o15===true&&o30===false&&o60===false&&o120===false)||(o15===false&&o30===true&&o60===false&&o120===false)||(o15===false&&o30===false&&o60===true&&o120===false)||(o15===false&&o30===false&&o60===false&&o120===true))
 {
 max=11;
 }
 /* pro systém DABL obchůzek 15 minut + 30 minut nebo 30 minut + 60 minut nebo 60 minut + 120 minut */
-else if((o15==true&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==true&&o60==true&&o120==false)||(o15==false&&o30==false&&o60==true&&o120==true))
+else if((o15===true&&o30===true&&o60===false&&o120===false)||(o15===false&&o30===true&&o60===true&&o120===false)||(o15===false&&o30===false&&o60===true&&o120===true))
 {
 max=22;
 }
 /* pro systém QVATTRO obchůzek 15 minut + 30 minut + 60 min nebo 15 minut + 60 minut nebo 30 minut + 60 minut + 120 minut nebo 30 minut + 120 minut */
-else if((o15==true&&o30==true&&o60==true&&o120==false)||(o15==true&&o30==false&&o60==true&&o120==false)||(o15==false&&o30==true&&o60==true&&o120==true)||(o15==false&&o30==true&&o60==false&&o120==true))
+else if((o15===true&&o30===true&&o60===true&&o120===false)||(o15===true&&o30===false&&o60===true&&o120===false)||(o15===false&&o30===true&&o60===true&&o120===true)||(o15===false&&o30===true&&o60===false&&o120===true))
 {
 max=44;
 }
 /* pro systém OTTO obchůzek 15 minut + 30 minut + 60 min + 120 minut nebo 15 minut + 30 minut + 120 minut ... atd. */
-else if((o15==true&&o30==true&&o60==true&&o120==true)||(o15==true&&o30==false&&o60==true&&o120==true)||(o15==true&&o30==true&&o60==false&&o120==true)||(o15==true&&o30==false&&o60==false&&o120==true))
+else if((o15===true&&o30===true&&o60===true&&o120===true)||(o15===true&&o30===false&&o60===true&&o120===true)||(o15===true&&o30===true&&o60===false&&o120===true)||(o15===true&&o30===false&&o60===false&&o120===true))
 {
 max=88;
 }
@@ -424,14 +421,14 @@ let level=osoba.level; /* načte globalni hodnoty */
 
 if(metoda)
 {
-if(metoda=="plus")
+if(metoda==="plus")
 { 
 level++;
 if(level>7)
 {
 level=7;
 }}
-else if(metoda=="minus")
+else if(metoda==="minus")
 {
 level--;
 if(level<1)
@@ -450,12 +447,12 @@ buttFULL(){
 const level=osoba.level; /* načte globalni hodnoty */
 
  /* zajistí vysedení tlačítka Plus anebo Mínus - opacity="0.5" */
-if(level==1)
+if(level===1)
 {
 document.getElementById(this.intBUTid[2]).style.opacity=0.5;
 document.getElementById(p_nas.id_nas[2]).style.opacity=0.5; /* p_nas JE v centrum.js */
 }
-else if(level==7)
+else if(level===7)
 {
 document.getElementById(this.intBUTid[0]).style.opacity=0.5;
 document.getElementById(p_nas.id_nas[1]).style.opacity=0.5;
@@ -475,13 +472,13 @@ let terc=""; /* do proměnné se bude chytat id terče na který bylo kliknuto *
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
 
 /* Terč obchůzka Do 15 Minut */
-if(ktera==15)
+if(ktera===15)
 {
-if(o15==false)
+if(o15===false)
 {
 o15=true;
 }
-else if(o15==true)
+else if(o15===true)
 {
 o15=false;
 }
@@ -489,13 +486,13 @@ terc=this.id_ter[0]; /* označí id terče */
 }
 
 /* Terč obchůzka Do 30 Minut */
-else if(ktera==30)
+else if(ktera===30)
 {
-if(o30==false)
+if(o30===false)
 {
 o30=true;
 }
-else if(o30==true)
+else if(o30===true)
 {
 o30=false;
 }
@@ -503,13 +500,13 @@ terc=this.id_ter[1]; /* označí id terče */
 }
 
 /* Terč obchůzka Do 60 Minut */
-else if(ktera==60)
+else if(ktera===60)
 {
-if(o60==false)
+if(o60===false)
 {
 o60=true;
 }
-else if(o60==true)
+else if(o60===true)
 {
 o60=false;
 }
@@ -517,13 +514,13 @@ terc=this.id_ter[2];
 }
 
 /* Terč obchůzka Do 120 Minut */
-else if(ktera==120)
+else if(ktera===120)
 {
-if(o120==false)
+if(o120===false)
 {
 o120=true;
 }
-else if(o120==true)
+else if(o120===true)
 {
 o120=false;
 }
@@ -565,22 +562,22 @@ v_ochuz(){
 const [o15,o30,o60,o120]=[osoba.o15,osoba.o30,osoba.o60,osoba.o120]; /* načte data uživatele */
 let h=0; /* promněnná pro hodnocení */
 
-if(o15==true)
+if(o15===true)
 {
 h++;
 }
 
-if(o30==true)
+if(o30===true)
 {
 h++;
 }
 
-if(o60==true)
+if(o60===true)
 {
 h++;
 }
 
-if(o120==true)
+if(o120===true)
 {
 h++;
 }
@@ -595,7 +592,7 @@ this.volba=false;
 }},
 enab_tl(){
 const [o15,o30,o60,o120]=[osoba.o15,osoba.o30,osoba.o60,osoba.o120]; /* načte data uživatele */
-if(o15==true||o30==true||o60==true||o120==true)
+if(o15===true||o30===true||o60===true||o120===true)
 {
 document.getElementById(this.tl_dal[0]).disabled=false;
 document.getElementById(this.tl_dal[0]).title="Dále";
@@ -612,14 +609,14 @@ const [o15,o30,o60,o120]=[osoba.o15,osoba.o30,osoba.o60,osoba.o120]; /* načte d
 
 let h=[]; /* pomocné pole */
 
-if(o15==true){
+if(o15===true){
 h.push([0,"block"]); /* připne číslo pole id DOM prvku a typ zobrazení */
 }
 else
 {
 h.push([0,"none"]); /* připne číslo pole id DOM prvku a typ zobrazení */
 }
-if(o30==true)
+if(o30===true)
 {
 h.push([1,"block"]);
 }
@@ -627,7 +624,7 @@ else
 {
 h.push([1,"none"]);
 }
-if(o60==true)
+if(o60===true)
 {
 h.push([2,"block"]);
 }
@@ -636,7 +633,7 @@ else
 h.push([2,"none"]);
 }
 
-if(o120==true)
+if(o120===true)
 {
 h.push([3,"block"]);
 }
@@ -667,7 +664,7 @@ const t30=[document.getElementById(this.id_ter[1]),document.getElementById(this.
 const t60=[document.getElementById(this.id_ter[2]),document.getElementById(this.id_ter_r[2])];
 const t120=[document.getElementById(this.id_ter[3]),document.getElementById(this.id_ter_r[3])];
 
-if(o15==true){
+if(o15===true){
 t15[0].style.borderColor=z;  /* terč první strana v průvodci */
 t15[1].style.borderColor=z;  /* terč v rekapitulaci - poslední strana v průvodci */
 t15[0].style.boxShadow=`0px 0px 10px ${z}`;  /* terč první strana v průvodci */
@@ -680,7 +677,7 @@ t15[1].style.borderColor=c;
 t15[0].style.boxShadow="0px 0px 0px transparent";  /* terč první strana v průvodci */
 t15[1].style.boxShadow="0px 0px 0px transparent";  /* terč v rekapitulaci - poslední strana v průvodci */
 }
-if(o30==true)
+if(o30===true)
 {
 t30[0].style.borderColor=z;
 t30[1].style.borderColor=z;
@@ -695,7 +692,7 @@ t30[0].style.boxShadow="0px 0px 0px transparent";
 t30[1].style.boxShadow="0px 0px 0px transparent";
 }
 
-if(o60==true)
+if(o60===true)
 {
 t60[0].style.borderColor=z;
 t60[1].style.borderColor=z;
@@ -710,7 +707,7 @@ t60[0].style.boxShadow="0px 0px 0px transparent";
 t60[1].style.boxShadow="0px 0px 0px transparent";
 }
 
-if(o120==true)
+if(o120===true)
 {
 t120[0].style.borderColor=z;
 t120[1].style.borderColor=z;
@@ -731,13 +728,12 @@ klik.hraj(false); // bude přehrávat zvuk 1x klik
 let l1=this.id_okno.length;
 for(let i=0;i<l1;i++)
 {
-if(document.getElementById(this.id_okno[i]).style.display=="flex")
+if(document.getElementById(this.id_okno[i]).style.display==="flex")
 {
 let cislo=i+1; /* id okna začíná od 1 - tedy musí dojít k navýšení o 1 */
 let id=`spust${cislo}`;
 hl_kon.otevri(id);
 this.posluchaceOff(); /* deaktivuje všechny posluchače události potřebné v průvodci */
-v_port.pruvodce=false; /* informuje visulViewport API o tom, že je průvodce ukončen */
 hlidac.DEaktivace(); /* vypne ochranu proti uspání karty */
 kresly.obr=null; /* vymaže z paměti obrázek Tlapky nočního vlka - v kresly.js */
 kresly.obr_nacten=false; /* hodnota určuje, že je vymazán z paměti obrázek tlapka Nočního VLKa - v kresly.js */

@@ -19,9 +19,9 @@ klice:[ // klíče pro ukládání do Local Storage
 "o120",
 "interval",
 "vlk_zas",
-"cas_pro_oziv",
-"alarm_zv", // klíč volby zda chce užívatel postupné zesilování pro alarm Noční VLK
-"poznamky", // klíč pro Poznámky
+"alarm_vlk", // 10. uložení volby alarmu pro hlavní funkci aplikace Noční VLK
+"alarm_zv", // 11. klíč volby zda chce užívatel postupné zesilování pro alarm Noční VLK
+"poznamky", // 12. klíč pro Poznámky
 "alarm_min", // 13. klíč volbu alarmu minutky
 "zes_min", // 14. klíč volby zda chce užívatel postupné zesilování pro alarm Minutky
 "cas_min", // 15. klíč ukládá čas, kdy nastane timeout Minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
@@ -41,7 +41,7 @@ _class:"d-n", // název css třídy pro vlastnost HTML prvku display=none ve vlk
 a(){
 /* funkce slouží k aktivaci - posouzení, zda je možno použít localstorage */
 
-if(this.ok==null)
+if(this.ok===null)
 {
 // pokud proměnná, která hlídá zda prohlížeč podporuje anebo funguje Local storage zatím nebyla naplněna hodnotou
 let retezec=location.search.slice(1); /* odebere Otazník z řetězce - aby mohlo dojít ke konverci JSON */
@@ -56,10 +56,9 @@ return; /* něco se pokazilo a nepodařilo se dostat pomocí JSON z řetězce po
 }
 this.ok=pole[1]; /* první položka v poly je výsledek testu, zda funguje Local storage - viz start.js funkce over */
 
-
 if(this.ok)
 {
-// pokud je local storage podporován a funkční bude this.ok==true
+// pokud je local storage podporován a funkční bude this.ok===true
 this.zadost_o_trvale_uloziste(); // funkce zkontroluje jestli prohlížeč povolil aplikaci trvalé uložiště, pokud ne, pokusí se o udělení žádosti
 }
 }},
@@ -119,13 +118,22 @@ nacti(klic){
 if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 let data=localStorage.getItem(klic); /* provede nahrání dat z localStorage [klíč] */
-if(data==null)
+if(data===null)
 {
 data=""; /* pokud jsou data null - jsou data "" */
 }
 
-return data;
-
+if(data==="true")
+{
+// pokud řetězec načtený z localstorage==="true", převede tento na boolen proměnnou true
+data=true; // převod na booolen proměnnou
+}
+else if(data==="false")
+{
+// pokud řetězec načtený z localstorage==="false", převede tento na boolen proměnnou false
+data=false; // převod na booolen proměnnou
+}
+return data; // funkce vrátí data, která byla načtena z LocalStorage
 },
 smaz(klic){
 /* funkce zajišťuje mazání dat z local storage */
@@ -208,7 +216,7 @@ if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v ozi
 
 let cas_T_n=this.nacti(this.klice[3]);  /* načte čas zahájení timeoutu z localstorage v sekundách od roku 1970 */
 
-if(cas_T_n=="")
+if(cas_T_n==="")
 {
 this.cas_T=null; /* pokud nebude čas timeautu bude 0,0,0 */
 }
@@ -225,7 +233,7 @@ o_osoba(){
 if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
 
 let data_osoba=this.nacti(this.klice[0]); /* načte objekt osoba z localstorage */
-if(data_osoba==""){this.osoba_kopie=""; return;} /* pokud nebudou načtena žádná data - bude return */
+if(data_osoba===""){this.osoba_kopie=""; return;} /* pokud nebudou načtena žádná data - bude return */
 
 try
 {
@@ -233,6 +241,7 @@ this.osoba_kopie=JSON.parse(data_osoba); /* z dat uživatele udělá objekt osob
 }
 catch(e)
 {
+console.log(`Načtená data osoby jsou poškozena, nepodařilo se JSON.parse, chyba:${e}`);
 this.osoba_kopie=""; /* načtené data osoby jsou poškozená */
 return;
 }
@@ -241,11 +250,9 @@ return;
 o_cas_P(){
 /* načtení hodnot počátku počátíná času do intervalu */
 
-if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v oziv.js
+let cas_P=this.nacti(this.klice[1]); // načte čas zahájení odpočtu z localstorage
 
-let cas_P=localStorage.getItem(this.klice[1]);  /* načte čas zahájení odpočtu z localstorage */
-
-if(cas_P==null){
+if(cas_P===""){
 this.z_den="";
 return; /* pokud nebudou načtena žádná data - bude return */
 }
@@ -259,11 +266,11 @@ if(!uloz.ok){return;} // pokud nefunguje LocalStorage bude return - funkce v ozi
 
 let v_obch=this.nacti(this.klice[2]);  /* načte zda nedošlo k oživení v obchůzce */
 
-if(v_obch=="true")
+if(v_obch)
 { /* pokud byla obchůzka aktivní */
 this.v_obchuzce=true;
 }
-else
+else if(!v_obch)
 { /* pokud nebyla obchůzka aktivní */
 this.v_obchuzce=false;
 }},
@@ -272,7 +279,7 @@ dead_time(){
 let akt_ms=Date.now(); /* vrátí počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC) */
 
 this.intr=this.nacti(this.klice[8]); /* načte délku počítání intervalu */
-if(this.intr=="")
+if(this.intr==="")
 {
 return false; /* pokud není načtená délka intervalu */
 }
@@ -305,7 +312,7 @@ this.cas_T="";
 
 obch.z_den=this.z_den; /* provede se přepis Doplněné kopie Objektu obch načtených z localStorage - v oziv.js */
 this.z_den=""; /* vymažou se dočasně uložená data */
-obch.intr=this.intr; /* načte ionterval do obchůzky z klonu */
+obch.intr=this.intr; /* načte interval do obchůzky z klonu */
 this.intr="";
 
 },
@@ -317,23 +324,23 @@ o_zvuk(){
 let volba_vlk=this.nacti(this.klice[10]); /* načte volbu zvuku alarmu Noční VLK uživatele uloženou na LocalStorage */
 let zesilovani_vlk=this.nacti(this.klice[11]); /* načte volbu uživatele, zda chce postupně zvyšovat zvuk alarmu Noční VLK */
 
-if(volba_vlk!="")
+if(volba_vlk!=="")
 {
 /* pokud byla načtena nějáká volba */
 volba_vlk=parseInt(volba_vlk); /* převede textový řetězec na číslo */
 zvuk.cislo=volba_vlk; /* provede změnu volby alarmu Noční VLK v objektu zvuk - ve vlk.js */
 }
 
-if(zesilovani_vlk!="")
+if(zesilovani_vlk!=="")
 {
 /* pokud byl uložen požadavek uživatele na zesilování */
-if(zesilovani_vlk=="true")
+if(zesilovani_vlk)
 {
 /* pokud uživatel žádá postupnéí zesilování */
 zvuk.zesilovat=true; /* nastaví proměnnou na Povolit postupné zesilování - ve vlk.js */
 document.getElementById(p_nas.id_nas[3]).checked=true; /* nastaví Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }
-else if(zesilovani_vlk=="false")
+else if(!zesilovani_vlk)
 {
 /* pokud uživatel nechtěl postupnéí zesilování */
 zvuk.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
@@ -345,23 +352,23 @@ document.getElementById(p_nas.id_nas[3]).checked=false; /* odstraní Zatržení 
 let volba_min=this.nacti(this.klice[13]); /* načte volbu zvuku alarmu Minutka uživatele uloženou na LocalStorage */
 let zesilovani_min=this.nacti(this.klice[14]); /* načte volbu uživatele, zda chce postupně zvyšovat zvuk alarmu Minutka */
 
-if(volba_min!="")
+if(volba_min!=="")
 {
 /* pokud byla načtena nějáká volba */
 volba_min=parseInt(volba_min); /* převede textový řetězec na číslo */
 zvuk_min.cislo=volba_min; /* provede změnu volby alarmu Noční VLK v objektu zvuk - ve vlk.js */
 }
 
-if(zesilovani_min!="")
+if(zesilovani_min!=="")
 {
 /* pokud byl uložen požadavek uživatele na zesilování */
-if(zesilovani_min=="true")
+if(zesilovani_min)
 {
 /* pokud uživatel žádá postupnéí zesilování */
 zvuk_min.zesilovat=true; /* nastaví proměnnou na Povolit postupné zesilování - ve vlk.js */
 document.getElementById(p_nas.id_nas[4]).checked=true; /* nastaví Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }
-else if(zesilovani_min=="false")
+else if(!zesilovani_min)
 {
 /* pokud uživatel nechtěl postupnéí zesilování */
 zvuk_min.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
@@ -371,32 +378,31 @@ document.getElementById(p_nas.id_nas[4]).checked=false; /* odstraní Zatržení 
 
 // volba alarmu a zesilování Plánovač
 let volba_plan=this.nacti(this.klice[20]); /* načte volbu zvuku alarmu Plánovač uživatele uloženou na LocalStorage */
+
 let zesilovani_plan=this.nacti(this.klice[21]); /* načte volbu uživatele, zda chce postupně zvyšovat zvuk alarmu Plánovač */
 
-if(volba_plan!="")
+if(volba_plan!=="")
 {
 /* pokud byla načtena nějáká volba */
 volba_plan=parseInt(volba_plan); /* převede textový řetězec na číslo */
 zvuk_plan.cislo=volba_plan; /* provede změnu volby alarmu Noční VLK v objektu zvuk - ve vlk.js */
 }
 
-if(zesilovani_plan!="")
+if(zesilovani_plan!=="")
 {
 /* pokud byl uložen požadavek uživatele na zesilování */
-if(zesilovani_plan=="true")
+if(zesilovani_plan)
 {
-/* pokud uživatel žádá postupnéí zesilování */
+// pokud uživatel žádá postupnéí zesilování
 zvuk_plan.zesilovat=true; /* nastaví proměnnou na Povolit postupné zesilování - ve vlk.js */
 document.getElementById(p_nas.id_nas[5]).checked=true; /* nastaví Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }
-else if(zesilovani_plan=="false")
+else if(!zesilovani_plan)
 {
 /* pokud uživatel nechtěl postupnéí zesilování */
 zvuk_plan.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování - ve vlk.js */
 document.getElementById(p_nas.id_nas[5]).checked=false; /* odstraní Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }}
-
-
 
 },
 o_poznamky(){
@@ -415,13 +421,13 @@ if(!uloz.ok){return false;} // pokud nefunguje LocalStorage bude return - funkce
 this.osoba_kopie=Object.create(osoba); /* udělá věrnou kopii objektu osoba - v pruvodci.js */
 
 this.o_osoba(); /* načte data pro objekt osoba - v pruvodce.js */
-if(this.osoba_kopie=="")
+if(this.osoba_kopie==="")
 {
 return false; /* pokud nejsou data k objektu osoba - bude return a neprovede se oživení */
 }
 
 this.o_cas_P(); /* načte časy počátku počítání intervalu */
-if(this.z_den=="")
+if(this.z_den==="")
 {
 return false; /* pokud nejsou minimální potřebná data načtena - bude return a neprovede se oživení */
 }
@@ -447,7 +453,7 @@ if(!tlacitkem)
 const byl_vlk_zastaven=this.nacti(this.klice[9]); /* načte hodnotu z local storage */
 
 
-if(byl_vlk_zastaven=="true")
+if(byl_vlk_zastaven)
 {
 /* Pokud byl noční VLK zastaven */
 g_pos.ozivitOn(this.z_den+this.max_obnova_ms+this.intr*1000); /* aktivuje posluchače událostí a krytí tlačítka na 100% Oživit Nočního VLKa - v centrum.js */

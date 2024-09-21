@@ -1479,7 +1479,7 @@ min-width:13.75rem; /* minimální šířka aplikace 220px */
 height:auto;
 min-height:100vh;
 background:black;
-transition:250ms;
+transition:250ms opacity;
 overflow:hidden;
 }
 
@@ -1579,7 +1579,7 @@ background:var(--b5); /* barva ukazatele měřidla */
 
 .o-telo
 {
-padding:4rem 1rem 1rem 1rem;
+padding:0 1rem 1rem 1rem;
 overflow:auto;
 }
 
@@ -1596,6 +1596,7 @@ justify-items:center;
 width:100%;
 /* max-width:100rem; */
 background:var(--b1);
+overflow:auto;
 }
 
 .o-pata
@@ -2979,7 +2980,8 @@ opacity:.5;
 
 .p-s
 {
-position:fixed;
+position:-webkit-sticky;
+position:sticky;
 width:100%;
 top:0;
 left:0;
@@ -3034,6 +3036,7 @@ background-color:var(--b1);
 
 .n-s::selection
 {
+color:var(--b4);
 background:transparent;
 }
 

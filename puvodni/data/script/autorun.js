@@ -10,7 +10,7 @@ minutka:null, // proměnná informuje, že byla načtena knihovna minutka.js
 planovac:null, // proměnná informuje, že byla načtena knihovna planovac.js
 akce(){
 // funkce slouží ke kontrole, zda byly všechny JS knihovny potřebné pro chod aplikace načteny a pokud ano, spustí postupně všechny procesy
-if(this.pruvodce==true&&this.centrum==true&&this.vlk==true&&this.ochrany==true&&this.kresly==true&&this.ozivit==true&&this.minutka==true&&this.planovac==true)
+if(this.pruvodce===true&&this.centrum===true&&this.vlk===true&&this.ochrany===true&&this.kresly===true&&this.ozivit===true&&this.minutka===true&&this.planovac===true)
 {
 clearTimeout(this.casovac); // zastaví časovač
 uloz.a(); // kontrola jestli funguje uživateli LocalStorage v ozivit.js

@@ -20,7 +20,7 @@ let zs=zbyle_s; /* zbylé sekundy z intervalu do obchůzky */
 let i=obch.intr; /* interval do obchůzky v sekundách - objekt je ve vlk.js */
 let min=i-this.m_s; /* minimální čas v sekundách, kdy bude možné první polohu v okruhu zobrazit */
 
-if(osoba.odloz_start!=0)
+if(osoba.odloz_start!==0)
 {
 /* pokud bude zvolen odložený start - bude délka intervalu odpovídat délce odloženého startu */
 i=osoba.odloz_start*60; /* přepočet intervalu odloženého startu v minutách na sekundy */
@@ -30,83 +30,83 @@ min=i+1; /* minimální čas v sekundách, kdy bude možné první polohu v okru
 let dil=i/12; /* 1/12 je dílek každého posunu polohy */
 let zmena=null; // proměnná kontroluje zda došlo ke změně polohy
 
-if((zs<min)&&(zs>(i-dil))&&this.p1==0)
+if((zs<min)&&(zs>(i-dil))&&this.p1===0)
 {
 /* poloha 1. */
 this.p1=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can); /* vykreslý systém obchůzek s novou polohou  - nestandartně jako při oživení dojde k dočasnému posunu okruhu! ve vlk.js - objekt id je ve vlk.js */
 }
-else if((zs<(i-dil))&&(zs>(i-(dil*2)))&&this.p2==0)
+else if((zs<(i-dil))&&(zs>(i-(dil*2)))&&this.p2===0)
 {
 /* poloha 2. */
 this.p2=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
-else if((zs<(i-(dil*2)))&&(zs>(i-(dil*3)))&&this.p3==0)
+else if((zs<(i-(dil*2)))&&(zs>(i-(dil*3)))&&this.p3===0)
 {
 /* poloha 3. */
 this.p3=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
-else if((zs<(i-(dil*3)))&&(zs>(i-(dil*4)))&&this.p4==0)
+else if((zs<(i-(dil*3)))&&(zs>(i-(dil*4)))&&this.p4===0)
 {
 this.p4=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
-else if((zs<(i-(dil*4)))&&(zs>(i-(dil*5)))&&this.p5==0)
+else if((zs<(i-(dil*4)))&&(zs>(i-(dil*5)))&&this.p5===0)
 {
 this.p5=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
-else if((zs<(i-(dil*5)))&&(zs>(i-(dil*6)))&&this.p6==0)
+else if((zs<(i-(dil*5)))&&(zs>(i-(dil*6)))&&this.p6===0)
 {
 this.p6=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
-else if((zs<(i-(dil*6)))&&(zs>(i-(dil*7)))&&this.p7==0)
+else if((zs<(i-(dil*6)))&&(zs>(i-(dil*7)))&&this.p7===0)
 {
 this.p7=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
-else if((zs<(i-(dil*7)))&&(zs>(i-(dil*8)))&&this.p8==0)
+else if((zs<(i-(dil*7)))&&(zs>(i-(dil*8)))&&this.p8===0)
 {
 this.p8=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
-else if((zs<(i-(dil*8)))&&(zs>(i-(dil*9)))&&this.p9==0)
+else if((zs<(i-(dil*8)))&&(zs>(i-(dil*9)))&&this.p9===0)
 {
 this.p9=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
-else if((zs<(i-(dil*9)))&&(zs>(i-(dil*10)))&&this.p10==0)
+else if((zs<(i-(dil*9)))&&(zs>(i-(dil*10)))&&this.p10===0)
 {
 this.p10=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
-else if((zs<(i-(dil*10)))&&(zs>(i-(dil*11)))&&this.p11==0)
+else if((zs<(i-(dil*10)))&&(zs>(i-(dil*11)))&&this.p11===0)
 {
 this.p11=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
-else if((zs<(i-(dil*11)))&&(zs>=(i-(dil*12)))&&this.p12==0)
+else if((zs<(i-(dil*11)))&&(zs>=(i-(dil*12)))&&this.p12===0)
 {
 this.p12=1;
 zmena=true; // změna proměnné na true informuje, že došlo ke změně polohy
 vlk.ozivit.kresly_system(obch.id_can);
 }
 
-if(zmena==true)
+if(zmena===true)
 {
 // pokud došlo ke změně polohy
 
@@ -170,7 +170,14 @@ let zo=osoba.okruh; /* obchůzkový okruh v systému obchůzek */
 let o15=osoba.o15,o30=osoba.o30,o60=osoba.o60,o120=osoba.o120; /* načte data z globálního objektu */
 
 let os=osoba.odloz_start; /* načte hodnotu odloženehó startu zadaného uživatelem */
-let pr=v_port.pruvodce; /* zjistí, zda je aktivní průvodce pro spuštění nočního vlka */
+
+const can_volba=pruvodce.id_can_v; // id plátna CANVAS v průvodci spouštěním Nočního VLKa - Volba obchůzky
+const can_rekap=pruvodce.id_can_r; // id plátna CANVAS v průvodci spouštěním Nočního VLKa - Rekapitulace
+const can_system=obch.id_can; // id plátna CANVAS se systémem obchůzek na hlavním kontejneru aplikace
+
+const other=(nazev_platna===can_volba||nazev_platna===can_rekap); // pokud se název plátna pro vykreslení shoduje S id plátna CANVAS v průvodci spouštěním Nočního VLKa - Volba obchůzky nebo S id plátna CANVAS v průvodci spouštěním Nočního VLKa - Rekapitulace , bude se proměnná === TRUE jinak === FALSE
+
+const boss=nazev_platna===can_system; // pokud se název plátna bude shodovat s názvem plátna se systémem obchůzek na hlavním kontejneru aplikace bude se proměnná === TRUE jinak === FALSE
 
 let p1=poloha.p1,p2=poloha.p2,p3=poloha.p3,p4=poloha.p4,p5=poloha.p5,p6=poloha.p6,p7=poloha.p7,p8=poloha.p8,p9=poloha.p9,p10=poloha.p10,p11=poloha.p11,p12=poloha.p12; /* načte data z globálního objektu o poloze */
 
@@ -182,50 +189,51 @@ let p1=poloha.p1,p2=poloha.p2,p3=poloha.p3,p4=poloha.p4,p5=poloha.p5,p6=poloha.p
 /* L */
 
 /* pro systém SINGL obchůzek 15 minut nebo 30 minut nebo 60 minut nebo 120 minut */
-if((o15==true&&o30==false&&o60==false&&o120==false)||(o15==false&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==false&&o60==true&&o120==false)||(o15==false&&o30==false&&o60==false&&o120==true))
+if((o15===true&&o30===false&&o60===false&&o120===false)||(o15===false&&o30===true&&o60===false&&o120===false)||(o15===false&&o30===false&&o60===true&&o120===false)||(o15===false&&o30===false&&o60===false&&o120===true))
 {
 
 p.beginPath(); /* kruh obchůzky */
 p.arc(200,30,25,0,2*Math.PI,false);
-if(os==0||(pr==true&&os!=0))
+if(os===0||(other&&os!==0))
 {
+// pokud bude odložený start 0 min - vykreslý provedení obchůzky, ANEBO pokud bude vykreslovat plátno Volba obchůzky a Rekapitulace v průvodci spouštěním Nočního VLKa
 p.fill();
 }
 p.stroke();
 p.closePath(); /* KONEC kruh obchůzky */
 
-if(o15==true)
+if(o15===true)
 {
 t1="15";
 }
-else if(o30==true)
+else if(o30===true)
 {
 t1="30";
 }
-else if(o60==true)
+else if(o60===true)
 {
 t1="60";
 }
-else if(o120==true)
+else if(o120===true)
 {
 t1="120";
 }
 
 
 p.fillStyle=b3; // barva pro vykreslení textu
-if(nazev_platna==pruvodce.id_can_v||nazev_platna==pruvodce.id_can_r)
+if(other)
 {
 // pokud se bude vykreslovat CANVAS plátno v Průvodci spoštěním Nočního VLKa - volba obchůzky a rekapitulace - v pruvodce.js
 // vykreslí text obchůzky
 p.fillText(o,140,85); // text: "Obchůzka"
 p.fillText(d+t1+m,128,112); // text: "do" + okruh + "minut"
 }
-else if(nazev_platna==obch.id_can)
+else if(boss)
 {
 // pokud se bude vykreslovat CANVAS plátno se systémem obchůzek - v vlk.js
 // vykreslí text obchůzky
 p.font=f0; // font plátna- velký text
-if(t1.length==2)
+if(t1.length===2)
 {
 // pokud bude mít text obchůzky 2 znaky - obchůzky 15,30 a 60 min
 p.fillText(t1,145,135); // vykreslý text pouze OKRUH - 15, 30 a 60
@@ -249,58 +257,58 @@ p.closePath(); /* KONEC kruh intervalu */
 
 /* poloha okruhu */
 
-if(p1==1||p2==1||p3==1||p4==1||p5==1||p6==1||p7==1||p8==1||p9==1||p10==1||p11==1||p12==1)
+if(p1===1||p2===1||p3===1||p4===1||p5===1||p6===1||p7===1||p8===1||p9===1||p10===1||p11===1||p12===1)
 {
 let u=0; /* konečný úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. v 1. půlkruhu */
 u=308;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. v 1. půlkruhu */
 u=336;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. v 1. půlkruhu */
 u=4;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=32;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=60;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=88;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=116;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=144;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=172;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=200;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=228;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=250;
 }
@@ -331,7 +339,7 @@ p.fill();
 p.closePath(); /* Konec vykreslí šipku konce intervalu */
 
 
-if(this.obr_nacten!=true)
+if(this.obr_nacten!==true)
 {
 /* pokud není načten do globální proměnné obrázek tlapky Nočního Vlka - načte ji a vykreslí */
 this.obr=new Image();
@@ -354,10 +362,10 @@ return;
 /* L */
 
 /* pro systém DABL obchůzek 15 minut + 30 minut nebo 30 minut + 60 minut nebo 60 minut + 120 minut */
-if((o15==true&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==true&&o60==true&&o120==false)||(o15==false&&o30==false&&o60==true&&o120==true))
+if((o15===true&&o30===true&&o60===false&&o120===false)||(o15===false&&o30===true&&o60===true&&o120===false)||(o15===false&&o30===false&&o60===true&&o120===true))
 {
 
-if(this.obr_nacten!=true)
+if(this.obr_nacten!==true)
 {
 /* pokud není načten do globální proměnné obrázek tlapky Nočního Vlka - načte ji a vykreslí */
 this.obr=new Image();
@@ -373,7 +381,7 @@ p.drawImage(this.obr,145,132,104.03,138.51); /* vykreslí obrázek (promněnná 
 
 p.beginPath(); /* kruh obchůzky 1. */
 p.arc(200,30,25,0,2*Math.PI,false);
-if((zo==11&&os==0)||(zo==11&&os!=0&&pr==true))
+if((zo===11&&os===0)||(zo===11&&os!==0&&other))
 {
 p.fill();
 }
@@ -382,31 +390,31 @@ p.closePath(); /* KONEC kruh obchůzky 1. */
 
 p.beginPath(); /* kruh obchůzky 2. */
 p.arc(200,370,25,0,2*Math.PI,false);
-if((zo==22&&os==0)||(zo==22&&os!=0&&pr==true))
+if((zo===22&&os===0)||(zo===22&&os!==0&&other))
 {
 p.fill();
 }
 p.stroke();
 p.closePath(); /* KONEC kruh obchůzky 2. */
 
-if(o15==true&&o30==true)
+if(o15===true&&o30===true)
 {
 t1="30";
 t2="15";
 }
-else if(o30==true&&o60==true)
+else if(o30===true&&o60===true)
 {
 t1="60";
 t2="30";
 }
-else if(o60==true&&o120==true)
+else if(o60===true&&o120===true)
 {
 t1="120";
 t2="60";
 }
 
 p.fillStyle=b3; // barva pro vykreslení textu
-if(nazev_platna==pruvodce.id_can_v||nazev_platna==pruvodce.id_can_r)
+if(other)
 {
 // pokud se bude vykreslovat CANVAS plátno v Průvodci spoštěním Nočního VLKa - volba obchůzky a rekapitulace - v pruvodce.js
 // vykreslí text obchůzky
@@ -415,13 +423,13 @@ p.fillText(d+t1+m,133,117); // text: "do" + okruh + "minut" - první kruh obchů
 p.fillText(o,140,300); // text: "Obchůzka" - druhý kruh obchůzky
 p.fillText(d+t2+m,128,325); // text: "do" + okruh + "minut" - druhý kruh obchůzky
 }
-else if(nazev_platna==obch.id_can)
+else if(boss)
 {
 // pokud se bude vykreslovat CANVAS plátno se systémem obchůzek - v vlk.js
 // vykreslí text okruhů v systému obchůzek
 p.font=f0; // font plátna- velký text
 
-if(t1.length==2)
+if(t1.length===2)
 {
 // pokud bude mít text první obchůzky 2 znaky - obchůzky 15,30 a 60 min
 p.fillText(t1,145,125); // vykreslý text pouze OKRUH - 30 a 60 anebo 120 - první kruh obchůzky
@@ -433,7 +441,7 @@ p.fillText(t1,130,125); // vykreslý text pouze OKRUH - 120 - první kruh obchů
 }
 
 
-if(t2=="15")
+if(t2==="15")
 {
 // pokud bude značena obchůzka do 15 MINUT
 p.fillText(t2,155,330); // vykreslý text - pouze 15 - druhý kruh obchůzky
@@ -463,120 +471,120 @@ p.closePath(); /* KONEC 2. půlkruh intervalu */
 
 /* poloha okruhu */
 
-if(p1==1||p2==1||p3==1||p4==1||p5==1||p6==1||p7==1||p8==1||p9==1||p10==1||p11==1||p12==1)
+if(p1===1||p2===1||p3===1||p4===1||p5===1||p6===1||p7===1||p8===1||p9===1||p10===1||p11===1||p12===1)
 {
 let uz=0; /* počáteční úhel půlkruhu */
 let u=0; /* konečný úhel půlkruhu */
 
-if(zo==11)
+if(zo===11)
 {
 
 uz=282;  /* počáteční úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. v 1. půlkruhu */
 u=292;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. v 1. půlkruhu */
 u=306;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. v 1. půlkruhu */
 u=320;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=334;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=348;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=1;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=12;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=23;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=33;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=43;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=52;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=64;
 }}
-else if(zo==22)
+else if(zo===22)
 {
 
 uz=102;  /* počáteční úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. v 2. půlkruhu */
 u=112;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. v 2. půlkruhu */
 u=126;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. v 2. půlkruhu */
 u=140;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=154;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=168;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=180;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=189;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=208;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=217;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=226;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=235;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=244;
 }}
@@ -629,13 +637,13 @@ return;
 /* O */
 
 /* pro systém QVATTRO obchůzek 15 minut + 30 minut + 60 min nebo 15 minut + 60 minut nebo 30 minut + 60 minut + 120 minut nebo 30 minut + 120 minut */
-if((o15==true&&o30==true&&o60==true&&o120==false)||(o15==true&&o30==false&&o60==true&&o120==false)||(o15==false&&o30==true&&o60==true&&o120==true)||(o15==false&&o30==true&&o60==false&&o120==true))
+if((o15===true&&o30===true&&o60===true&&o120===false)||(o15===true&&o30===false&&o60===true&&o120===false)||(o15===false&&o30===true&&o60===true&&o120===true)||(o15===false&&o30===true&&o60===false&&o120===true))
 {
 
 
 p.beginPath(); /* kruh obchůzky 1. */
 p.arc(200,30,25,0,2*Math.PI,false);
-if((zo==11&&os==0)||(zo==11&&os!=0&&pr==true))
+if((zo===11&&os===0)||(zo===11&&os!==0&&other))
 {
 p.fill();
 }
@@ -645,7 +653,7 @@ p.closePath(); /* KONEC kruh obchůzky 1. */
 
 p.beginPath(); /* kruh obchůzky 2. */
 p.arc(370,200,25,0,2*Math.PI,false);
-if((zo==22&&os==0)||(zo==22&&os!=0&&pr==true))
+if((zo===22&&os===0)||(zo===22&&os!==0&&other))
 {
 p.fill();
 }
@@ -654,7 +662,7 @@ p.closePath(); /* KONEC kruh obchůzky 2. */
 
 p.beginPath(); /* kruh obchůzky 3. */
 p.arc(200,370,25,0,2*Math.PI,false);
-if((zo==33&&os==0)||(zo==33&&os!=0&&pr==true))
+if((zo===33&&os===0)||(zo===33&&os!==0&&other))
 {
 p.fill();
 }
@@ -663,7 +671,7 @@ p.closePath(); /* KONEC kruh obchůzky 3. */
 
 p.beginPath(); /* kruh obchůzky 4. */
 p.arc(30,200,25,0,2*Math.PI,false);
-if((zo==44&&os==0)||(zo==44&&os!=0&&pr==true))
+if((zo===44&&os===0)||(zo===44&&os!==0&&other))
 {
 p.fill();
 }
@@ -672,28 +680,28 @@ p.closePath(); /* KONEC kruh obchůzky 4. */
 
 /* vykreslí text obchůzky */
 
-if(o15==true&&o30==true&&o60==true&&o120==false)
+if(o15===true&&o30===true&&o60===true&&o120===false)
 {
 t1="60";
 t2="15";
 t3="30";
 t4="15";
 }
-else if(o15==true&&o30==false&&o60==true&&o120==false)
+else if(o15===true&&o30===false&&o60===true&&o120===false)
 {
 t1="60";
 t2="15";
 t3="15";
 t4="15";
 }
-if(o15==false&&o30==true&&o60==true&&o120==true)
+if(o15===false&&o30===true&&o60===true&&o120===true)
 {
 t1="120";
 t2="30";
 t3="60";
 t4="30";
 }
-if(o15==false&&o30==true&&o60==false&&o120==true)
+if(o15===false&&o30===true&&o60===false&&o120===true)
 {
 t1="120";
 t2="30";
@@ -704,7 +712,7 @@ t4="30";
 /* Vykreslování textu - systém obchůzek */
 
 p.fillStyle=b3; // barva pro vykreslení textu
-if(nazev_platna==pruvodce.id_can_v||nazev_platna==pruvodce.id_can_r)
+if(other)
 {
 // pokud se bude vykreslovat CANVAS plátno v Průvodci spoštěním Nočního VLKa - volba obchůzky a rekapitulace - v pruvodce.js
 // vykreslí text obchůzky
@@ -717,13 +725,13 @@ p.fillText(d+t3+m,133,335); // text: "do" + okruh + "minut" - třetí kruh obch�
 p.fillText(o,66,215); // text: "Obchůzka" - čtvrtý kruh obchůzky
 p.fillText(d+t4+m,58,240); // text: "do" + okruh + "minut" - čtvrtý kruh obchůzky
 }
-else if(nazev_platna==obch.id_can)
+else if(boss)
 {
 // pokud se bude vykreslovat CANVAS plátno se systémem obchůzek - v vlk.js
 // vykreslí text okruhů v systému obchůzek
 p.font=f0; // font plátna- velký text
 
-if(t1.length==2)
+if(t1.length===2)
 {
 // pokud bude mít text první obchůzky 2 znaky - obchůzky 30 a 60 min
 p.fillText(t1,150,125); // vykreslý text pouze OKRUH - 30 a 60 - první kruh obchůzky
@@ -734,7 +742,7 @@ else
 p.fillText(t1,130,125); // vykreslý text pouze OKRUH - 120 - první kruh obchůzky
 }
 
-if(t2=="15")
+if(t2==="15")
 {
 // pokud bude značena obchůzka do 15 MINUT
 p.fillText(t2,255,230); // vykreslý text - pouze 15 - druhý kruh obchůzky
@@ -745,7 +753,7 @@ p.fillText(t2,240,230); // vykreslý text - pouze 60,30 - druhý kruh obchůzky
 }
 
 
-if(t3=="15")
+if(t3==="15")
 {
 // pokud bude značena obchůzka do 15 MINUT
 p.fillText(t3,160,330); // vykreslý text - pouze 15 - třetí kruh obchůzky
@@ -791,235 +799,235 @@ p.closePath(); /* KONEC 4. čtvrt-kruh intervalu */
 
 /* poloha okruhu */
 
-if(p1==1||p2==1||p3==1||p4==1||p5==1||p6==1||p7==1||p8==1||p9==1||p10==1||p11==1||p12==1)
+if(p1===1||p2===1||p3===1||p4===1||p5===1||p6===1||p7===1||p8===1||p9===1||p10===1||p11===1||p12===1)
 {
 let uz=0; /* počáteční úhel půlkruhu */
 let u=0; /* konečný úhel půlkruhu */
 
-if(zo==11)
+if(zo===11)
 {
 
 uz=282;  /* počáteční úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. v 1. půlkruhu */
 u=287;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. v 1. půlkruhu */
 u=291.5;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. v 1. půlkruhu */
 u=296;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=300.5;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=305;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=309.5;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=314;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=318.5;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=323;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=327.5;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=332;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=337;
 }}
-else if(zo==22)
+else if(zo===22)
 {
 
 uz=12;  /* počáteční úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. v 2. půlkruhu */
 u=17;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. v 2. půlkruhu */
 u=21.5;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. v 2. půlkruhu */
 u=26;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=30.5;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=35;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=39.5;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=44;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=48.5;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=53;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=57.5;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=62;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=67;
 }}
 
-else if(zo==33)
+else if(zo===33)
 {
 
 uz=102;  /* počáteční úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. v 2. půlkruhu */
 u=107;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. v 2. půlkruhu */
 u=111.5;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. v 2. půlkruhu */
 u=116;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=120.5;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=125;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=129.5;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=134;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=138.5;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=143;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=147.5;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=152;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=157;
 }}
 
 
-else if(zo==44)
+else if(zo===44)
 {
 
 uz=192;  /* počáteční úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. v 2. půlkruhu */
 u=196;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. v 2. půlkruhu */
 u=200.5;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. v 2. půlkruhu */
 u=205;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=209.5;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=214;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=218.5;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=223;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=227.5;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=232;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=236.5;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=241;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=245;
 }}
@@ -1084,11 +1092,11 @@ return;
 /* O */
 
 /* pro systém OTTO obchůzek 15 minut + 30 minut + 60 min + 120 minut nebo 15 minut + 30 minut + 120 minut ... atd. */
-if((o15==true&&o30==true&&o60==true&&o120==true)||(o15==true&&o30==false&&o60==true&&o120==true)||(o15==true&&o30==true&&o60==false&&o120==true)||(o15==true&&o30==false&&o60==false&&o120==true))
+if((o15===true&&o30===true&&o60===true&&o120===true)||(o15===true&&o30===false&&o60===true&&o120===true)||(o15===true&&o30===true&&o60===false&&o120===true)||(o15===true&&o30===false&&o60===false&&o120===true))
 {
 p.beginPath(); /* kruh obchůzky 1. */
 p.arc(200,100,25,0,2*Math.PI,false);
-if((zo==11&&os==0)||(zo==11&&os!=0&&pr==true))
+if((zo===11&&os===0)||(zo===11&&os!==0&&other))
 {
 p.fill();
 }
@@ -1097,7 +1105,7 @@ p.closePath(); /* KONEC kruh obchůzky 1. */
 
 p.beginPath(); /* kruh obchůzky 2. */
 p.arc(370,30,25,0,2*Math.PI,false); /* kruh obchůzky */
-if((zo==22&&os==0)||(zo==22&&os!=0&&pr==true))
+if((zo===22&&os===0)||(zo===22&&os!==0&&other))
 {
 p.fill();
 }
@@ -1108,7 +1116,7 @@ p.closePath(); /* KONEC kruh obchůzky 2. */
 p.strokeStyle=b3;
 p.beginPath(); /* kruh obchůzky 3. */
 p.arc(370,200,25,0,2*Math.PI,false);
-if((zo==33&&os==0)||(zo==33&&os!=0&&pr==true))
+if((zo===33&&os===0)||(zo===33&&os!==0&&other))
 {
 p.fill();
 }
@@ -1118,7 +1126,7 @@ p.closePath(); /* KONEC kruh obchůzky 3. */
 p.strokeStyle=b1;
 p.beginPath(); /* kruh obchůzky 4. */
 p.arc(370,370,25,0,2*Math.PI,false);
-if((zo==44&&os==0)||(zo==44&&os!=0&&pr==true))
+if((zo===44&&os===0)||(zo===44&&os!==0&&other))
 {
 p.fill();
 }
@@ -1127,7 +1135,7 @@ p.closePath(); /* KONEC kruh obchůzky 4. */
 
 p.beginPath(); /* kruh obchůzky 5. */
 p.arc(200,320,25,0,2*Math.PI,false);
-if((zo==55&&os==0)||(zo==55&&os!=0&&pr==true))
+if((zo===55&&os===0)||(zo===55&&os!==0&&other))
 {
 p.fill();
 }
@@ -1136,7 +1144,7 @@ p.closePath(); /* KONEC kruh obchůzky 5. */
 
 p.beginPath(); /* kruh obchůzky 6. */
 p.arc(30,370,25,0,2*Math.PI,false);
-if((zo==66&&os==0)||(zo==66&&os!=0&&pr==true))
+if((zo===66&&os===0)||(zo===66&&os!==0&&other))
 {
 p.fill();
 }
@@ -1147,7 +1155,7 @@ p.closePath(); /* KONEC kruh obchůzky 6. */
 p.strokeStyle=b3;
 p.beginPath(); /* kruh obchůzky 7. */
 p.arc(30,200,25,0,2*Math.PI,false);
-if((zo==77&&os==0)||(zo==77&&os!=0&&pr==true))
+if((zo===77&&os===0)||(zo===77&&os!==0&&other))
 {
 p.fill();
 }
@@ -1158,7 +1166,7 @@ p.strokeStyle=b1;
 
 p.beginPath(); /* kruh obchůzky 8. */
 p.arc(30,30,25,0,2*Math.PI,false);
-if((zo==88&&os==0)||(zo==88&&os!=0&&pr==true))
+if((zo===88&&os===0)||(zo===88&&os!==0&&other))
 {
 p.fill();
 }
@@ -1169,7 +1177,7 @@ p.closePath(); /* KONEC kruh obchůzky 8. */
 /* text k obchůzkám */
 p.font=f2;
 
-if(o15==true&&o30==true&&o60==true&&o120==true)
+if(o15===true&&o30===true&&o60===true&&o120===true)
 {
 t1="120";
 t2="15";
@@ -1180,7 +1188,7 @@ t6="15";
 t7="30";
 t8="15";
 }
-else if(o15==true&&o30==false&&o60==true&&o120==true)
+else if(o15===true&&o30===false&&o60===true&&o120===true)
 {
 t1="120";
 t2="15";
@@ -1191,7 +1199,7 @@ t6="15";
 t7="15";
 t8="15";
 }
-if(o15==true&&o30==true&&o60==false&&o120==true)
+if(o15===true&&o30===true&&o60===false&&o120===true)
 {
 t1="120";
 t2="15";
@@ -1203,7 +1211,7 @@ t7="30";
 t8="15";
 }
 
-if(o15==true&&o30==false&&o60==false&&o120==true)
+if(o15===true&&o30===false&&o60===false&&o120===true)
 {
 t1="120";
 t2="15";
@@ -1216,7 +1224,7 @@ t8="15";
 }
 
 p.fillStyle=b3; // barva pro vykreslení textu
-if(nazev_platna==pruvodce.id_can_v||nazev_platna==pruvodce.id_can_r)
+if(other)
 {
 // pokud se bude vykreslovat CANVAS plátno v Průvodci spoštěním Nočního VLKa - volba obchůzky a rekapitulace - v pruvodce.js
 // vykreslí text obchůzky
@@ -1246,7 +1254,7 @@ p.fillText(o,70,25); // text: "Obchůzka" - VIII. kruh obchůzky
 p.fillText(d+t8+m,60,50); // text: "do" + okruh + "minut"  - VIII. kruh obchůzky
 
 }
-else if(nazev_platna==obch.id_can)
+else if(boss)
 {
 // pokud se bude vykreslovat CANVAS plátno se systémem obchůzek - v vlk.js
 // vykreslí text okruhů v systému obchůzek
@@ -1320,65 +1328,65 @@ p.closePath(); /* KONEC 8. interval (oblouk) */
 
 /* poloha okruhu */
 
-if(p1==1||p2==1||p3==1||p4==1||p5==1||p6==1||p7==1||p8==1||p9==1||p10==1||p11==1||p12==1)
+if(p1===1||p2===1||p3===1||p4===1||p5===1||p6===1||p7===1||p8===1||p9===1||p10===1||p11===1||p12===1)
 {
 let uz=0; /* počáteční úhel půlkruhu */
 let u=0; /* konečný úhel půlkruhu */
 p.strokeStyle=b2;
 
-if(zo==11)
+if(zo===11)
 {
 
 uz=82;  /* počáteční úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. */
 u=78.5;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. */
 u=77;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. */
 u=75.5;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=74;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=72.5;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=71;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=69.5;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=68;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=66.5;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=65;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=63.5;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=62;
 }
@@ -1387,59 +1395,59 @@ p.arc(200,-180,280,Math.PI/180*uz,Math.PI/180*u,true);
 p.stroke();
 p.closePath();
 }
-else if(zo==22)
+else if(zo===22)
 {
 
 uz=65;  /* počáteční bod přímky */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. */
 u=69;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. */
 u=75;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. */
 u=81;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=87;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=93;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=99;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=105;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=111;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=118;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=124;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=130;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=135;
 }
@@ -1449,59 +1457,59 @@ p.lineTo(370,u);
 p.stroke();
 p.closePath();
 }
-else if(zo==33)
+else if(zo===33)
 {
 
 uz=235;  /* počáteční bod přímky */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. */
 u=239;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. */
 u=245;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. */
 u=251;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=257;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=263;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=269;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=275;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=281;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=287;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=293;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=299;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=305;
 }
@@ -1511,59 +1519,59 @@ p.lineTo(370,u);
 p.stroke();
 p.closePath();
 }
-else if(zo==44)
+else if(zo===44)
 {
 
 uz=300;  /* počáteční úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1 */
 u=298.5;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2 .*/
 u=297;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. */
 u=295.5;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=294;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=292.5;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=291;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=289.5;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=288;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=286.5;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=285;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=283.5;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=282;
 }
@@ -1573,59 +1581,59 @@ p.stroke();
 p.closePath();
 }
 
-else if(zo==55)
+else if(zo===55)
 {
 
 uz=263;  /* počáteční úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1 */
 u=261.5;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2 .*/
 u=260;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. */
 u=258.5;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=257;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=255.5;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=254;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=252.5;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=251;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=249.5;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=248;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=246.5;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=246;
 }
@@ -1634,59 +1642,59 @@ p.arc(200,595,280,Math.PI/180*uz,Math.PI/180*u,true);
 p.stroke();
 p.closePath();
 }
-else if(zo==66)
+else if(zo===66)
 {
 
 uz=334;  /* počáteční bod přímky */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. */
 u=329;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. */
 u=323;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. */
 u=317;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=311;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=305;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=299;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=293;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=287;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=281;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=275;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=269;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=264;
 }
@@ -1696,59 +1704,59 @@ p.lineTo(30,u);
 p.stroke();
 p.closePath();
 }
-else if(zo==77)
+else if(zo===77)
 {
 
 uz=165;  /* počáteční bod přímky */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1. */
 u=160;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2. */
 u=154;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. */
 u=148;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=142;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=136;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=130;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=124;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=118;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=112;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=106;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=100;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=95;
 }
@@ -1758,59 +1766,59 @@ p.lineTo(30,u);
 p.stroke();
 p.closePath();
 }
-else if(zo==88)
+else if(zo===88)
 {
 
 uz=121;  /* počáteční úhel půlkruhu */
 
-if(p1==1&&p2==0&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+if(p1===1&&p2===0&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 1 */
 u=119;
 }
-else if(p2==1&&p3==0&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p2===1&&p3===0&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 2 .*/
 u=117.5;
 }
-else if(p3==1&&p4==0&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p3===1&&p4===0&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 /* vykreslí polohu 3. */
 u=116;
 }
-else if(p4==1&&p5==0&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p4===1&&p5===0&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=114.5;
 }
-else if(p5==1&&p6==0&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p5===1&&p6===0&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=113;
 }
-else if(p6==1&&p7==0&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p6===1&&p7===0&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=111.5;
 }
-else if(p7==1&&p8==0&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p7===1&&p8===0&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=110;
 }
-else if(p8==1&&p9==0&&p10==0&&p11==0&&p12==0)
+else if(p8===1&&p9===0&&p10===0&&p11===0&&p12===0)
 {
 u=108.5;
 }
-else if(p9==1&&p10==0&&p11==0&&p12==0)
+else if(p9===1&&p10===0&&p11===0&&p12===0)
 {
 u=107;
 }
-else if(p10==1&&p11==0&&p12==0)
+else if(p10===1&&p11===0&&p12===0)
 {
 u=105.5;
 }
-else if(p11==1&&p12==0)
+else if(p11===1&&p12===0)
 {
 u=104;
 }
-else if(p12==1)
+else if(p12===1)
 {
 u=102.5;
 }

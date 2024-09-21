@@ -21,7 +21,7 @@ this.posON(); /* zapne posluchač události na tlačítku Provést plánovanou o
 document.getElementById(this.id_li[0]).style.display="none"; /* schová tlačítko Spustit Nočního VLKa */
 document.getElementById(this.id_li[1]).style.display="block"; /* zobrazí tlačítko Zastavit Nočního VLKa */
 
-if(osoba.odloz_start==0)
+if(osoba.odloz_start===0)
 {
 obch.aktivace(); /* zapne výzvu k obchůzce - pokud nebude nastavený odložený start první obchůzky */
 }
@@ -67,7 +67,7 @@ _int.prepis(osoba.level); /* zajistí přepis intervalů, rezervy ... atd - v pr
 pruvodce.box_int(); /* funkce určuje zda bude v průvodci a v nastavený viditelná volba konkrétního intervalu - pruvodce.js */
 
 
-if(uloz.v_obchuzce!=true)
+if(uloz.v_obchuzce!==true)
 { /* pokud nebyla obchůzka aktivní - v oziv.js */
 zvuk.hraj(null); // zahraje zvuk alarmu - NULL = 1x se sníženou hlasitostí  - tento zvuk je kvůli inicializaci zvuku alarmu a jeho správnému fungování při odloženém startu obzvlášť pro systém iOS
 text.pis("Noční&nbsp;VLK byl&nbsp;oživen");
@@ -85,25 +85,25 @@ obch_max(){
 
 let [hodnotic,text]=[0,null]; /* pomocné promněnné pro hodnocení obsahu a viditelnosti tlačítka Provést obchůzku do 15,60,30 a 120 minut */
 
-if(osoba.o15==true)
+if(osoba.o15===true)
 {
 hodnotic++;
 text=15;
 }
 
-if(osoba.o30==true)
+if(osoba.o30===true)
 {
 hodnotic++;
 text=30;
 }
 
-if(osoba.o60==true)
+if(osoba.o60===true)
 {
 hodnotic++;
 text=60;
 }
 
-if(osoba.o120==true)
+if(osoba.o120===true)
 {
 hodnotic++;
 text=120;
@@ -128,11 +128,11 @@ for(let i=0;i<l1;i++)
 {
 document.getElementById(this.id_but[i]).addEventListener("click",this);
 }
-if(this.max_obch!=false||this.max_obch!=true)
+if(this.max_obch!==false||this.max_obch!==true)
 {
 this.obch_max(); /* pokud z neznámých příčin nedošlo k vyhodnocení zda má být MAX okruh umožněn opět se vyhodnotí */
 }
-if(this.max_obch==false)
+if(this.max_obch===false)
 {
 document.getElementById(this.id_but[1]).removeEventListener("click",this); /* pokud nemá být tlačítko Provést MAX obchůzku použito - odebere se posluchač události */
 }},
@@ -148,17 +148,17 @@ const k=e.target.id; /* id prvku na který bylo kliknuto */
 
 klik.hraj(false); // bude přehrávat zvuk 1x klik
 
-if(k==this.id_but[0])
+if(k===this.id_but[0])
 {
 /* zmáčknutí tlačítka Provést plánovanou obchůzku teď */
 dia.on(dia.id[1]); /* v centrum.js */
 }
-else if(k==this.id_but[1]||k==this.id_but[3])
+else if(k===this.id_but[1]||k===this.id_but[3])
 {
 /* zmáčknutí tlačítka Provést plánovanou obchůzku MAXI */
 dia.on(dia.id[2]); /* v centrum.js */
 }
-else if(k==this.id_but[2]||k==this.id_z_svg)
+else if(k===this.id_but[2]||k===this.id_z_svg)
 {
 /* Kliknuto na tlačítko Zastavit Nočního VLKa */
 dia.on(dia.id[0]); /* v centrum.js */
@@ -169,25 +169,25 @@ vlk.ozivit.kresly_system=()=>{
 /* funkce slouží k nestandartnímu vykreslení systému obchůzek na hlavní stránce po oživení */
 let [okruh_puvodni,o15,o30,o60,o120,okruh]=[osoba.okruh,osoba.o15,osoba.o30,osoba.o60,osoba.o120,osoba.okruh]; /* načte do proměnných data od uživatele */
 
-if(okruh==11)
+if(okruh===11)
 {
 /* pro systém SINGL obchůzek 15 minut nebo 30 minut nebo 60 minut nebo 120 minut */
-if((o15==true&&o30==false&&o60==false&&o120==false)||(o15==false&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==false&&o60==true&&o120==false)||(o15==false&&o30==false&&o60==false&&o120==true))
+if((o15===true&&o30===false&&o60===false&&o120===false)||(o15===false&&o30===true&&o60===false&&o120===false)||(o15===false&&o30===false&&o60===true&&o120===false)||(o15===false&&o30===false&&o60===false&&o120===true))
 {
 okruh=11;
 }
 /* pro systém DABL obchůzek 15 minut + 30 minut nebo 30 minut + 60 minut nebo 60 minut + 120 minut */
-else if((o15==true&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==true&&o60==true&&o120==false)||(o15==false&&o30==false&&o60==true&&o120==true))
+else if((o15===true&&o30===true&&o60===false&&o120===false)||(o15===false&&o30===true&&o60===true&&o120===false)||(o15===false&&o30===false&&o60===true&&o120===true))
 {
 okruh=22;
 }
  /* pro systém QVATTRO obchůzek 15 minut + 30 minut + 60 min nebo 15 minut + 60 minut nebo 30 minut + 60 minut + 120 minut nebo 30 minut + 120 minut */
-else if((o15==true&&o30==true&&o60==true&&o120==false)||(o15==true&&o30==false&&o60==true&&o120==false)||(o15==false&&o30==true&&o60==true&&o120==true)||(o15==false&&o30==true&&o60==false&&o120==true))
+else if((o15===true&&o30===true&&o60===true&&o120===false)||(o15===true&&o30===false&&o60===true&&o120===false)||(o15===false&&o30===true&&o60===true&&o120===true)||(o15===false&&o30===true&&o60===false&&o120===true))
 {
 okruh=44;
 }
 /* pro systém OTTO obchůzek 15 minut + 30 minut + 60 min + 120 minut nebo 15 minut + 30 minut + 120 minut ... atd. */
-else if((o15==true&&o30==true&&o60==true&&o120==true)||(o15==true&&o30==false&&o60==true&&o120==true)||(o15==true&&o30==true&&o60==false&&o120==true)||(o15==true&&o30==false&&o60==false&&o120==true))
+else if((o15===true&&o30===true&&o60===true&&o120===true)||(o15===true&&o30===false&&o60===true&&o120===true)||(o15===true&&o30===true&&o60===false&&o120===true)||(o15===true&&o30===false&&o60===false&&o120===true))
 {
 okruh=88;
 }
@@ -243,14 +243,14 @@ this.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly 
 
 window.audio[this.cislo].loop=jak; /* pokud bude jak false - zajistí, že přehraje zvuk pouze 1x ; pokud true - bude se přehrávat dokola */
 
-if(this.volume_min==0.05)
+if(this.volume_min===0.05)
 {
 // pokud nebude this.volume_min nastavena na default hodnotu
 this.volume_min=0.05; // dá nejnižší hlasitost na default
 }
 
 
-if(jak==true)
+if(jak===true)
 {
 if(this.zesilovat)
 {
@@ -264,12 +264,12 @@ window.audio[this.cislo].volume=this.volume; /* nastavení defaul hlasitosi je 7
 }
 window.audio[this.cislo].play();
 }
-else if(jak==false)
+else if(jak===false)
 {
 window.audio[this.cislo].volume=this.volume; /* nastavení defaul hlasitosi je 75% */
 window.audio[this.cislo].play(); /* pustí mp3 */
 }
-else if(jak==null)
+else if(jak===null)
 {
 // přehrávání zvuku pro inicializaci samotného zvuku, pro zvýšení interakce zvuku s aplikací
 if(this.volume>0.25)
@@ -332,7 +332,7 @@ document.getElementById(b[this.cislo]).style.boxShadow=`0px 0px 10px ${this.bcT}
 },
 volba(cislo,pole_id){
 /* volba zvuku */
-if(this.cislo==cislo)
+if(this.cislo===cislo)
 {
 /* pokud uživatel klikl na zvuk, který je zvolený - zvuk se pouze 1x přehraje a bude return */
 this.hraj(false); /* přehraje zvuk 1x */
@@ -390,7 +390,7 @@ casovac:null, // časovač k tranmision opacity img TLAPA, kdyby nebyl časovač
 tlapa(urci){
 const [kruh,tlapa]=[document.getElementById(this.id_can),document.getElementById(this.id_tlapa)]; /* načte do promněnné objekty DOM */
 
-if(urci=="tlapa")
+if(urci==="tlapa")
 {
 /* tlapa půjde vidět a kruh se schová */
 clearTimeout(this.casovac); // vynuluje časovač, kdyby nebyl časovač a uživatel by neustále potvrzoval Provést obchůzku teď, došlo by ke konfliktu
@@ -398,7 +398,7 @@ kruh.style.opacity=0;
 tlapa.style.opacity=1;
 tlapa.style.zIndex=1;
 }
-else if(urci=="kruh")
+else if(urci==="kruh")
 {
 /* kruh půjde vidět a tlapa se schová */
 kruh.style.opacity=1;
@@ -457,19 +457,19 @@ uloz.uloz(uloz.klice[1],this.z_den); /* čas počátku timeautu zaznamená do lo
 interval(){
 /* funkce slouží k přepočtu nejmenšího intervalu do obchůzky */
 
-if(osoba.o15==true)
+if(osoba.o15===true)
 {
 this.intr=osoba.i15;
 }
-else if(osoba.o30==true)
+else if(osoba.o30===true)
 {
 this.intr=osoba.i30;
 }
-else if(osoba.o60==true)
+else if(osoba.o60===true)
 {
 this.intr=osoba.i60;
 }
-else if(osoba.o120==true)
+else if(osoba.o120===true)
 {
 this.intr=osoba.i120;
 }
@@ -519,7 +519,7 @@ let c_zS=parseInt(this.z_den/1000); /* čas počátku intervalu v sekundách od 
 let rozdil=c_aS-c_zS; /* rozdíl v časech */
 
 let zbyle_s=0;
-if(osoba.odloz_start==0)
+if(osoba.odloz_start===0)
 {
 /* pokud není zadán uživatelem odložený start */
 zbyle_s=this.intr-rozdil;
@@ -543,7 +543,7 @@ handleEvent(e){
 
 const k=e.target.id; /* zjistí ID prvku na který bylo kliknuto */
 
-if(k==this.id_b[0]||k==this.id_b[1])
+if(k===this.id_b[0]||k===this.id_b[1])
 {
 /* kliknuto na vypni zvuk */
 zvuk.zastav(); /* zastaví přehrávání zvuku */
@@ -551,7 +551,7 @@ f_video.zvuk("zesilit");  /* zapne zvuk videa aby nezasahovalo do alarmu - manua
 hlidac.odpocet=true;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se počítá - musí to tak být jinak při vypnutí zvuku a následné minimalizaci okna se ochrana před uspáním nespustí */
 document.getElementById(this.id_b[2]).focus(); /* zafokusuje tlačítko Provedu obchůzku */
 }
-else if(k==this.id_b[2])
+else if(k===this.id_b[2])
 {
 /* kliknuto na Provedu obchůzku */
 // hlidac.aktivace(); opětovně aktivuje ochranu před uspáním
@@ -584,319 +584,319 @@ let t=null; /* proměnná určuje která obchůzka je právě teď aktuální */
 let b=null; /* proměnná určuje, která obchůzka bude následovat */
 
 /* pro systém SINGL obchůzek 15 minut nebo 30 minut nebo 60 minut nebo 120 minut */
-if((o15==true&&o30==false&&o60==false&&o120==false)||(o15==false&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==false&&o60==true&&o120==false)||(o15==false&&o30==false&&o60==false&&o120==true))
+if((o15===true&&o30===false&&o60===false&&o120===false)||(o15===false&&o30===true&&o60===false&&o120===false)||(o15===false&&o30===false&&o60===true&&o120===false)||(o15===false&&o30===false&&o60===false&&o120===true))
 {
-if(o15==true)
+if(o15===true)
 {
 t=b=15;
 }
-else if(o30==true)
+else if(o30===true)
 {
 t=b=30;
 }
-else if(o60==true)
+else if(o60===true)
 {
 t=b=60;
 }
-else if(o120==true)
+else if(o120===true)
 {
 t=b=120;
 }}
 /* pro systém DABL obchůzek 15 minut + 30 minut nebo 30 minut + 60 minut nebo 60 minut + 120 minut */
-else if((o15==true&&o30==true&&o60==false&&o120==false)||(o15==false&&o30==true&&o60==true&&o120==false)||(o15==false&&o30==false&&o60==true&&o120==true))
-{if(o15==true&&o30==true&&o60==false&&o120==false)
+else if((o15===true&&o30===true&&o60===false&&o120===false)||(o15===false&&o30===true&&o60===true&&o120===false)||(o15===false&&o30===false&&o60===true&&o120===true))
+{if(o15===true&&o30===true&&o60===false&&o120===false)
 {
-if(o==11)
+if(o===11)
 {
 t=30;
 b=15;
 }
-else if(o==22)
+else if(o===22)
 {
 t=15;
 b=30;
 }}
-else if(o15==false&&o30==true&&o60==true&&o120==false)
+else if(o15===false&&o30===true&&o60===true&&o120===false)
 {
-if(o==11)
+if(o===11)
 {
 t=60;
 b=30;
 }
-else if(o==22)
+else if(o===22)
 {
 t=30;
 b=60;
 }}
-else if(o15==false&&o30==false&&o60==true&&o120==true)
+else if(o15===false&&o30===false&&o60===true&&o120===true)
 {
-if(o==11)
+if(o===11)
 {
 t=120;
 b=60;
 }
-else if(o==22)
+else if(o===22)
 {
 t=60;
 b=120;
 }}}
 /* pro systém QVATTRO obchůzek 15 minut + 30 minut + 60 min nebo 15 minut + 60 minut nebo 30 minut + 60 minut + 120 minut nebo 30 minut + 120 minut */
-else if((o15==true&&o30==true&&o60==true&&o120==false)||(o15==true&&o30==false&&o60==true&&o120==false)||(o15==false&&o30==true&&o60==true&&o120==true)||(o15==false&&o30==true&&o60==false&&o120==true))
+else if((o15===true&&o30===true&&o60===true&&o120===false)||(o15===true&&o30===false&&o60===true&&o120===false)||(o15===false&&o30===true&&o60===true&&o120===true)||(o15===false&&o30===true&&o60===false&&o120===true))
 {
-if(o15==true&&o30==true&&o60==true&&o120==false)
+if(o15===true&&o30===true&&o60===true&&o120===false)
 {
-if(o==11)
+if(o===11)
 {
 t=60;
 b=15;
 }
-else if(o==22)
+else if(o===22)
 {
 t=15;
 b=30;
 }
-else if(o==33)
+else if(o===33)
 {
 t=30;
 b=15;
 }
-else if(o==44)
+else if(o===44)
 {
 t=15;
 b=60;
 }}
-else if(o15==true&&o30==false&&o60==true&&o120==false)
+else if(o15===true&&o30===false&&o60===true&&o120===false)
 {
-if(o==11)
+if(o===11)
 {
 t=60;
 b=15;
 }
-else if(o==22)
+else if(o===22)
 {
 t=15;
 b=15;
 }
-else if(o==33)
+else if(o===33)
 {
 t=15;
 b=15;
 }
-else if(o==44)
+else if(o===44)
 {
 t=15;
 b=60;
 }}
-else if(o15==false&&o30==true&&o60==true&&o120==true)
+else if(o15===false&&o30===true&&o60===true&&o120===true)
 {
-if(o==11)
+if(o===11)
 {
 t=120;
 b=30;
 }
-else if(o==22)
+else if(o===22)
 {
 t=30;
 b=60;
 }
-else if(o==33)
+else if(o===33)
 {
 t=60;
 b=30;
 }
-else if(o==44)
+else if(o===44)
 {
 t=30;
 b=120;
 }}
-else if(o15==false&&o30==true&&o60==false&&o120==true)
+else if(o15===false&&o30===true&&o60===false&&o120===true)
 {
-if(o==11)
+if(o===11)
 {
 t=120;
 b=30;
 }
-else if(o==22)
+else if(o===22)
 {
 t=30;
 b=30;
 }
-else if(o==33)
+else if(o===33)
 {
 t=30;
 b=30;
 }
-else if(o==44)
+else if(o===44)
 {
 t=30;
 b=120;
 }}}
 /* pro systém OTTO obchůzek 15 minut + 30 minut + 60 min + 120 minut nebo 15 minut + 30 minut + 120 minut ... atd. */
-else if((o15==true&&o30==true&&o60==true&&o120==true)||(o15==true&&o30==false&&o60==true&&o120==true)||(o15==true&&o30==true&&o60==false&&o120==true)||(o15==true&&o30==false&&o60==false&&o120==true))
+else if((o15===true&&o30===true&&o60===true&&o120===true)||(o15===true&&o30===false&&o60===true&&o120===true)||(o15===true&&o30===true&&o60===false&&o120===true)||(o15===true&&o30===false&&o60===false&&o120===true))
 {
-if(o15==true&&o30==true&&o60==true&&o120==true)
+if(o15===true&&o30===true&&o60===true&&o120===true)
 {
-if(o==11)
+if(o===11)
 {
 t=120;
 b=15;
 }
-else if(o==22)
+else if(o===22)
 {
 t=15;
 b=30;
 }
-else if(o==33)
+else if(o===33)
 {
 t=30;
 b=15;
 }
-else if(o==44)
+else if(o===44)
 {
 t=15;
 b=60;
 }
-else if(o==55)
+else if(o===55)
 {
 t=60;
 b=15;
 }
-else if(o==66)
+else if(o===66)
 {
 t=15;
 b=30;
 }
-else if(o==77)
+else if(o===77)
 {
 t=30;
 b=15;
 }
-else if(o==88)
+else if(o===88)
 {
 t=15;
 b=120;
 }}
-else if(o15==true&&o30==false&&o60==true&&o120==true)
+else if(o15===true&&o30===false&&o60===true&&o120===true)
 {
-if(o==11)
+if(o===11)
 {
 t=120;
 b=15;
 }
-else if(o==22)
+else if(o===22)
 {
 t=15;
 b=15;
 }
-else if(o==33)
+else if(o===33)
 {
 t=15;
 b=15;
 }
-else if(o==44)
+else if(o===44)
 {
 t=15;
 b=60;
 }
-else if(o==55)
+else if(o===55)
 {
 t=60;
 b=15;
 }
-else if(o==66)
+else if(o===66)
 {
 t=15;
 b=15;
 }
-else if(o==77)
+else if(o===77)
 {
 t=15;
 b=15;
 }
-else if(o==88)
-{
-t=15;
-b=120;
-}}
-else if(o15==true&&o30==true&&o60==false&&o120==true)
-{
-if(o==11)
-{
-t=120;
-b=15;
-}
-else if(o==22)
-{
-t=15;
-b=30;
-}
-else if(o==33)
-{
-t=30;
-b=15;
-}
-else if(o==44)
-{
-t=15;
-b=30;
-}
-else if(o==55)
-{
-t=30;
-b=15;
-}
-else if(o==66)
-{
-t=15;
-b=30;
-}
-else if(o==77)
-{
-t=30;
-b=15;
-}
-else if(o==88)
+else if(o===88)
 {
 t=15;
 b=120;
 }}
-else if(o15==true&&o30==false&&o60==false&&o120==true)
-{if(o==11)
+else if(o15===true&&o30===true&&o60===false&&o120===true)
+{
+if(o===11)
 {
 t=120;
 b=15;
 }
-else if(o==22)
+else if(o===22)
+{
+t=15;
+b=30;
+}
+else if(o===33)
+{
+t=30;
+b=15;
+}
+else if(o===44)
+{
+t=15;
+b=30;
+}
+else if(o===55)
+{
+t=30;
+b=15;
+}
+else if(o===66)
+{
+t=15;
+b=30;
+}
+else if(o===77)
+{
+t=30;
+b=15;
+}
+else if(o===88)
+{
+t=15;
+b=120;
+}}
+else if(o15===true&&o30===false&&o60===false&&o120===true)
+{if(o===11)
+{
+t=120;
+b=15;
+}
+else if(o===22)
 {
 t=15;
 b=15;
 }
-else if(o==33)
+else if(o===33)
 {
 t=15;
 b=15;
 }
-else if(o==44)
+else if(o===44)
 {
 t=15;
 b=15;
 }
-else if(o==55)
+else if(o===55)
 {
 t=15;
 b=15;
 }
-else if(o==66)
+else if(o===66)
 {
 t=15;
 b=15;
 }
-else if(o==77)
+else if(o===77)
 {
 t=15;
 b=15;
 }
-else if(o==88)
+else if(o===88)
 {
 t=15;
 b=120;
@@ -932,11 +932,11 @@ let s=parseInt(cas_aktual[2]); /* aktuální sekunda */
 if(s>45) /* pokud je sekund více jak 45 přičte o jednu minutu navíc */
 {
 m++; /* přičte se 1minuta */
-if(m==60) /* pokud přičtením 1minuta vznikne 60min - usí dojít k redukci */
+if(m===60) /* pokud přičtením 1minuta vznikne 60min - usí dojít k redukci */
 {
 m=0; /* minut bude 0 */
 h++; /* k hodině se přičte 1hodina */
-if(h==24) /* pokud by přičtením hodiny vzniklo 24hodin - bude hodin 0 */
+if(h===24) /* pokud by přičtením hodiny vzniklo 24hodin - bude hodin 0 */
 {
 h=0; /* hodin 0 = půlnoc */
 }}}
@@ -958,91 +958,91 @@ const t_c=`${h}:${m}`; /* celkový zápis času */
 const z=`${t_c}, `; /* faktický zápis do formuláře */
 
 
-if(t==15)
+if(t===15)
 {
 /* zapis obchůzky do 15 min */
 z15=true;
 }
-else if(t==30&&o15==true)
+else if(t===30&&o15===true)
 {
 /* zapis obchůzky do 30 min + do 15minut */
 z15=true;
 z30=true;
 }
-else if(t==30&&o15==false)
+else if(t===30&&o15===false)
 {
 /* zapis obchůzky do 30 min */
 z30=true;
 }
-else if(t==60&&o15==false&&o30==false)
+else if(t===60&&o15===false&&o30===false)
 {
 /* zapis obchůzky do 60 min */
 z60=true;
 }
-else if(t==60&&o15==true&&o30==false)
+else if(t===60&&o15===true&&o30===false)
 {
 /* zapis obchůzky do 60 min a do 15 minut */
 z60=true;
 z15=true;
 }
-else if(t==60&&o15==false&&o30==true)
+else if(t===60&&o15===false&&o30===true)
 {
 /* zapis obchůzky do 60 min a do 30 minut */
 z60=true;
 z30=true;
 }
-else if(t==60&&o15==true&&o30==true)
+else if(t===60&&o15===true&&o30===true)
 {
 /* zapis obchůzky do 60 min , do 30 minut a do 15 minut */
 z60=true;
 z30=true;
 z15=true;
 }
-else if(t==120&&o15==false&&o30==false&&o60==false)
+else if(t===120&&o15===false&&o30===false&&o60===false)
 {
 /* zapis obchůzky do 120minut */
 z120=true;
 }
-else if(t==120&&o15==true&&o30==false&&o60==false)
+else if(t===120&&o15===true&&o30===false&&o60===false)
 {
 /* zapis obchůzky do 120minut a 15 minut */
 z120=true;
 z15=true;
 }
-else if(t==120&&o15==false&&o30==true&&o60==false)
+else if(t===120&&o15===false&&o30===true&&o60===false)
 {
 /* zapis obchůzky do 120minut a 30minut */
 z120=true;
 z30=true;
 }
-else if(t==120&&o15==false&&o30==false&&o60==true)
+else if(t===120&&o15===false&&o30===false&&o60===true)
 {
 /* zapis obchůzky do 120minut a do 60minut */
 z120=true;
 z60=true;
 }
-else if(t==120&&o15==true&&o30==true&&o60==false)
+else if(t===120&&o15===true&&o30===true&&o60===false)
 {
 /* zapis obchůzky do 120minut , do 15minu a do 30 minut */
 z120=true;
 z30=true;
 z15=true;
 }
-else if(t==120&&o15==false&&o30==true&&o60==true)
+else if(t===120&&o15===false&&o30===true&&o60===true)
 {
 /* zapis obchůzky do 120minut, 30 minut a 60minut */
 z120=true;
 z60=true;
 z30=true;
 }
-else if(t==120&&o15==true&&o30==false&&o60==true)
+else if(t===120&&o15===true&&o30===false&&o60===true)
 {
 /* zapis obchůzky do 120minut, 15 minut a 60minut */
 z120=true;
 z60=true;
 z15=true;
 }
-else if(t==120&&o15==true&&o30==true&&o60==true)
+else if(t===120&&o15===true&&o30===true&&o60===true)
 {
 /* zapis obchůzky do 120minut, 15minut, 30minut, 60minut */
 z15=true;
@@ -1051,7 +1051,7 @@ z60=true;
 z120=true;
 }
 
-if(z15==true)
+if(z15===true)
 {
 /* zápis obchůzky do 15 minut */
 f15.value=f15.value+z; /* připíše novou obchůzku do formuláře s obchůzkami */
@@ -1060,7 +1060,7 @@ let o15new=o15old+z; /* ke starým datům připíše novou obchůzku */
 uloz.uloz(uloz.klice[4],o15new); /* uloží na local storage obchůzky do 15minut v oziv.js */
 }
 
-if(z30==true)
+if(z30===true)
 {
 /* zápis obchůzky do 30 minut */
 f30.value=f30.value+z; /* připíše novou obchůzku do formuláře s obchůzkami */
@@ -1069,7 +1069,7 @@ let o30new=o30old+z; /* ke starým datům připíše novou obchůzku */
 uloz.uloz(uloz.klice[5],o30new); /* uloží na local storage obchůzky do 30minut v oziv.js */
 }
 
-if(z60==true)
+if(z60===true)
 {
 /* zápis obchůzky do 60 minut */
 f60.value=f60.value+z;
@@ -1078,7 +1078,7 @@ let o60new=o60old+z;
 uloz.uloz(uloz.klice[6],o60new);
 }
 
-if(z120==true)
+if(z120===true)
 {
 /* zápis obchůzky do 120 minut */
 f120.value=f120.value+z;
@@ -1092,7 +1092,7 @@ zvuk.hraj(true); /* bude přehrávat zvuk obchůzky dokola */
 tik.a_odpocet=false; /* proměnná, která funkci tik.tak() ve centrum.js dáva informaci o tom, že odpočet se NEmůže počítat */
 hlidac.odpocet=false;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se NEpočítá */
 
-if(uloz.v_obchuzce==false)
+if(uloz.v_obchuzce===false)
 { /* běžný stav když nastane obchůzka anebo pokud nebyla obchůzka v době ukončení aplikace aktivní, jinak by při oživení v obchůzce došlo k znovu zapsání nového času TIMEOUTU - v oziv.js */
 this.zaz_casTO(zbyle_s); /* funkce zapíše do proměnných aktivaci počátku počítání TIOMOUTU + zbylé sekundy */
 }
@@ -1103,8 +1103,8 @@ uloz.uloz(uloz.klice[2],true); /* informuje funkci ozivit() že obchůzka je akt
 dia.vyp_akt(); /* vypne aktivní dialogové okna - pokud jsou - v centrum.js */
 this.tlapa("tlapa"); /* zobrazí tlapu namísto systému obchůzek nočního VLKa */
 this.text(); /* Zajistí aktuální text obchůzky ve výzvě k obchůzce */
-v_port.handleEvent(); /* aktivuje úpravu okna VisualViewport API v centrum.js */
-if(osoba.odloz_start!=0)
+v_port.prepocet(); // aktivuje přepočet velikosti okna podle Visual viewport - v centrum.js
+if(osoba.odloz_start!==0)
 {
 /* pokud se odložený start nebude rovnat nule - bude po první výžvě k obchůzce roven 0 */
 osoba.odloz_start=0;

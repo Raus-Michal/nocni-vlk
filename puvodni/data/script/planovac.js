@@ -57,7 +57,7 @@ document.getElementById(this.butt_spust).removeEventListener("submit",this); // 
 handleEvent(e){
 const k=e.target.id; // zjistí id prvku, na který bylo kliknuto
 
-if(k==this.id_spust[2]||k==this.id_spust[3]||k==this.id_spust[4])
+if(k===this.id_spust[2]||k===this.id_spust[3]||k===this.id_spust[4])
 {
 // kliknuto na checked 1 - 3 v zadání plánovače
 
@@ -68,26 +68,26 @@ const ch2=document.getElementById(this.id_spust[3]); // checked-2
 const ch3=document.getElementById(this.id_spust[4]); // checked-3
 
 // řešení zaškrkávání checketů - aby byl stále zaškrklý pouze jeden checked ze tří
-if(k==this.id_spust[2])
+if(k===this.id_spust[2])
 {
 ch1.checked=true;
 ch2.checked=false;
 ch3.checked=false;
 }
-else if(k==this.id_spust[3])
+else if(k===this.id_spust[3])
 {
 ch1.checked=false;
 ch2.checked=true;
 ch3.checked=false;
 }
-else if(k==this.id_spust[4])
+else if(k===this.id_spust[4])
 {
 ch1.checked=false;
 ch2.checked=false;
 ch3.checked=true;
 }}
 
-else if(k==this.id_nas_plan[3]||k==this.id_nas_plan[4]||k==this.id_nas_plan[5])
+else if(k===this.id_nas_plan[3]||k===this.id_nas_plan[4]||k===this.id_nas_plan[5])
 {
 // kliknuto na checked 1 - 3 v informací o Plánu (nastavení konkrétního plánu)
 
@@ -104,7 +104,7 @@ let zmena=""; // proměnná určuje změnu podle zaškrknutí konkrétního chec
 // (false=bez zvuku;null=zvuk přehrát 1x;true=zvuk přehrávat do ukončení)
 
 // řešení zaškrkávání checketů - aby byl stále zaškrklý pouze jeden checked ze tří
-if(k==this.id_nas_plan[3])
+if(k===this.id_nas_plan[3])
 {
 // Bez zvukového upozornění
 ch1.checked=true;
@@ -112,7 +112,7 @@ ch2.checked=false;
 ch3.checked=false;
 zmena=false; // Bez zvukového upozornění
 }
-else if(k==this.id_nas_plan[4])
+else if(k===this.id_nas_plan[4])
 {
 // Zvuk upozornění přehrát 1x
 ch1.checked=false;
@@ -120,7 +120,7 @@ ch2.checked=true;
 ch3.checked=false;
 zmena=null; // Zvuk upozornění přehrát 1x
 }
-else if(k==this.id_nas_plan[5])
+else if(k===this.id_nas_plan[5])
 {
 // Zvuk upozornění přehrávat do ukončení
 ch1.checked=false;
@@ -132,35 +132,35 @@ zmena=true; // Zvuk upozornění přehrávat do ukončení
 this.plany[cislo_pole][3]=zmena; // provede změnu nastavení uživatele konkrétního plánu, kde podpole [3] určuje volbu zvuku uživatele
 uloz.plany(); // funkce uloží na local storage pole this.plany, které obsahuje veškeré data k plánům uživatele - v oziv.js
 }
-else if(k==this.butt_spust)
+else if(k===this.butt_spust)
 {
 // kliknuto na Spustit Plánovač s tím, že jsou splněné validace vyplnění potřebných inputů (čas a popisek), funkce je type SUBMIT z formuláře
 
 // console.log("Plánovač spuštěn");
 
-if(this.plany[0].length==0){
+if(this.plany[0].length===0){
 // pokud bude délka pole this.plany[0]==0, znamená to, že plán 1 není aktivní a nebyl zadán
 zamek.blok(); // aktivuje blokaci zámku obrazovky
 window.onbeforeunload=()=>{return "Chcete zavřít aplikaci Noční VLK?";}; // ochrana před náhodným uzavřením aplikace
 this.zaloz(1); // požadavek na založení úlohy 1
 }
-else if(this.plany[1].length==0){
+else if(this.plany[1].length===0){
 // pokud bude délka pole this.plany[1]==0, znamená to, že plán 2 není aktivní a nebyl zadán
 this.zaloz(2); // požadavek na založení úlohy 2
 }
-else if(this.plany[2].length==0){
+else if(this.plany[2].length===0){
 // pokud bude délka pole this.plany[2]==0, znamená to, že plán 3 není aktivní a nebyl zadán
 this.zaloz(3); // požadavek na založení úlohy 3
 }
-else if(this.plany[3].length==0){
+else if(this.plany[3].length===0){
 // pokud bude délka pole this.plany[3]==0, znamená to, že plán 4 není aktivní a nebyl zadán
 this.zaloz(4); // požadavek na založení úlohy 4
 }
-else if(this.plany[4].length==0){
+else if(this.plany[4].length===0){
 // pokud bude délka pole this.plany[4]==0, znamená to, že plán 5 není aktivní a nebyl zadán
 this.zaloz(5); // požadavek na založení úlohy 4
 }
-else if(this.plany[5].length==0){
+else if(this.plany[5].length===0){
 // pokud bude délka pole this.plany[5]==0, znamená to, že plán 6 není aktivní a nebyl zadán
 this.zaloz(6); // požadavek na založení úlohy 4
 }
@@ -168,111 +168,111 @@ this.zaloz(6); // požadavek na založení úlohy 4
 
 
 
-else if(k==`${this.id_butt_uk}1`)
+else if(k===`${this.id_butt_uk}1`)
 {
 // kliknutí na button OK - ukončit plán 1
 this.ukoncit(1); // funkce udělá veškeré procesy k ukončení plánu 1
 }
 
-else if(k==`${this.id_butt_uk}2`)
+else if(k===`${this.id_butt_uk}2`)
 {
 // kliknutí na button OK - ukončit plán 2
 this.ukoncit(2); // funkce udělá veškeré procesy k ukončení plánu 2
 }
 
-else if(k==`${this.id_butt_uk}3`)
+else if(k===`${this.id_butt_uk}3`)
 {
 // kliknutí na button OK - ukončit plán 3
 this.ukoncit(3); // funkce udělá veškeré procesy k ukončení plánu 3
 }
 
-else if(k==`${this.id_butt_uk}4`)
+else if(k===`${this.id_butt_uk}4`)
 {
 // kliknutí na button OK - ukončit plán 4
 this.ukoncit(4); // funkce udělá veškeré procesy k ukončení plánu 4
 }
 
-else if(k==`${this.id_butt_uk}5`)
+else if(k===`${this.id_butt_uk}5`)
 {
 // kliknutí na button OK - ukončit plán 5
 this.ukoncit(5); // funkce udělá veškeré procesy k ukončení plánu 2
 }
 
-else if(k==`${this.id_butt_uk}6`)
+else if(k===`${this.id_butt_uk}6`)
 {
 // kliknutí na button OK - ukončit plán 6
 this.ukoncit(6); // funkce udělá veškeré procesy k ukončení plánu 6
 }
 
-else if(k==`${this.id_butt_zvuk}1`||k==`${this.id_butt_zvuk}2`||k==`${this.id_butt_zvuk}3`||k==`${this.id_butt_zvuk}4`||k==`${this.id_butt_zvuk}5`||k==`${this.id_butt_zvuk}6`)
+else if(k===`${this.id_butt_zvuk}1`||k===`${this.id_butt_zvuk}2`||k===`${this.id_butt_zvuk}3`||k===`${this.id_butt_zvuk}4`||k===`${this.id_butt_zvuk}5`||k===`${this.id_butt_zvuk}6`)
 {
 // kliknuto na button Vypni zvuk v alarmu plánu 1-6
 zvuk_plan.zastav(); // zastaví zvuk upozornění Plánovače - funkce ve vlk.js
 this.povoleni_zesilovat=false; // dočasný zákaz zesilování, tento zákaz je však jen sekundární, díky tomuto zákazu se o zesilování nemůže vůbec pokusit ve funkci tik.tak v centrum.js, rozhodující pro zesilování je však proměnná zvuk_plan.zesilovat, která určuje zda bude zvuk přehráván postupným zesilováním, pokud true=ano , false=ne - ve vlk.js
 let plan=null; // proměnná (níže v podmínkách) určí na který button o vypnutí plánu bylo kliknuto
-if(k==`${this.id_butt_zvuk}1`)
+if(k===`${this.id_butt_zvuk}1`)
 {
 plan=1; // určí, že byl klik na button vypni zvuk - Plán 1
 }
-else if(k==`${this.id_butt_zvuk}2`)
+else if(k===`${this.id_butt_zvuk}2`)
 {
 plan=2; // určí, že byl klik na button vypni zvuk - Plán 2
 }
-else if(k==`${this.id_butt_zvuk}3`)
+else if(k===`${this.id_butt_zvuk}3`)
 {
 plan=3; // určí, že byl klik na button vypni zvuk - Plán 3
 }
-else if(k==`${this.id_butt_zvuk}4`)
+else if(k===`${this.id_butt_zvuk}4`)
 {
 plan=4; // určí, že byl klik na button vypni zvuk - Plán 4
 }
-else if(k==`${this.id_butt_zvuk}5`)
+else if(k===`${this.id_butt_zvuk}5`)
 {
 plan=5; // určí, že byl klik na button vypni zvuk - Plán 5
 }
-else if(k==`${this.id_butt_zvuk}2`)
+else if(k===`${this.id_butt_zvuk}2`)
 {
 plan=6; // určí, že byl klik na button vypni zvuk - Plán 6
 }
 const ok=document.getElementById(`${this.id_butt_uk}${plan}`); // HTML objekt buttonu OK - ukončení Plánu
 ok.focus(); // fokus na button  OK - ukončení Plánu
 }
-else if(k==`${this.id_butt_box}1`||k==`${this.id_text}1`||k==`${this.id_kryt}1`)
+else if(k===`${this.id_butt_box}1`||k===`${this.id_text}1`||k===`${this.id_kryt}1`)
 {
 // kliknuto na Plán 1 - editace Plánu 1 (samotný button, text plánu + jeho kryt, který překrývá ostatní prvky, tak aby bylo pouze na identifikaci jedno ID kliknutí)
 dia.on(dia.id[13]); // zapne dialogové okno s informací o plánu a možnosti jeho zrušení + zapne posluchče ke Křížku a tlačítku Zrušit plán - v centrum.js
 this.eduje_se=1; // nastaví proměnnou na to, že se edituje plán 2
 this.editovat(1); // funkce zajistí změnu parametrů dialogového okna, aby byla editace Plánu pro konkrétní plán 1
 }
-else if(k==`${this.id_butt_box}2`||k==`${this.id_text}2`||k==`${this.id_kryt}2`)
+else if(k===`${this.id_butt_box}2`||k===`${this.id_text}2`||k===`${this.id_kryt}2`)
 {
 // kliknuto na Plán 2 - editace Plánu 2 (samotný button, text plánu + jeho kryt, který překrývá ostatní prvky, tak aby bylo pouze na identifikaci jedno ID kliknutí)
 dia.on(dia.id[13]); // zapne dialogové okno s informací o plánu a možnosti jeho zrušení + zapne posluchče ke Křížku a tlačítku Zrušit plán - v centrum.js
 this.eduje_se=2; // nastaví proměnnou na to, že se edituje plán 2
 this.editovat(2); // funkce zajistí změnu parametrů dialogového okna, aby byla editace Plánu pro konkrétní plán 2
 }
-else if(k==`${this.id_butt_box}3`||k==`${this.id_text}3`||k==`${this.id_kryt}3`)
+else if(k===`${this.id_butt_box}3`||k===`${this.id_text}3`||k===`${this.id_kryt}3`)
 {
 // kliknuto na Plán 3 - editace Plánu 3 (samotný button, text plánu + jeho kryt, který překrývá ostatní prvky, tak aby bylo pouze na identifikaci jedno ID kliknutí)
 dia.on(dia.id[13]); // zapne dialogové okno s informací o plánu a možnosti jeho zrušení + zapne posluchče ke Křížku a tlačítku Zrušit plán - v centrum.js
 this.eduje_se=3; // nastaví proměnnou na to, že se edituje plán 3
 this.editovat(3); // funkce zajistí změnu parametrů dialogového okna, aby byla editace Plánu pro konkrétní plán 3
 }
-else if(k==`${this.id_butt_box}4`||k==`${this.id_text}4`||k==`${this.id_kryt}4`)
+else if(k===`${this.id_butt_box}4`||k===`${this.id_text}4`||k===`${this.id_kryt}4`)
 {
 // kliknuto na Plán 4 - editace Plánu 4 (samotný button, text plánu + jeho kryt, který překrývá ostatní prvky, tak aby bylo pouze na identifikaci jedno ID kliknutí)
 dia.on(dia.id[13]); // zapne dialogové okno s informací o plánu a možnosti jeho zrušení + zapne posluchče ke Křížku a tlačítku Zrušit plán - v centrum.js
 this.eduje_se=4; // nastaví proměnnou na to, že se edituje plán 4
 this.editovat(4); // funkce zajistí změnu parametrů dialogového okna, aby byla editace Plánu pro konkrétní plán 4
 }
-else if(k==`${this.id_butt_box}5`||k==`${this.id_text}5`||k==`${this.id_kryt}5`)
+else if(k===`${this.id_butt_box}5`||k===`${this.id_text}5`||k===`${this.id_kryt}5`)
 {
 // kliknuto na Plán 5 - editace Plánu 5 (samotný button, text plánu + jeho kryt, který překrývá ostatní prvky, tak aby bylo pouze na identifikaci jedno ID kliknutí)
 dia.on(dia.id[13]); // zapne dialogové okno s informací o plánu a možnosti jeho zrušení + zapne posluchče ke Křížku a tlačítku Zrušit plán - v centrum.js
 this.eduje_se=5; // nastaví proměnnou na to, že se edituje plán 5
 this.editovat(5); // funkce zajistí změnu parametrů dialogového okna, aby byla editace Plánu pro konkrétní plán 5
 }
-else if(k==`${this.id_butt_box}6`||k==`${this.id_text}6`||k==`${this.id_kryt}6`)
+else if(k===`${this.id_butt_box}6`||k===`${this.id_text}6`||k===`${this.id_kryt}6`)
 {
 // kliknuto na Plán 6 - editace Plánu 6 (samotný button, text plánu + jeho kryt, který překrývá ostatní prvky, tak aby bylo pouze na identifikaci jedno ID kliknutí)
 dia.on(dia.id[13]); // zapne dialogové okno s informací o plánu a možnosti jeho zrušení + zapne posluchče ke Křížku a tlačítku Zrušit plán - v centrum.js
@@ -285,7 +285,7 @@ this.editovat(6); // funkce zajistí změnu parametrů dialogového okna, aby by
 
 zaloz(plan=0){
 
-if(plan==0){
+if(plan===0){
 // pokud nebyl poslán požadavek na založení plánu - bude funkce ukončena == return
 return;
 }
@@ -342,15 +342,15 @@ const ch3=document.getElementById(this.id_spust[4]).checked; // zjistí hodnotu 
 
 let zvuk=null;
 
-if(ch1==true)
+if(ch1===true)
 {
 zvuk=false;
 }
-else if(ch2==true)
+else if(ch2===true)
 {
 zvuk=null;
 }
-else if(ch3==true)
+else if(ch3===true)
 {
 zvuk=true;
 }
@@ -374,8 +374,8 @@ this.hlidat_plany=true; // proměnná určuje, zda je zapnutý nějáký plán a
 
 zvuk_plan.hraj(null); // bude přehrávat zvuk upozornění Plánovače - true=dokola , false=1x , null=1x sníženě pro zvýšení interakce zvuku s aplikací - funkce ve vlk.js
 
-if(this.plany[1].length!=0){
-// pokud se nebude délka pole this.plany[1]!=0, znamená to, že plán 2 je aktivní a byl zadán, tedy je zadán více jak jeden plán a je možné jejich seřazení
+if(this.plany[1].length!==0){
+// pokud se nebude délka pole this.plany[1]!==0, znamená to, že plán 2 je aktivní a byl zadán, tedy je zadán více jak jeden plán a je možné jejich seřazení
 setTimeout(()=>{
 this.seradit_plady(); // funkce seřadí plány chronologicky
 },2000); // Časové zpoždění zajistí, že nedojde ke kolizy mezi animacemi vložení nového plánu, zároveň pokud se v mezičase plán, který byl vložen v aktuálním čase s přechodem přímo do alarmu, tento bude hned vymazán z řazení
@@ -384,7 +384,7 @@ this.seradit_plady(); // funkce seřadí plány chronologicky
 seradit_plady(){
  // funkce seřadí plány chronologicky
 
-if(this.v_alarmu[0]==true||this.v_alarmu[1]==true||this.v_alarmu[2]==true||this.v_alarmu[3]==true||this.v_alarmu[4]==true||this.v_alarmu[5]==true)
+if(this.v_alarmu[0]||this.v_alarmu[1]||this.v_alarmu[2]||this.v_alarmu[3]||this.v_alarmu[4]||this.v_alarmu[5])
 {
 // pokud bude nějáký plán v alarmu
 setTimeout(()=>{
@@ -392,8 +392,6 @@ this.seradit_plady(); // funkce seřadí plány chronologicky
 },5000); // za určitý čas se opět zkusí spustit, pokud nebude žáadný plán v alarmu, funkce prběhne
 return; // ukončení funkce
 }
-
-
 
 const cas=new Date(); // vytvoří objekt Date
 const hod=cas.getHours(); // zjistí kolik je hodin
@@ -404,8 +402,8 @@ let cas_plan=null; // čas plánu převeden na počet minut od půlnoci
 
 const plany_k_serazeni=[]; // pole plánů
 
-if(this.plany[0].length!=0){
-// pokud se nebude délka pole this.plany[0]!=0, znamená to, že plán 1 je aktivní a byl zadán
+if(this.plany[0].length!==0){
+// pokud se nebude délka pole this.plany[0]!==0, znamená to, že plán 1 je aktivní a byl zadán
 cas_plan=this.plany[0][0]*60+this.plany[0][1];
 
 if(cas_plan<aktualne_celkem_minut)
@@ -416,8 +414,8 @@ cas_plan+=1440; // Přidáme 24 hodin (1440 minut) k času, který je menší ne
 plany_k_serazeni.push([1,cas_plan]); // přidá do pole [číslo plánu, čas plánu v minutách rozhodný pro jeho řazení]
 }
 
-if(this.plany[1].length!=0){
-// pokud se nebude délka pole this.plany[1]!=0, znamená to, že plán 2 je aktivní a byl zadán
+if(this.plany[1].length!==0){
+// pokud se nebude délka pole this.plany[1]!==0, znamená to, že plán 2 je aktivní a byl zadán
 cas_plan=this.plany[1][0]*60+this.plany[1][1];
 
 if(cas_plan<aktualne_celkem_minut)
@@ -428,8 +426,8 @@ cas_plan+=1440; // Přidáme 24 hodin (1440 minut) k času, který je menší ne
 plany_k_serazeni.push([2,cas_plan]); // přidá do pole [číslo plánu, čas plánu v minutách rozhodný pro jeho řazení]
 }
 
-if(this.plany[2].length!=0){
-// pokud se nebude délka pole this.plany[2]!=0, znamená to, že plán 3 je aktivní a byl zadán
+if(this.plany[2].length!==0){
+// pokud se nebude délka pole this.plany[2]!==0, znamená to, že plán 3 je aktivní a byl zadán
 
 cas_plan=this.plany[2][0]*60+this.plany[2][1];
 
@@ -442,8 +440,8 @@ plany_k_serazeni.push([3,cas_plan]); // přidá do pole [číslo plánu, čas pl
 
 }
 
-if(this.plany[3].length!=0){
-// pokud se nebude délka pole this.plany[3]!=0, znamená to, že plán 4 je aktivní a byl zadán
+if(this.plany[3].length!==0){
+// pokud se nebude délka pole this.plany[3]!==0, znamená to, že plán 4 je aktivní a byl zadán
 cas_plan=this.plany[3][0]*60+this.plany[3][1];
 
 if(cas_plan<aktualne_celkem_minut)
@@ -454,8 +452,8 @@ cas_plan+=1440; // Přidáme 24 hodin (1440 minut) k času, který je menší ne
 plany_k_serazeni.push([4,cas_plan]); // přidá do pole [číslo plánu, čas plánu v minutách rozhodný pro jeho řazení]
 }
 
-if(this.plany[4].length!=0){
-// pokud se nebude délka pole this.plany[4]!=0, znamená to, že plán 5 je aktivní a byl zadán
+if(this.plany[4].length!==0){
+// pokud se nebude délka pole this.plany[4]!==0, znamená to, že plán 5 je aktivní a byl zadán
 cas_plan=this.plany[4][0]*60+this.plany[4][1];
 
 if(cas_plan<aktualne_celkem_minut)
@@ -466,8 +464,8 @@ cas_plan+=1440; // Přidáme 24 hodin (1440 minut) k času, který je menší ne
 plany_k_serazeni.push([5,cas_plan]); // přidá do pole [číslo plánu, čas plánu v minutách rozhodný pro jeho řazení]
 }
 
-if(this.plany[5].length!=0){
-// pokud se nebude délka pole this.plany[5]!=0, znamená to, že plán 6 je aktivní a byl zadán
+if(this.plany[5].length!==0){
+// pokud se nebude délka pole this.plany[5]!==0, znamená to, že plán 6 je aktivní a byl zadán
 cas_plan=this.plany[5][0]*60+this.plany[5][1];
 
 if(cas_plan<aktualne_celkem_minut)
@@ -508,7 +506,7 @@ for(let k=0;k<d_hodnoty_casu;k++)
 for(let i=0;i<delka_uloh;i++)
 {
 // pro každý plán udělá test, pouze jeden plán může mít jednu hodnotu v čase k porovnání
-if(hodnoty_casu_k_porovnani[k]==plany_k_serazeni[i][1])
+if(hodnoty_casu_k_porovnani[k]===plany_k_serazeni[i][1])
 {
 // pokud se shoduje čas plánu s časem k porovnání
 razeni_planu.push(plany_k_serazeni[i][0]); // zapíše číslo plánu do pole
@@ -522,7 +520,7 @@ const d_razeni_planu=razeni_planu.length; // délka pole
 for(let i=0;i<d_razeni_planu;i++)
 {
 // smyčka otestuje, jestli ideální řazení plánů je rozdílné od řazení, které se má nově provést
-if(razeni_planu[i]!=spravne_razeni[i])
+if(razeni_planu[i]!==spravne_razeni[i])
 {
 this.prepis_planu(razeni_planu); // funkce zajistí fyzické přepsání plánů podle jejich pořadí v návaznosti na čas jejich alarmu
 break; // aby se nepokračovalo ve smyččce, postačí jeden rozdíl v řazení plánů
@@ -577,7 +575,7 @@ document.getElementById(`${this.id_text}${plan}`).innerText=text; // zapíše do
 
 
 
-for(let i=0;delka_plany<delka_old_plany;delka_plany++)
+for(;delka_plany<delka_old_plany;delka_plany++)
 {
 // smyčka vyrovná chybějí počet nezadaných plánů, pokud jejich počet neodpovídá původní délce pole zadaných plánů
 this.plany.push([]); // doplní do pole chybějící pole pro plány, které mají být teprve založeny
@@ -596,47 +594,47 @@ const d=kontrolor.length; // lékla pole = 6 stejně jako počet plánů
 for(let i=0;i<d;i++)
 {
 // smyčka zkontroluje veškeré plány, které byly zadány a jejich zadaný čas v hodinách a minutách
-if(this.plany[i].length!=0){
-// pokud se nebude délka pole this.plany[0]!=0, znamená to, že plán 1 je aktivní a byl zadán
-if(this.plany[i][0]==hod&&this.plany[i][1]==min)
+if(this.plany[i].length!==0){
+// pokud se nebude délka pole this.plany[0]!==0, znamená to, že plán 1 je aktivní a byl zadán
+if(this.plany[i][0]===hod&&this.plany[i][1]===min)
 {
-// pokud bude čas zadání == čas již zadaného plánu 
+// pokud bude čas zadání === čas již zadaného plánu 
 kontrolor[i]=true; // kontrolol v tomto poli bude true
 }}}
 
-if(kontrolor[0]==true||kontrolor[1]==true||kontrolor[2]==true||kontrolor[3]==true||kontrolor[4]==true||kontrolor[5]==true)
+if(kontrolor[0]===true||kontrolor[1]===true||kontrolor[2]===true||kontrolor[3]===true||kontrolor[4]===true||kontrolor[5]===true)
 {
 // pokud některý ze zadaných plánů má stejný čas zadaní jako ten, který se právě snaží přidat
 dia.off(dia.id[4]); /* zavře dialogové okno pro zadání Plánovač a odebere posluchače - v centrum.js */
 
 let plan=null;
 
-if(kontrolor[0]==true)
+if(kontrolor[0]===true)
 {
 // pokud 1. zadaný plán má stejný čas
 plan=1; // číslo plánu
 }
-else if(kontrolor[1]==true)
+else if(kontrolor[1]===true)
 {
 // pokud 2. zadaný plán má stejný čas
 plan=2; // číslo plánu
 }
-else if(kontrolor[2]==true)
+else if(kontrolor[2]===true)
 {
 // pokud 3. zadaný plán má stejný čas
 plan=3; // číslo plánu
 }
-else if(kontrolor[3]==true)
+else if(kontrolor[3]===true)
 {
 // pokud 4. zadaný plán má stejný čas
 plan=4; // číslo plánu
 }
-else if(kontrolor[4]==true)
+else if(kontrolor[4]===true)
 {
 // pokud 5. zadaný plán má stejný čas
 plan=5; // číslo plánu
 }
-else if(kontrolor[5]==true)
+else if(kontrolor[5]===true)
 {
 // pokud 6. zadaný plán má stejný čas
 plan=6; // číslo plánu
@@ -693,21 +691,21 @@ const dia_ch1=document.getElementById(this.id_nas_plan[3]); // načte HTML objek
 const dia_ch2=document.getElementById(this.id_nas_plan[4]); // načte HTML objekt checked - Zvuk upozornění přehrát 1x
 const dia_ch3=document.getElementById(this.id_nas_plan[5]); // načte HTML objekt checked - Zvuk upozornění přehrávat do ukončení
 
-if(volba_zvuku)
+if(volba_zvuku===true)
 {
 // uživatel zvolil u tohoto plánu - Zvuk upozornění přehrávat do ukončení
 dia_ch1.checked=false;
 dia_ch2.checked=false;
 dia_ch3.checked=true;
 }
-else if(volba_zvuku==false)
+else if(volba_zvuku===false)
 {
 // uživatel zvolil u tohoto plánu - Bez zvukového upozornění
 dia_ch1.checked=true;
 dia_ch2.checked=false;
 dia_ch3.checked=false;
 }
-else if(volba_zvuku==null)
+else if(volba_zvuku===null)
 {
 // uživatel zvolil u tohoto plánu - Zvuk upozornění přehrát 1x
 dia_ch1.checked=false;
@@ -738,38 +736,38 @@ hlidac(){
 const plan=[null,null,null,null,null,null]; // rozhodne, který plán je aktivní
 const plany_ke_kontrole=[];
 
-if(this.plany[0].length!=0){
-// pokud se nebude délka pole this.plany[0]!=0, znamená to, že plán 1 je aktivní a byl zadán
+if(this.plany[0].length!==0){
+// pokud se nebude délka pole this.plany[0]!==0, znamená to, že plán 1 je aktivní a byl zadán
 plan[0]=true; // proměnná určí jako aktivní plán 1
 plany_ke_kontrole.push(1); // připne plán 1 ke kontrole času
 }
 
-if(this.plany[1].length!=0){
-// pokud se nebude délka pole this.plany[1]!=0, znamená to, že plán 2 je aktivní a byl zadán
+if(this.plany[1].length!==0){
+// pokud se nebude délka pole this.plany[1]!==0, znamená to, že plán 2 je aktivní a byl zadán
 plan[1]=true; // proměnná určí jako aktivní plán 2
 plany_ke_kontrole.push(2); // připne plán 2 ke kontrole času
 }
 
-if(this.plany[2].length!=0){
-// pokud se nebude délka pole this.plany[2]!=0, znamená to, že plán 3 je aktivní a byl zadán
+if(this.plany[2].length!==0){
+// pokud se nebude délka pole this.plany[2]!==0, znamená to, že plán 3 je aktivní a byl zadán
 plan[2]=true; // proměnná určí jako aktivní plán 3
 plany_ke_kontrole.push(3); // připne plán 3 ke kontrole času
 }
 
-if(this.plany[3].length!=0){
-// pokud se nebude délka pole this.plany[3]!=0, znamená to, že plán 4 je aktivní a byl zadán
+if(this.plany[3].length!==0){
+// pokud se nebude délka pole this.plany[3]!==0, znamená to, že plán 4 je aktivní a byl zadán
 plan[3]=true; // proměnná určí jako aktivní plán 4
 plany_ke_kontrole.push(4); // připne plán 4 ke kontrole času
 }
 
-if(this.plany[4].length!=0){
-// pokud se nebude délka pole this.plany[4]!=0, znamená to, že plán 5 je aktivní a byl zadán
+if(this.plany[4].length!==0){
+// pokud se nebude délka pole this.plany[4]!==0, znamená to, že plán 5 je aktivní a byl zadán
 plan[4]=true; // proměnná určí jako aktivní plán 5
 plany_ke_kontrole.push(5); // připne plán 5 ke kontrole času
 }
 
-if(this.plany[5].length!=0){
-// pokud se nebude délka pole this.plany[5]!=0, znamená to, že plán 6 je aktivní a byl zadán
+if(this.plany[5].length!==0){
+// pokud se nebude délka pole this.plany[5]!==0, znamená to, že plán 6 je aktivní a byl zadán
 plan[5]=true; // proměnná určí jako aktivní plán 6
 plany_ke_kontrole.push(6); // připne plán 6 ke kontrole času
 }
@@ -780,7 +778,7 @@ plany_ke_kontrole.push(6); // připne plán 6 ke kontrole času
 // console.log(plany_ke_kontrole);
 
 
-if(plan[0]==null&&plan[1]==null&&plan[2]==null&&plan[3]==null&&plan[4]==null&&plan[5]==null)
+if(plan[0]===null&&plan[1]===null&&plan[2]===null&&plan[3]===null&&plan[4]===null&&plan[5]===null)
 {
 // pokud se plan[0-5]==null, není aktivován žádný plán, vypne se časový hlídač a fukce se ukončí - return
 this.hlidat_plany=false; // proměnná určuje, zda je zapnutý nějáký plán a následně ve funkci window.tik.tak v centrum.js časovač hlídá čas, kdy má být plán aktiviván, true=nějáký plán je zapnutý, false=žádný plán není zapnutý
@@ -800,13 +798,13 @@ const min=cas.getMinutes(); // zjistí kolik je minut
 const z_hod=this.plany[plany_ke_kontrole[i]-1][0]; // zjistí v kolik hodin má být plán aktivován (plan-1)=číslo pole konkrétního plánu
 const z_min=this.plany[plany_ke_kontrole[i]-1][1]; // zjistí v kolik minu má být plán aktivován (plan-1)=číslo pole konkrétního plánu
 
-if(hod==z_hod&&min==z_min)
+if(hod===z_hod&&min===z_min)
 {
 // pokud se aktuální hodina a aktuální minuta == zadané hodině a zadané minutě v plánu
 
-if(hl_kon.otevrene_okno!="")
+if(hl_kon.otevrene_okno!=="")
 {
-// pokud hl_kon.otevrene_okno!="" znamená to, že hlavní kontajner je nastaven na display=none a jiné okno je otevřené, tato proměnná v sobě má id okna, které je otevřené - centrum.js
+// pokud hl_kon.otevrene_okno!=="" znamená to, že hlavní kontajner je nastaven na display=none a jiné okno je otevřené, tato proměnná v sobě má id okna, které je otevřené - centrum.js
 
 planovac.hlidat_plany=false; // zastaví hlídání plánů, přestanou se hlídat ve funkci tik.tak v centrum.js
 
@@ -861,7 +859,7 @@ const noZvuk=document.getElementById(`${this.id_butt_zvuk}${plan}`); // HTML obj
 const ok=document.getElementById(`${this.id_butt_uk}${plan}`); // HTML objekt buttonu OK - ukončení Plánu
 
 
-if(this.plany[plan-1][3]==true)
+if(this.plany[plan-1][3]===true)
 {
 // pokud tomuto konkrétnímu plánu byl zadán požadavek Přehrát zvuk upozornění dokola - this.plany[plan-1][3]=(false=bez zvuku;null=zvuk přehrát 1x;true=zvuk přehrávat do ukončení)
 noZvuk.classList.remove(this._css[0]); // pokud byla třída CSS přidána, bude odebrána, class nastavuje objekt HTML display=none
@@ -875,7 +873,7 @@ this.povoleni_zesilovat=true; // dočasné povolení zesilování, toto povolen�
 else
 {
 noZvuk.classList.add(this._css[0]); // pokud nebyla třída CSS přidána, bude přidána, class nastavuje objekt HTML display=none
-if(this.plany[plan-1][3]==null)
+if(this.plany[plan-1][3]===null)
 {
 // pokud tomuto konkrétnímu plánu byl zadán požadavek Přehrát zvuk upozornění 1x - this.plany[plan-1][3]=(false=bez zvuku;null=zvuk přehrát 1x;true=zvuk přehrávat do ukončení)
 
@@ -925,7 +923,7 @@ this.v_alarmu[plan-1]=""; // proměnná určuje, zda je nějáký plán aktuáln
 this.data_v_alarmu[plan-1]=[]; // do globální proměnné se vloží data ke konkrétnímu plánu, který je v alarmu, tuto globální proměnnou následně používá funkce uloz.plany_v_alarmu která toto pole s daty uládá na local strorage - ve oziv.js
 uloz.plany_v_alarmu(); // funkce vymaže konkrétní parametry plánu, který už není v alarmu na local storage  - oziv.js
 
-if(this.plany[0].length==0&&this.plany[1].length==0&&this.plany[2].length==0&&this.plany[3].length==0&&this.plany[4].length==0&&this.plany[5].length==0&&this.v_alarmu[0]!=true&&this.v_alarmu[1]!=true&&this.v_alarmu[2]!=true&&this.v_alarmu[3]!=true&&this.v_alarmu[4]!=true&&this.v_alarmu[5]!=true)
+if(this.plany[0].length===0&&this.plany[1].length===0&&this.plany[2].length===0&&this.plany[3].length===0&&this.plany[4].length===0&&this.plany[5].length===0&&this.v_alarmu[0]!==true&&this.v_alarmu[1]!==true&&this.v_alarmu[2]!==true&&this.v_alarmu[3]!==true&&this.v_alarmu[4]!==true&&this.v_alarmu[5]!==true)
 {
 // pokud všechny pole plánů (this.plany) budou mít délku 0, znamená to, že není aktivní žádný plán + pokud v šechna pole v alarmu (this.v_alarmu) nebudou mít hodnotu true, znamená to, že žádný plán není v alarmu
 setTimeout(()=>{
@@ -938,7 +936,7 @@ document.getElementById(`${this.id_hl_kon}`).classList.add(this._css[0]); // př
 sroll_na(plan=0){
 // funkce zajistí scroll na konrétní plán
 
-if(plan==0)
+if(plan===0)
 {
 return; // pokud do funkce nebyl zaslán požadavek na scrool na konkrétní plán - bude return
 }
@@ -957,44 +955,44 @@ const aktualne_celkem_minut=hod*60+min; // Převedeme aktuální čas uživatele
 let plan=[[null],[null],[null],[null],[null],[null]]; // v poly se zadávají plány určené ke kontrole
 const plany_ke_kontrole=[]; // do pole se vkládají čísla plánů které prošly kontrolou
 
-if(this.plany[0].length!=0){
-// pokud se nebude délka pole this.plany[0]!=0, znamená to, že plán 1 je aktivní a byl zadán
+if(this.plany[0].length!==0){
+// pokud se nebude délka pole this.plany[0]!==0, znamená to, že plán 1 je aktivní a byl zadán
 plan[0]=true; // proměnná určí jako aktivní plán 1
 plany_ke_kontrole.push(1); // připne plán 1 ke kontrole času
 }
 
-if(this.plany[1].length!=0){
-// pokud se nebude délka pole this.plany[1]!=0, znamená to, že plán 2 je aktivní a byl zadán
+if(this.plany[1].length!==0){
+// pokud se nebude délka pole this.plany[1]!==0, znamená to, že plán 2 je aktivní a byl zadán
 plan[1]=true; // proměnná určí jako aktivní plán 2
 plany_ke_kontrole.push(2); // připne plán 2 ke kontrole času
 }
 
-if(this.plany[2].length!=0){
-// pokud se nebude délka pole this.plany[2]!=0, znamená to, že plán 3 je aktivní a byl zadán
+if(this.plany[2].length!==0){
+// pokud se nebude délka pole this.plany[2]!==0, znamená to, že plán 3 je aktivní a byl zadán
 plan[2]=true; // proměnná určí jako aktivní plán 3
 plany_ke_kontrole.push(3); // připne plán 3 ke kontrole času
 }
 
-if(this.plany[3].length!=0){
-// pokud se nebude délka pole this.plany[3]!=0, znamená to, že plán 4 je aktivní a byl zadán
+if(this.plany[3].length!==0){
+// pokud se nebude délka pole this.plany[3]!==0, znamená to, že plán 4 je aktivní a byl zadán
 plan[3]=true; // proměnná určí jako aktivní plán 4
 plany_ke_kontrole.push(4); // připne plán 4 ke kontrole času
 }
 
-if(this.plany[4].length!=0){
-// pokud se nebude délka pole this.plany[4]!=0, znamená to, že plán 5 je aktivní a byl zadán
+if(this.plany[4].length!==0){
+// pokud se nebude délka pole this.plany[4]!==0, znamená to, že plán 5 je aktivní a byl zadán
 plan[4]=true; // proměnná určí jako aktivní plán 5
 plany_ke_kontrole.push(5); // připne plán 5 ke kontrole času
 }
 
-if(this.plany[5].length!=0){
-// pokud se nebude délka pole this.plany[5]!=0, znamená to, že plán 6 je aktivní a byl zadán
+if(this.plany[5].length!==0){
+// pokud se nebude délka pole this.plany[5]!==0, znamená to, že plán 6 je aktivní a byl zadán
 plan[5]=true; // proměnná určí jako aktivní plán 6
 plany_ke_kontrole.push(6); // připne plán 6 ke kontrole času
 }
 let delka_plany_ke_kontrole=plany_ke_kontrole.length; // délka pole delka_plany_ke_kontrole
 
-if(delka_plany_ke_kontrole!=0)
+if(delka_plany_ke_kontrole!==0)
 {
 // pokud je nějáký konkrétní plán ke kontrole, zda nebyl alarm během vyplého nočního vlka
 
@@ -1032,7 +1030,7 @@ let data_plany=uloz.nacti(uloz.klice[22]); // načte pole všech plánů z local
 
 let plany=""; // do proměnné se následně vloží pole s plány a jejich parametry, jedná se o všechny plány i ty, které se nachází právě v ALARMU
 
-if(data_plany!=""){
+if(data_plany!==""){
 // pokud byla načtena data k obnovený pole plánů
 try
 {
@@ -1059,7 +1057,7 @@ let data_v_alarmu=uloz.nacti(uloz.klice[23]); // načte pole kde je uloženo jes
 
 let v_alarmu=""; // do proměnné se uloží pole s plánama v alarmu, pokud budou nějáká načtena
 
-if(data_v_alarmu!=""){
+if(data_v_alarmu!==""){
 // pokud budou načtena data plánovačů v alarmu
 
 try
@@ -1072,7 +1070,7 @@ console.log("plány v alarmu načtení chyba: "+e);
 }}
 
 
-if(v_alarmu!="")
+if(v_alarmu!=="")
 {
 // pokud budou načtena nějáká data plánů v alarmu
 for(let i=0;i<delka_plany;i++)
@@ -1081,7 +1079,7 @@ for(let i=0;i<delka_plany;i++)
 
 let kontrola_v_alarmu=v_alarmu[i]; // načte konkrétní pole s parametry plánu v alarmu pokud nějáká jsou
 
-if(kontrola_v_alarmu.length!=0)
+if(kontrola_v_alarmu.length!==0)
 {
 // pokud jsou data plánů v alarmu, bude délka pole větší jak 0
 this.plany[i]=v_alarmu[i]; // zapíše plán v alarmu do existujících plánů
@@ -1107,9 +1105,9 @@ let ktere_plany=[]; // pole určuje, které plány budou oživeny 1-6 plánů
 
 for(let i=0;i<delka_plany;i++)
 {
-if(plany[i].length!=0)
+if(plany[i].length!==0)
 {
-// pokud se konkrétní délka pole plánu !=0, znamenáto, že plán byl zadán a do pole ktere_plany bude zapsáno true
+// pokud se konkrétní délka pole plánu !==0, znamenáto, že plán byl zadán a do pole ktere_plany bude zapsáno true
 ktere_plany.push(true);
 }
 else
@@ -1135,7 +1133,7 @@ minut=`0${minut}`; // přidá 0 před číslo 0-9
 }
 document.getElementById(`${this.id_min}${i+1}`).innerText=minut; // zapíše do spanu minutu plánu , (i+1 - plány jsou řazeny od 1 ale jejich poloha v poli od 0, proto +1)
 document.getElementById(`${this.id_text}${i+1}`).innerText=plany[i][2]; // zapíše do spanu text plánu , (i+1 - plány jsou řazeny od 1 ale jejich poloha v poli od 0, proto +1)
-if(v_alarmu[i].length==0)
+if(v_alarmu[i].length===0)
 {
 // pokud se data k plánu v alarmu == 0, znamená to , že daný plán není v alarmu a je možné mu přiřadit tento posluchač událostí
 document.getElementById(`${this.id_butt_box}${i+1}`).addEventListener("click",this); // přidá posluchač k buttonu, který je hlaví box plánu - kliknutí na něj otevře dialogové okno s informací o konkrétním plánu a možnosti jeho zrušení (i+1 - plány jsou řazeny od 1 ale jejich poloha v poli od 0, proto +1)
@@ -1174,7 +1172,7 @@ let plany=true; // proměnná slouží k posouzení dat k obnovení konkrétníc
 
 let data_plany=uloz.nacti(uloz.klice[22]); // načte pole všech plánů z local storage , jedná se o pole this.plany - funkce v oziv.js
 
-if(data_plany==""){
+if(data_plany===""){
 // pokud nebudou načtena žádná data 
 plany=false; // nenačetla se žádná data z local storage
 }
@@ -1192,7 +1190,7 @@ plany=false; // chyba při zpracování uloženého textového řetězce na pole
 console.log("plány načtení chyba: "+e);
 }
 
-if(plany_pole[0].length==0&&plany_pole[1].length==0&&plany_pole[2].length==0&&plany_pole[3].length==0&&plany_pole[4].length==0&&plany_pole[5].length==0)
+if(plany_pole[0].length===0&&plany_pole[1].length===0&&plany_pole[2].length===0&&plany_pole[3].length===0&&plany_pole[4].length===0&&plany_pole[5].length===0)
 {
 // pole plany_pole, by v tuto chvíly mělo obsahovat data k jednotlivým plánům 1-6, pokud budou všechny pole plánů - celkem 6 prázdných, není žádný plán pro obnovení
 plany=false; // přepíše proměnnou na false, tím určí, že není žádný plán pro oživení
@@ -1207,7 +1205,7 @@ let data_v_alarmu=uloz.nacti(uloz.klice[23]); // načte pole kde je uloženo jes
 
 let pole_alarmu=""; // do proměnné se uloží pole s plánama v alarmu, pokud budou nějáká načtena
 
-if(data_v_alarmu!=""){
+if(data_v_alarmu!==""){
 // pokud budou načtena data plánovačů v alarmu
 
 try
@@ -1219,7 +1217,7 @@ catch(e)
 v_alarmu=false; // změní proměnou na false, protože se nepodařilo textový řetězec pomocí metody JSON změnit na pole
 }
 
-if(pole_alarmu[0].length==0&&pole_alarmu[1].length==0&&pole_alarmu[2].length==0&&pole_alarmu[3].length==0&&pole_alarmu[4].length==0&&pole_alarmu[5].length==0)
+if(pole_alarmu[0].length===0&&pole_alarmu[1].length===0&&pole_alarmu[2].length===0&&pole_alarmu[3].length===0&&pole_alarmu[4].length==0&&pole_alarmu[5].length===0)
 {
 // pole pole_alarmu, by v tuto chvíly mělo obsahovat data k jednotlivým plánům 1-6 pokud by byly v alarmu, pokud budou všechny pole plánů - celkem 6 prázdných, není žádný plán v alarmu pro obnovení
 v_alarmu=false; // přepíše proměnnou na false, tím určí, že není žádný plán v alarmu pro oživení
@@ -1232,7 +1230,7 @@ else
 v_alarmu=false; // změní proměnou na false, jelikož není na obnovení, žádný plán v alarmu
 }
 
-if(plany==true||v_alarmu==true)
+if(plany===true||v_alarmu===true)
 {
 // pokud budou data pro obnovení plánů anebo data pro obnovení plánů v alarmu
 return true; // návratová hodnota bude true

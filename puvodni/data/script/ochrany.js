@@ -25,7 +25,7 @@ f_video.pust(); // pustí fake video - které zabrání uzamčení obrazovky
 else
 {
 // Aplikace je spuštěna v prohlížeči
-if(this.pripraven==null)
+if(this.pripraven===null)
 {
 this.pripravenost(); // pokud nebylo zjištěno, zda zařízení podporuje blokaci zámku obrazovky - wakeLock API, toto se provede
 }
@@ -194,8 +194,8 @@ g_pos.ozivitOff(); // funkce vypne posluchač tlačítka Oživit a sníží jeho
 }}
 
 
-v_port.handleEvent(); /* aktivuje propočet velikosti ona podle VisualViewport API - na některých zaříueních např. iPad dojde jinak ke "scvrknutí" okna aplikace */
-uzamceni.jednou(); /* pokud bude aktivní zámek obrazovky - zobrazí, že je aplikace uzamčena */
+v_port.prepocet(); // aktivuje přepočet velikosti okna podle Visual viewport - v centrum.js
+uzamceni.jednou(); // pokud bude aktivní zámek obrazovky - zobrazí, že je aplikace uzamčena
 }
 }};
 
@@ -208,16 +208,16 @@ casovac:null, // časovač pro video
 
 zvuk(co){
 
-if(this.aktivovano==false)
+if(this.aktivovano===false)
 {
 return; /* pokud nebylo fakevido aktivováno - ude return */
 }
 
-if(co=="ztlumit")
+if(co==="ztlumit")
 {
 this.fake_video.muted=true; /* vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 }
-else if(co=="zesilit")
+else if(co==="zesilit")
 {
 this.fake_video.muted=false; /* zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 }
@@ -227,7 +227,7 @@ return; /* pokud nebylo vybráno jestli zesílit anebo zeslabit- bude return */
 }},
 
 pust(){
-if(this.aktivovano==false)
+if(this.aktivovano===false)
 {
 this.aktivovano=true;
 }
@@ -282,7 +282,7 @@ catch(e)
 // pokud bude plátno "znečištěno" = bude v něm nahrán obrázek tlapka.svg (to bývá na SINGL a DABL okruhu) - nastane tato podmínka, a plátno tedy není prázdné
 }
 
-if(data_full==data_empty)
+if(data_full===data_empty)
 {
 // pokud se data URL plného plátna shoduji s daty URL prázdného plátna - plátno bylo vymazáno
 dia.on(dia.id[18]); // zapne dialogové okno: Kolaps aplikace
