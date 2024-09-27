@@ -310,12 +310,21 @@ transition:500ms;
 }
 
 
-p::selection,span::selection,textarea::selection,input::selection,label::selection,button::selection,h1::selection,h2::selection,h3::selection,a::selection,li::selection,em::selection,strong::selection,td::selection,time::selection{color:black;background-color:aqua;}
+p::selection,span::selection,textarea::selection,input::selection,label::selection,h1::selection,h2::selection,h3::selection,a::selection,li::selection,em::selection,strong::selection,td::selection,time::selection{color:black;background-color:aqua;}
+
+
 
 button
 {
 font-weight:normal;
 }
+
+button::selection
+{
+color:var(--b1);
+background-color:transparent;
+}
+
 
 a,a:link,a:visited,a:active
 {

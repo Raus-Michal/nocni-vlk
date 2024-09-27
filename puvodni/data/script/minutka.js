@@ -285,7 +285,6 @@ timeout()
 // veškeré procesy, které nastanou bezprostředně po uběhnutí intervalu minutky
 hlidac.minutka=false; // ochana před uspáním aplikace - tato proměnná hlídá jestli je funkce minutky aktivní, pokud je odpočet minutky aktivní=true pokud ne=false
 this.alarm=true; // proměnná určuje zda je minutka v timeoutu, tedy v alarmu, tru=ano, false=ne
-f_video.zvuk("ztlumit");  // vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky
 zvuk_min.hraj(true); // bude přehrávat zvuk upozornění minutky dokola ve vlk.js
 
 dia.vyp_akt(); // vypne aktivní dialogové okno - pokud je - v centrum.js
@@ -383,7 +382,6 @@ hlidac.minutka=false; // ochana před uspáním aplikace - tato proměnná hlíd
 this.alarm=false; // proměnná určuje zda je minutka v timeoutu, tedy v alarmu, tru=ano, false=ne
 document.getElementById(this.id_timeout[2]).removeEventListener("click",this); // odebere posluchač události click na buttonu OK - u timeoutu minutky
 zvuk_min.zastav(); /* zastaví zvuk upozornění na obchůzku ve vlk.js */
-f_video.zvuk("zesilit");  /* zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 uzamceni.jednou(); /* pokud bude aktivní zámek obrazovky - zobrazí, že je aplikace uzamčena - v centrum.js */
 
 setTimeout(()=>{

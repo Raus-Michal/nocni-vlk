@@ -218,6 +218,7 @@ volume_inic:0.1, // hlasitost pro inicializaci zvuku, jeho první přehrátí pr
 volume:0.75, // default hlasitost zvuku
 bc:"rgb(218,65,103)",
 bcT:"rgb(137,157,120)",
+hraje:false, // proměnná jasně určuje jestli zvuk hraje, pokud je přehráván dokola (TRUE===zvuk hraje, FALSE===zvuk nehraje)
 zaloz(){
 // založí všechny audio mp3 do globální proměnné window
 if(window.zalozeno)
@@ -241,7 +242,7 @@ if(!window.zalozeno)
 this.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny
 }
 
-window.audio[this.cislo].loop=jak; /* pokud bude jak false - zajistí, že přehraje zvuk pouze 1x ; pokud true - bude se přehrávat dokola */
+
 
 if(this.volume_min===0.05)
 {
@@ -252,6 +253,8 @@ this.volume_min=0.05; // dá nejnižší hlasitost na default
 
 if(jak===true)
 {
+// true=== zvuk se bude přehrávat dokola
+window.audio[this.cislo].loop=true; // pokud bude jak false - zajistí, že přehraje zvuk pouze 1x ; pokud true - bude se přehrávat dokola
 if(this.zesilovat)
 {
 /* pokud bude aktivováno zesilování */
@@ -263,15 +266,20 @@ else if(!this.zesilovat)
 window.audio[this.cislo].volume=this.volume; /* nastavení defaul hlasitosi je 75% */
 }
 window.audio[this.cislo].play();
+this.hraje=true; // proměnná jasně určuje jestli zvuk hraje, pokud je přehráván dokola (TRUE===zvuk hraje, FALSE===zvuk nehraje)
+f_video.zvuk("ztlumit");  //  v případě režimu PWA vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí zhasnutí obrazovky - v ochrany.js
 }
 else if(jak===false)
 {
+// zvuk se bude přehrávat 1x
+window.audio[this.cislo].loop=false; // pokud bude jak false - zajistí, že přehraje zvuk pouze 1x ; pokud true - bude se přehrávat dokola
 window.audio[this.cislo].volume=this.volume; /* nastavení defaul hlasitosi je 75% */
 window.audio[this.cislo].play(); /* pustí mp3 */
 }
 else if(jak===null)
 {
 // přehrávání zvuku pro inicializaci samotného zvuku, pro zvýšení interakce zvuku s aplikací
+window.audio[this.cislo].loop=false; // pokud bude jak false - zajistí, že přehraje zvuk pouze 1x ; pokud true - bude se přehrávat dokola
 if(this.volume>0.25)
 {
 // pokud je současná hlasitost větší jak 25%
@@ -283,7 +291,7 @@ else
 window.audio[this.cislo].volume=this.volume_min; // minimální hlasitost zvuku, která se používá jako výchozí pro postupné zesilování
 }
 
-window.audio[this.cislo].play(); /* pustí mp3 */
+window.audio[this.cislo].play(); // pustí mp3
 }},
 zesiluj(){
 /* funkce postupně zesiluje hlasitost alarmu - použito v centrum.js - funkce TIK */
@@ -348,6 +356,8 @@ zastav(){
 window.audio[this.cislo].pause(); /* zapauzuje přehrávání zvuku */
 this.volume_min=0.05; // nastaví proměnou na default
 window.audio[this.cislo].currentTime=0; // posune přehrávání mp3 na její začátek, taa, aby při dalším spuštění opět začínala na začátku
+this.hraje=false; // proměnná jasně určuje jestli zvuk hraje, pokud je přehráván dokola (TRUE===zvuk hraje, FALSE===zvuk nehraje)
+f_video.zvuk("zesilit");  // v případě režimu PWA zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí zhasnutí obrazovky - v ochrany.js
 }};
 
 
@@ -547,7 +557,6 @@ if(k===this.id_b[0]||k===this.id_b[1])
 {
 /* kliknuto na vypni zvuk */
 zvuk.zastav(); /* zastaví přehrávání zvuku */
-f_video.zvuk("zesilit");  /* zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 hlidac.odpocet=true;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se počítá - musí to tak být jinak při vypnutí zvuku a následné minimalizaci okna se ochrana před uspáním nespustí */
 document.getElementById(this.id_b[2]).focus(); /* zafokusuje tlačítko Provedu obchůzku */
 }
@@ -1087,7 +1096,6 @@ let o120new=o120old+z;
 uloz.uloz(uloz.klice[7],o120new);
 }},
 aktivace(zbyle_s){ /* funkce, která aktivuje výzvu k obchůzce */
-f_video.zvuk("ztlumit");  /* vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 zvuk.hraj(true); /* bude přehrávat zvuk obchůzky dokola */
 tik.a_odpocet=false; /* proměnná, která funkci tik.tak() ve centrum.js dáva informaci o tom, že odpočet se NEmůže počítat */
 hlidac.odpocet=false;  /* proměnná, která funkci hlidac() ve ochrana.js dáva informaci o tom, že odpočet se NEpočítá */
@@ -1128,7 +1136,6 @@ this.posON(); /* zapne posluchače pro Výzvu k obchůzce */
 },
 DEaktivace(){ /* funkce, která DEaktivuje výzvu k obchůzce */
 zvuk.zastav(); /* zastaví zvuk upozornění na obchůzku */
-f_video.zvuk("zesilit");  /* zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 uzamceni.jednou(); /* pokud bude aktivní zámek obrazovky - zobrazí, že je aplikace uzamčena - v centrum.js */
 this.posOFF(); /* VYpne posluchače pro Výzvu k obchůzce */
 tik.a_obchuzka=false; /* proměnná informuje, že výzva k obchůzce je DEaktivní v centrum.js */

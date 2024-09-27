@@ -156,7 +156,6 @@ if(document.visibilityState==="hidden") /* pokud není obrazovka s apllikací vi
 
 if(this.odpocet||this.minutka||this.planovac) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
 {
-f_video.zvuk("ztlumit");  /* vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 pinkani.hraj(true); /* přehraje zvuk pinkání stále dokola */
 tik.a_uspano=true; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně začít zesilovat zvuk pinkání
 canvas_vymaz.hlidac=false; // přestane se hlídat vymazání plátna CANVAS se systémem obchůzek - proměnná určuje jestli se hlídá vymazání plátna CANVAS se systémem obchůzek - pokud TRUE=hlídání je zapnuté, FALSE=HLÍDÁNÍ JE VYPNUTÉ - kontrolovat výmaz plátna canvas v objektu TIK ve centrum.js 
@@ -171,7 +170,6 @@ if(this.odpocet||this.minutka||this.planovac) /* proměnná, která z vlk.js dá
 {
 pinkani.zastav(); // zastaví přehrávání zvuku pinkání - ve vlk.js
 tik.a_uspano=false; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně přestat zesilovat zvuk pinkání
-f_video.zvuk("zesilit");  /* zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 dia.on(dia.id[3]); /* v centrum.js */
 }
 else
@@ -217,8 +215,9 @@ if(co==="ztlumit")
 {
 this.fake_video.muted=true; /* vypne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 }
-else if(co==="zesilit")
+else if(co==="zesilit"&&(zvuk.hraje===false&&zvuk_min.hraje===false&&zvuk_plan.hraje===false&&pinkani.hraje===false))
 {
+// pokud byl zaslán požadavek na zesílení zvuku fake videa A zvuk alarmu Noční VLK nehraje A zvuk alarmu Minutka nehraje A zvuk alarmu Plánovač nehraje A zvuk upozornění že aplikace byla uspána nehraje (proměnné zvuk.hraje,zvuk_min.hraje,zvuk_plan.hraje a pinkani.hraje jsou ve vlk.js)
 this.fake_video.muted=false; /* zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí shasnutí obrazovky */
 }
 else
