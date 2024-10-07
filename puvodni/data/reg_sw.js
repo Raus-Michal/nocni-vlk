@@ -8,7 +8,7 @@ console.log("serviceWorker je podporován");
 // Asynchronní registrace Service Workeru
 window.addEventListener('load',async()=>{
 try{
-const reg=await navigator.serviceWorker.register('sw.js'); // registrace servisního pracovníka pro mezipaměť
+const reg=await navigator.serviceWorker.register('sw.js',{scope:'/nocni-vlk/data/'}); // registrace servisního pracovníka pro mezipaměť
 if(reg.installing)
 {
 console.log("serviceWorker installing");

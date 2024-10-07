@@ -12,7 +12,6 @@ self.addEventListener('install',function(event){
 ,"/nocni-vlk/data/index.html"
 ,"/nocni-vlk/data/sw.js"
 ,"/nocni-vlk/data/reg_sw.js"
-,"/nocni-vlk/data/styl/optimal.css"
 ,"/nocni-vlk/data/styl/vlk.css"
 ,"/nocni-vlk/data/alarm/alarm1.mp3"
 ,"/nocni-vlk/data/alarm/alarm2.mp3"
@@ -63,7 +62,7 @@ self.addEventListener('fetch',function(event){
   const url=new URL(event.request.url);
 
   // Dynamické kešování hlavní stránky index.html s hashem, url.pathname==="CESTA OD KOŘENOVÉHO ADRESÁŘE WEBU"
-  if(url.pathname==="/nocni-vlk/data/"||url.pathname.startsWith("/nocni-vlk/data/index.html")){
+  if(url.pathname==="/nocni-vlk/data/"||url.pathname.startsWith("/nocni-vlk/data/")){
     event.respondWith(
       // Nejprve se pokusíme najít odpověď v keši
       caches.match(event.request).then(function(response){
