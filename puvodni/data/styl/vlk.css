@@ -390,13 +390,10 @@ grid-template-areas:
 ;
 background:var(--b1);
 width:100%;
-max-width:62.5rem; /* 1000px */
+max-width:1200px;
 transition:250ms;
+align-items:center;
 }
-
-
-
-
 
 /* MOBIL L pokud je obrazovka větší než 23.25em - 372px */
 @media only screen and (min-width:23.25em)
@@ -469,6 +466,24 @@ grid-template-areas:
 "pla pla min min kon kon pre pre zam zam nav2 nav2 nav2 nav2"
 "jas jas jas jas poz poz poz poz poz poz nav2 nav2 nav2 nav2"
 "hla hla hla hla poz poz poz poz poz poz nav2 nav2 nav2 nav2"
+"obr obr obr obr obr obr obr obr obr obr obr obr obr obr"
+;
+}}
+
+@media only screen and (min-width:62.5em) /* 1000px */
+{
+.kon
+{
+grid-template-columns:repeat(14,1fr);
+grid-template-rows:repeat(8,auto);
+grid-template-areas:
+"uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr uhr"
+"can can can can can odp odp odp odp odp . . . pla"
+"can can can can can odp odp odp odp odp nav2 nav2 nav2 min"
+"can can can can can odp odp odp odp odp nav2 nav2 nav2 kon"
+"can can can can can odp odp odp odp odp nav2 nav2 nav2 pre"
+"uk uk uk uk uk uk uk uk uk uk uk uk uk uk"
+"jas jas jas jas hla hla hla hla poz poz poz poz poz zam"
 "obr obr obr obr obr obr obr obr obr obr obr obr obr obr"
 ;
 }}
@@ -583,6 +598,8 @@ font-size:1rem;
 grid-area:uhr;
 display:flex;
 justify-content:center;
+border-bottom:3px solid black;
+margin-bottom:.5rem;
 }
 
 .uhr-kon
@@ -785,6 +802,27 @@ color:var(--b4);
 font-size:.9rem;
 }
 
+.nav2-ul li button#spustit  /* speciální úprava pro button Spustit Nočního VLKa */
+{
+/* color:var(--b5); */
+font-size:1.25rem;
+font-weight:bold;
+animation: scale-animation 1s infinite;
+}
+
+@keyframes scale-animation{
+0%{
+transform:scale(1);
+color:var(--b4);
+}
+15%{
+transform:scale(1.02);
+color:var(--b5);
+}
+100%{
+transform: scale(1);
+color:var(--b4);
+}}
 
 .nav2-ul li:last-child
 {
