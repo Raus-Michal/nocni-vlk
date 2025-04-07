@@ -20,17 +20,17 @@ klice:[ // klíče pro ukládání do Local Storage
 "o120",
 "interval",
 "vlk_zas",
-"alarm_vlk", // 10. uložení volby alarmu pro hlavní funkci aplikace Noční VLK
+"alarm_nocni_vlk", // 10. uložení volby alarmu pro hlavní funkci aplikace Noční VLK
 "alarm_zv", // 11. klíč volby zda chce užívatel postupné zesilování pro alarm Noční VLK
 "poznamky", // 12. klíč pro Poznámky
-"alarm_min", // 13. klíč volbu alarmu minutky
+"alarm_minutka", // 13. klíč volbu alarmu minutky
 "zes_min", // 14. klíč volby zda chce užívatel postupné zesilování pro alarm Minutky
 "cas_min", // 15. klíč ukládá čas, kdy nastane timeout Minutky - počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
 "popis_m", // 16. klíč ukládá popisek minutky
 "zap_min", // 17. klíč ukládá jesli byla minutka zapnuta=true anebo vypnuta=delete klíč
 "opak_min", // 18. klíč ukládá jesli chtěl minutku uživatel opakovat
 "int_min", // 19. klíč ukládá interval minutky, který byl zadán v minutách
-"alarm_plan", // 20. klíč ukládá volbu alarmu plánovač
+"alarm_planovac", // 20. klíč ukládá volbu alarmu plánovač
 "zes_plan", // 21. klíč volby zda chce užívatel postupné zesilování pro alarm Plánovač
 "plany", // 22. klíč který ukládá pole planovac.plany, toto pole má v sobě uloženo veškeré zadané plány uživatelem
 "pl_alarm", // 23. klíč který ukládá pole planovac.v_alarmu, toto pole slouží k zjištění, zda některý z plánů není aktuálně v alarmu
@@ -281,6 +281,8 @@ dead_time(){
 let akt_ms=Date.now(); /* vrátí počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC) */
 
 this.intr=this.nacti(this.klice[8]); /* načte délku počítání intervalu */
+
+
 if(this.intr==="")
 {
 return false; /* pokud není načtená délka intervalu */

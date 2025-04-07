@@ -2026,6 +2026,7 @@ else
 {
 // pokud se jedná o mobilní zařízení
 document.getElementById(p_nas.id_nas[6]).checked=false; // vypne zatržení v Nastavení checketu Zobrazit sekci Poloha aplikace
+document.getElementById(hl_kon.id_sek_poloha).style.display="none"; // schová panel pro sekci Poloha aplikace 
 }},
 licence(){
 /* funkce kontroluje, zda byla aplikace spuštěna s potvrzením licenčních podmínek a testy */
