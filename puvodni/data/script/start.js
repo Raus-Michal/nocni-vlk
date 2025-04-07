@@ -187,30 +187,26 @@ else
 return this.ready_bl=false;
 }},
 uspani(){
-let neviditelnost;
-if(typeof document.hidden!=="undefined")
-{
-neviditelnost="hidden";
-}
-else if(typeof document.msHidden!=="undefined")
-{
-neviditelnost="msHidden";
-}
-else if(typeof document.webkitHidden!=="undefined")
-{
-neviditelnost="webkidHidden";
-}
-/* KONEC kontrola kompatibility */
-if(typeof document.addEventListener==="undefined"||neviditelnost===undefined)
-{
-/* API viditelnosti nefunguje */
-return this.ready_usp=false;
-}
-else
-{
-/* API viditelnosti funguje */
-return this.ready_usp=true;
-}},
+    let neviditelnost="undefined";
+    if("hidden" in document){
+        neviditelnost="hidden";
+    }
+    else if("msHidden" in document){
+        neviditelnost="msHidden";
+    }
+    else if("webkitHidden" in document){
+        neviditelnost="webkitHidden";
+    }
+    // KONEC kontrola kompatibility
+    if(typeof document.addEventListener==="undefined"||neviditelnost==="undefined") {
+        /* API viditelnosti nefunguje */
+        return this.ready_usp=false;
+    }
+    else{
+        /* API viditelnosti funguje */
+        return this.ready_usp=true;
+    }
+},
 vyhod(){
 /* funkce provede všechny potřebné opatření podle výsledku testů */
 

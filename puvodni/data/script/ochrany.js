@@ -112,39 +112,27 @@ return; // pokud již bude poluchač přidán - bude return;
 // this.DEaktivace(); pokud bude aktivován posluchač, nejprve ho deaktivuje
 }
 
-let neviditelnost;
-let udalos_viditelnost;
-
-if(typeof document.hidden!=="undefined")
-{
-neviditelnost="hidden";
-udalos_viditelnost="visibilitychange";
+let neviditelnost = "undefined";
+let udalos_viditelnost = "";
+if ("hidden" in document) {
+    neviditelnost = "hidden";
+    udalos_viditelnost = "visibilitychange";
 }
-else if(typeof document.msHidden!=="undefined")
-{
-neviditelnost="msHidden";
-udalos_viditelnost="msvisibilitychange";
+else if ("msHidden" in document) {
+    neviditelnost = "msHidden";
+    udalos_viditelnost = "msvisibilitychange";
 }
-else if(typeof document.webkitHidden!=="undefined")
-{
-neviditelnost="webkidHidden";
-udalos_viditelnost="webkitvisibilitychange";
+else if ("webkitHidden" in document) {
+    neviditelnost = "webkitHidden";
+    udalos_viditelnost = "webkitvisibilitychange";
 }
-/* KONEC kontrola kompatibility */
-
-this.udalos_viditelnost=udalos_viditelnost;
-
-
-if(typeof document.addEventListener==="undefined"||neviditelnost===undefined)
-{
-console.log("API kontrola viditelnosti stránky nefunguje.");
-return;
+// KONEC kontrola kompatibility
+if (typeof document.addEventListener === "undefined" || neviditelnost === "undefined") {
+    console.error("API kontrola viditelnosti stránky nefunguje.");
 }
-else
-{
-/* podpora API viditelnosti je v pořádku */
-document.addEventListener(this.udalos_viditelnost,this,false); /* aktivuje posluchač události */
-this.aktivovan=true; // proměnná zohledňuje, že posluchač pro viditelnost stránky, byl aktivován
+else {
+    // API viditelnosti je v pořádku
+    document.addEventListener(udalos_viditelnost, this, false); // aktivuje posluchač
 }},
 DEaktivace(){
 document.removeEventListener(this.udalos_viditelnost,this,false); // odbrání posluchače pro viditelnost stránky
