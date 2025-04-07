@@ -204,76 +204,88 @@ kresly.system(obch.id_can); /* vykreslí systém v hlavním kontejneru */
 obch.pl_obch(); // vypíše text plánované obchůzky
 osoba.okruh=okruh_puvodni; /* po vykreslení systému obchůzek, vrátí okruh na původní stav */
 };
-window.audio = [];
-window.audio_rec = [];
-window.zalozeno = false;
+window.audio = []; // vytvoření globálního objektu window, pro uložení audio mp3, které bude používat aplikace
+window.audio_rec = []; // vytvoření globálního objektu window, pro uložení audio mp3 zvukového navádění obchůzek, které bude používat aplikace
+window.zalozeno = false; // vytvoření globálního objektu window, které určuje, zda byly mp3 audia zoloženy do globální proměnné window.audio
 
 const zvuk = {
-    zesilovat: true,
-    hlasove_navadeni: true,
-    cislo_zvuku_hlasoveho_navadeni: 0,
-    cislo: 0,
-    alarm: ["alarm/alarm1.mp3", "alarm/alarm2.mp3", "alarm/alarm3.mp3", "alarm/alarm4.mp3", "alarm/alarm5.mp3", "alarm/alarm6.mp3", "alarm/klik.mp3"],
-    rec: ["alarm/obchuzka-15min.mp3", "alarm/obchuzka-30min.mp3", "alarm/obchuzka-60min.mp3", "alarm/obchuzka-120min.mp3"],
-    volume_min: 0.05,
-    volume_inic: 0.1,
-    volume: 0.75,
+    zesilovat: true, // určuje zda bude zvuk přehráván postupným zesilováním, pokud true= ano , false=ne
+    hlasove_navadeni: true, // určuje, zda se bude přehrávat ke zvuku alarmu ještě hlasové navádění na konkrétní obchůzku
+    cislo_zvuku_hlasoveho_navadeni: 0, // určuje, keterý zvuk hlasového navádění na obchůzku se bude přehrávat
+    cislo: 0, // určuje, keterý zvuk alarmu se bude přehrávat
+    alarm: ["alarm/alarm1.mp3", "alarm/alarm2.mp3", "alarm/alarm3.mp3", "alarm/alarm4.mp3", "alarm/alarm5.mp3", "alarm/alarm6.mp3", "alarm/klik.mp3"],  // mp3 audia alarmu, které jsou používána v aplikaci
+    rec: ["alarm/obchuzka-15min.mp3", "alarm/obchuzka-30min.mp3", "alarm/obchuzka-60min.mp3", "alarm/obchuzka-120min.mp3"],  // mp3 audia zvukového navádění obchůzek, které jsou používána v aplikaci
+    volume_min: 0.05, // minimální hlasitost zvuku, která se používá jako výchozí pro postupné zesilování
+    volume_inic: 0.1, // hlasitost pro inicializaci zvuku, jeho první přehrátí pro zvýšení interakce konkrétního zvuku s aplikací
+    volume: 0.75, // default hlasitost zvuku
     bc: "rgb(218,65,103)",
     bcT: "rgb(137,157,120)",
-    hraje: false,
-    boundListeners: {}, // Slouží ke správě vázaných posluchačů
+    hraje: false, // proměnná určuje, zda hraje zvuk alarmu je přehráván, pokud ano- proměnná je true, pokud ne-proměnná je false
+    boundListeners: {}, // Slouží ke správě vázaných posluchačů [bind(this)], které jsou tímto pod 100% kontrolou přidávány a odebírány 
 
     // Založí všechny audio mp3 do globální proměnné window
     zaloz() {
         if (window.zalozeno) {
-            return;
+            return;  // pokud již byly zvuky založeny v globálním objektu, bude return
         }
 
-        // Vytvoření objektů pro alarmy
+        // smička vytvoří všechny audio objekty k alarmu
         this.alarm.forEach(src => {
             let audio = new Audio(src);
             window.audio.push(audio);
         });
 
-        // Vytvoření objektů pro hlasové navádění
+        // smička vytvoří všechny audio objekty k hlasovému navádění na konkretní obchůzky
         this.rec.forEach(src => {
             let audio = new Audio(src);
             window.audio_rec.push(audio);
         });
 
-        window.zalozeno = true;
+        window.zalozeno = true; // proměnná informuje, že již došlo k založení mp3 audia do globálního objektu windows
     },
 
-    // Spustí přehrávání
+    // Funkce Spustí přehrávání alarmu
     hraj(jak) {
         if (!window.zalozeno) {
-            this.zaloz();
+        // pokud ještě nebyly audio mp3 založeny v globálním objektu windows - založí je
+            this.zaloz(); // založí audio mp3 v globálním objektu windows, pokud nebyly již založeny
+        }
+
+        if(this.volume_min===0.05) {
+            // pokud nebude this.volume_min nastavena na default hodnotu
+            this.volume_min=0.05; // dá nejnižší hlasitost na default
         }
 
         if (jak === true) {
+        // true=== zvuk se bude přehrávat dokola
             if (this.hlasove_navadeni) {
-                this.nastav_rec();
+            // pokud je zapnutí hlasové navádění na odbchůzku (řeč)
+                this.nastav_rec(); // funkce zajistí nastavení správné číslo (tedy mp3) řeči pro aktuální výzvu k obchůzce
             }
 
             if (this.zesilovat) {
-                window.audio[this.cislo].volume = this.volume_min;
-                window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].volume = this.volume_min;
+            // pokud je aktivována možnost zesilování hlasitosti
+                window.audio[this.cislo].volume = this.volume_min;  // nastavení minimální hlasitosti zvuku alarmu
+                window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].volume = this.volume_min; // nastavení minimální zvukového navádění na obchůzku
             } else {
-                window.audio[this.cislo].volume = this.volume;
-                window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].volume = this.volume;
+            // pokud není aktivována možnost zesilování hlasitosti
+                window.audio[this.cislo].volume = this.volume; // nastavení defaul hlasitosi je 75%
+                window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].volume = this.volume;  // nastavení defaul hlasitosi je 75%
             }
 
-            window.audio[this.cislo].play();
+            window.audio[this.cislo].play(); // přehraje zvuk alarmu
 
-            // Vytvoření a uložení vázaného posluchače pro `prehravej_dokola`
-            const boundPrehravejDokola = this.prehravej_dokola.bind(this);
-            this.boundListeners["ended"] = boundPrehravejDokola;
-            window.audio[this.cislo].addEventListener("ended", boundPrehravejDokola);
+            // Vytvoření a uložení vázaného posluchače na zvuk alarmu pro funkce this.prehravej_dokola()
+            const boundPrehravejDokola = this.prehravej_dokola.bind(this); // navázání funkce this.prehravej_dokola s bind na proměnnou
+            this.boundListeners["ended"] = boundPrehravejDokola; // navázání objektu s posluchačem na proměnnou
+            window.audio[this.cislo].addEventListener("ended", boundPrehravejDokola); // vytvoření posluchače s jeho explicitním umístěním v objektu pro jeho bezproblémové odebrání
 
-            this.hraje = true;
+            this.hraje = true; // proměnná určuje, že zvuk alarmu se přehrává
+
         } else if (jak === false) {
-            window.audio[this.cislo].volume = this.volume;
-            window.audio[this.cislo].play();
+            // zvuk se bude přehrávat 1x
+            window.audio[this.cislo].volume = this.volume; // nastavení defaul hlasitosi je 75%
+            window.audio[this.cislo].play(); // přehraje zvuk alarmu
         }
         else if(jak===null)
         {
@@ -289,57 +301,68 @@ const zvuk = {
         window.audio[this.cislo].volume=this.volume_min; // minimální hlasitost zvuku, která se používá jako výchozí pro postupné zesilování
         }
 
-window.audio[this.cislo].play(); // pustí mp3
-}
+        window.audio[this.cislo].play(); // přehraje zvuk alarmu
+        }
     },
 
     // Funkce pro přehrávání znovu dokola
     prehravej_dokola() {
+    // funkce pomocí posluchaše addEventListener("ended") zajistí přehrávání zvuku alarmu a případně hlasového navádění na obchůzku
         if (this.hlasove_navadeni) {
-            window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].play();
+        // pokud je aktivované hlasové navádění
+            window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].play(); // přehraje zvuk hlasového navádění na konkrétní obchůzku
 
-            // Vytvoření a uložení vázaného posluchače pro `prehravej_rec`
-            const boundPrehravejRec = this.prehravej_rec.bind(this);
+            // Vytvoření a uložení vázaného posluchače na zvuk alarmu pro funkce this.prehravej_rec()
+            const boundPrehravejRec = this.prehravej_rec.bind(this); // navázání funkce this.prehravej_rec s bind na proměnnou
             this.boundListeners["ended_rec"] = boundPrehravejRec;
-            window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].addEventListener("ended", boundPrehravejRec);
+            window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].addEventListener("ended", boundPrehravejRec);// vytvoření posluchače s jeho explicitním umístěním v objektu pro jeho bezproblémové odebrání
         } else {
-            window.audio[this.cislo].play();
+        // pokud není aktivované hlasové navádění
+            window.audio[this.cislo].play(); // přehraje zvuk alarmu
         }
     },
 
     // Funkce pro zpracování přehrání hlasového navádění
     prehravej_rec() {
+    // funkce slouží pro přehrávání zvukového navádění na konkrétní obchůzku
         // Odebere posluchače
         if (this.boundListeners["ended_rec"]) {
-            window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].removeEventListener("ended", this.boundListeners["ended_rec"]);
-            delete this.boundListeners["ended_rec"];
-        }
+        // pokud je posluchač zapsán v objektu pro jeho správu
+            window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].removeEventListener("ended", this.boundListeners["ended_rec"]); // odebere posluchač pro stav po přehrátí zvuku hlasovému navádění
+            delete this.boundListeners["ended_rec"]; // vymaže záznam o posluchači v objektu pro jeho správu
+        } // odebere posluchač pro stav po přehrátí zvuku hlasovému navádění
 
         if (this.boundListeners["ended"]) {
-            window.audio[this.cislo].removeEventListener("ended", this.boundListeners["ended"]);
-            delete this.boundListeners["ended"];
+        // pokud je posluchač zapsán v objektu pro jeho správu
+            window.audio[this.cislo].removeEventListener("ended", this.boundListeners["ended"]); // odebere posluchač zvuku alarmu
+            delete this.boundListeners["ended"]; // vymaže záznam o posluchači v objektu pro jeho správu
         }
 
         setTimeout(() => {
             if (this.hraje) {
-                this.hraj(true);
+            // pokud bude zvuk.hraje===true, což znamená, že zatím nebylo potvrzeno zastavení zvuku, pokud došlo již ke kliknutí zastavit zvuk, proměnná zvuk.hraje bude false a podmínka se neprovede, kdyby tomu tak nebylo, mohlo by dojít k zaciklení
+                this.hraj(true); // zapne opět smyčku kompletního přehrávání zvuku alarmu
             }
-        }, 500);
+        }, 500); // zpoždění mezi přehráváním smyčky zvuk alarmu a hlasové navádění
     },
 
-    // Nastaví správnou řeč pro aktuální výzvu
     nastav_rec() {
-        let aktualni_stav_obchuzky = obch.rozdelovac(); // Např. funkce vrací [aktuální obchůzka, následující]
-        let alarm_obchuzky = aktualni_stav_obchuzky[0];
+    // funkce zajistí nastavení správné řeči pro aktuální výzvu k obchůzce
+        let aktualni_stav_obchuzky = obch.rozdelovac(); // funkce vrací pole = [aktuální obchůzku, obchůzka která bude následovat]
+        let alarm_obchuzky = aktualni_stav_obchuzky[0]; // zjistí aktuální abchůzku 15,30,60,120:number
 
         if (alarm_obchuzky === 15) {
-            this.cislo_zvuku_hlasoveho_navadeni = 0;
+        // pokud bude aktuální obchůzka do 15 minut
+            this.cislo_zvuku_hlasoveho_navadeni = 0; // upraví proměnnou na 0, aby přehrávala řeč:"obchůzka do 15 minut"
         } else if (alarm_obchuzky === 30) {
-            this.cislo_zvuku_hlasoveho_navadeni = 1;
+        // pokud bude aktuální obchůzka do 30 minut
+            this.cislo_zvuku_hlasoveho_navadeni = 1; // upraví proměnnou na 1, aby přehrávala řeč:"obchůzka do 30 minut"
         } else if (alarm_obchuzky === 60) {
-            this.cislo_zvuku_hlasoveho_navadeni = 2;
+        // pokud bude aktuální obchůzka do 60 minut
+            this.cislo_zvuku_hlasoveho_navadeni = 2; // upraví proměnnou na 2, aby přehrávala řeč:"obchůzka do 60 minut"
         } else if (alarm_obchuzky === 120) {
-            this.cislo_zvuku_hlasoveho_navadeni = 3;
+        // pokud bude aktuální obchůzka do 120 minut
+            this.cislo_zvuku_hlasoveho_navadeni = 3; // upraví proměnnou na 3, aby přehrávala řeč:"obchůzka do 120 minut"
         }
     },
 
@@ -443,21 +466,26 @@ butt_id_vlk.forEach((id, index) => {
     // Zastavení zvuku a odebrání posluchačů
     zastav() {
         if (this.boundListeners["ended"]) {
-            window.audio[this.cislo].removeEventListener("ended", this.boundListeners["ended"]);
-            delete this.boundListeners["ended"];
+        // pokud je posluchač zapsán v objektu pro jeho správu
+            window.audio[this.cislo].removeEventListener("ended", this.boundListeners["ended"]); // odebere posluchač zvuku alarmu
+            delete this.boundListeners["ended"]; // vymaže záznam o posluchači v objektu pro jeho správu
         }
 
         if (this.boundListeners["ended_rec"]) {
-            window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].removeEventListener("ended", this.boundListeners["ended_rec"]);
-            delete this.boundListeners["ended_rec"];
+        // pokud je posluchač zapsán v objektu pro jeho správu
+            window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].removeEventListener("ended", this.boundListeners["ended_rec"]);  // odebere posluchač pro stav po přehrátí zvuku hlasovému navádění
+            delete this.boundListeners["ended_rec"]; // vymaže záznam o posluchači v objektu pro jeho správu
         }
 
         if (this.hraje) {
-            window.audio[this.cislo].pause();
-            this.volume_min = 0.05;
-            window.audio[this.cislo].currentTime = 0;
-            this.hraje = false;
+        // pokud audio hraje
+            window.audio[this.cislo].pause(); // zapauzuje přehrávání zvuku
+            this.volume_min = 0.05; // nastaví proměnou na default
+            window.audio[this.cislo].currentTime = 0; // posune přehrávání mp3 na její začátek, taa, aby při dalším spuštění opět začínala na začátku
+            this.hraje = false; // proměnná jasně určuje jestli zvuk hraje, pokud je přehráván dokola (TRUE===zvuk hraje, FALSE===zvuk nehraje)
         }
+        
+        f_video.zvuk("zesilit");  // v případě režimu PWA zapne zvuk videa aby nezasahovalo do alarmu - manualní nastavení způsobí zhasnutí obrazovky - v ochrany.js
     }
 };
 

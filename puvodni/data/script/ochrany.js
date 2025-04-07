@@ -157,21 +157,33 @@ else
 
 if((this.odpocet||this.minutka||this.planovac)&&(!zvuk.hraje&&!zvuk_min.hraje&&!zvuk_plan.hraje)) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
 {
+
+if(pinkani.hraje)
+{
+// pokud je proměnná pinkani.hraje===true, přehrává se zvuk pinkání (ve vlk.js)
 pinkani.zastav(); // zastaví přehrávání zvuku pinkání - ve vlk.js
+}
+
 tik.a_uspano=false; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně přestat zesilovat zvuk pinkání
 dia.on(dia.id[3]); /* v centrum.js */
 }
 else
 {
 /* v případě, že by bylo okno opět aktivováno a přitom byla aktivní výzva k obchůzce včetně alarmu */
+
+if(pinkani.hraje)
+{
+// pokud je proměnná pinkani.hraje===true, přehrává se zvuk pinkání (ve vlk.js)
 pinkani.zastav(); // zastaví přehrávání zvuku pinkání - ve vlk.js
+}
+
 tik.a_uspano=false; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně přestat zesilovat zvuk pinkání
 }
 
 if(!this.odpocet&&uloz.ok)
 {
 // pokud není aktivní odpočet intervalu do obchůzky a funguje local storage, dojde ke kontrole jestli je možné ještě oživit Nočního VLKa, toto se aktivuje většinou časovačem, kde po vypršení času se tlačítko Oživit vypne, pokud ovšem byla aplikace minimalizována v liště windows anebo přenuto do jiného okna u telefónu anebo tabletu, obvykle dojde k uspání aplikace a vypnutí tohoto časovače, následně při obnovení okna aplikace zpět není vypnuto tlačítko Obnovit, ipřesto, že obnova již není možná
-const zobrazit_ozivit=uloz.dead_time(); // KONTROLA - ABY NEDOŠLO K OŽIVENÍ VLKA po více jak 60MINUTÁCH od plánovaného TIMEOUTU, pokud je oživení možné vrací TRUE, pokud možné není vrací FALSE - funkce v ozivit.js
+let zobrazit_ozivit=uloz.dead_time(); // KONTROLA - ABY NEDOŠLO K OŽIVENÍ VLKA po více jak 60MINUTÁCH od plánovaného TIMEOUTU, pokud je oživení možné vrací TRUE, pokud možné není vrací FALSE - funkce v ozivit.js
 
 if(!zobrazit_ozivit)
 {
