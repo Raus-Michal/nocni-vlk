@@ -1,3 +1,4 @@
+"use strict";
 const minutka={
 aktivni:false, // proměnná určuje zda je minutka aktivní
 zapnuta:true, // proměnná slouží k potřebám oživení, aby bylo na Local storage uloženo, zda je minutka zapnuta=true anebo byla vypnuta=false
@@ -483,7 +484,7 @@ let timeout=uloz.nacti(uloz.klice[15]); // načítání z LocalStorage (v ozivit
 timeout=parseInt(timeout); // převede čas z textového řetětce na číslo
 let navic_time=this.max_obnova; // načte maximální čas (v milisekundách) obnovy po plánovaném timeoutu
 const cas_aktual=Date.now(); // vrátí počet milisekund od nulového data (1. ledna 1970 00:00:00 UTC)
-cas_pro_oziveni=timeout+navic_time; // k času timeautu Minutky přičte maximální čas pro čas obnovy
+let cas_pro_oziveni=timeout+navic_time; // k času timeautu Minutky přičte maximální čas pro čas obnovy
 
 if(cas_pro_oziveni<cas_aktual)
 {

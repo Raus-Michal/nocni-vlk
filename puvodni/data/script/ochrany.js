@@ -1,4 +1,5 @@
-﻿const zamek={pripraven:null,
+﻿"use strict";
+const zamek={pripraven:null,
 bA:null, /* proměnná, která drží blokaci zámku obrazovky */
 
 pripravenost(){

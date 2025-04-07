@@ -1,4 +1,5 @@
-﻿/* registrace servisního pracovníka - CACHE - MEZIPAMĚŤ */
+﻿"use strict";
+/* registrace servisního pracovníka - CACHE - MEZIPAMĚŤ */
 
 // Kontrola, zda prohlížeč podporuje Service Workery
 if('serviceWorker' in navigator){

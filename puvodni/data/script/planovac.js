@@ -1,3 +1,4 @@
+"use strict";
 const planovac={
 id_spust:[
 "cas-ulohy", // input type=time - čas zadání úlohy respektive v jakém čase má být úloha spuštěna

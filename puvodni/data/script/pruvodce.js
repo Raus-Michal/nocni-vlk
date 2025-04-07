@@ -1,4 +1,5 @@
-﻿const posun={id_okna:"spust",typ:"flex",id_nadpis:"n",TIME1:100,TIME2:150,TIME3:250,TIME4:500,
+﻿"use strict";
+const posun={id_okna:"spust",typ:"flex",id_nadpis:"n",TIME1:100,TIME2:150,TIME3:250,TIME4:500,
 okna(stare,nove){
 /* funkce zajišťuje posun mezi jednotlivými kroky nastavení Spustit Nočního VLKa */
 const zavrit=`${this.id_okna}${stare}`; // id okna mají stejný id + jsou jednotlivě odčíslovány, což vytvoří celkový string id okna

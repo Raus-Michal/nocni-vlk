@@ -1,4 +1,5 @@
-﻿window.tik={ // window.tik je schválně vložen do objektu window, aby se zvýšila jeho priorita, neboť tento objekt je zásadní pro fugování aplikace
+﻿"use strict";
+window.tik={ // window.tik je schválně vložen do objektu window, aby se zvýšila jeho priorita, neboť tento objekt je zásadní pro fugování aplikace
 cas:500,
 a_obchuzka:false, // určuje zda je aktivní upozornění na obchůzku
 a_odpocet:false, // určuje, zda je aktivní odpočet do obchůzky (tedy zda je zapnutý Noční VLK)

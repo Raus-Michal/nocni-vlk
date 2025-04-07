@@ -1,3 +1,4 @@
+"use strict";
 // Název keše
 const CACHE_NAME='dynamic-cache-v1';
 

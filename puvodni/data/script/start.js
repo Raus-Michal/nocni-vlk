@@ -1,4 +1,5 @@
-﻿const licence={
+﻿"use strict";
+const licence={
 // objekt licence otevře dialogové okno s licenčními podmínkami
 id_a:"licen", // id odkazu, který spouští dialogové okno
 id_dia:"dia-lic", // id dialogového okna

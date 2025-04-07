@@ -1,4 +1,5 @@
-﻿const poloha={m_s:30,p1:0,p2:0,p3:0,p4:0,p5:0,p6:0,p7:0,p8:0,p9:0,p10:0,p11:0,p12:0,
+﻿"use strict";
+const poloha={m_s:30,p1:0,p2:0,p3:0,p4:0,p5:0,p6:0,p7:0,p8:0,p9:0,p10:0,p11:0,p12:0,
 a_css:"a-b", // název CSS class, pro animaci rozšíření textu ve vlk.css
 
 anim_pl_obch(){

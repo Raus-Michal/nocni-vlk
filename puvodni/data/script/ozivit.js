@@ -1,4 +1,5 @@
-﻿const uloz={
+﻿"use strict";
+const uloz={
 osoba_kopie:{},
 ozivit_minutku:false, // proměnná určuje, zda dojde po spuštění aplikace k automatickému oživení funkce minutka
 ozivit_vlka:false, // proměnná určuje, zda dojde po spuštění aplikace k automatickému oživení hlavní funkce Noční VLK

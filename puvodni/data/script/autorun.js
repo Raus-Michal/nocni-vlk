@@ -1,3 +1,4 @@
+"use strict";
 const pripravenost={casovac:null, // časovač pro interval, který kontroluje připravenost všech JS knihoven
 TIME:500, // prodleva v ms do kontroly, zda jsou všechny knihovny asynchronně načteny
 pruvodce:null, // proměnná informuje, že byla načtena knihovna pruvodce.js
