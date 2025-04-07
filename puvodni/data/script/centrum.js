@@ -1069,7 +1069,7 @@ document.getElementById(dia.id[i]).style.filter=`brightness(${hodnota}%)`; /* zm
 }}}; /* KONEC změna jasu aplikace */
 
 const p_nas={id_blok:"n-i-blok",id:"nastaveni",
-id_nas:["k-nas","in-plus1-n","in-minus1-n","vlk_z","minutka_z","planovac_z","poloha_z"], // id tlačítek v nastavení
+id_nas:["k-nas","in-plus1-n","in-minus1-n","vlk_z","minutka_z","planovac_z","poloha_z","vlk_rec"], // id tlačítek v nastavení
 id_zvuk_vlk:["bns1","bns2","bns3","bns4","bns5","bns6"], // id tlačítek nastavení zvuku Nočního VLKa
 id_zvuk_minutka:["bns1m","bns2m","bns3m","bns4m","bns5m","bns6m"], // id tlačítek nastavení zvuku Minutky
 id_zvuk_planovac:["bns1p","bns2p","bns3p","bns4p","bns5p","bns6p"], // id tlačítek nastavení zvuku Plánovač
@@ -1338,7 +1338,28 @@ else
 // pokud NEbude po kliku Checkedbox - zatržen = bude false
 document.getElementById(hl_kon.id_sek_poloha).style.display="none"; // schová panel pro sekci Poloha aplikace 
 }
-}}};
+}
+else if(k===this.id_nas[7])
+{
+// klik na checked Hlasové navádění na obchůzky pomocí řeči
+
+if(document.getElementById(this.id_nas[7]).checked===true)
+{
+// pokud je checked zatržen
+zvuk.hlasove_navadeni=true; // dá proměnou na true, což znamená, že bude při přehrávání zvuku alarmu pouštět hlasové navádění na konkrétní obchůzku (řeč), proměnná je v vlk.js
+uloz.uloz(uloz.klice[24],"true");  //  uloží volbu Hlasového navádění na LocalStorage - v ozivit.js
+}
+else if (document.getElementById(this.id_nas[7]).checked===false)
+{
+// pokud není checked zatržen
+zvuk.hlasove_navadeni=false; // dá proměnou na false, což znamená, že nebude při přehrávání zvuku alarmu pouštět hlasové navádění na konkrétní obchůzku (řeč), proměnná je v vlk.js
+uloz.uloz(uloz.klice[24],"false");  //  uloží volbu Hlasového navádění na LocalStorage - v ozivit.js
+}
+
+}
+
+
+}};
 
  /* Objekt pro tlačítko Obchůzky */
 const p_ob={id:"obchuzky",id_ob:["k-ob"],id_but:"ob-obch",id_svg:["s-ob"],

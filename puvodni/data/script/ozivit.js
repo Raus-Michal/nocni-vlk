@@ -33,7 +33,8 @@ klice:[ // klíče pro ukládání do Local Storage
 "alarm_plan", // 20. klíč ukládá volbu alarmu plánovač
 "zes_plan", // 21. klíč volby zda chce užívatel postupné zesilování pro alarm Plánovač
 "plany", // 22. klíč který ukládá pole planovac.plany, toto pole má v sobě uloženo veškeré zadané plány uživatelem
-"pl_alarm" // 23. klíč který ukládá pole planovac.v_alarmu, toto pole slouží k zjištění, zda některý z plánů není aktuálně v alarmu
+"pl_alarm", // 23. klíč který ukládá pole planovac.v_alarmu, toto pole slouží k zjištění, zda některý z plánů není aktuálně v alarmu
+"vlk_rec" // 24. klíč, který ukládá, jestli se při zvuku alarmu má spouštět hlasové navádění na obchůzku (řeč)
 ],
 max_obnova_ms:3600000, // maximální čas obnovy po plánovaném timeoutu - 3600000ms = 60 min
 v_obchuzce:false,
@@ -324,6 +325,7 @@ o_zvuk(){
 // volba alarmu a zesilování Noční VLK
 let volba_vlk=this.nacti(this.klice[10]); /* načte volbu zvuku alarmu Noční VLK uživatele uloženou na LocalStorage */
 let zesilovani_vlk=this.nacti(this.klice[11]); /* načte volbu uživatele, zda chce postupně zvyšovat zvuk alarmu Noční VLK */
+let vlk_rec=this.nacti(this.klice[24]); /* načte volbu uživatele, zda chce hlasové navádění (řeč) se zvukem alarmu Noční VLK */
 
 if(volba_vlk!=="")
 {
@@ -348,6 +350,22 @@ zvuk.zesilovat=false; /* nastaví proměnnou na Zakázat postupné zesilování 
 document.getElementById(p_nas.id_nas[3]).checked=false; /* odstraní Zatržení na Chckeboxu Postupně zesilovat alarm - id v centrum.js */
 }}
 
+
+if(vlk_rec!=="")
+{
+/* pokud byl uložen požadavek uživatele na hlasové navádění na obchůzku (řeč) */
+if(vlk_rec)
+{
+/* pokud uživatel žádá hlasové navádění na obchůzky (řeč) */
+zvuk.hlasove_navadeni=true; /* nastaví proměnnou na Hlasové navádění (řeč) - ve vlk.js */
+document.getElementById(p_nas.id_nas[7]).checked=true; /* nastaví Zatržení na Chckeboxu Hlasové navádění na obchůzky pomocí řeči - id v centrum.js */
+}
+else if(!vlk_rec)
+{
+/* pokud byl uložen požadavek uživatele, že nechce hlasové navádění na obchůzku (řeč) */
+zvuk.hlasove_navadeni=false; /* nastaví proměnnou na to, že nemá být Hlasové navádění (řeč) - ve vlk.js */
+document.getElementById(p_nas.id_nas[7]).checked=false; /* odstraní Zatržení na Chckeboxu Hlasové navádění na obchůzky pomocí řeči - id v centrum.js */
+}}
 
 // volba alarmu a zesilování Minutka
 let volba_min=this.nacti(this.klice[13]); /* načte volbu zvuku alarmu Minutka uživatele uloženou na LocalStorage */
