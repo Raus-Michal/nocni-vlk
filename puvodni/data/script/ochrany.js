@@ -155,7 +155,7 @@ if(document.visibilityState==="hidden") /* pokud není obrazovka s apllikací vi
 {
 /* POKUD DOJDE K USPÁNÍ OKNA APLIKACE */
 
-if(this.odpocet||this.minutka||this.planovac) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
+if((this.odpocet||this.minutka||this.planovac)&&(!zvuk.hraje&&!zvuk_min.hraje&&!zvuk_plan.hraje)) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
 {
 pinkani.hraj(true); /* přehraje zvuk pinkání stále dokola */
 tik.a_uspano=true; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně začít zesilovat zvuk pinkání
@@ -167,7 +167,7 @@ else
 {
 /* POKUD DOJDE K OPĚTOVNÉMU ZBUZENÍ OKNA APLIKACE */
 
-if(this.odpocet||this.minutka||this.planovac) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
+if((this.odpocet||this.minutka||this.planovac)&&(!zvuk.hraje&&!zvuk_min.hraje&&!zvuk_plan.hraje)) /* proměnná, která z vlk.js dáva informaci o tom, že odpočet se počítá */
 {
 pinkani.zastav(); // zastaví přehrávání zvuku pinkání - ve vlk.js
 tik.a_uspano=false; // proměnná určuje, v objektu TIK ve centrum.js, že se má postupně přestat zesilovat zvuk pinkání

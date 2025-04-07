@@ -1070,8 +1070,8 @@ document.getElementById(dia.id[i]).style.filter=`brightness(${hodnota}%)`; /* zm
 
 const p_nas={id_blok:"n-i-blok",id:"nastaveni",
 id_nas:["k-nas","in-plus1-n","in-minus1-n","vlk_z","minutka_z","planovac_z","poloha_z","vlk_rec"], // id tlačítek v nastavení
-id_zvuk_vlk:["bns1","bns2","bns3","bns4","bns5","bns6"], // id tlačítek nastavení zvuku Nočního VLKa
-id_zvuk_minutka:["bns1m","bns2m","bns3m","bns4m","bns5m","bns6m"], // id tlačítek nastavení zvuku Minutky
+id_zvuk_vlk:["bns1","bns2","bns3","bns4"], // id tlačítek nastavení zvuku Nočního VLKa
+id_zvuk_minutka:["bns1m","bns2m","bns3m","bns4m"], // id tlačítek nastavení zvuku Minutky
 id_zvuk_planovac:["bns1p","bns2p","bns3p","bns4p","bns5p","bns6p"], // id tlačítek nastavení zvuku Plánovač
 id_SVG:["in-plus2-n","in-minus2-n","s-nas"],
 id_level:"i-l-n",
@@ -1186,18 +1186,6 @@ else if(k===this.id_zvuk_vlk[3])
 zvuk.volba(3,this.id_zvuk_vlk);
 uloz.uloz(uloz.klice[10],3); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
-else if(k===this.id_zvuk_vlk[4])
-{
-/* klik - volba zvuk alarmu Noční VLK - 5 */
-zvuk.volba(4,this.id_zvuk_vlk);
-uloz.uloz(uloz.klice[10],4); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
-}
-else if(k===this.id_zvuk_vlk[5])
-{
-/* klik - volba zvuk alarmu Noční VLK - 6 */
-zvuk.volba(5,this.id_zvuk_vlk);
-uloz.uloz(uloz.klice[10],5); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
-}
 else if(k===this.id_nas[3])
 {
 /* klik - Zesilovat zvuk alarmu Nočního VLKa */
@@ -1241,18 +1229,6 @@ else if(k===this.id_zvuk_minutka[3])
 zvuk_min.volba(3,this.id_zvuk_minutka);
 uloz.uloz(uloz.klice[13],3); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
-else if(k===this.id_zvuk_minutka[4])
-{
-/* klik - volba zvuk alarmu Minutka - 5 */
-zvuk_min.volba(4,this.id_zvuk_minutka);
-uloz.uloz(uloz.klice[13],4); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
-}
-else if(k===this.id_zvuk_minutka[5])
-{
-/* klik - volba zvuk alarmu Minutka - 6 */
-zvuk_min.volba(5,this.id_zvuk_minutka);
-uloz.uloz(uloz.klice[13],5); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
-}
 else if(k===this.id_nas[4])
 {
 /* klik - Zesilovat zvuk alarmu Minutka */
@@ -1274,43 +1250,43 @@ uloz.uloz(uloz.klice[14],"false"); //  uloží volbu zesilování zvuku uživate
 
 else if(k===this.id_zvuk_planovac[0])
 {
-/* klik - volba zvuk alarmu Minutka - 1 */
+/* klik - volba zvuk alarmu Plánovač - 1 */
 zvuk_plan.volba(0,this.id_zvuk_planovac); // změna zvuku na zvuk 1 - ve vlk.js - jako parametr se posílá: číslo zvuku a pole s id prvky
 uloz.uloz(uloz.klice[20],0); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
 else if(k===this.id_zvuk_planovac[1])
 {
-/* klik - volba zvuk alarmu Minutka - 2 */
+/* klik - volba zvuk alarmu Plánovač - 2 */
 zvuk_plan.volba(1,this.id_zvuk_planovac); /* změna zvuku na zvuk 1 - ve vlk.js  */
 uloz.uloz(uloz.klice[20],1); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
 else if(k===this.id_zvuk_planovac[2])
 {
-/* klik - volba zvuk alarmu Minutka - 3 */
+/* klik - volba zvuk alarmu Plánovač - 3 */
 zvuk_plan.volba(2,this.id_zvuk_planovac);
 uloz.uloz(uloz.klice[20],2); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
 else if(k===this.id_zvuk_planovac[3])
 {
-/* klik - volba zvuk alarmu Minutka - 4 */
+/* klik - volba zvuk alarmu Plánovač - 4 */
 zvuk_plan.volba(3,this.id_zvuk_planovac);
 uloz.uloz(uloz.klice[20],3); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
 else if(k===this.id_zvuk_planovac[4])
 {
-/* klik - volba zvuk alarmu Minutka - 5 */
+/* klik - volba zvuk alarmu Plánovač - 5 */
 zvuk_plan.volba(4,this.id_zvuk_planovac);
 uloz.uloz(uloz.klice[20],4); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
 else if(k===this.id_zvuk_planovac[5])
 {
-/* klik - volba zvuk alarmu Minutka - 6 */
+/* klik - volba zvuk alarmu Plánovač - 6 */
 zvuk_plan.volba(5,this.id_zvuk_planovac);
 uloz.uloz(uloz.klice[20],5); /* uloží volbu zvuku uživatele na LocalStorage - v ozivit.js */
 }
 else if(k===this.id_nas[5])
 {
-/* klik - Zesilovat zvuk alarmu Minutka */
+/* klik - Zesilovat zvuk alarmu Plánovač */
 klik.hraj(false); // bude přehrávat zvuk 1x klik 
 if(document.getElementById(this.id_nas[5]).checked===true)
 {
@@ -1328,6 +1304,7 @@ uloz.uloz(uloz.klice[21],"false"); //  uloží volbu zesilování zvuku uživate
 else if(k===this.id_nas[6])
 {
 // klik na checked Zobrazit sekci Poloha aplikace
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 if(e.target.checked)
 {
 // pokud bude po kliku Checkedbox - zatržen = bude true
@@ -1342,7 +1319,7 @@ document.getElementById(hl_kon.id_sek_poloha).style.display="none"; // schová p
 else if(k===this.id_nas[7])
 {
 // klik na checked Hlasové navádění na obchůzky pomocí řeči
-
+klik.hraj(false); // bude přehrávat zvuk 1x klik 
 if(document.getElementById(this.id_nas[7]).checked===true)
 {
 // pokud je checked zatržen
