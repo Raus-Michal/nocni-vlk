@@ -373,14 +373,7 @@ const zvuk = {
         {
         /* pokud bude aktivováno zesilování */
         window.audio[this.cislo].volume=this.volume_min; // nastaví minimální hlasitost alarmu
-        
-        let volume_rec=this.volume_min+0.25; // zesílení pro řeč, která je nahraná nižší hlasitostí než zvuk alarmu
-        if(volume_rec>1)
-        {
-        // pokud je překročena maximální možné nastavení hlasitosti, které je 1.0
-        volume_rec=1; // bude hlasitost na maximální přípustné hlasitosti
-        }
-        window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].volume=volume_rec; // nastavení minimální zvukového navádění na obchůzku
+        window.audio_rec[this.cislo_zvuku_hlasoveho_navadeni].volume=this.volume_min; // nastavení minimální zvukového navádění na obchůzku
         /* rozdílné zvyšování hlasitosti podle současně nastavené hlasitosti */
         if(this.volume<0.5)
         {
