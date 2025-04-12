@@ -322,7 +322,6 @@ font-weight:normal;
 
 button::selection
 {
-color:var(--b1);
 background-color:transparent;
 }
 
@@ -470,6 +469,20 @@ grid-template-areas:
 ;
 }}
 
+.tlapka-1
+{
+display:none;
+grid-area:can;
+}
+
+.tlapka-2
+{
+display:none;
+grid-area:odp;
+}
+
+
+
 @media only screen and (min-width:62.5em) /* 1000px */
 {
 .kon
@@ -486,7 +499,23 @@ grid-template-areas:
 "jas jas jas jas hla hla hla hla poz poz poz poz poz zam"
 "obr obr obr obr obr obr obr obr obr obr obr obr obr obr"
 ;
-}}
+}
+
+.tlapka-1,.tlapka-2 /* SVG tlapky vyplňující prázdné místo v layoutu dokud nebude zapnuta hlavní funkce aplikace Noční VLK */
+{
+display:block;
+background:url("../svg/tlapka.svg") 40% 60% / auto 50% border-box no-repeat;
+width:100%;
+height:100%;
+margin-bottom:1rem;
+}
+
+.tlapka-2
+{
+background-position:20% 25%;
+}
+
+}
 
 .hlav
 {
@@ -705,6 +734,18 @@ margin-bottom:1rem;
 justify-content:flex-end;
 }}
 
+@media only screen and (min-width:62.5em) /* 1000px */
+{
+.kruh
+{
+z-index:1;
+background-color:var(--b1);
+width:100%;
+height:100%;
+}
+}
+
+
 .kruh-box
 {
 position:relative;
@@ -733,6 +774,17 @@ display:none;
 align-items:center;
 text-align:center;
 margin-bottom:1rem;
+}
+
+@media only screen and (min-width:62.5em) /* 1000px */
+{
+.odp
+{
+z-index:1;
+background-color:var(--b1);
+width:100%;
+height:100%;
+}
 }
 
 .odp-box
@@ -802,12 +854,19 @@ color:var(--b4);
 font-size:.9rem;
 }
 
+.nav2-ul li button::selection
+{
+color:var(--b4);
+background-color:transparent;
+}
+
 .nav2-ul li button#spustit  /* speciální úprava pro button Spustit Nočního VLKa */
 {
 /* color:var(--b5); */
 font-size:1.25rem;
 font-weight:bold;
-animation: scale-animation 1s infinite;
+animation:scale-animation 1s;
+animation-iteration-count:15;
 }
 
 @keyframes scale-animation{
